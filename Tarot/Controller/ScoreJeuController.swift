@@ -31,7 +31,7 @@ class ScoreJeuController: UIViewController {
     @IBOutlet weak var sliderPoints: SliderPoints!
     
     
-    var scoreJeu = JeuPoints(resultat: 0.0, gain: 0.0, points: 0.0, coef: 0, nbBout: -1, attaque: PrimePoints(), defense: PrimePoints())
+    var scoreJeu = JeuComplet()
 
     
     override func viewDidLoad() {
@@ -64,8 +64,8 @@ class ScoreJeuController: UIViewController {
 //        } else {
 //            scoreJeu.defense.petitAuBout = 0.0
 //        }
-        print("Petit au bout attaque : \(scoreJeu.attaque.petitAuBout)")
-        print("Petit au bout défence : \(scoreJeu.defense.petitAuBout)")
+//        print("Petit au bout attaque : \(scoreJeu.attaque.petitAuBout)")
+//        print("Petit au bout défence : \(scoreJeu.defense.petitAuBout)")
     }
     
     func calculerPointsPoignée(attaque: Bool, defense: Bool, choixPoignee: Int) {
@@ -75,52 +75,54 @@ class ScoreJeuController: UIViewController {
         //        {
         //        case UISegmentedControl.noSegment:
         //            valeurPoignee = 0.0
-        switch choixPoignee
-        {
-        case -1:
-            valeurPoignee = 0.0
-        // Aucune poignée sélectionnée
-        case 0:
-            valeurPoignee = valeurPoigneeSimple
-        // Simple poignée sélectionnée
-        case 1:
-            valeurPoignee = valeurPoigneeDouble
-        // Double poignée sélectionnée
-        case 2:
-            valeurPoignee = valeurPoigneeTriple
-        // Triple poignée sélectionnée
-        default:
-            break;
-        }
+//        switch choixPoignee
+//        {
+//        case -1:
+//            valeurPoignee = 0.0
+//        // Aucune poignée sélectionnée
+//        case 0:
+//            valeurPoignee = valeurPoigneeSimple
+//        // Simple poignée sélectionnée
+//        case 1:
+//            valeurPoignee = valeurPoigneeDouble
+//        // Double poignée sélectionnée
+//        case 2:
+//            valeurPoignee = valeurPoigneeTriple
+//        // Triple poignée sélectionnée
+//        default:
+//            break;
+//        }
+//
         
+        scoreJeu.poignee = abs(choixPoignee + 1)
         if attaque {
-            scoreJeu.attaque.poignee = valeurPoignee
+            scoreJeu.poignee *= +1
         } else {
-            scoreJeu.attaque.poignee = 0.0
+            scoreJeu.poignee *= -1
         }
-        if switchPoigneeDefense.isOn {
-            scoreJeu.defense.poignee = valeurPoignee
-        } else {
-            scoreJeu.defense.poignee = 0.0
-        }
-        print("choixPoignee : \(choixPoignee)")
-        print("scoreJeu.poignée.attaque : \(scoreJeu.attaque.poignee)")
-        print("scoreJeu.poignée.defense : \(scoreJeu.defense.poignee)")
+//        if switchPoigneeDefense.isOn {
+//            scoreJeu.defense.poignee = valeurPoignee
+//        } else {
+//            scoreJeu.defense.poignee = 0.0
+//        }
+//        print("choixPoignee : \(choixPoignee)")
+//        print("scoreJeu.poignée.attaque : \(scoreJeu.attaque.poignee)")
+//        print("scoreJeu.poignée.defense : \(scoreJeu.defense.poignee)")
         
         return
     }
     
     func calculerGain(nbBoutsAttaque: Int, nbPointsAttaque: Float) {
-        if let nbPointsArealiser = bouts[nbBoutsAttaque] {
-            scoreJeu.gain = Float(nbPointsAttaque - nbPointsArealiser)
-            if scoreJeu.gain >= 0.0 {
-                labelGain.textColor = UIColor.green
-            } else {
-                labelGain.textColor = UIColor.red
-            }
-            labelGain.text = String(scoreJeu.gain)
-        }
-        print("scoreJeu.gain : \(scoreJeu.gain)")
+//        if let nbPointsArealiser = bouts[nbBoutsAttaque] {
+//            scoreJeu.gain = Float(nbPointsAttaque - nbPointsArealiser)
+//            if scoreJeu.gain >= 0.0 {
+//                labelGain.textColor = UIColor.green
+//            } else {
+//                labelGain.textColor = UIColor.red
+//            }
+//            labelGain.text = String(scoreJeu.gain)
+//        }
+//        print("scoreJeu.gain : \(scoreJeu.gain)")
       }
     
     
@@ -138,7 +140,7 @@ class ScoreJeuController: UIViewController {
     //
     @IBAction func selectionnerNbBout(_ sender: UISegmentedControl) {
         scoreJeu.nbBout = sender.selectedSegmentIndex
-        calculerGain(nbBoutsAttaque: scoreJeu.nbBout, nbPointsAttaque: scoreJeu.points)
+//        calculerGain(nbBoutsAttaque: scoreJeu.nbBout, nbPointsAttaque: scoreJeu.points)
     }
     
     
@@ -151,7 +153,7 @@ class ScoreJeuController: UIViewController {
             switchPetitAuBoutDefense.isEnabled = false
         }
         switchPetitAuBoutDefense.setOn(false, animated: true)
-        calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
+//        calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
     }
     
     @IBAction func changerSwitchPetitAuBoutDefense(_ sender: UISwitch) {
@@ -160,7 +162,7 @@ class ScoreJeuController: UIViewController {
             switchPetitAuBoutDefense.isEnabled = false
         }
         switchPetitAuBoutAttaque.setOn(false, animated: true)
-        calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
+//        calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
     }
     
     @IBAction func selectionnerPetitAuBout(_ sender: UIButton) {
@@ -180,7 +182,7 @@ class ScoreJeuController: UIViewController {
             switchPetitAuBoutDefense.setOn(false, animated: true)
             switchPetitAuBoutDefense.isEnabled = false
         }
-        calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
+//        calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
     }
     
     //
@@ -220,10 +222,10 @@ class ScoreJeuController: UIViewController {
     
     @IBAction func affecterPoints(_ sender: UISlider) {
         sliderPoints.changerValeur(round(sliderPoints.value))
-        scoreJeu.points = sliderPoints.value
+        scoreJeu.pointsFaits = sliderPoints.value
         print(sliderPoints.value)
-        print(scoreJeu.points)
-        calculerGain(nbBoutsAttaque: scoreJeu.nbBout, nbPointsAttaque: scoreJeu.points)
+        print(scoreJeu.pointsFaits)
+//        calculerGain(nbBoutsAttaque: scoreJeu.nbBout, nbPointsAttaque: scoreJeu.points)
 //        let step: Float = 1
 //        sliderPoints.value = round(sender.value / step) * step
         labelPointsDefense.text = String(Float(nbPointsMaxi) - sliderPoints.value)
@@ -232,19 +234,19 @@ class ScoreJeuController: UIViewController {
     
     @IBAction func ajouterPointsAttaque(_ sender: UIButton) {
         sliderPoints.value += 0.5
-        scoreJeu.points = sliderPoints.value
+        scoreJeu.pointsFaits = sliderPoints.value
         print(sliderPoints.value)
-        print(scoreJeu.points)
+        print(scoreJeu.pointsFaits)
         
         labelPointsDefense.text = String(Float(nbPointsMaxi) - sliderPoints.value)
         labelPointsAttaque.text = String(sliderPoints.value)
-        calculerGain(nbBoutsAttaque: scoreJeu.nbBout, nbPointsAttaque: scoreJeu.points)
+//        calculerGain(nbBoutsAttaque: scoreJeu.nbBout, nbPointsAttaque: scoreJeu.points)
 }
     @IBAction func ajouterPointsDefense(_ sender: UIButton) {
         sliderPoints.value -= 0.5
         labelPointsDefense.text = String(Float(nbPointsMaxi) - sliderPoints.value)
         labelPointsAttaque.text = String(sliderPoints.value)
-        calculerGain(nbBoutsAttaque: scoreJeu.nbBout, nbPointsAttaque: scoreJeu.points)
+//        calculerGain(nbBoutsAttaque: scoreJeu.nbBout, nbPointsAttaque: scoreJeu.points)
 }
     
     func calculerScoreJeu() {
