@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		95517DFA22B441CB00ECD1FC /* ExampleStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DF922B441CB00ECD1FC /* ExampleStruct.swift */; };
 		95517DFC22B53BEC00ECD1FC /* SliderPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DFB22B53BEC00ECD1FC /* SliderPoints.swift */; };
+		95517DFE22B7BA1F00ECD1FC /* Structure comptage jeu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DFD22B7BA1F00ECD1FC /* Structure comptage jeu.swift */; };
 		95A5DB3022B2A156007F3729 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB2F22B2A156007F3729 /* AppDelegate.swift */; };
 		95A5DB3222B2A156007F3729 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB3122B2A156007F3729 /* ViewController.swift */; };
 		95A5DB3522B2A156007F3729 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A5DB3322B2A156007F3729 /* Main.storyboard */; };
@@ -38,6 +39,7 @@
 /* Begin PBXFileReference section */
 		95517DF922B441CB00ECD1FC /* ExampleStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleStruct.swift; sourceTree = "<group>"; };
 		95517DFB22B53BEC00ECD1FC /* SliderPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderPoints.swift; sourceTree = "<group>"; };
+		95517DFD22B7BA1F00ECD1FC /* Structure comptage jeu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Structure comptage jeu.swift"; sourceTree = "<group>"; };
 		95A5DB2C22B2A156007F3729 /* Tarot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tarot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A5DB2F22B2A156007F3729 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95A5DB3122B2A156007F3729 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -132,6 +134,7 @@
 			children = (
 				95A5DB3622B2A156007F3729 /* Tarot.xcdatamodeld */,
 				95BD3CA522B407B700A2C183 /* DonneesTarot.swift */,
+				95517DFD22B7BA1F00ECD1FC /* Structure comptage jeu.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -272,6 +275,7 @@
 				95A5DB3222B2A156007F3729 /* ViewController.swift in Sources */,
 				95A5DB5D22B2B66C007F3729 /* BoutonArrondi.swift in Sources */,
 				95A5DB5922B2A4B1007F3729 /* Constantes.swift in Sources */,
+				95517DFE22B7BA1F00ECD1FC /* Structure comptage jeu.swift in Sources */,
 				95BD3CA622B407B700A2C183 /* DonneesTarot.swift in Sources */,
 				95A5DB3822B2A156007F3729 /* Tarot.xcdatamodeld in Sources */,
 				95A5DB3022B2A156007F3729 /* AppDelegate.swift in Sources */,

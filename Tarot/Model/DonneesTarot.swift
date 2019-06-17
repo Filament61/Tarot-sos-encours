@@ -62,28 +62,4 @@ struct JeuPoints {
     
 }
 
-struct JeuComplet {
-    let boutss: [Int: Float] = [0: 56, 1: 51, 2: 41, 3: 36]
-
-    
-//    var contrat: Int
-    var gain: Float = -1.0
-    var nbBout: Int = -1 {
-        didSet {
-            calculerGain()
-        }
-    }
-    var points: Float = -1.0 {
-        didSet {
-            calculerGain()
-        }
-    }
-
-    mutating func calculerGain() {
-        if let nbPointsArealiser = boutss[nbBout] {
-            gain = Float(points - nbPointsArealiser)
-        }
-        print(gain)
-    }
-}
 
