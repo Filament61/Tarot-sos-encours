@@ -8,12 +8,13 @@
 
 struct JeuComplet {
     
+    let nbPointsMaxi: Float = 91.0
     let baseContrat: Float = 25
     let pointsARealiser: [Int: Float] = [0: 56, 1: 51, 2: 41, 3: 36]
     let contrats: [Int: String] = [1: "Petite", 2: "Garde", 3: "Garde sans", 4: "Garde contre"]
     let coefficients: [Int: Float] = [1: 1, 2: 2, 3: 4, 4: 6]
     
-    let petitAuBoutValeur: [Int: Float] = [-1: -10, 0: 0, 1: 10]
+    let petitAuBoutValeurs: [Int: Float] = [-1: -10, 0: 0, 1: 10]
     let poigneeValeurs: [Int: Float] = [-3: -40, -2: -30, -1: -20, 0: 0, 1: 20, 2: 30, 3: 40]
     let chelemValeur: [Int: String] = [0: "Pas de Chelem"]
     
@@ -88,7 +89,7 @@ struct JeuComplet {
         total = calculerTotal()
     }
     mutating func calculerPetitAuBout() {
-        if let nbpointsPoignee = petitAuBoutValeur[petitAuBout] {
+        if let nbpointsPoignee = petitAuBoutValeurs[petitAuBout] {
             pointsPetitAuBout = nbpointsPoignee
         }
         print("Petit au bout = \(pointsPetitAuBout)")
