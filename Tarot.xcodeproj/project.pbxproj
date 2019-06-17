@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		95517DFA22B441CB00ECD1FC /* ExampleStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DF922B441CB00ECD1FC /* ExampleStruct.swift */; };
+		95517DFC22B53BEC00ECD1FC /* SliderPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DFB22B53BEC00ECD1FC /* SliderPoints.swift */; };
 		95A5DB3022B2A156007F3729 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB2F22B2A156007F3729 /* AppDelegate.swift */; };
 		95A5DB3222B2A156007F3729 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB3122B2A156007F3729 /* ViewController.swift */; };
 		95A5DB3522B2A156007F3729 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A5DB3322B2A156007F3729 /* Main.storyboard */; };
@@ -14,6 +16,13 @@
 		95A5DB3A22B2A157007F3729 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A5DB3922B2A157007F3729 /* Assets.xcassets */; };
 		95A5DB3D22B2A157007F3729 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A5DB3B22B2A157007F3729 /* LaunchScreen.storyboard */; };
 		95A5DB4822B2A157007F3729 /* TarotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB4722B2A157007F3729 /* TarotTests.swift */; };
+		95A5DB5922B2A4B1007F3729 /* Constantes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB5822B2A4B1007F3729 /* Constantes.swift */; };
+		95A5DB5B22B2B5EF007F3729 /* ImageArrondie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB5A22B2B5EF007F3729 /* ImageArrondie.swift */; };
+		95A5DB5D22B2B66C007F3729 /* BoutonArrondi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB5C22B2B66C007F3729 /* BoutonArrondi.swift */; };
+		95A5DB5F22B2B737007F3729 /* PersonneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB5E22B2B737007F3729 /* PersonneCell.swift */; };
+		95BD3CA222B2F71300A2C183 /* ScoreJeuController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD3CA122B2F71300A2C183 /* ScoreJeuController.swift */; };
+		95BD3CA422B3F27000A2C183 /* PickerViewExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD3CA322B3F27000A2C183 /* PickerViewExtension.swift */; };
+		95BD3CA622B407B700A2C183 /* DonneesTarot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD3CA522B407B700A2C183 /* DonneesTarot.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		95517DF922B441CB00ECD1FC /* ExampleStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleStruct.swift; sourceTree = "<group>"; };
+		95517DFB22B53BEC00ECD1FC /* SliderPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderPoints.swift; sourceTree = "<group>"; };
 		95A5DB2C22B2A156007F3729 /* Tarot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tarot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A5DB2F22B2A156007F3729 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		95A5DB3122B2A156007F3729 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -38,6 +49,13 @@
 		95A5DB4322B2A157007F3729 /* TarotTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TarotTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A5DB4722B2A157007F3729 /* TarotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TarotTests.swift; sourceTree = "<group>"; };
 		95A5DB4922B2A157007F3729 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		95A5DB5822B2A4B1007F3729 /* Constantes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constantes.swift; sourceTree = "<group>"; };
+		95A5DB5A22B2B5EF007F3729 /* ImageArrondie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageArrondie.swift; sourceTree = "<group>"; };
+		95A5DB5C22B2B66C007F3729 /* BoutonArrondi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoutonArrondi.swift; sourceTree = "<group>"; };
+		95A5DB5E22B2B737007F3729 /* PersonneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonneCell.swift; sourceTree = "<group>"; };
+		95BD3CA122B2F71300A2C183 /* ScoreJeuController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScoreJeuController.swift; sourceTree = "<group>"; };
+		95BD3CA322B3F27000A2C183 /* PickerViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewExtension.swift; sourceTree = "<group>"; };
+		95BD3CA522B407B700A2C183 /* DonneesTarot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonneesTarot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,13 +97,14 @@
 		95A5DB2E22B2A156007F3729 /* Tarot */ = {
 			isa = PBXGroup;
 			children = (
-				95A5DB2F22B2A156007F3729 /* AppDelegate.swift */,
-				95A5DB3122B2A156007F3729 /* ViewController.swift */,
-				95A5DB3322B2A156007F3729 /* Main.storyboard */,
+				95A5DB5222B2A28D007F3729 /* Utilitaire */,
+				95A5DB5422B2A2CC007F3729 /* Model */,
+				95A5DB5522B2A2E5007F3729 /* View */,
+				95A5DB5622B2A2F8007F3729 /* Controller */,
+				95A5DB5722B2A30F007F3729 /* Storyboard */,
 				95A5DB3922B2A157007F3729 /* Assets.xcassets */,
-				95A5DB3B22B2A157007F3729 /* LaunchScreen.storyboard */,
+				95A5DB2F22B2A156007F3729 /* AppDelegate.swift */,
 				95A5DB3E22B2A157007F3729 /* Info.plist */,
-				95A5DB3622B2A156007F3729 /* Tarot.xcdatamodeld */,
 			);
 			path = Tarot;
 			sourceTree = "<group>";
@@ -97,6 +116,54 @@
 				95A5DB4922B2A157007F3729 /* Info.plist */,
 			);
 			path = TarotTests;
+			sourceTree = "<group>";
+		};
+		95A5DB5222B2A28D007F3729 /* Utilitaire */ = {
+			isa = PBXGroup;
+			children = (
+				95A5DB5822B2A4B1007F3729 /* Constantes.swift */,
+				95517DF922B441CB00ECD1FC /* ExampleStruct.swift */,
+			);
+			path = Utilitaire;
+			sourceTree = "<group>";
+		};
+		95A5DB5422B2A2CC007F3729 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				95A5DB3622B2A156007F3729 /* Tarot.xcdatamodeld */,
+				95BD3CA522B407B700A2C183 /* DonneesTarot.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		95A5DB5522B2A2E5007F3729 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				95A5DB5A22B2B5EF007F3729 /* ImageArrondie.swift */,
+				95A5DB5C22B2B66C007F3729 /* BoutonArrondi.swift */,
+				95A5DB5E22B2B737007F3729 /* PersonneCell.swift */,
+				95517DFB22B53BEC00ECD1FC /* SliderPoints.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		95A5DB5622B2A2F8007F3729 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				95A5DB3122B2A156007F3729 /* ViewController.swift */,
+				95BD3CA122B2F71300A2C183 /* ScoreJeuController.swift */,
+				95BD3CA322B3F27000A2C183 /* PickerViewExtension.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		95A5DB5722B2A30F007F3729 /* Storyboard */ = {
+			isa = PBXGroup;
+			children = (
+				95A5DB3B22B2A157007F3729 /* LaunchScreen.storyboard */,
+				95A5DB3322B2A156007F3729 /* Main.storyboard */,
+			);
+			path = Storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -200,9 +267,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95A5DB5B22B2B5EF007F3729 /* ImageArrondie.swift in Sources */,
+				95A5DB5F22B2B737007F3729 /* PersonneCell.swift in Sources */,
 				95A5DB3222B2A156007F3729 /* ViewController.swift in Sources */,
+				95A5DB5D22B2B66C007F3729 /* BoutonArrondi.swift in Sources */,
+				95A5DB5922B2A4B1007F3729 /* Constantes.swift in Sources */,
+				95BD3CA622B407B700A2C183 /* DonneesTarot.swift in Sources */,
 				95A5DB3822B2A156007F3729 /* Tarot.xcdatamodeld in Sources */,
 				95A5DB3022B2A156007F3729 /* AppDelegate.swift in Sources */,
+				95BD3CA222B2F71300A2C183 /* ScoreJeuController.swift in Sources */,
+				95517DFC22B53BEC00ECD1FC /* SliderPoints.swift in Sources */,
+				95517DFA22B441CB00ECD1FC /* ExampleStruct.swift in Sources */,
+				95BD3CA422B3F27000A2C183 /* PickerViewExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -295,7 +371,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -350,7 +426,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -367,6 +443,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J35ANBCXN6;
 				INFOPLIST_FILE = Tarot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -385,6 +462,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J35ANBCXN6;
 				INFOPLIST_FILE = Tarot/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
