@@ -9,7 +9,7 @@
 struct JeuComplet {
     
     let nbPointsMaxi: Float = 91.0
-    let baseContrat: Float = 25
+    let baseContrat: Float = 25.0
     let pointsARealiser: [Int: Float] = [0: 56, 1: 51, 2: 41, 3: 36]
     let contrats: [Int: String] = [1: "Petite", 2: "Garde", 3: "Garde sans", 4: "Garde contre"]
     let coefficients: [Int: Float] = [1: 1, 2: 2, 3: 4, 4: 6]
@@ -62,7 +62,7 @@ struct JeuComplet {
     init() {
         total = 0
         coef = 0
-        gain = -baseContrat
+        gain = nbPointsMaxi
         contrat = 0
         nbBout = -1
         pointsFaits = -1
@@ -104,14 +104,18 @@ struct JeuComplet {
     }
     
     func calculerTotal() -> Float {
-        var total: Float
-        if isReussi ?? false {
-            total = (baseContrat + gain! + pointsPetitAuBout) * coef! + abs(pointsPoignee)
+        var total: Float = 0
+        if pointsARealiser[nbBout] != nil && coefficients[contrat] != nil && pointsFaits > 0 {
+            if isReussi ?? false {
+                total = (baseContrat + gain! + pointsPetitAuBout) * coef! + abs(pointsPoignee)
+            } else {
+                total = (baseContrat - gain! - pointsPetitAuBout) * coef! + abs(pointsPoignee)
+                total *= -1.0
+            }
+            print("Total = \(total)")
         } else {
-            total = (baseContrat - gain! - pointsPetitAuBout) * coef! + abs(pointsPoignee)
-            total *= -1.0
+            
         }
-        print("Total = \(total)")
         return total
     }
     

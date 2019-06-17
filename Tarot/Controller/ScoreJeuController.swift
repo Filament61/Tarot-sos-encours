@@ -12,7 +12,6 @@ import CoreData
 class ScoreJeuController: UIViewController {
     
     
-    @IBOutlet weak var labelEspion: UILabel!
     @IBOutlet weak var pickerViewPreneur: UIPickerView!
     @IBOutlet weak var pickerViewAppele: UIPickerView!
     @IBOutlet weak var segmentContrat: UISegmentedControl!
@@ -27,20 +26,22 @@ class ScoreJeuController: UIViewController {
     @IBOutlet weak var labelGain: UILabel!
     @IBOutlet weak var labelPointsAttaque: UILabel!
     @IBOutlet weak var labelPointsDefense: UILabel!
+    @IBOutlet weak var labelPointsBase: UILabel!
     @IBOutlet weak var sliderPoints: SliderPoints!
     
     @IBOutlet weak var labelPointsGain: UILabel!
-    @IBOutlet weak var labelNbBouts: UILabel!
+    @IBOutlet weak var labelPointsSousTotal: UILabel!
     @IBOutlet weak var labelPointsPetitAuBout: UILabel!
     @IBOutlet weak var labelPointsPoignee: UILabel!
+    @IBOutlet weak var labelPointsChelem: UILabel!
     @IBOutlet weak var labelContrat: UILabel!
     
     @IBOutlet weak var labelPointsTotaux: UILabel!
     
     
+    let texteVierge = " "
     var scoreJeu = JeuComplet()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         //miseEnPlaceImagePicker()
@@ -48,6 +49,7 @@ class ScoreJeuController: UIViewController {
         //miseEnPlaceTextField()
         //miseEnPlaceNotification()
         //fetchEntreprises()
+        miseEnPlace()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -84,15 +86,99 @@ class ScoreJeuController: UIViewController {
     
     
     func majScore() {
-        labelPointsGain.text = String(scoreJeu.gain!)
-        labelPointsAttaque.text = String(scoreJeu.pointsFaits)
-        labelPointsDefense.text = String(scoreJeu.nbPointsMaxi - scoreJeu.pointsFaits)
-        labelGain.text = String(scoreJeu.gain!)
-        labelNbBouts.text = String(scoreJeu.nbBout)
-        labelPointsPetitAuBout.text = String(scoreJeu.pointsPetitAuBout)
-        labelPointsPoignee.text = String(scoreJeu.pointsPoignee)
-        labelPointsTotaux.text = String(scoreJeu.total!)
+        // label score GAIN
+        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits > Float(0) {
+            labelGain.text = String(scoreJeu.gain!)
+        }
+        
+        
+        // label points : GAIN
+        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits > Float(0) {
+            labelPointsGain.text = String(scoreJeu.gain!)
+        } else {
+            labelPointsGain.text = texteVierge
+        }
+        
+        
+        // label points : BASE CONTRAT
+        if scoreJeu.contrat > 0 {
+            if scoreJeu.isReussi ?? true {
+                labelPointsBase.text = String(scoreJeu.baseContrat)
+            } else {
+                labelPointsBase.text = "-" + String(scoreJeu.baseContrat)
+            }
+        } else {
+            labelPointsBase.text = texteVierge
+        }
+        
+        
+        // label points : POINTS
+        if scoreJeu.pointsFaits > Float(0) {
+            labelPointsAttaque.text = String(scoreJeu.pointsFaits)
+            labelPointsDefense.text = String(scoreJeu.nbPointsMaxi - scoreJeu.pointsFaits)
+        }
+
+        
+        // label points : SOUS-TOTAL
+        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits > Float(0) && scoreJeu.nbBout > 0 && scoreJeu.contrat > 0 {
+            var st: Float
+            if scoreJeu.isReussi ?? false {
+                st = scoreJeu.baseContrat + (scoreJeu.gain ?? 0.0) + scoreJeu.pointsPetitAuBout
+            } else {
+                st = -(scoreJeu.baseContrat - (scoreJeu.gain ?? 0.0) - scoreJeu.pointsPetitAuBout)
+            }
+            labelPointsSousTotal.text = String(Int(scoreJeu.coef!)) + " x " + String(st)
+        } else {
+            labelPointsSousTotal.text = texteVierge
+        }
+
+
+        // label points : PETIT AU BOUT
+        if scoreJeu.pointsPetitAuBout != Float(0) {
+            if scoreJeu.pointsPetitAuBout < Float(0) {
+                labelPointsPetitAuBout.text = "(Défense)  " + String(scoreJeu.pointsPetitAuBout)
+            } else {
+                labelPointsPetitAuBout.text = String(scoreJeu.pointsPetitAuBout)
+            }
+        } else {
+            labelPointsPetitAuBout.text = texteVierge
+        }
+        
+        
+        // label points : POIGNEE
+        if scoreJeu.pointsPoignee == Float(0) {
+            labelPointsPoignee.text = texteVierge
+        } else {
+            labelPointsPoignee.text = ""
+            if scoreJeu.pointsPoignee < Float(0) {
+                labelPointsPoignee.text = "(Défense)  "
+            }
+            if !(scoreJeu.isReussi ?? false) {
+                labelPointsPoignee.text = labelPointsPoignee.text! + " -"
+            }
+            labelPointsPoignee.text = labelPointsPoignee.text! + String(abs(scoreJeu.pointsPoignee))
+        }
+        
+        
+        // label points : CHELEM
+        labelPointsChelem.text = " "
+        
+        
+        // label points : TOTAL
+        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits > Float(0) && scoreJeu.nbBout > 0 && scoreJeu.contrat > 0 {
+            labelPointsTotaux.text = String(scoreJeu.total!)
+        } else {
+            labelPointsTotaux.text = texteVierge
+        }
+
+        
     }
+    
+    func miseEnPlace() {
+        //scoreJeu.pointsFaits = sliderPoints.value
+        majScore()
+    }
+    
     
 //  MARK: IBActions
     
