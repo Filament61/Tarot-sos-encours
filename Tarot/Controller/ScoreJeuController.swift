@@ -141,7 +141,7 @@ class ScoreJeuController: UIViewController {
 
         
         // label points : SOUS-TOTAL
-        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout > 0 && scoreJeu.contrat > 0 {
+        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout >= 0 && scoreJeu.contrat > 0 {
             var st: Float
             if scoreJeu.isReussi ?? false {
                 st = scoreJeu.baseContrat + (scoreJeu.gain ?? 0.0) + scoreJeu.pointsPetitAuBout
@@ -199,7 +199,7 @@ class ScoreJeuController: UIViewController {
 
         
         // label points : TOTAL
-        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout > 0 && scoreJeu.contrat > 0 {
+        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout >= 0 && scoreJeu.contrat > 0 {
             labelPointsTotaux.text = String(scoreJeu.total!)
         } else {
             labelPointsTotaux.text = texteVierge
@@ -378,8 +378,8 @@ class ScoreJeuController: UIViewController {
         if switchChelemAttaque.isOn == false && switchChelemDefense.isOn == false {
             switchChelemAttaque.setOn(true, animated: true)
             switchChelemAttaque.isEnabled = true
-            switchChelemDefense.setOn(false, animated: true)
-            switchChelemDefense.isEnabled = true
+//            switchChelemDefense.setOn(false, animated: true)
+//            switchChelemDefense.isEnabled = true
         }
         // Calcul et mise à jour affichage
         affecterPointsChelem(attaque: switchChelemAttaque.isOn, defense: switchChelemDefense.isOn, choixChelem: segmentChelem.selectedSegmentIndex)
