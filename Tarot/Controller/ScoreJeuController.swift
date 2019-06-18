@@ -23,6 +23,7 @@ class ScoreJeuController: UIViewController {
     @IBOutlet weak var segmentPoignee: UISegmentedControl!
     @IBOutlet weak var switchChelemAttaque: UISwitch!
     @IBOutlet weak var switchChelemDefense: UISwitch!
+    @IBOutlet weak var segmentChelem: UISegmentedControl!
     @IBOutlet weak var labelGain: UILabel!
     @IBOutlet weak var labelPointsAttaque: UILabel!
     @IBOutlet weak var labelPointsDefense: UILabel!
@@ -35,7 +36,6 @@ class ScoreJeuController: UIViewController {
     @IBOutlet weak var labelPointsPoignee: UILabel!
     @IBOutlet weak var labelPointsChelem: UILabel!
     @IBOutlet weak var labelContrat: UILabel!
-    
     @IBOutlet weak var labelPointsTotaux: UILabel!
     
     
@@ -60,7 +60,7 @@ class ScoreJeuController: UIViewController {
 
     
     
-    func calculerPointsPetitAuBout(attaque: Bool, defense: Bool) {
+    func affecterPointsPetitAuBout(attaque: Bool, defense: Bool) {
         if !attaque && !defense || attaque && defense {
             scoreJeu.petitAuBout = 0
         }
@@ -72,7 +72,7 @@ class ScoreJeuController: UIViewController {
         }
     }
     
-    func calculerPointsPoignée(attaque: Bool, defense: Bool, choixPoignee: Int) {
+    func affecterPointsPoignee(attaque: Bool, defense: Bool, choixPoignee: Int) {
         if !attaque && !defense || attaque && defense {
             scoreJeu.poignee = 0
         }
@@ -83,17 +83,21 @@ class ScoreJeuController: UIViewController {
             scoreJeu.poignee = -abs(choixPoignee + 1)
         }
     }
-    func calculerPointsChelem(attaque: Bool, defense: Bool) {
-        if !attaque && !defense || attaque && defense {
-            scoreJeu.chelem = 0
-        }
-        if attaque {
-            scoreJeu.chelem = 1
-        }
-        if defense {
-            scoreJeu.chelem = -1
+    func affecterPointsChelem(attaque: Bool, defense: Bool, choixChelem: Int) {
+        let aiguillage: [Int: Int] = [-1:0, 0:3, 1:1, 2:2]
+        if let iD = aiguillage[choixChelem] {
+            if !attaque && !defense || attaque && defense {
+                scoreJeu.chelem = 0
+            }
+            if attaque {
+                scoreJeu.chelem = iD
+            }
+            if defense {
+                scoreJeu.chelem = -iD
+            }
         }
     }
+
     
 
     
@@ -178,8 +182,21 @@ class ScoreJeuController: UIViewController {
         
         
         // label points : CHELEM
-        labelPointsChelem.text = " "
+        if scoreJeu.pointsChelem == Float(0) {
+            labelPointsChelem.text = texteVierge
+        } else {
+            labelPointsChelem.text = ""
+////            if scoreJeu.pointsChelem < Float(0) {
+////                labelPointsChelem.text = "(Défense)  "
+////            }
+//            if !(scoreJeu.isReussi ?? false) {
+//                labelPointsChelem.text = labelPointsChelem.text! + " -"
+//            }
+            labelPointsChelem.text = labelPointsChelem.text! + String(scoreJeu.pointsChelem)
+        }
         
+        
+
         
         // label points : TOTAL
         if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout > 0 && scoreJeu.contrat > 0 {
@@ -228,7 +245,7 @@ class ScoreJeuController: UIViewController {
         }
         switchPetitAuBoutDefense.setOn(false, animated: true)
         // Calcul et mise à jour affichage
-        calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
+        affecterPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
         majScore()
 
     }
@@ -240,7 +257,7 @@ class ScoreJeuController: UIViewController {
         }
         switchPetitAuBoutAttaque.setOn(false, animated: true)
         // Calcul et mise à jour affichage
-        calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
+        affecterPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
         majScore()
 
     }
@@ -263,7 +280,7 @@ class ScoreJeuController: UIViewController {
             switchPetitAuBoutDefense.isEnabled = false
         }
         // Calcul et mise à jour affichage
-        calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
+        affecterPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
         majScore()
 
     }
@@ -279,7 +296,7 @@ class ScoreJeuController: UIViewController {
         }
         switchPoigneeDefense.setOn(false, animated: true)
         // Calcul et mise à jour affichage
-        calculerPointsPoignée(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
+        affecterPointsPoignee(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
         majScore()
     }
 
@@ -291,7 +308,7 @@ class ScoreJeuController: UIViewController {
         }
         switchPoigneeAttaque.setOn(false, animated: true)
         // Calcul et mise à jour affichage
-        calculerPointsPoignée(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
+        affecterPointsPoignee(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
         majScore()
     }
 
@@ -303,7 +320,7 @@ class ScoreJeuController: UIViewController {
             switchPoigneeDefense.isEnabled = true
         }
         // Calcul et mise à jour affichage
-        calculerPointsPoignée(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
+        affecterPointsPoignee(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
         majScore()
     }
  
@@ -333,51 +350,40 @@ class ScoreJeuController: UIViewController {
     //
     //              Options Chelem
     //
-    @IBAction func changerSwitchAttaque(_ sender: UISwitch) {
+    @IBAction func changerSwitchChelemAttaque(_ sender: UISwitch) {
         if switchChelemAttaque.isOn == false && switchChelemDefense.isOn == false {
+            segmentChelem.selectedSegmentIndex = UISegmentedControl.noSegment
             switchChelemAttaque.isEnabled = false
             switchChelemDefense.isEnabled = false
         }
         switchChelemDefense.setOn(false, animated: true)
         // Calcul et mise à jour affichage
-        calculerPointsChelem(attaque: switchChelemAttaque.isOn, defense: switchChelemDefense.isOn)
+        affecterPointsChelem(attaque: switchChelemAttaque.isOn, defense: switchChelemDefense.isOn, choixChelem: segmentChelem.selectedSegmentIndex)
         majScore()
-        
     }
     
     @IBAction func changerSwitchChelemDefense(_ sender: UISwitch) {
         if switchChelemAttaque.isOn == false && switchChelemDefense.isOn == false {
+            segmentChelem.selectedSegmentIndex = UISegmentedControl.noSegment
             switchChelemAttaque.isEnabled = false
             switchChelemDefense.isEnabled = false
         }
         switchChelemAttaque.setOn(false, animated: true)
         // Calcul et mise à jour affichage
-        calculerPointsChelem(attaque: switchChelemAttaque.isOn, defense: switchChelemDefense.isOn)
+        affecterPointsChelem(attaque: switchChelemAttaque.isOn, defense: switchChelemDefense.isOn, choixChelem: segmentChelem.selectedSegmentIndex)
         majScore()
-        
     }
     
-    @IBAction func selectionnerChelem(_ sender: UIButton) {
+    @IBAction func selectionnerChelem(_ sender: UISegmentedControl) {
         if switchChelemAttaque.isOn == false && switchChelemDefense.isOn == false {
             switchChelemAttaque.setOn(true, animated: true)
             switchChelemAttaque.isEnabled = true
             switchChelemDefense.setOn(false, animated: true)
             switchChelemDefense.isEnabled = true
-        } else if switchChelemAttaque.isOn == true && switchChelemDefense.isOn == false {
-            switchChelemAttaque.setOn(false, animated: true)
-            switchChelemAttaque.isEnabled = true
-            switchChelemDefense.setOn(true, animated: true)
-            switchChelemDefense.isEnabled = true
-        } else {
-            switchChelemAttaque.setOn(false, animated: true)
-            switchChelemAttaque.isEnabled = false
-            switchChelemDefense.setOn(false, animated: true)
-            switchChelemDefense.isEnabled = false
         }
         // Calcul et mise à jour affichage
-        calculerPointsChelem(attaque: switchChelemAttaque.isOn, defense: switchChelemDefense.isOn)
+        affecterPointsChelem(attaque: switchChelemAttaque.isOn, defense: switchChelemDefense.isOn, choixChelem: segmentChelem.selectedSegmentIndex)
         majScore()
-        
     }
     
 

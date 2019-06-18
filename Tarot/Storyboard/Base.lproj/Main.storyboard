@@ -190,53 +190,48 @@
                                     </stackView>
                                 </subviews>
                             </stackView>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="FUK-OD-M3F">
-                                <rect key="frame" x="12" y="477" width="351" height="101"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="FUK-OD-M3F">
+                                <rect key="frame" x="12" y="477" width="351" height="111"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xYZ-dO-sf5">
-                                        <rect key="frame" x="0.0" y="0.0" width="351" height="31"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="351" height="29"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="leading" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="cSv-59-0bK">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="changerSwitchPetitAuBoutDefense:" destination="XDX-kk-pzy" eventType="valueChanged" id="ZZ4-AV-acI"/>
                                                 </connections>
                                             </switch>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="YB8-cP-GbV">
-                                                <rect key="frame" x="49" y="0.0" width="253" height="31"/>
+                                                <rect key="frame" x="49" y="0.0" width="253" height="29"/>
                                                 <state key="normal" title="Petit au bout"/>
                                                 <connections>
                                                     <action selector="selectionnerPetitAuBout:" destination="XDX-kk-pzy" eventType="touchUpInside" id="yYf-kN-0BY"/>
                                                 </connections>
                                             </button>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="X6R-Pg-32Q">
-                                                <rect key="frame" x="302" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="302" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="changerSwitchPetitAuBoutAttaque:" destination="XDX-kk-pzy" eventType="valueChanged" id="aOW-gb-otN"/>
                                                 </connections>
                                             </switch>
                                         </subviews>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WU6-GK-HAh">
-                                        <rect key="frame" x="0.0" y="35" width="351" height="31"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="WU6-GK-HAh">
+                                        <rect key="frame" x="0.0" y="41" width="351" height="29"/>
                                         <subviews>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="leading" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="YXh-0e-B2H">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="changerSwitchPoigneeDefense:" destination="XDX-kk-pzy" eventType="valueChanged" id="Kss-uD-Lsf"/>
                                                 </connections>
                                             </switch>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="r2X-aL-0Xq">
-                                                <rect key="frame" x="49" y="0.0" width="20" height="31"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="20" id="8f2-2q-7Qu"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <segmentedControl opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" segmentControlStyle="plain" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Nq3-a3-NuT">
-                                                <rect key="frame" x="69" y="0.0" width="213" height="32"/>
+                                                <rect key="frame" x="85" y="0.0" width="181" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="29" id="O18-h1-jaY"/>
+                                                    <constraint firstAttribute="width" constant="181" id="UNY-xf-5EE"/>
+                                                </constraints>
                                                 <segments>
                                                     <segment title="Simple"/>
                                                     <segment title="Double"/>
@@ -246,42 +241,56 @@
                                                     <action selector="selectionnerSegmentPoignee:" destination="XDX-kk-pzy" eventType="valueChanged" id="V8b-jN-Oty"/>
                                                 </connections>
                                             </segmentedControl>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pu4-tn-6ik">
-                                                <rect key="frame" x="282" y="0.0" width="20" height="31"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="20" id="0vU-YA-4Ga"/>
-                                                </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <nil key="textColor"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
                                             <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="7og-tg-q0M">
-                                                <rect key="frame" x="302" y="0.0" width="51" height="31"/>
+                                                <rect key="frame" x="302" y="0.0" width="51" height="29"/>
                                                 <connections>
                                                     <action selector="changerSwitchPoigneeAttaque:" destination="XDX-kk-pzy" eventType="valueChanged" id="Mwt-CU-9ON"/>
                                                 </connections>
                                             </switch>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Nq3-a3-NuT" firstAttribute="centerX" secondItem="WU6-GK-HAh" secondAttribute="centerX" id="3c3-WZ-Ph9"/>
+                                        </constraints>
                                     </stackView>
-                                    <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YhL-uP-ouB">
-                                        <rect key="frame" x="0.0" y="70" width="351" height="31"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="36" translatesAutoresizingMaskIntoConstraints="NO" id="yDd-rO-G7k">
+                                        <rect key="frame" x="0.0" y="82" width="351" height="29"/>
                                         <subviews>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="leading" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="0pa-ON-joQ">
-                                                <rect key="frame" x="0.0" y="0.0" width="51" height="31"/>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="leading" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="bX4-pX-2Ga">
+                                                <rect key="frame" x="0.0" y="0.0" width="51" height="29"/>
+                                                <connections>
+                                                    <action selector="changerSwitchChelemDefense:" destination="XDX-kk-pzy" eventType="valueChanged" id="xBf-Lu-YEb"/>
+                                                </connections>
                                             </switch>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BZV-kF-xmG">
-                                                <rect key="frame" x="49" y="0.0" width="253" height="31"/>
-                                                <state key="normal" title="Chelem demandé"/>
-                                            </button>
-                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="8bD-CU-S4c">
-                                                <rect key="frame" x="302" y="0.0" width="51" height="31"/>
+                                            <segmentedControl opaque="NO" contentMode="center" contentHorizontalAlignment="center" contentVerticalAlignment="center" apportionsSegmentWidthsByContent="YES" segmentControlStyle="plain" springLoaded="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Mve-al-Ybw">
+                                                <rect key="frame" x="85" y="0.0" width="181" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="29" id="5qn-AB-ZBi"/>
+                                                    <constraint firstAttribute="width" constant="181" id="wdS-Nl-7Uw"/>
+                                                </constraints>
+                                                <segments>
+                                                    <segment title="Echoué"/>
+                                                    <segment title="Chelem"/>
+                                                    <segment title="Réussi"/>
+                                                </segments>
+                                                <connections>
+                                                    <action selector="selectionnerChelem:" destination="XDX-kk-pzy" eventType="valueChanged" id="5Sz-W1-AgI"/>
+                                                </connections>
+                                            </segmentedControl>
+                                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" enabled="NO" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="Bp3-x0-rgV">
+                                                <rect key="frame" x="302" y="0.0" width="51" height="29"/>
+                                                <connections>
+                                                    <action selector="changerSwitchChelemAttaque:" destination="XDX-kk-pzy" eventType="valueChanged" id="jlm-fM-17X"/>
+                                                </connections>
                                             </switch>
                                         </subviews>
+                                        <constraints>
+                                            <constraint firstItem="Mve-al-Ybw" firstAttribute="centerX" secondItem="yDd-rO-G7k" secondAttribute="centerX" id="dge-M1-Yao"/>
+                                        </constraints>
                                     </stackView>
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nKX-k6-vne">
-                                <rect key="frame" x="48.666666666666657" y="602" width="229.99999999999997" height="150"/>
+                                <rect key="frame" x="48.666666666666657" y="612" width="229.99999999999997" height="150"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="yh8-d0-Qct">
                                         <rect key="frame" x="0.0" y="0.0" width="230" height="150"/>
@@ -419,12 +428,13 @@
                         <outlet property="labelPointsTotaux" destination="izl-A4-BDH" id="JCo-6R-ZmV"/>
                         <outlet property="pickerViewAppele" destination="3DR-Ap-wQU" id="Wo1-sR-GrQ"/>
                         <outlet property="pickerViewPreneur" destination="RCf-RT-aKo" id="XGu-QV-bSE"/>
+                        <outlet property="segmentChelem" destination="Mve-al-Ybw" id="Jxx-MJ-hPf"/>
                         <outlet property="segmentContrat" destination="8At-9Z-4uc" id="siu-hs-hbA"/>
                         <outlet property="segmentNbBout" destination="xfi-FV-oiw" id="eZ9-vc-kU4"/>
                         <outlet property="segmentPoignee" destination="Nq3-a3-NuT" id="odD-5P-ZRX"/>
                         <outlet property="sliderPoints" destination="Ppx-Su-vo9" id="2PZ-Gq-33r"/>
-                        <outlet property="switchChelemAttaque" destination="8bD-CU-S4c" id="IHW-MB-BQW"/>
-                        <outlet property="switchChelemDefense" destination="0pa-ON-joQ" id="Kj9-nZ-bRG"/>
+                        <outlet property="switchChelemAttaque" destination="Bp3-x0-rgV" id="Hqa-Ca-HlX"/>
+                        <outlet property="switchChelemDefense" destination="bX4-pX-2Ga" id="qxK-uB-tqg"/>
                         <outlet property="switchPetitAuBoutAttaque" destination="X6R-Pg-32Q" id="fXb-Qo-2Nn"/>
                         <outlet property="switchPetitAuBoutDefense" destination="cSv-59-0bK" id="EWE-Wn-Ztt"/>
                         <outlet property="switchPoigneeAttaque" destination="7og-tg-q0M" id="2fa-gn-wWi"/>
