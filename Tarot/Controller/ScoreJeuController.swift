@@ -83,17 +83,34 @@ class ScoreJeuController: UIViewController {
             scoreJeu.poignee = -abs(choixPoignee + 1)
         }
     }
+    func calculerPointsChelem(attaque: Bool, defense: Bool) {
+        if !attaque && !defense || attaque && defense {
+            scoreJeu.chelem = 0
+        }
+        if attaque {
+            scoreJeu.chelem = 1
+        }
+        if defense {
+            scoreJeu.chelem = -1
+        }
+    }
     
+
     
     func majScore() {
         // label score GAIN
-        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits > Float(0) {
+        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) {
+            if scoreJeu.isReussi ?? false {
+                labelGain.textColor = UIColor.init(red: 10/255, green: 200/255, blue: 30/255, alpha: 1)
+            } else {
+                labelGain.textColor = UIColor.init(red: 200/255, green: 10/255, blue: 60/255, alpha: 1)
+            }
             labelGain.text = String(scoreJeu.gain!)
         }
         
         
         // label points : GAIN
-        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits > Float(0) {
+        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) {
             labelPointsGain.text = String(scoreJeu.gain!)
         } else {
             labelPointsGain.text = texteVierge
@@ -113,14 +130,14 @@ class ScoreJeuController: UIViewController {
         
         
         // label points : POINTS
-        if scoreJeu.pointsFaits > Float(0) {
+        if scoreJeu.pointsFaits >= Float(0) {
             labelPointsAttaque.text = String(scoreJeu.pointsFaits)
             labelPointsDefense.text = String(scoreJeu.nbPointsMaxi - scoreJeu.pointsFaits)
         }
 
         
         // label points : SOUS-TOTAL
-        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits > Float(0) && scoreJeu.nbBout > 0 && scoreJeu.contrat > 0 {
+        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout > 0 && scoreJeu.contrat > 0 {
             var st: Float
             if scoreJeu.isReussi ?? false {
                 st = scoreJeu.baseContrat + (scoreJeu.gain ?? 0.0) + scoreJeu.pointsPetitAuBout
@@ -165,7 +182,7 @@ class ScoreJeuController: UIViewController {
         
         
         // label points : TOTAL
-        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits > Float(0) && scoreJeu.nbBout > 0 && scoreJeu.contrat > 0 {
+        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout > 0 && scoreJeu.contrat > 0 {
             labelPointsTotaux.text = String(scoreJeu.total!)
         } else {
             labelPointsTotaux.text = texteVierge
@@ -187,14 +204,16 @@ class ScoreJeuController: UIViewController {
     //
     @IBAction func selectionnerContrat(_ sender: UISegmentedControl) {
         scoreJeu.contrat = sender.selectedSegmentIndex + 1
+        // Calcul et mise à jour affichage
         majScore()
-}
+    }
     
     //
     //              Options Nombre de Bout
     //
     @IBAction func selectionnerNbBout(_ sender: UISegmentedControl) {
         scoreJeu.nbBout = sender.selectedSegmentIndex
+        // Calcul et mise à jour affichage
         majScore()
     }
     
@@ -208,7 +227,7 @@ class ScoreJeuController: UIViewController {
             switchPetitAuBoutDefense.isEnabled = false
         }
         switchPetitAuBoutDefense.setOn(false, animated: true)
-        
+        // Calcul et mise à jour affichage
         calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
         majScore()
 
@@ -220,7 +239,7 @@ class ScoreJeuController: UIViewController {
             switchPetitAuBoutDefense.isEnabled = false
         }
         switchPetitAuBoutAttaque.setOn(false, animated: true)
-        
+        // Calcul et mise à jour affichage
         calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
         majScore()
 
@@ -243,6 +262,7 @@ class ScoreJeuController: UIViewController {
             switchPetitAuBoutDefense.setOn(false, animated: true)
             switchPetitAuBoutDefense.isEnabled = false
         }
+        // Calcul et mise à jour affichage
         calculerPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
         majScore()
 
@@ -258,10 +278,9 @@ class ScoreJeuController: UIViewController {
             switchPoigneeDefense.isEnabled = false
         }
         switchPoigneeDefense.setOn(false, animated: true)
-        
+        // Calcul et mise à jour affichage
         calculerPointsPoignée(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
         majScore()
-
     }
 
     @IBAction func changerSwitchPoigneeDefense(_ sender: UISwitch) {
@@ -271,7 +290,7 @@ class ScoreJeuController: UIViewController {
             switchPoigneeDefense.isEnabled = false
         }
         switchPoigneeAttaque.setOn(false, animated: true)
-        
+        // Calcul et mise à jour affichage
         calculerPointsPoignée(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
         majScore()
     }
@@ -283,6 +302,7 @@ class ScoreJeuController: UIViewController {
             switchPoigneeDefense.setOn(false, animated: true)
             switchPoigneeDefense.isEnabled = true
         }
+        // Calcul et mise à jour affichage
         calculerPointsPoignée(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
         majScore()
     }
@@ -291,23 +311,76 @@ class ScoreJeuController: UIViewController {
     
     @IBAction func affecterPoints(_ sender: UISlider) {
         sliderPoints.changerValeur(round(sliderPoints.value))
+        // Calcul et mise à jour affichage
         scoreJeu.pointsFaits = sliderPoints.value
         majScore()
     }
     
     @IBAction func ajouterPointsAttaque(_ sender: UIButton) {
         sliderPoints.value += 0.5
+        // Calcul et mise à jour affichage
         scoreJeu.pointsFaits = sliderPoints.value
         majScore()
 
 }
     @IBAction func ajouterPointsDefense(_ sender: UIButton) {
         sliderPoints.value -= 0.5
+        // Calcul et mise à jour affichage
         scoreJeu.pointsFaits = sliderPoints.value
         majScore()
 }
     
+    //
+    //              Options Chelem
+    //
+    @IBAction func changerSwitchAttaque(_ sender: UISwitch) {
+        if switchChelemAttaque.isOn == false && switchChelemDefense.isOn == false {
+            switchChelemAttaque.isEnabled = false
+            switchChelemDefense.isEnabled = false
+        }
+        switchChelemDefense.setOn(false, animated: true)
+        // Calcul et mise à jour affichage
+        calculerPointsChelem(attaque: switchChelemAttaque.isOn, defense: switchChelemDefense.isOn)
+        majScore()
+        
+    }
     
+    @IBAction func changerSwitchChelemDefense(_ sender: UISwitch) {
+        if switchChelemAttaque.isOn == false && switchChelemDefense.isOn == false {
+            switchChelemAttaque.isEnabled = false
+            switchChelemDefense.isEnabled = false
+        }
+        switchChelemAttaque.setOn(false, animated: true)
+        // Calcul et mise à jour affichage
+        calculerPointsChelem(attaque: switchChelemAttaque.isOn, defense: switchChelemDefense.isOn)
+        majScore()
+        
+    }
+    
+    @IBAction func selectionnerChelem(_ sender: UIButton) {
+        if switchChelemAttaque.isOn == false && switchChelemDefense.isOn == false {
+            switchChelemAttaque.setOn(true, animated: true)
+            switchChelemAttaque.isEnabled = true
+            switchChelemDefense.setOn(false, animated: true)
+            switchChelemDefense.isEnabled = true
+        } else if switchChelemAttaque.isOn == true && switchChelemDefense.isOn == false {
+            switchChelemAttaque.setOn(false, animated: true)
+            switchChelemAttaque.isEnabled = true
+            switchChelemDefense.setOn(true, animated: true)
+            switchChelemDefense.isEnabled = true
+        } else {
+            switchChelemAttaque.setOn(false, animated: true)
+            switchChelemAttaque.isEnabled = false
+            switchChelemDefense.setOn(false, animated: true)
+            switchChelemDefense.isEnabled = false
+        }
+        // Calcul et mise à jour affichage
+        calculerPointsChelem(attaque: switchChelemAttaque.isOn, defense: switchChelemDefense.isOn)
+        majScore()
+        
+    }
+    
+
     
     
     
