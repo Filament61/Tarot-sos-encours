@@ -15,4 +15,4 @@ let contexte = appDelegate.persistentContainer.viewContext
 
 
 
-public var joueursTab = [("Serge"), ("Phillipe"), ("Alain"), ("Marc"), ("Robert")]
+public var joueursTab = [("Serge"), ("Phillipe"), ("Alain"), ("Marc"), ("Robert"), "Loulou"]

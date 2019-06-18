@@ -37,7 +37,7 @@ class SliderPoints: UISlider {
 
     func miseEnPlace() {
         self.minimumValue = 0.0
-        self.maximumValue = Float(nbPointsMaxi)
+        self.maximumValue = 91.0
         self.minimumTrackTintColor = UIColor.init(red: 22/255, green: 118/255, blue: 255/255, alpha: 1)
         self.maximumTrackTintColor = UIColor.init(red: 22/255, green: 118/255, blue: 255/255, alpha: 1)
 //        layer.cornerRadius = 10
