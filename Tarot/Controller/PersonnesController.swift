@@ -15,7 +15,7 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var cellId = "PersonneCell"
     
-    var entreprises = [joueursTab]
+    var personnes = [Personne]()
     
 
     override func viewDidLoad() {
@@ -33,13 +33,22 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
 //        return joueursTab.count
 //    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return joueursTab.count
+        return personnes.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? UITableViewCell
-        cell?.textLabel?.text = "\(indexPath.row)"
-        return cell!
+//        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? UITableViewCell
+//        cell?.textLabel?.text = "\(indexPath.row)"
+//        return cell!
+//
+        let joueurDeLaCell = personnes[indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? PersonneCell {
+            cell.miseEnPlace(personne: joueurDeLaCell)
+            return cell
+        }
+        return UITableViewCell()
+        
     }
+    
     
 }
