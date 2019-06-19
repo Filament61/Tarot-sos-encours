@@ -26,7 +26,7 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        fetchEntreprises()
+        fetchPersonnes()
     }
     
 //    func numberOfSections(in tableView: UITableView) -> Int {
@@ -36,6 +36,11 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
         return personnes.count
     }
     
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 320
+//    }
+    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 //        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? UITableViewCell
 //        cell?.textLabel?.text = "\(indexPath.row)"
@@ -49,6 +54,18 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
         return UITableViewCell()
         
     }
-    
+ 
+    func fetchPersonnes() {
+        let requete: NSFetchRequest<Personne> = Personne.fetchRequest()
+        let tri = NSSortDescriptor(key: "nom", ascending: true)
+        requete.sortDescriptors = [tri]
+        do {
+            personnes = try contexte.fetch(requete)
+            tableView.reloadData()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+
     
 }
