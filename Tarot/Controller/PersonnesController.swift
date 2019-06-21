@@ -55,6 +55,26 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
         
     }
  
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        switch editingStyle {
+        case .delete:
+            if let personneASupprimmer = personnes[indexPath.row] as? Personne {
+                contexte.delete(personneASupprimmer)
+                do {
+                    try contexte.save()
+                } catch {
+                    print(error.localizedDescription)
+                }
+                personnes.remove(at: indexPath.row)
+                self.tableView.deleteRows(at: [indexPath], with: .fade)
+            }
+            
+        default: break
+        }
+    }
+    
+    
     func fetchPersonnes() {
         let requete: NSFetchRequest<Personne> = Personne.fetchRequest()
         let tri = NSSortDescriptor(key: "nom", ascending: true)
