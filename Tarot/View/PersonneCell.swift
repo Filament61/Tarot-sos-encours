@@ -10,23 +10,35 @@ import UIKit
 
 class PersonneCell: UITableViewCell {
     
-    @IBOutlet weak var photoDeProfil: ImageArrondie!
-    @IBOutlet weak var nomEtPrenom: UILabel!
-    @IBOutlet weak var numerDeTel: UILabel!
-    @IBOutlet weak var adresseMail: UILabel!
+//    @IBOutlet weak var photoDeProfil: ImageArrondie!
+    @IBOutlet weak var surnom: UILabel!
+    @IBOutlet weak var nom: UILabel!
+    @IBOutlet weak var prenom: UILabel!
+    //    @IBOutlet weak var numerDeTel: UILabel!
+//    @IBOutlet weak var adresseMail: UILabel!
     
     var personne: Personne!
     
     func miseEnPlace(personne: Personne) {
         self.personne = personne
-        photoDeProfil.image = self.personne.photo as? UIImage
-        var nomComplet = ""
-        if let prenom = self.personne.prenom {
-            nomComplet += "Prenom: " + prenom + " "
+        if let leSurnom = self.personne.surnom {
+            surnom.text = leSurnom
         }
-        if let nom = self.personne.nom {
-            nomComplet += "Nom: " + nom
+        if let leNom = self.personne.nom {
+            nom.text = leNom
         }
+        if let lePrenom = self.personne.prenom {
+            prenom.text = lePrenom
+        }
+
+//        photoDeProfil.image = self.personne.photo as? UIImage
+//        var nomComplet = ""
+//        if let prenom = self.personne.prenom {
+//            nomComplet += "Prenom: " + prenom + " "
+//        }
+//        if let nom = self.personne.nom {
+//            nomComplet += "Nom: " + nom
+//        }
 //        nomEtPrenom.text = nomComplet
 //        let num = String(self.personne.numero)
 //        numerDeTel.text = num

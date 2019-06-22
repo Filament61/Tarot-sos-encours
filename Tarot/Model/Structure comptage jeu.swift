@@ -92,7 +92,9 @@ struct JeuComplet {
     mutating func calculerGain() {
         if let nbPointsARealiser = pointsARealiserValeurs[nbBout] {
             gain = Float(pointsFaits - nbPointsARealiser)
-            isReussi = gain! >= Float(0)
+            if pointsFaits >= 0 {
+                isReussi = gain! >= Float(0)
+            }
         }
         print("Gain = \(gain ?? 0)")
         total = calculerTotal()
