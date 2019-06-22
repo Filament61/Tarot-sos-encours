@@ -29,7 +29,7 @@
             </objects>
             <point key="canvasLocation" x="50" y="-239"/>
         </scene>
-        <!--Accueil Controller-->
+        <!--Menu-->
         <scene sceneID="Ldf-6w-kIU">
             <objects>
                 <viewController id="IaZ-jp-wp2" customClass="AccueilController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
@@ -42,7 +42,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="Nouvelle partie"/>
                                 <connections>
-                                    <segue destination="XDX-kk-pzy" kind="show" id="wsr-bv-Ug7"/>
+                                    <segue destination="VjR-Gu-e6h" kind="show" id="N2U-0q-ujt"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="c4I-6S-VzB">
@@ -67,13 +67,28 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="DmG-s1-Lpp"/>
                     </view>
-                    <navigationItem key="navigationItem" id="8Hn-K9-af5"/>
+                    <navigationItem key="navigationItem" title="Menu" id="8Hn-K9-af5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vKm-TA-b11" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="764" y="-239"/>
         </scene>
-        <!--Personnes Controller-->
+        <!--View Controller-->
+        <scene sceneID="Ve3-vX-v6Y">
+            <objects>
+                <viewController id="VjR-Gu-e6h" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="0V8-mP-yZL">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="n6j-l2-p4v"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nrx-9C-Jia" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1462" y="-239"/>
+        </scene>
+        <!--Personnes-->
         <scene sceneID="hAI-Gq-4uf">
             <objects>
                 <viewController id="VGY-dy-MGq" customClass="PersonnesController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
@@ -128,7 +143,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="rGG-hn-TJr"/>
                     </view>
-                    <navigationItem key="navigationItem" id="YJe-wE-4sN">
+                    <navigationItem key="navigationItem" title="Personnes" id="YJe-wE-4sN">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="F84-oE-aTA">
                             <connections>
                                 <segue destination="CD7-sl-v6o" kind="show" id="tta-8D-E96"/>
@@ -143,7 +158,7 @@
             </objects>
             <point key="canvasLocation" x="1462" y="-936"/>
         </scene>
-        <!--Ajout Personne Controller-->
+        <!--Ajouter-->
         <scene sceneID="iwR-Wu-XnW">
             <objects>
                 <viewController id="CD7-sl-v6o" customClass="AjoutPersonneController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
@@ -215,6 +230,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="d6G-3b-efE"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Ajouter" id="HXX-7f-l7q"/>
                     <connections>
                         <outlet property="ajouterPersonneBouton" destination="pZf-ts-T99" id="rcg-Bq-0jY"/>
                         <outlet property="contrainteDuBas" destination="TFC-U3-tHQ" id="8Uq-DZ-V0J"/>
@@ -237,7 +253,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qnA-jK-if8">
-                                <rect key="frame" x="12" y="88" width="351" height="255"/>
+                                <rect key="frame" x="12" y="44" width="351" height="255"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCf-RT-aKo">
                                         <rect key="frame" x="0.0" y="0.0" width="351" height="84"/>
@@ -283,7 +299,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="m2G-fF-CUf">
-                                <rect key="frame" x="12" y="375" width="351" height="54"/>
+                                <rect key="frame" x="12" y="331" width="351" height="54"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JEb-U3-bux">
                                         <rect key="frame" x="0.0" y="0.0" width="351" height="24"/>
@@ -354,7 +370,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="FUK-OD-M3F">
-                                <rect key="frame" x="12" y="477" width="351" height="111"/>
+                                <rect key="frame" x="12" y="433" width="351" height="111"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xYZ-dO-sf5">
                                         <rect key="frame" x="0.0" y="0.0" width="351" height="29"/>
@@ -453,7 +469,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nKX-k6-vne">
-                                <rect key="frame" x="48.666666666666657" y="612" width="229.99999999999997" height="150"/>
+                                <rect key="frame" x="48.666666666666657" y="568" width="229.99999999999997" height="150"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="yh8-d0-Qct">
                                         <rect key="frame" x="0.0" y="0.0" width="230" height="150"/>
@@ -577,6 +593,7 @@
                         <viewLayoutGuide key="safeArea" id="tUo-oq-OqQ"/>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Calcul des points" id="lrP-bQ-gVo"/>
                     <connections>
                         <outlet property="labelContrat" destination="Rft-yx-JpC" id="WPB-gT-l1W"/>
                         <outlet property="labelGain" destination="Fqh-jK-EDr" id="YaY-ib-ibc"/>
