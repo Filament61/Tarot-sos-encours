@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import SwipeCellKit
+
 
 class AccueilController: UIViewController {
 

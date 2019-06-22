@@ -11,6 +11,8 @@
 		9521616222BAC0320054F63E /* NotificationCenterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616122BAC0320054F63E /* NotificationCenterExtension.swift */; };
 		9521616422BACB290054F63E /* AjoutPersonneControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616322BACB290054F63E /* AjoutPersonneControler.swift */; };
 		9521616622BC1B620054F63E /* PersonneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616522BC1B620054F63E /* PersonneCell.swift */; };
+		95363C8322BEAD2600CBAC02 /* SwipeCellKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95363C8222BEAB9F00CBAC02 /* SwipeCellKit.framework */; };
+		953788A622BE82F000AA9F46 /* NouvellePartieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953788A522BE82F000AA9F46 /* NouvellePartieController.swift */; };
 		95517DFA22B441CB00ECD1FC /* ExampleStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DF922B441CB00ECD1FC /* ExampleStruct.swift */; };
 		95517DFC22B53BEC00ECD1FC /* SliderPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DFB22B53BEC00ECD1FC /* SliderPoints.swift */; };
 		95517DFE22B7BA1F00ECD1FC /* Structure comptage jeu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DFD22B7BA1F00ECD1FC /* Structure comptage jeu.swift */; };
@@ -31,6 +33,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		95363C8122BEAB9F00CBAC02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 95363C7D22BEAB9F00CBAC02 /* SwipeCellKit.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 3F234AC31E44A7A400E22A38;
+			remoteInfo = SwipeCellKit;
+		};
 		95A5DB4422B2A157007F3729 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 95A5DB2422B2A156007F3729 /* Project object */;
@@ -40,11 +49,26 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		95363C7322BEA88200CBAC02 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		9521615F22BABF330054F63E /* TextFieldExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldExtension.swift; sourceTree = "<group>"; };
 		9521616122BAC0320054F63E /* NotificationCenterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterExtension.swift; sourceTree = "<group>"; };
 		9521616322BACB290054F63E /* AjoutPersonneControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutPersonneControler.swift; sourceTree = "<group>"; };
 		9521616522BC1B620054F63E /* PersonneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonneCell.swift; sourceTree = "<group>"; };
+		95363C7D22BEAB9F00CBAC02 /* SwipeCellKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwipeCellKit.xcodeproj; path = SwipeCellKit/SwipeCellKit.xcodeproj; sourceTree = "<group>"; };
+		953788A522BE82F000AA9F46 /* NouvellePartieController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NouvellePartieController.swift; sourceTree = "<group>"; };
 		95517DF922B441CB00ECD1FC /* ExampleStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleStruct.swift; sourceTree = "<group>"; };
 		95517DFB22B53BEC00ECD1FC /* SliderPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderPoints.swift; sourceTree = "<group>"; };
 		95517DFD22B7BA1F00ECD1FC /* Structure comptage jeu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Structure comptage jeu.swift"; sourceTree = "<group>"; };
@@ -73,6 +97,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95363C8322BEAD2600CBAC02 /* SwipeCellKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,12 +111,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		95363C7A22BEAB7400CBAC02 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				95363C7D22BEAB9F00CBAC02 /* SwipeCellKit.xcodeproj */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		95363C7E22BEAB9F00CBAC02 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				95363C8222BEAB9F00CBAC02 /* SwipeCellKit.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		95A5DB2322B2A156007F3729 = {
 			isa = PBXGroup;
 			children = (
 				95A5DB2E22B2A156007F3729 /* Tarot */,
 				95A5DB4622B2A157007F3729 /* TarotTests */,
 				95A5DB2D22B2A156007F3729 /* Products */,
+				95363C7A22BEAB7400CBAC02 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -168,6 +210,7 @@
 				9521615F22BABF330054F63E /* TextFieldExtension.swift */,
 				9521616122BAC0320054F63E /* NotificationCenterExtension.swift */,
 				9521616322BACB290054F63E /* AjoutPersonneControler.swift */,
+				953788A522BE82F000AA9F46 /* NouvellePartieController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -191,6 +234,7 @@
 				95A5DB2822B2A156007F3729 /* Sources */,
 				95A5DB2922B2A156007F3729 /* Frameworks */,
 				95A5DB2A22B2A156007F3729 /* Resources */,
+				95363C7322BEA88200CBAC02 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
@@ -249,6 +293,12 @@
 			mainGroup = 95A5DB2322B2A156007F3729;
 			productRefGroup = 95A5DB2D22B2A156007F3729 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 95363C7E22BEAB9F00CBAC02 /* Products */;
+					ProjectRef = 95363C7D22BEAB9F00CBAC02 /* SwipeCellKit.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				95A5DB2B22B2A156007F3729 /* Tarot */,
@@ -256,6 +306,16 @@
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		95363C8222BEAB9F00CBAC02 /* SwipeCellKit.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = SwipeCellKit.framework;
+			remoteRef = 95363C8122BEAB9F00CBAC02 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		95A5DB2A22B2A156007F3729 /* Resources */ = {
@@ -288,6 +348,7 @@
 				95A5DB5D22B2B66C007F3729 /* BoutonArrondi.swift in Sources */,
 				95A5DB5922B2A4B1007F3729 /* Constantes.swift in Sources */,
 				95517DFE22B7BA1F00ECD1FC /* Structure comptage jeu.swift in Sources */,
+				953788A622BE82F000AA9F46 /* NouvellePartieController.swift in Sources */,
 				95BD3CA622B407B700A2C183 /* DonneesTarot.swift in Sources */,
 				95A5DB3822B2A156007F3729 /* Tarot.xcdatamodeld in Sources */,
 				9521616022BABF330054F63E /* TextFieldExtension.swift in Sources */,
