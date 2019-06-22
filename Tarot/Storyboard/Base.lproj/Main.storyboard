@@ -29,7 +29,7 @@
             </objects>
             <point key="canvasLocation" x="50" y="-239"/>
         </scene>
-        <!--Accueil Controller-->
+        <!--Menu-->
         <scene sceneID="Ldf-6w-kIU">
             <objects>
                 <viewController id="IaZ-jp-wp2" customClass="AccueilController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
@@ -67,13 +67,13 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="DmG-s1-Lpp"/>
                     </view>
-                    <navigationItem key="navigationItem" id="8Hn-K9-af5"/>
+                    <navigationItem key="navigationItem" title="Menu" id="8Hn-K9-af5"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vKm-TA-b11" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="764" y="-239"/>
         </scene>
-        <!--Personnes Controller-->
+        <!--Personnes-->
         <scene sceneID="hAI-Gq-4uf">
             <objects>
                 <viewController id="VGY-dy-MGq" customClass="PersonnesController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
@@ -128,7 +128,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="rGG-hn-TJr"/>
                     </view>
-                    <navigationItem key="navigationItem" id="YJe-wE-4sN">
+                    <navigationItem key="navigationItem" title="Personnes" id="YJe-wE-4sN">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="F84-oE-aTA">
                             <connections>
                                 <segue destination="CD7-sl-v6o" kind="show" id="tta-8D-E96"/>
@@ -577,6 +577,7 @@
                         <viewLayoutGuide key="safeArea" id="tUo-oq-OqQ"/>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Calcul des points" id="lrP-bQ-gVo"/>
                     <connections>
                         <outlet property="labelContrat" destination="Rft-yx-JpC" id="WPB-gT-l1W"/>
                         <outlet property="labelGain" destination="Fqh-jK-EDr" id="YaY-ib-ibc"/>
