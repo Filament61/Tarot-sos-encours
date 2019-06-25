@@ -5,7 +5,17 @@
         <attribute name="prenom" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="surnom" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
+    <entity name="PointsJeu" representedClassName=".PointsJeu" syncable="YES" codeGenerationType="category">
+        <attribute name="chelem" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="contrat" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="nbBout" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="petitAuBout" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="poignee" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pointsFaits" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="total" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+    </entity>
     <elements>
-        <element name="Personne" positionX="-63" positionY="-18" width="128" height="88"/>
+        <element name="Personne" positionX="-455.2109375" positionY="41.5546875" width="128" height="88"/>
+        <element name="PointsJeu" positionX="-27" positionY="36" width="128" height="148"/>
     </elements>
 </model>
