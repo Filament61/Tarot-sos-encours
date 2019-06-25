@@ -30,6 +30,8 @@ class ScoreJeuController: UIViewController {
     @IBOutlet weak var labelPointsBase: UILabel!
     @IBOutlet weak var sliderPoints: SliderPoints!
     
+    @IBOutlet weak var buttonEnregistrer: UIButton!
+    
     @IBOutlet weak var labelPointsGain: UILabel!
     @IBOutlet weak var labelPointsSousTotal: UILabel!
     @IBOutlet weak var labelPointsPetitAuBout: UILabel!
@@ -201,9 +203,11 @@ class ScoreJeuController: UIViewController {
         // label points : TOTAL
         if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout >= 0 && scoreJeu.contrat > 0 {
             labelPointsTotaux.text = String(scoreJeu.total!)
+            buttonEnregistrer.isEnabled = true
         } else {
             labelPointsTotaux.text = texteVierge
-        }
+            buttonEnregistrer.isEnabled = false
+}
 
         
     }
@@ -213,8 +217,46 @@ class ScoreJeuController: UIViewController {
         majScore()
     }
     
+//    func sauvePointsJeu(scoreJeu jeuComplet: JeuComplet) {
+//        let pointsJeu = PointsJeu(context: AppDelegate.viewContext)
+//        
+//        pointsJeu.contrat = Int16(jeuComplet.contrat)
+//        pointsJeu.nbBout = Int16(jeuComplet.nbBout)
+//        pointsJeu.pointsFaits = jeuComplet.pointsFaits
+//        pointsJeu.petitAuBout = Int16(jeuComplet.petitAuBout)
+//        pointsJeu.poignee = Int16(jeuComplet.poignee)
+//        pointsJeu.chelem = Int16(jeuComplet.chelem)
+//        pointsJeu.total = jeuComplet.total ?? 0.0
+//        
+//        do {
+//            try? AppDelegate.viewContext.save()
+//        }
+//        catch {
+//            
+//        }
+//    }
+    
     
 //  MARK: IBActions
+    
+    @IBAction func ButtonLecture(_ sender: Any) {
+        let jeuComplet = PointsJeu.all.last
+        
+        scoreJeu.contrat = Int(jeuComplet?.contrat ?? 0)
+        scoreJeu.nbBout = Int(jeuComplet?.nbBout ?? 0)
+        scoreJeu.pointsFaits = jeuComplet?.pointsFaits ?? 0.0
+        scoreJeu.petitAuBout = Int(jeuComplet?.petitAuBout ?? 0)
+        scoreJeu.poignee = Int(jeuComplet?.poignee ?? 0)
+        scoreJeu.chelem = Int(jeuComplet?.chelem ?? 0)
+        scoreJeu.total = jeuComplet?.total ?? 0.0
+
+        majScore()
+    }
+    
+    @IBAction func addScore(_ sender: Any) {
+//        sauvePointsJeu(scoreJeu: scoreJeu)
+        PointsJeu.save(scoreJeu: scoreJeu)
+    }
     
     //
     //              Options Contrats

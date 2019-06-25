@@ -308,7 +308,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="qnA-jK-if8">
-                                <rect key="frame" x="12" y="88" width="351" height="255"/>
+                                <rect key="frame" x="12" y="88" width="351" height="161"/>
                                 <subviews>
                                     <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RCf-RT-aKo">
                                         <rect key="frame" x="0.0" y="0.0" width="351" height="84"/>
@@ -345,8 +345,8 @@
                                             </segmentedControl>
                                         </subviews>
                                     </stackView>
-                                    <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3DR-Ap-wQU">
-                                        <rect key="frame" x="0.0" y="171" width="351" height="84"/>
+                                    <pickerView hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="3DR-Ap-wQU">
+                                        <rect key="frame" x="0.0" y="161" width="351" height="84"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="84" id="BWM-At-g1j"/>
                                         </constraints>
@@ -354,7 +354,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="m2G-fF-CUf">
-                                <rect key="frame" x="12" y="375" width="351" height="54"/>
+                                <rect key="frame" x="12" y="281" width="351" height="54"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="JEb-U3-bux">
                                         <rect key="frame" x="0.0" y="0.0" width="351" height="24"/>
@@ -425,7 +425,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="FUK-OD-M3F">
-                                <rect key="frame" x="12" y="477" width="351" height="111"/>
+                                <rect key="frame" x="12" y="383" width="351" height="111"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xYZ-dO-sf5">
                                         <rect key="frame" x="0.0" y="0.0" width="351" height="29"/>
@@ -524,7 +524,7 @@
                                 </subviews>
                             </stackView>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="nKX-k6-vne">
-                                <rect key="frame" x="48.666666666666657" y="612" width="229.99999999999997" height="150"/>
+                                <rect key="frame" x="48.666666666666657" y="518" width="229.99999999999997" height="150"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" distribution="equalCentering" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="yh8-d0-Qct">
                                         <rect key="frame" x="0.0" y="0.0" width="230" height="150"/>
@@ -630,6 +630,14 @@
                                     <constraint firstAttribute="width" constant="230" id="G8R-mA-8Ta"/>
                                 </constraints>
                             </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mCY-7b-bl4">
+                                <rect key="frame" x="149" y="707" width="76" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Enregistrer"/>
+                                <connections>
+                                    <action selector="addScore:" destination="XDX-kk-pzy" eventType="touchUpInside" id="X6i-rb-EbE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -648,8 +656,15 @@
                         <viewLayoutGuide key="safeArea" id="tUo-oq-OqQ"/>
                     </view>
                     <toolbarItems/>
-                    <navigationItem key="navigationItem" title="Calcul des points" id="lrP-bQ-gVo"/>
+                    <navigationItem key="navigationItem" title="Calcul des points" id="lrP-bQ-gVo">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="KCf-90-PDU">
+                            <connections>
+                                <action selector="ButtonLecture:" destination="XDX-kk-pzy" id="jyb-qI-yIH"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="buttonEnregistrer" destination="mCY-7b-bl4" id="0NR-IF-bkl"/>
                         <outlet property="labelContrat" destination="Rft-yx-JpC" id="WPB-gT-l1W"/>
                         <outlet property="labelGain" destination="Fqh-jK-EDr" id="YaY-ib-ibc"/>
                         <outlet property="labelPointsAttaque" destination="Q0h-Fq-PQ3" id="EoU-w9-EpN"/>
