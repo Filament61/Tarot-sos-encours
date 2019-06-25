@@ -13,6 +13,7 @@
 		9521616622BC1B620054F63E /* PersonneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616522BC1B620054F63E /* PersonneCell.swift */; };
 		95363C8322BEAD2600CBAC02 /* SwipeCellKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 95363C8222BEAB9F00CBAC02 /* SwipeCellKit.framework */; };
 		95363CDE22C29B6F00CBAC02 /* PointsJeu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CDD22C29B6F00CBAC02 /* PointsJeu.swift */; };
+		95363CE022C29F5A00CBAC02 /* NSManagedObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CDF22C29F5A00CBAC02 /* NSManagedObjectExtension.swift */; };
 		953788A622BE82F000AA9F46 /* NouvellePartieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953788A522BE82F000AA9F46 /* NouvellePartieController.swift */; };
 		95517DFA22B441CB00ECD1FC /* ExampleStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DF922B441CB00ECD1FC /* ExampleStruct.swift */; };
 		95517DFC22B53BEC00ECD1FC /* SliderPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DFB22B53BEC00ECD1FC /* SliderPoints.swift */; };
@@ -70,6 +71,7 @@
 		9521616522BC1B620054F63E /* PersonneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonneCell.swift; sourceTree = "<group>"; };
 		95363C7D22BEAB9F00CBAC02 /* SwipeCellKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwipeCellKit.xcodeproj; path = SwipeCellKit/SwipeCellKit.xcodeproj; sourceTree = "<group>"; };
 		95363CDD22C29B6F00CBAC02 /* PointsJeu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsJeu.swift; sourceTree = "<group>"; };
+		95363CDF22C29F5A00CBAC02 /* NSManagedObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtension.swift; sourceTree = "<group>"; };
 		953788A522BE82F000AA9F46 /* NouvellePartieController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NouvellePartieController.swift; sourceTree = "<group>"; };
 		95517DF922B441CB00ECD1FC /* ExampleStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleStruct.swift; sourceTree = "<group>"; };
 		95517DFB22B53BEC00ECD1FC /* SliderPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderPoints.swift; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 				95BD3CA522B407B700A2C183 /* DonneesTarot.swift */,
 				95517DFD22B7BA1F00ECD1FC /* Structure comptage jeu.swift */,
 				95363CDD22C29B6F00CBAC02 /* PointsJeu.swift */,
+				95363CDF22C29F5A00CBAC02 /* NSManagedObjectExtension.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -364,6 +367,7 @@
 				95BD3CA422B3F27000A2C183 /* PickerViewExtension.swift in Sources */,
 				9558CB9D22B95ABF00C2C3B5 /* PersonnesController.swift in Sources */,
 				9521616622BC1B620054F63E /* PersonneCell.swift in Sources */,
+				95363CE022C29F5A00CBAC02 /* NSManagedObjectExtension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
