@@ -32,7 +32,7 @@ override func viewDidLoad() {
 
    
         func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-                return 320
+                return 160
             }
     
         
@@ -42,7 +42,6 @@ override func viewDidLoad() {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let joueurDeLaCell = pointsJeux[indexPath.row]
-//        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId, for: indexPath) as? PointsJeuCell {
             if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? PointsJeuCell {
             cell.miseEnPlace(pointsJeu: joueurDeLaCell)
             return cell
@@ -52,12 +51,12 @@ override func viewDidLoad() {
     
 
     func fetchPointsJeux() {
-        let requete: NSFetchRequest<PointsJeu> = PointsJeu.fetchRequest()
+//        let requete: NSFetchRequest<PointsJeu> = PointsJeu.fetchRequest()
 //        let tri = NSSortDescriptor(key: "nom", ascending: true)
 //        requete.sortDescriptors = [tri]
         do {
+            //            pointsJeux = try contexte.fetch(requete)
             pointsJeux = PointsJeu.all
-//            pointsJeux = try contexte.fetch(requete)
             tableView.reloadData()
         } catch {
             print(error.localizedDescription)

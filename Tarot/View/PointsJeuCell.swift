@@ -22,8 +22,20 @@ class PointsJeuCell: UITableViewCell {
     
     func miseEnPlace(pointsJeu: PointsJeu) {
         self.pointsJeu = pointsJeu
-        if let leTotal = self.pointsJeu?.total {
-            totalLabel.text = String(leTotal)
+//        if let valeur = self.pointsJeu?.total {
+//            totalLabel.text = String(valeur)
+//        }
+        if let valeur = self.pointsJeu?.petitAuBout {
+            petitAuBoutLabel.text = String(valeur)
+        }
+        if let valeur = self.pointsJeu?.poignee {
+            poigneeLabel.text = String(valeur)
+        }
+        if let valeur = self.pointsJeu?.chelem {
+            chelemLabel.text = String(valeur)
+        }
+        if let valeur = self.pointsJeu?.total {
+            totalLabel.text = String(valeur)
         }
 //        if let leNom = self.personne.nom {
 //            nom.text = leNom
