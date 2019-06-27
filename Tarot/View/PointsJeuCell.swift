@@ -13,36 +13,30 @@ class PointsJeuCell: UITableViewCell {
     @IBOutlet weak var gainLabel: UILabel!
     @IBOutlet weak var baseLabel: UILabel!    
     @IBOutlet weak var petitAuBoutLabel: UILabel!
+    @IBOutlet weak var sousTotal: UILabel!
     @IBOutlet weak var poigneeLabel: UILabel!
     @IBOutlet weak var chelemLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     
     
-    var pointsJeu: PointsJeu!
+    func miseEnPlace(pJ: PointsJeu) {
+        
+        let score = JeuComplet(Contrat: Int(pJ.contrat),
+                               NombreDeBout: Int(pJ.nbBout),
+                               PointFaits: pJ.pointsFaits,
+                               PetitAuBout: Int(pJ.petitAuBout),
+                               Poignée: Int(pJ.poignee),
+                               Chelem: Int(pJ.chelem))
+        
+        
+        gainLabel.text = score.gainText()
+        baseLabel.text = score.baseTxt()
+        sousTotal.text = score.SousTotalTxt()
+        petitAuBoutLabel.text = score.pointsPetitAuBoutTxt()
+        poigneeLabel.text = score.pointsPoigneeTxt()
+        chelemLabel.text = score.pointsChelemTxt()
+        totalLabel.text = score.totalTxt()
+    }
     
-    func miseEnPlace(pointsJeu: PointsJeu) {
-        self.pointsJeu = pointsJeu
-//        if let valeur = self.pointsJeu?.total {
-//            totalLabel.text = String(valeur)
-//        }
-        if let valeur = self.pointsJeu?.petitAuBout {
-            petitAuBoutLabel.text = String(valeur)
-        }
-        if let valeur = self.pointsJeu?.poignee {
-            poigneeLabel.text = String(valeur)
-        }
-        if let valeur = self.pointsJeu?.chelem {
-            chelemLabel.text = String(valeur)
-        }
-        if let valeur = self.pointsJeu?.total {
-            totalLabel.text = String(valeur)
-        }
-//        if let leNom = self.personne.nom {
-//            nom.text = leNom
-//        }
-//        if let lePrenom = self.pointsJeu.prenom {
-//            prenom.text = lePrenom
-//        }
     
-}
 }

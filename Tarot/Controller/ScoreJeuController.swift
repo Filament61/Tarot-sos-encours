@@ -116,87 +116,25 @@ class ScoreJeuController: UIViewController {
         
         
         // label points : GAIN
-        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) {
-            labelPointsGain.text = String(scoreJeu.gain!)
-        } else {
-            labelPointsGain.text = texteVierge
-        }
-        
+        labelPointsGain.text = scoreJeu.gainText()
         
         // label points : BASE CONTRAT
-        if scoreJeu.contrat > 0 {
-            if scoreJeu.isReussi ?? true {
-                labelPointsBase.text = String(scoreJeu.baseContrat)
-            } else {
-                labelPointsBase.text = "-" + String(scoreJeu.baseContrat)
-            }
-        } else {
-            labelPointsBase.text = texteVierge
-        }
-        
+        labelPointsBase.text = scoreJeu.baseTxt()
         
         // label points : POINTS
-        if scoreJeu.pointsFaits >= Float(0) {
-            labelPointsAttaque.text = String(scoreJeu.pointsFaits)
-            labelPointsDefense.text = String(scoreJeu.nbPointsMaxi - scoreJeu.pointsFaits)
-        }
+        labelPointsAttaque.text = scoreJeu.pointsFaitsTxt()
 
-        
         // label points : SOUS-TOTAL
-        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout >= 0 && scoreJeu.contrat > 0 {
-            var st: Float
-            if scoreJeu.isReussi ?? false {
-                st = scoreJeu.baseContrat + (scoreJeu.gain ?? 0.0) + scoreJeu.pointsPetitAuBout
-            } else {
-                st = -(scoreJeu.baseContrat - (scoreJeu.gain ?? 0.0) - scoreJeu.pointsPetitAuBout)
-            }
-            labelPointsSousTotal.text = String(Int(scoreJeu.coef!)) + " x " + String(st)
-        } else {
-            labelPointsSousTotal.text = texteVierge
-        }
-
+        labelPointsSousTotal.text = scoreJeu.SousTotalTxt()
 
         // label points : PETIT AU BOUT
-        if scoreJeu.pointsPetitAuBout != Float(0) {
-            if scoreJeu.pointsPetitAuBout < Float(0) {
-                labelPointsPetitAuBout.text = "(Défense)  " + String(scoreJeu.pointsPetitAuBout)
-            } else {
-                labelPointsPetitAuBout.text = String(scoreJeu.pointsPetitAuBout)
-            }
-        } else {
-            labelPointsPetitAuBout.text = texteVierge
-        }
-        
+        labelPointsPetitAuBout.text = scoreJeu.pointsPetitAuBoutTxt()
         
         // label points : POIGNEE
-        if scoreJeu.pointsPoignee == Float(0) {
-            labelPointsPoignee.text = texteVierge
-        } else {
-            labelPointsPoignee.text = ""
-            if scoreJeu.pointsPoignee < Float(0) {
-                labelPointsPoignee.text = "(Défense)  "
-            }
-            if !(scoreJeu.isReussi ?? false) {
-                labelPointsPoignee.text = labelPointsPoignee.text! + " -"
-            }
-            labelPointsPoignee.text = labelPointsPoignee.text! + String(abs(scoreJeu.pointsPoignee))
-        }
-        
+        labelPointsPoignee.text = scoreJeu.pointsPoigneeTxt()
         
         // label points : CHELEM
-        if scoreJeu.pointsChelem == Float(0) {
-            labelPointsChelem.text = texteVierge
-        } else {
-            labelPointsChelem.text = ""
-////            if scoreJeu.pointsChelem < Float(0) {
-////                labelPointsChelem.text = "(Défense)  "
-////            }
-//            if !(scoreJeu.isReussi ?? false) {
-//                labelPointsChelem.text = labelPointsChelem.text! + " -"
-//            }
-            labelPointsChelem.text = labelPointsChelem.text! + String(scoreJeu.pointsChelem)
-        }
-        
+        labelPointsChelem.text = scoreJeu.pointsChelemTxt()
         
 
         

@@ -20,6 +20,8 @@ struct JeuComplet {
     let poigneeValeurs: [Int: Float] = [-3: -40, -2: -30, -1: -20, 0: 0, 1: 20, 2: 30, 3: 40]
     let chelemValeurs: [Int: Float] = [ -3: -200, -2: -400, -1: -200, 0: 0, 1: 200, 2: 400, 3: -200]
     
+    let texteVierge = " "
+    
     var total: Float?
     var gain: Float?
     var isReussi: Bool?
@@ -64,7 +66,18 @@ struct JeuComplet {
     var pointsPoignee: Float = 0
     var pointsChelem: Float = 0
     
-    
+    init(Contrat contrat: Int,
+         NombreDeBout nbBout: Int,
+         PointFaits pointsFaits: Float,
+         PetitAuBout petitAuBout: Int,
+         Poignée poignee: Int,
+         Chelem chelem: Int) {
+        self.contrat = contrat; calculerCoef()
+        self.nbBout = nbBout; self.pointsFaits = pointsFaits; calculerGain()
+        self.petitAuBout = petitAuBout; calculerPetitAuBout()
+        self.poignee = poignee; calculerPoignee()
+        self.chelem = chelem; calculerChelem()
+    }
     
     init() {
         total = 0
@@ -136,4 +149,82 @@ struct JeuComplet {
         return total
     }
     
+    // Texte points : GAIN
+    func gainText() -> String {
+        guard gain! != nbPointsMaxi && pointsFaits >= Float(0) else { return texteVierge }
+        return String(gain!)
+    }
+    
+    
+    // Texte points : BASE CONTRAT
+    func baseTxt() -> String {
+        guard contrat > 0 else { return texteVierge }
+        guard isReussi ?? true else { return "-" + String(baseContrat) }
+        return String(baseContrat)
+    }
+    
+    
+    // Texte points : POINTS
+    func pointsFaitsTxt() -> String {
+        guard pointsFaits >= Float(0) else { return String(nbPointsMaxi - pointsFaits) }
+        return String(pointsFaits)
+    }
+    
+    
+    // Texte points : PETIT AU BOUT
+    func pointsPetitAuBoutTxt() -> String {
+        guard pointsPetitAuBout != Float(0) else { return texteVierge }
+        guard pointsPetitAuBout >= Float(0) else { return "(Défense)  " + String(pointsPetitAuBout) }
+        return String(pointsPetitAuBout)
+    }
+    
+    
+    // Texte points : POIGNEE
+    func pointsPoigneeTxt() -> String {
+        guard pointsPoignee != Float(0) else { return texteVierge }
+        var txt = ""
+        if pointsPoignee < Float(0) {
+            txt = "(Défense)  "
+        }
+        if !(isReussi ?? false) {
+            txt += " -"
+        }
+        txt += String(abs(pointsPoignee))
+        return txt
+    }
+    
+    
+    // Texte points : CHELEM
+    func pointsChelemTxt() -> String {
+        guard pointsChelem != Float(0) else { return texteVierge }
+        var txt = ""
+        ////            if pointsChelem < Float(0) {
+        ////                txt = "(Défense)  "
+        ////            }
+        //            if !(scoreJeu.isReussi ?? false) {
+        //                labelPointsChelem.text = labelPointsChelem.text! + " -"
+        //            }
+        txt += String(pointsChelem)
+        return txt
+    }
+    
+    
+    // Texte points : SOUS-TOTAL
+    func SousTotalTxt() -> String {
+        guard (gain! != nbPointsMaxi && pointsFaits >= Float(0) && nbBout >= 0 && contrat > 0) else { return texteVierge }
+        var st: Float
+        if isReussi ?? false {
+            st = baseContrat + (gain ?? 0.0) + pointsPetitAuBout
+        } else {
+            st = -(baseContrat - (gain ?? 0.0) - pointsPetitAuBout)
+        }
+        return String(Int(coef!)) + " x " + String(st)
+    }
+    
+    
+    // Texte points : TOTAL
+    func totalTxt() -> String {
+        guard gain! != nbPointsMaxi && pointsFaits >= Float(0) && nbBout >= 0 && contrat > 0 else { return texteVierge }
+        return String(total!)
+    }
 }

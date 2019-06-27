@@ -293,6 +293,7 @@
                                             <outlet property="gainLabel" destination="p70-Jx-9ya" id="4kY-PH-Nal"/>
                                             <outlet property="petitAuBoutLabel" destination="wrn-Iy-0DK" id="Lfd-A5-1mw"/>
                                             <outlet property="poigneeLabel" destination="Rhh-5t-pCf" id="WAF-Ay-lLN"/>
+                                            <outlet property="sousTotal" destination="XMh-3P-1oD" id="ZLK-nL-dcp"/>
                                             <outlet property="totalLabel" destination="GCn-Vf-LhZ" id="YaK-AQ-c7G"/>
                                         </connections>
                                     </tableViewCell>

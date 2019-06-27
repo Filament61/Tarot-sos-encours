@@ -43,7 +43,7 @@ override func viewDidLoad() {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let joueurDeLaCell = pointsJeux[indexPath.row]
             if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? PointsJeuCell {
-            cell.miseEnPlace(pointsJeu: joueurDeLaCell)
+                cell.miseEnPlace(pJ: joueurDeLaCell)
             return cell
         }
         return UITableViewCell()
