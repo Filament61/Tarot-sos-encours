@@ -20,15 +20,6 @@ struct JeuComplet {
     let poigneeValeurs: [Int: Float] = [-3: -40, -2: -30, -1: -20, 0: 0, 1: 20, 2: 30, 3: 40]
     let chelemValeurs: [Int: Float] = [ -3: -200, -2: -400, -1: -200, 0: 0, 1: 200, 2: 400, 3: -200]
     
-    var toto: Int {
-        get {
-            
-        }
-        set {
-            toto = newValue
-            calculerCoef()
-        }
-    }
     var total: Float?
     var gain: Float?
     var isReussi: Bool?

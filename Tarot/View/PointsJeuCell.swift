@@ -22,13 +22,13 @@ class PointsJeuCell: UITableViewCell {
     
     func miseEnPlace(pointsJeu: PointsJeu) {
         self.pointsJeu = pointsJeu
-//        if let leSurnom = self.personne.surnom {
-//            surnom.text = leSurnom
-//        }
+        if let leTotal = self.pointsJeu?.total {
+            totalLabel.text = String(leTotal)
+        }
 //        if let leNom = self.personne.nom {
 //            nom.text = leNom
 //        }
-//        if let lePrenom = self.personne.prenom {
+//        if let lePrenom = self.pointsJeu.prenom {
 //            prenom.text = lePrenom
 //        }
     

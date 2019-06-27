@@ -2,18 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:../Source">
-   </FileRef>
-   <FileRef
-      location = "group:../SwipeCellKit.podspec">
-   </FileRef>
-   <FileRef
-      location = "group:../SwipeCellKit.xcodeproj">
-   </FileRef>
-   <FileRef
-      location = "group:../SwipeCellKit.xcworkspace">
-   </FileRef>
-   <FileRef
       location = "self:">
    </FileRef>
 </Workspace>
