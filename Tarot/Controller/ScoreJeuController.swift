@@ -104,14 +104,15 @@ class ScoreJeuController: UIViewController {
 
     
     func majScore() {
+        
         // label score GAIN
-        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) {
-            if scoreJeu.isReussi ?? false {
+        if let isReussi = scoreJeu.isReussi, let gain = scoreJeu.gain {
+            if isReussi {
                 labelGain.textColor = UIColor.init(red: 10/255, green: 200/255, blue: 30/255, alpha: 1)
             } else {
                 labelGain.textColor = UIColor.init(red: 200/255, green: 10/255, blue: 60/255, alpha: 1)
             }
-            labelGain.text = String(scoreJeu.gain!)
+            labelGain.text = String(gain)
         }
         
         
@@ -119,31 +120,34 @@ class ScoreJeuController: UIViewController {
         labelPointsGain.text = scoreJeu.gainText()
         
         // label points : BASE CONTRAT
-        labelPointsBase.text = scoreJeu.baseTxt()
+        labelPointsBase.text = scoreJeu.baseText()
         
         // label points : POINTS
-        labelPointsAttaque.text = scoreJeu.pointsFaitsTxt()
+        labelPointsAttaque.text = scoreJeu.pointsFaitsText()
+        labelPointsDefense.text = scoreJeu.pointsFaitsText(Defense: true)
 
         // label points : SOUS-TOTAL
-        labelPointsSousTotal.text = scoreJeu.SousTotalTxt()
+        labelPointsSousTotal.text = scoreJeu.SousTotalText()
 
         // label points : PETIT AU BOUT
-        labelPointsPetitAuBout.text = scoreJeu.pointsPetitAuBoutTxt()
+        labelPointsPetitAuBout.text = scoreJeu.pointsPetitAuBoutText()
         
         // label points : POIGNEE
-        labelPointsPoignee.text = scoreJeu.pointsPoigneeTxt()
+        labelPointsPoignee.text = scoreJeu.pointsPoigneeText()
         
         // label points : CHELEM
-        labelPointsChelem.text = scoreJeu.pointsChelemTxt()
+        labelPointsChelem.text = scoreJeu.pointsChelemText()
         
 
         
         // label points : TOTAL
-        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout >= 0 && scoreJeu.contrat > 0 {
-            labelPointsTotaux.text = String(scoreJeu.total!)
+        labelPointsTotaux.text = scoreJeu.totalText()
+        if let _ = scoreJeu.gain, let _ = scoreJeu.nbBout, let _ = scoreJeu.contrat {
+//        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout >= 0 && scoreJeu.contrat > 0 {
+//            labelPointsTotaux.text = String(scoreJeu.total!)
             buttonEnregistrer.isEnabled = true
         } else {
-            labelPointsTotaux.text = texteVierge
+//            labelPointsTotaux.text = texteVierge
             buttonEnregistrer.isEnabled = false
 }
 

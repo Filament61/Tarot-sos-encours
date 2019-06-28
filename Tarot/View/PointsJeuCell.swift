@@ -30,12 +30,12 @@ class PointsJeuCell: UITableViewCell {
         
         
         gainLabel.text = score.gainText()
-        baseLabel.text = score.baseTxt()
-        sousTotal.text = score.SousTotalTxt()
-        petitAuBoutLabel.text = score.pointsPetitAuBoutTxt()
-        poigneeLabel.text = score.pointsPoigneeTxt()
-        chelemLabel.text = score.pointsChelemTxt()
-        totalLabel.text = score.totalTxt()
+        baseLabel.text = score.baseText()
+        sousTotal.text = score.SousTotalText()
+        petitAuBoutLabel.text = score.pointsPetitAuBoutText()
+        poigneeLabel.text = score.pointsPoigneeText()
+        chelemLabel.text = score.pointsChelemText()
+        totalLabel.text = score.totalText()
     }
     
     

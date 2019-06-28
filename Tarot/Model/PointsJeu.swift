@@ -19,9 +19,9 @@ class PointsJeu: NSManagedObject {
     static func save(scoreJeu jeuComplet: JeuComplet) {
         let pointsJeu = PointsJeu(context: AppDelegate.viewContext)
         
-        pointsJeu.contrat = Int16(jeuComplet.contrat)
-        pointsJeu.nbBout = Int16(jeuComplet.nbBout)
-        pointsJeu.pointsFaits = jeuComplet.pointsFaits
+        pointsJeu.contrat = Int16(jeuComplet.contrat!)
+        pointsJeu.nbBout = Int16(jeuComplet.nbBout!)
+        pointsJeu.pointsFaits = jeuComplet.pointsFaits!
         pointsJeu.petitAuBout = Int16(jeuComplet.petitAuBout)
         pointsJeu.poignee = Int16(jeuComplet.poignee)
         pointsJeu.chelem = Int16(jeuComplet.chelem)

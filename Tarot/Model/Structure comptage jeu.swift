@@ -24,21 +24,24 @@ struct JeuComplet {
     
     var total: Float?
     var gain: Float?
-    var isReussi: Bool?
+//    var isReussi: Bool?
     var coef: Float?
     
-    var contrat: Int = 0 {
+//    var contrat: Int = 0 {
+        var contrat: Int? {
         didSet {
             calculerCoef()
         }
     }
-    var nbBout: Int = -1 {
+//    var nbBout: Int = -1 {
+        var nbBout: Int? {
         didSet {
             calculerGain()
         }
     }
     
-    var pointsFaits: Float = -1.0 {
+//    var pointsFaits: Float = -1.0 {
+        var pointsFaits: Float?  {
         didSet {
             calculerGain()
         }
@@ -80,33 +83,45 @@ struct JeuComplet {
     }
     
     init() {
-        total = 0
-        coef = 0
-        gain = nbPointsMaxi
-        contrat = 0
-        nbBout = -1
-        pointsFaits = -1
+//        total = 0
+//        coef = 0
+//        gain = nbPointsMaxi
+//        contrat = 0
+//        nbBout = -1
+//        pointsFaits = -1
         petitAuBout = 0
         poignee = 0
         chelem = 0
-        pointsPetitAuBout = 0
-        pointsPoignee = 0
-        pointsChelem = 0
+//        pointsPetitAuBout = 0
+//        pointsPoignee = 0
+//        pointsChelem = 0
     }
     
+    
+//    mutating func isReussie() -> Bool? {
+//        guard gain != nil else { return nil! }
+//        return gain! >= Float(0)
+//    }
+    
+    var isReussi: Bool? {
+        get {
+            guard let gain = gain else { return nil }
+            return gain >= Float(0)
+        }
+    }
+
     mutating func calculerCoef() {
-        if let coefficient = coefficientsValeurs[contrat] {
-            coef = coefficient
+        if let contrat = contrat {
+            coef = coefficientsValeurs[contrat]
         }
         print("Coef = \(coef ?? 0)")
         total = calculerTotal()
     }
     mutating func calculerGain() {
-        if let nbPointsARealiser = pointsARealiserValeurs[nbBout] {
-            gain = Float(pointsFaits - nbPointsARealiser)
-            if pointsFaits >= 0 {
-                isReussi = gain! >= Float(0)
-            }
+        if let nbBout = nbBout, let pointsFaits = pointsFaits {
+            if let nbPointsARealiser = pointsARealiserValeurs[nbBout] {
+                gain = pointsFaits - nbPointsARealiser
+           }
         }
         print("Gain = \(gain ?? 0)")
         total = calculerTotal()
@@ -133,46 +148,63 @@ struct JeuComplet {
         total = calculerTotal()
     }
 
-    func calculerTotal() -> Float {
+    func calculerTotal() -> Float? {
+        guard let isReussi = isReussi, let gain = gain, let coef = coef else { return nil }
         var total: Float = 0
-        if pointsARealiserValeurs[nbBout] != nil && coefficientsValeurs[contrat] != nil && pointsFaits >= 0 {
-            if isReussi ?? false {
-                total = (baseContrat + gain! + pointsPetitAuBout) * coef! + abs(pointsPoignee) + pointsChelem
-            } else {
-                total = (baseContrat - gain! - pointsPetitAuBout) * coef! + abs(pointsPoignee) - pointsChelem
-                total *= -1.0
-            }
-            print("Total = \(total)")
+        if isReussi {
+            total = (baseContrat + gain + pointsPetitAuBout) * coef + abs(pointsPoignee) + pointsChelem
         } else {
-            
+            total = (baseContrat - gain - pointsPetitAuBout) * coef + abs(pointsPoignee) - pointsChelem
+            total *= -1.0
         }
+        print("Total = \(total)")
         return total
+
+//        var total: Float = 0
+//        if pointsARealiserValeurs[nbBout] != nil && coefficientsValeurs[contrat] != nil && pointsFaits >= 0 {
+//            if isReussi ?? false {
+//                total = (baseContrat + gain! + pointsPetitAuBout) * coef! + abs(pointsPoignee) + pointsChelem
+//            } else {
+//                total = (baseContrat - gain! - pointsPetitAuBout) * coef! + abs(pointsPoignee) - pointsChelem
+//                total *= -1.0
+//            }
+//            print("Total = \(total)")
+//        } else {
+//
+//        }
+//        return total
     }
     
     // Texte points : GAIN
     func gainText() -> String {
-        guard gain! != nbPointsMaxi && pointsFaits >= Float(0) else { return texteVierge }
-        return String(gain!)
+        guard let gain = gain, let _ = pointsFaits else { return texteVierge }
+//        guard gain != nbPointsMaxi && pointsFaits >= Float(0) else { return texteVierge }
+        return String(gain)
     }
     
     
     // Texte points : BASE CONTRAT
-    func baseTxt() -> String {
-        guard contrat > 0 else { return texteVierge }
-        guard isReussi ?? true else { return "-" + String(baseContrat) }
-        return String(baseContrat)
+    func baseText() -> String {
+        guard  let isReussi = isReussi, let _ = contrat else { return texteVierge }
+        if isReussi {
+            return String(baseContrat)
+        } else {
+            return "-" + String(baseContrat) }
     }
     
     
     // Texte points : POINTS
-    func pointsFaitsTxt() -> String {
-        guard pointsFaits >= Float(0) else { return String(nbPointsMaxi - pointsFaits) }
-        return String(pointsFaits)
+    func pointsFaitsText(Defense def: Bool = false) -> String {
+        guard let pointsFaits = pointsFaits else { return texteVierge }
+        if def {
+            return String(nbPointsMaxi - pointsFaits)
+        } else {
+            return String(pointsFaits)
+        }
     }
     
-    
     // Texte points : PETIT AU BOUT
-    func pointsPetitAuBoutTxt() -> String {
+    func pointsPetitAuBoutText() -> String {
         guard pointsPetitAuBout != Float(0) else { return texteVierge }
         guard pointsPetitAuBout >= Float(0) else { return "(Défense)  " + String(pointsPetitAuBout) }
         return String(pointsPetitAuBout)
@@ -180,7 +212,7 @@ struct JeuComplet {
     
     
     // Texte points : POIGNEE
-    func pointsPoigneeTxt() -> String {
+    func pointsPoigneeText() -> String {
         guard pointsPoignee != Float(0) else { return texteVierge }
         var txt = ""
         if pointsPoignee < Float(0) {
@@ -195,7 +227,7 @@ struct JeuComplet {
     
     
     // Texte points : CHELEM
-    func pointsChelemTxt() -> String {
+    func pointsChelemText() -> String {
         guard pointsChelem != Float(0) else { return texteVierge }
         var txt = ""
         ////            if pointsChelem < Float(0) {
@@ -210,21 +242,23 @@ struct JeuComplet {
     
     
     // Texte points : SOUS-TOTAL
-    func SousTotalTxt() -> String {
-        guard (gain! != nbPointsMaxi && pointsFaits >= Float(0) && nbBout >= 0 && contrat > 0) else { return texteVierge }
+    func SousTotalText() -> String {
+        guard let gain = gain, let isReussi = isReussi, let coef = coef else { return texteVierge }
+//        guard (gain! != nbPointsMaxi && pointsFaits >= Float(0) && nbBout >= 0 && contrat > 0) else { return texteVierge }
         var st: Float
-        if isReussi ?? false {
-            st = baseContrat + (gain ?? 0.0) + pointsPetitAuBout
+        if isReussi {
+            st = baseContrat + gain + pointsPetitAuBout
         } else {
-            st = -(baseContrat - (gain ?? 0.0) - pointsPetitAuBout)
+            st = -(baseContrat - gain - pointsPetitAuBout)
         }
-        return String(Int(coef!)) + " x " + String(st)
+        return String(Int(coef)) + " x " + String(st)
     }
     
     
     // Texte points : TOTAL
-    func totalTxt() -> String {
-        guard gain! != nbPointsMaxi && pointsFaits >= Float(0) && nbBout >= 0 && contrat > 0 else { return texteVierge }
+    func totalText() -> String {
+        guard let _ = gain, let _ = nbBout, let _ = contrat else { return texteVierge }
+//        guard gain != nbPointsMaxi && pointsFaits >= Float(0) && nbBout >= 0 && contrat > 0 else { return texteVierge }
         return String(total!)
     }
 }
