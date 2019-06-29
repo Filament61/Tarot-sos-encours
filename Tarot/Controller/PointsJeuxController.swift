@@ -17,7 +17,7 @@ class PointsJeuxController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var cellId = "PointsJeuCell"
     
-    var jeuResultats = [JeuResultat]()
+    var jeuResultats = [JeuResultatTable]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -56,7 +56,7 @@ class PointsJeuxController: UIViewController, UITableViewDelegate, UITableViewDa
         //        requete.sortDescriptors = [tri]
         do {
             //            pointsJeux = try contexte.fetch(requete)
-            jeuResultats = JeuResultat.all
+            jeuResultats = JeuResultatTable.all
             tableView.reloadData()
         } catch {
             print(error.localizedDescription)

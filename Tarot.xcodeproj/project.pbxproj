@@ -96,7 +96,7 @@
 		95A5DB5822B2A4B1007F3729 /* Constantes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constantes.swift; sourceTree = "<group>"; };
 		95A5DB5A22B2B5EF007F3729 /* ImageArrondie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageArrondie.swift; sourceTree = "<group>"; };
 		95A5DB5C22B2B66C007F3729 /* BoutonArrondi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoutonArrondi.swift; sourceTree = "<group>"; };
-		95BD3CA122B2F71300A2C183 /* JeuResultatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuResultatController.swift; sourceTree = "<group>"; };
+		95BD3CA122B2F71300A2C183 /* JeuResultatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuResultatController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		95BD3CA322B3F27000A2C183 /* PickerViewExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewExtension.swift; sourceTree = "<group>"; };
 		95BD3CA522B407B700A2C183 /* DonneesTarot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DonneesTarot.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */

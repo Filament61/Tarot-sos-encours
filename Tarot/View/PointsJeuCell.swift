@@ -19,7 +19,7 @@ class PointsJeuCell: UITableViewCell {
     @IBOutlet weak var totalLabel: UILabel!
     
     
-    func miseEnPlace(pJ: JeuResultat) {
+    func miseEnPlace(pJ: JeuResultatTable) {
         
         let score = JeuComplet(Contrat: Int(pJ.contrat),
                                NombreDeBout: Int(pJ.nbBout),

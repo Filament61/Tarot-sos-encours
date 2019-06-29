@@ -24,8 +24,8 @@ class JeuResultatController: UIViewController {
     @IBOutlet weak var switchChelemAttaque: UISwitch!
     @IBOutlet weak var switchChelemDefense: UISwitch!
     @IBOutlet weak var segmentChelem: UISegmentedControl!
-    @IBOutlet weak var labelGain: UILabel!
-    @IBOutlet weak var labelPointsAttaque: UILabel!
+    @IBOutlet weak var gainLabel: UILabel!
+    @IBOutlet weak var pointsAttaqueLabel: UILabel!
     @IBOutlet weak var labelPointsDefense: UILabel!
     @IBOutlet weak var labelPointsBase: UILabel!
     @IBOutlet weak var sliderPoints: SliderPoints!
@@ -43,6 +43,8 @@ class JeuResultatController: UIViewController {
     
     let texteVierge = " "
     var jeuResultat = JeuComplet()
+    var ttt = 12
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -59,7 +61,6 @@ class JeuResultatController: UIViewController {
         //largeurContrainte.constant = view.frame.width
         //scroll.contentSize = CGSize(width: largeurContrainte.constant, height: scroll.frame.height)
     }
-
     
     
     func affecterPointsPetitAuBout(attaque: Bool, defense: Bool) {
@@ -99,20 +100,20 @@ class JeuResultatController: UIViewController {
             }
         }
     }
-
     
-
+    
+    
     
     func majScore() {
         
         // label score GAIN
         if let isReussi = jeuResultat.isReussi, let gain = jeuResultat.gain {
             if isReussi {
-                labelGain.textColor = UIColor.init(red: 10/255, green: 200/255, blue: 30/255, alpha: 1)
+                gainLabel.textColor = UIColor.init(red: 10/255, green: 200/255, blue: 30/255, alpha: 1)
             } else {
-                labelGain.textColor = UIColor.init(red: 200/255, green: 10/255, blue: 60/255, alpha: 1)
+                gainLabel.textColor = UIColor.init(red: 200/255, green: 10/255, blue: 60/255, alpha: 1)
             }
-            labelGain.text = String(gain)
+            gainLabel.text = String(gain)
         }
         
         
@@ -123,12 +124,12 @@ class JeuResultatController: UIViewController {
         labelPointsBase.text = jeuResultat.baseText()
         
         // label points : POINTS
-        labelPointsAttaque.text = jeuResultat.pointsFaitsText()
+        pointsAttaqueLabel.text = jeuResultat.pointsFaitsText()
         labelPointsDefense.text = jeuResultat.pointsFaitsText(Defense: true)
-
+        
         // label points : SOUS-TOTAL
         labelPointsSousTotal.text = jeuResultat.SousTotalText()
-
+        
         // label points : PETIT AU BOUT
         labelPointsPetitAuBout.text = jeuResultat.pointsPetitAuBoutText()
         
@@ -138,19 +139,19 @@ class JeuResultatController: UIViewController {
         // label points : CHELEM
         labelPointsChelem.text = jeuResultat.pointsChelemText()
         
-
+        
         
         // label points : TOTAL
         labelPointsTotaux.text = jeuResultat.totalText()
         if let _ = jeuResultat.gain, let _ = jeuResultat.nbBout, let _ = jeuResultat.contrat {
-//        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout >= 0 && scoreJeu.contrat > 0 {
-//            labelPointsTotaux.text = String(scoreJeu.total!)
+            //        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout >= 0 && scoreJeu.contrat > 0 {
+            //            labelPointsTotaux.text = String(scoreJeu.total!)
             buttonEnregistrer.isEnabled = true
         } else {
-//            labelPointsTotaux.text = texteVierge
+            //            labelPointsTotaux.text = texteVierge
             buttonEnregistrer.isEnabled = false
-}
-
+        }
+        
         
     }
     
@@ -159,30 +160,30 @@ class JeuResultatController: UIViewController {
         majScore()
     }
     
-//    func sauvePointsJeu(scoreJeu jeuComplet: JeuComplet) {
-//        let pointsJeu = PointsJeu(context: AppDelegate.viewContext)
-//        
-//        pointsJeu.contrat = Int16(jeuComplet.contrat)
-//        pointsJeu.nbBout = Int16(jeuComplet.nbBout)
-//        pointsJeu.pointsFaits = jeuComplet.pointsFaits
-//        pointsJeu.petitAuBout = Int16(jeuComplet.petitAuBout)
-//        pointsJeu.poignee = Int16(jeuComplet.poignee)
-//        pointsJeu.chelem = Int16(jeuComplet.chelem)
-//        pointsJeu.total = jeuComplet.total ?? 0.0
-//        
-//        do {
-//            try? AppDelegate.viewContext.save()
-//        }
-//        catch {
-//            
-//        }
-//    }
+    //    func sauvePointsJeu(scoreJeu jeuComplet: JeuComplet) {
+    //        let pointsJeu = PointsJeu(context: AppDelegate.viewContext)
+    //
+    //        pointsJeu.contrat = Int16(jeuComplet.contrat)
+    //        pointsJeu.nbBout = Int16(jeuComplet.nbBout)
+    //        pointsJeu.pointsFaits = jeuComplet.pointsFaits
+    //        pointsJeu.petitAuBout = Int16(jeuComplet.petitAuBout)
+    //        pointsJeu.poignee = Int16(jeuComplet.poignee)
+    //        pointsJeu.chelem = Int16(jeuComplet.chelem)
+    //        pointsJeu.total = jeuComplet.total ?? 0.0
+    //
+    //        do {
+    //            try? AppDelegate.viewContext.save()
+    //        }
+    //        catch {
+    //
+    //        }
+    //    }
     
-    
+
 //  MARK: IBActions
     
     @IBAction func ButtonLecture(_ sender: Any) {
-        let jeuComplet = JeuResultat.all.last
+        let jeuComplet = JeuResultatTable.all.last
         
         jeuResultat.contrat = Int(jeuComplet?.contrat ?? 0)
         jeuResultat.nbBout = Int(jeuComplet?.nbBout ?? 0)
@@ -197,7 +198,7 @@ class JeuResultatController: UIViewController {
     
     @IBAction func addScore(_ sender: Any) {
 //        sauvePointsJeu(scoreJeu: scoreJeu)
-        JeuResultat.save(scoreJeu: jeuResultat)
+        JeuResultatTable.save(scoreJeu: jeuResultat)
     }
     
     //
