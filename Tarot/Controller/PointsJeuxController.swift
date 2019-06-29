@@ -17,9 +17,9 @@ class PointsJeuxController: UIViewController, UITableViewDelegate, UITableViewDa
     
     var cellId = "PointsJeuCell"
     
-    var pointsJeux = [PointsJeu]()
+    var jeuResultats = [JeuResultat]()
     
-override func viewDidLoad() {
+    override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
@@ -29,38 +29,38 @@ override func viewDidLoad() {
         super.viewWillAppear(animated)
         fetchPointsJeux()
     }
-
-   
-        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-                return 160
-            }
     
-        
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 160
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return pointsJeux.count
+        return jeuResultats.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let joueurDeLaCell = pointsJeux[indexPath.row]
-            if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? PointsJeuCell {
-                cell.miseEnPlace(pJ: joueurDeLaCell)
+        let laCell = jeuResultats[indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? PointsJeuCell {
+            cell.miseEnPlace(pJ: laCell)
             return cell
         }
         return UITableViewCell()
     }
     
-
+    
     func fetchPointsJeux() {
-//        let requete: NSFetchRequest<PointsJeu> = PointsJeu.fetchRequest()
-//        let tri = NSSortDescriptor(key: "nom", ascending: true)
-//        requete.sortDescriptors = [tri]
+        //        let requete: NSFetchRequest<PointsJeu> = PointsJeu.fetchRequest()
+        //        let tri = NSSortDescriptor(key: "nom", ascending: true)
+        //        requete.sortDescriptors = [tri]
         do {
             //            pointsJeux = try contexte.fetch(requete)
-            pointsJeux = PointsJeu.all
+            jeuResultats = JeuResultat.all
             tableView.reloadData()
         } catch {
             print(error.localizedDescription)
         }
     }
-
+    
 }

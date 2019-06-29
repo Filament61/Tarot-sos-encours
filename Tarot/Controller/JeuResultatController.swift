@@ -1,5 +1,5 @@
 //
-//  ScoreJeuController.swift
+//  JeuResultatControllerr.swift
 //  Tarot
 //
 //  Created by Serge Gori on 13/06/2019.
@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class ScoreJeuController: UIViewController {
+class JeuResultatController: UIViewController {
     
     
     @IBOutlet weak var pickerViewPreneur: UIPickerView!
@@ -42,7 +42,7 @@ class ScoreJeuController: UIViewController {
     
     
     let texteVierge = " "
-    var scoreJeu = JeuComplet()
+    var jeuResultat = JeuComplet()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -64,38 +64,38 @@ class ScoreJeuController: UIViewController {
     
     func affecterPointsPetitAuBout(attaque: Bool, defense: Bool) {
         if !attaque && !defense || attaque && defense {
-            scoreJeu.petitAuBout = 0
+            jeuResultat.petitAuBout = 0
         }
         if attaque {
-            scoreJeu.petitAuBout = 1
+            jeuResultat.petitAuBout = 1
         }
         if defense {
-            scoreJeu.petitAuBout = -1
+            jeuResultat.petitAuBout = -1
         }
     }
     
     func affecterPointsPoignee(attaque: Bool, defense: Bool, choixPoignee: Int) {
         if !attaque && !defense || attaque && defense {
-            scoreJeu.poignee = 0
+            jeuResultat.poignee = 0
         }
         if attaque {
-            scoreJeu.poignee = abs(choixPoignee + 1)
+            jeuResultat.poignee = abs(choixPoignee + 1)
         }
         if defense {
-            scoreJeu.poignee = -abs(choixPoignee + 1)
+            jeuResultat.poignee = -abs(choixPoignee + 1)
         }
     }
     func affecterPointsChelem(attaque: Bool, defense: Bool, choixChelem: Int) {
         let aiguillage: [Int: Int] = [-1:0, 0:3, 1:1, 2:2]
         if let iD = aiguillage[choixChelem] {
             if !attaque && !defense || attaque && defense {
-                scoreJeu.chelem = 0
+                jeuResultat.chelem = 0
             }
             if attaque {
-                scoreJeu.chelem = iD
+                jeuResultat.chelem = iD
             }
             if defense {
-                scoreJeu.chelem = -iD
+                jeuResultat.chelem = -iD
             }
         }
     }
@@ -106,7 +106,7 @@ class ScoreJeuController: UIViewController {
     func majScore() {
         
         // label score GAIN
-        if let isReussi = scoreJeu.isReussi, let gain = scoreJeu.gain {
+        if let isReussi = jeuResultat.isReussi, let gain = jeuResultat.gain {
             if isReussi {
                 labelGain.textColor = UIColor.init(red: 10/255, green: 200/255, blue: 30/255, alpha: 1)
             } else {
@@ -117,32 +117,32 @@ class ScoreJeuController: UIViewController {
         
         
         // label points : GAIN
-        labelPointsGain.text = scoreJeu.gainText()
+        labelPointsGain.text = jeuResultat.gainText()
         
         // label points : BASE CONTRAT
-        labelPointsBase.text = scoreJeu.baseText()
+        labelPointsBase.text = jeuResultat.baseText()
         
         // label points : POINTS
-        labelPointsAttaque.text = scoreJeu.pointsFaitsText()
-        labelPointsDefense.text = scoreJeu.pointsFaitsText(Defense: true)
+        labelPointsAttaque.text = jeuResultat.pointsFaitsText()
+        labelPointsDefense.text = jeuResultat.pointsFaitsText(Defense: true)
 
         // label points : SOUS-TOTAL
-        labelPointsSousTotal.text = scoreJeu.SousTotalText()
+        labelPointsSousTotal.text = jeuResultat.SousTotalText()
 
         // label points : PETIT AU BOUT
-        labelPointsPetitAuBout.text = scoreJeu.pointsPetitAuBoutText()
+        labelPointsPetitAuBout.text = jeuResultat.pointsPetitAuBoutText()
         
         // label points : POIGNEE
-        labelPointsPoignee.text = scoreJeu.pointsPoigneeText()
+        labelPointsPoignee.text = jeuResultat.pointsPoigneeText()
         
         // label points : CHELEM
-        labelPointsChelem.text = scoreJeu.pointsChelemText()
+        labelPointsChelem.text = jeuResultat.pointsChelemText()
         
 
         
         // label points : TOTAL
-        labelPointsTotaux.text = scoreJeu.totalText()
-        if let _ = scoreJeu.gain, let _ = scoreJeu.nbBout, let _ = scoreJeu.contrat {
+        labelPointsTotaux.text = jeuResultat.totalText()
+        if let _ = jeuResultat.gain, let _ = jeuResultat.nbBout, let _ = jeuResultat.contrat {
 //        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout >= 0 && scoreJeu.contrat > 0 {
 //            labelPointsTotaux.text = String(scoreJeu.total!)
             buttonEnregistrer.isEnabled = true
@@ -182,29 +182,29 @@ class ScoreJeuController: UIViewController {
 //  MARK: IBActions
     
     @IBAction func ButtonLecture(_ sender: Any) {
-        let jeuComplet = PointsJeu.all.last
+        let jeuComplet = JeuResultat.all.last
         
-        scoreJeu.contrat = Int(jeuComplet?.contrat ?? 0)
-        scoreJeu.nbBout = Int(jeuComplet?.nbBout ?? 0)
-        scoreJeu.pointsFaits = jeuComplet?.pointsFaits ?? 0.0
-        scoreJeu.petitAuBout = Int(jeuComplet?.petitAuBout ?? 0)
-        scoreJeu.poignee = Int(jeuComplet?.poignee ?? 0)
-        scoreJeu.chelem = Int(jeuComplet?.chelem ?? 0)
-        scoreJeu.total = jeuComplet?.total ?? 0.0
+        jeuResultat.contrat = Int(jeuComplet?.contrat ?? 0)
+        jeuResultat.nbBout = Int(jeuComplet?.nbBout ?? 0)
+        jeuResultat.pointsFaits = jeuComplet?.pointsFaits ?? 0.0
+        jeuResultat.petitAuBout = Int(jeuComplet?.petitAuBout ?? 0)
+        jeuResultat.poignee = Int(jeuComplet?.poignee ?? 0)
+        jeuResultat.chelem = Int(jeuComplet?.chelem ?? 0)
+        jeuResultat.total = jeuComplet?.total ?? 0.0
 
         majScore()
     }
     
     @IBAction func addScore(_ sender: Any) {
 //        sauvePointsJeu(scoreJeu: scoreJeu)
-        PointsJeu.save(scoreJeu: scoreJeu)
+        JeuResultat.save(scoreJeu: jeuResultat)
     }
     
     //
     //              Options Contrats
     //
     @IBAction func selectionnerContrat(_ sender: UISegmentedControl) {
-        scoreJeu.contrat = sender.selectedSegmentIndex + 1
+        jeuResultat.contrat = sender.selectedSegmentIndex + 1
         // Calcul et mise à jour affichage
         majScore()
     }
@@ -213,7 +213,7 @@ class ScoreJeuController: UIViewController {
     //              Options Nombre de Bout
     //
     @IBAction func selectionnerNbBout(_ sender: UISegmentedControl) {
-        scoreJeu.nbBout = sender.selectedSegmentIndex
+        jeuResultat.nbBout = sender.selectedSegmentIndex
         // Calcul et mise à jour affichage
         majScore()
     }
@@ -313,21 +313,21 @@ class ScoreJeuController: UIViewController {
     @IBAction func affecterPoints(_ sender: UISlider) {
         sliderPoints.changerValeur(round(sliderPoints.value))
         // Calcul et mise à jour affichage
-        scoreJeu.pointsFaits = sliderPoints.value
+        jeuResultat.pointsFaits = sliderPoints.value
         majScore()
     }
     
     @IBAction func ajouterPointsAttaque(_ sender: UIButton) {
         sliderPoints.value += 0.5
         // Calcul et mise à jour affichage
-        scoreJeu.pointsFaits = sliderPoints.value
+        jeuResultat.pointsFaits = sliderPoints.value
         majScore()
 
 }
     @IBAction func ajouterPointsDefense(_ sender: UIButton) {
         sliderPoints.value -= 0.5
         // Calcul et mise à jour affichage
-        scoreJeu.pointsFaits = sliderPoints.value
+        jeuResultat.pointsFaits = sliderPoints.value
         majScore()
 }
     

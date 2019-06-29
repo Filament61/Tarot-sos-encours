@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension ScoreJeuController: UIPickerViewDelegate, UIPickerViewDataSource {
+extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     func miseEnPlacePicker() {
