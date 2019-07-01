@@ -1,5 +1,5 @@
 //
-//  JeuResultat.swift
+//  JeuResultatTable.swift
 //  Tarot
 //
 //  Created by Serge Gori on 25/06/2019.

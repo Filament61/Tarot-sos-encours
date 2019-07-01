@@ -51,16 +51,8 @@ class PointsJeuxController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func fetchPointsJeux() {
-        //        let requete: NSFetchRequest<PointsJeu> = PointsJeu.fetchRequest()
-        //        let tri = NSSortDescriptor(key: "nom", ascending: true)
-        //        requete.sortDescriptors = [tri]
-        do {
-            //            pointsJeux = try contexte.fetch(requete)
             jeuResultats = JeuResultatTable.all
             tableView.reloadData()
-        } catch {
-            print(error.localizedDescription)
-        }
     }
     
 }

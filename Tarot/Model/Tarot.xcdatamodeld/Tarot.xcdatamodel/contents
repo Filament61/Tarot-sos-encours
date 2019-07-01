@@ -3,19 +3,22 @@
     <entity name="JeuResultatTable" representedClassName=".JeuResultatTable" syncable="YES" codeGenerationType="category">
         <attribute name="chelem" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="contrat" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="horodate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="idJeu" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="idPartie" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="nbBout" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="petitAuBout" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="poignee" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="pointsFaits" attributeType="Float" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="total" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
-    <entity name="Personne" representedClassName="Personne" syncable="YES" codeGenerationType="class">
+    <entity name="Personne" representedClassName=".Personne" syncable="YES" codeGenerationType="category">
         <attribute name="nom" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="prenom" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="surnom" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
-        <element name="JeuResultatTable" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Personne" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="JeuResultatTable" positionX="-684.203125" positionY="-96.53515625" width="128" height="193"/>
+        <element name="Personne" positionX="-110.9140625" positionY="-4.171875" width="128" height="88"/>
     </elements>
 </model>

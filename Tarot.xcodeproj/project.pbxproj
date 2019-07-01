@@ -11,6 +11,7 @@
 		9521616222BAC0320054F63E /* NotificationCenterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616122BAC0320054F63E /* NotificationCenterExtension.swift */; };
 		9521616422BACB290054F63E /* AjoutPersonneControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616322BACB290054F63E /* AjoutPersonneControler.swift */; };
 		9521616622BC1B620054F63E /* PersonneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616522BC1B620054F63E /* PersonneCell.swift */; };
+		953536F422CA93D500CFF83C /* Personne.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953536F322CA93D500CFF83C /* Personne.swift */; };
 		95363CDE22C29B6F00CBAC02 /* JeuResultatTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CDD22C29B6F00CBAC02 /* JeuResultatTable.swift */; };
 		95363CE022C29F5A00CBAC02 /* NSManagedObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CDF22C29F5A00CBAC02 /* NSManagedObjectExtension.swift */; };
 		95363CE222C3D96600CBAC02 /* PointsJeuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CE122C3D96600CBAC02 /* PointsJeuCell.swift */; };
@@ -71,6 +72,7 @@
 		9521616122BAC0320054F63E /* NotificationCenterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterExtension.swift; sourceTree = "<group>"; };
 		9521616322BACB290054F63E /* AjoutPersonneControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutPersonneControler.swift; sourceTree = "<group>"; };
 		9521616522BC1B620054F63E /* PersonneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonneCell.swift; sourceTree = "<group>"; };
+		953536F322CA93D500CFF83C /* Personne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Personne.swift; sourceTree = "<group>"; };
 		95363C7D22BEAB9F00CBAC02 /* SwipeCellKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwipeCellKit.xcodeproj; path = SwipeCellKit/SwipeCellKit.xcodeproj; sourceTree = "<group>"; };
 		95363CDD22C29B6F00CBAC02 /* JeuResultatTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuResultatTable.swift; sourceTree = "<group>"; };
 		95363CDF22C29F5A00CBAC02 /* NSManagedObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtension.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 				95363CDD22C29B6F00CBAC02 /* JeuResultatTable.swift */,
 				95363CDF22C29F5A00CBAC02 /* NSManagedObjectExtension.swift */,
 				95363CE522C3F51200CBAC02 /* Points.swift */,
+				953536F322CA93D500CFF83C /* Personne.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -366,6 +369,7 @@
 				953788A622BE82F000AA9F46 /* NouvellePartieController.swift in Sources */,
 				95BD3CA622B407B700A2C183 /* DonneesTarot.swift in Sources */,
 				95A5DB3822B2A156007F3729 /* Tarot.xcdatamodeld in Sources */,
+				953536F422CA93D500CFF83C /* Personne.swift in Sources */,
 				9521616022BABF330054F63E /* TextFieldExtension.swift in Sources */,
 				95A5DB3022B2A156007F3729 /* AppDelegate.swift in Sources */,
 				95BD3CA222B2F71300A2C183 /* JeuResultatController.swift in Sources */,
