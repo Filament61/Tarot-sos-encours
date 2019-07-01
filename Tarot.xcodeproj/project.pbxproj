@@ -23,7 +23,7 @@
 		95517DFE22B7BA1F00ECD1FC /* Structure comptage jeu.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DFD22B7BA1F00ECD1FC /* Structure comptage jeu.swift */; };
 		9558CB9D22B95ABF00C2C3B5 /* PersonnesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9558CB9C22B95ABF00C2C3B5 /* PersonnesController.swift */; };
 		95A5DB3022B2A156007F3729 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB2F22B2A156007F3729 /* AppDelegate.swift */; };
-		95A5DB3222B2A156007F3729 /* AccueilController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB3122B2A156007F3729 /* AccueilController.swift */; };
+		95A5DB3222B2A156007F3729 /* AccueilssssController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB3122B2A156007F3729 /* AccueilssssController.swift */; };
 		95A5DB3522B2A156007F3729 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 95A5DB3322B2A156007F3729 /* Main.storyboard */; };
 		95A5DB3822B2A156007F3729 /* Tarot.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB3622B2A156007F3729 /* Tarot.xcdatamodeld */; };
 		95A5DB3A22B2A157007F3729 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 95A5DB3922B2A157007F3729 /* Assets.xcassets */; };
@@ -86,7 +86,7 @@
 		9558CB9C22B95ABF00C2C3B5 /* PersonnesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonnesController.swift; sourceTree = "<group>"; };
 		95A5DB2C22B2A156007F3729 /* Tarot.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tarot.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95A5DB2F22B2A156007F3729 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		95A5DB3122B2A156007F3729 /* AccueilController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccueilController.swift; sourceTree = "<group>"; };
+		95A5DB3122B2A156007F3729 /* AccueilssssController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccueilssssController.swift; sourceTree = "<group>"; };
 		95A5DB3422B2A156007F3729 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		95A5DB3722B2A156007F3729 /* Tarot.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Tarot.xcdatamodel; sourceTree = "<group>"; };
 		95A5DB3922B2A157007F3729 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -218,7 +218,7 @@
 		95A5DB5622B2A2F8007F3729 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				95A5DB3122B2A156007F3729 /* AccueilController.swift */,
+				95A5DB3122B2A156007F3729 /* AccueilssssController.swift */,
 				95BD3CA122B2F71300A2C183 /* JeuResultatController.swift */,
 				95BD3CA322B3F27000A2C183 /* PickerViewExtension.swift */,
 				9558CB9C22B95ABF00C2C3B5 /* PersonnesController.swift */,
@@ -361,7 +361,7 @@
 				95A5DB5B22B2B5EF007F3729 /* ImageArrondie.swift in Sources */,
 				95363CE222C3D96600CBAC02 /* PointsJeuCell.swift in Sources */,
 				9521616422BACB290054F63E /* AjoutPersonneControler.swift in Sources */,
-				95A5DB3222B2A156007F3729 /* AccueilController.swift in Sources */,
+				95A5DB3222B2A156007F3729 /* AccueilssssController.swift in Sources */,
 				95363CDE22C29B6F00CBAC02 /* JeuResultat.swift in Sources */,
 				95A5DB5D22B2B66C007F3729 /* BoutonArrondi.swift in Sources */,
 				95A5DB5922B2A4B1007F3729 /* Constantes.swift in Sources */,

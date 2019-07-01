@@ -10,7 +10,7 @@ import UIKit
 //import SwipeCellKit
 
 
-class AccueilController: UIViewController {
+class AccueilssssController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,7 +19,7 @@ class AccueilController: UIViewController {
 
     
     
-    var jou = joueursTab.count
+//    var jou = joueursTab.count
     
     //@IBAction func pushTest(_ sender: UIButton) {
     //    let vc = UIStoryboard.init(name: "Main", bundle: nil ).instantiateViewController(withIdentifier: "ScoreJeuController") as UIViewController
