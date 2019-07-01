@@ -52,7 +52,7 @@ class AjoutPersonneController: UIViewController {
     
     @IBAction func ajouterPersonneAction(_ sender: UIButton) {
         view.endEditing(true)
-        let nouvellePersonne = Personne(context: contexte)
+        let nouvellePersonne = Joueur(context: contexte)
         if prenomTextField.text != nil {
             nouvellePersonne.prenom = prenomTextField.text!
         }

@@ -17,9 +17,9 @@ class PersonneCell: UITableViewCell {
     //    @IBOutlet weak var numerDeTel: UILabel!
 //    @IBOutlet weak var adresseMail: UILabel!
     
-    var personne: Personne!
+    var personne: Joueur!
     
-    func miseEnPlace(personne: Personne) {
+    func miseEnPlace(personne: Joueur) {
         self.personne = personne
         if let leSurnom = self.personne.surnom {
             surnom.text = leSurnom

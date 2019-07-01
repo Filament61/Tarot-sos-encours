@@ -12,13 +12,13 @@
         <attribute name="pointsFaits" attributeType="Float" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="total" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
     </entity>
-    <entity name="Personne" representedClassName=".Personne" syncable="YES" codeGenerationType="category">
+    <entity name="Joueur" representedClassName=".Joueur" syncable="YES" codeGenerationType="category">
         <attribute name="nom" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="prenom" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="surnom" optional="YES" attributeType="String" syncable="YES"/>
     </entity>
     <elements>
         <element name="JeuResultat" positionX="0" positionY="0" width="0" height="0"/>
-        <element name="Personne" positionX="0" positionY="0" width="0" height="0"/>
+        <element name="Joueur" positionX="0" positionY="0" width="0" height="0"/>
     </elements>
 </model>

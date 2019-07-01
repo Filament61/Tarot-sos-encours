@@ -15,7 +15,7 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
     
     var cellId = "PersonneCell"
     
-    var personnes = [Personne]()
+    var personnes = [Joueur]()
     
 
     override func viewDidLoad() {
@@ -59,7 +59,7 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            if let personneASupprimmer = personnes[indexPath.row] as? Personne {
+            if let personneASupprimmer = personnes[indexPath.row] as? Joueur {
                 contexte.delete(personneASupprimmer)
                 do {
                     try contexte.save()
@@ -76,7 +76,7 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
     
     
     func fetchPersonnes() {
-        let requete: NSFetchRequest<Personne> = Personne.fetchRequest()
+        let requete: NSFetchRequest<Joueur> = Joueur.fetchRequest()
         let tri = NSSortDescriptor(key: "nom", ascending: true)
         requete.sortDescriptors = [tri]
         do {

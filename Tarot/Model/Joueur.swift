@@ -8,7 +8,7 @@
 
 import CoreData
 
-class Personne: NSManagedObject {
+class Joueur: NSManagedObject {
     
     
 }
