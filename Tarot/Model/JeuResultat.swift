@@ -8,16 +8,16 @@
 
 import CoreData
 
-class JeuResultatTable: NSManagedObject {
+class JeuResultat: NSManagedObject {
     
-    static var all: [JeuResultatTable] {
-        let request: NSFetchRequest<JeuResultatTable> = JeuResultatTable.fetchRequest()
+    static var all: [JeuResultat] {
+        let request: NSFetchRequest<JeuResultat> = JeuResultat.fetchRequest()
         guard let jeuResultats = try? AppDelegate.viewContext.fetch(request) else { return [] }
         return jeuResultats
     }
     
     static func save(scoreJeu jeuComplet: JeuComplet) {
-        let jeuResultatTable = JeuResultatTable(context: AppDelegate.viewContext)
+        let jeuResultatTable = JeuResultat(context: AppDelegate.viewContext)
         
         jeuResultatTable.contrat = Int16(jeuComplet.contrat!)
         jeuResultatTable.nbBout = Int16(jeuComplet.nbBout!)

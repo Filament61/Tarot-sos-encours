@@ -183,7 +183,7 @@ class JeuResultatController: UIViewController {
 //  MARK: IBActions
     
     @IBAction func ButtonLecture(_ sender: Any) {
-        let jeuComplet = JeuResultatTable.all.last
+        let jeuComplet = JeuResultat.all.last
         
         jeuResultat.contrat = Int(jeuComplet?.contrat ?? 0)
         jeuResultat.nbBout = Int(jeuComplet?.nbBout ?? 0)
@@ -198,7 +198,7 @@ class JeuResultatController: UIViewController {
     
     @IBAction func addScore(_ sender: Any) {
 //        sauvePointsJeu(scoreJeu: scoreJeu)
-        JeuResultatTable.save(scoreJeu: jeuResultat)
+        JeuResultat.save(scoreJeu: jeuResultat)
     }
     
     //
