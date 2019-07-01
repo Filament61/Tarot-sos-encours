@@ -29,7 +29,7 @@
         <!--Menu-->
         <scene sceneID="Ldf-6w-kIU">
             <objects>
-                <viewController id="IaZ-jp-wp2" customClass="AccueilssssController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="IaZ-jp-wp2" customClass="AccueilController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2X5-Fm-nYT">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -311,7 +311,7 @@
         <!--Personnes-->
         <scene sceneID="hAI-Gq-4uf">
             <objects>
-                <viewController id="VGY-dy-MGq" customClass="PersonnesController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="VGY-dy-MGq" customClass="JoueursController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="IBD-z2-EAY">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -381,7 +381,7 @@
         <!--Ajouter-->
         <scene sceneID="iwR-Wu-XnW">
             <objects>
-                <viewController id="CD7-sl-v6o" customClass="AjoutPersonneController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="CD7-sl-v6o" customClass="AjoutJoueurController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5Q8-Cm-oU9">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -411,7 +411,7 @@
                                         <rect key="frame" x="164" y="537" width="46" height="30"/>
                                         <state key="normal" title="Button"/>
                                         <connections>
-                                            <action selector="ajouterPersonneAction:" destination="CD7-sl-v6o" eventType="touchUpInside" id="cCQ-iT-Qn3"/>
+                                            <action selector="ajouterJoueurAction:" destination="CD7-sl-v6o" eventType="touchUpInside" id="cCQ-iT-Qn3"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Surnom" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-c6-vO3">

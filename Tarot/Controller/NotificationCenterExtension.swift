@@ -8,7 +8,7 @@
 
 import UIKit
 
-extension AjoutPersonneController {
+extension AjoutJoueurController {
     
     func miseEnPlaceNotification() {
         NotificationCenter.default.addObserver(self, selector: #selector(clavierRentre), name: UIResponder.keyboardWillHideNotification, object: nil)

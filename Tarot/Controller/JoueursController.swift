@@ -9,13 +9,13 @@
 import UIKit
 import CoreData
 
-class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class JoueursController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     @IBOutlet weak var tableView: UITableView!
     
     var cellId = "PersonneCell"
     
-    var personnes = [Joueur]()
+    var joueurs = [Joueur]()
     
 
     override func viewDidLoad() {
@@ -33,7 +33,7 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
 //        return joueursTab.count
 //    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return personnes.count
+        return joueurs.count
     }
     
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -46,7 +46,7 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
 //        cell?.textLabel?.text = "\(indexPath.row)"
 //        return cell!
 //
-        let joueurDeLaCell = personnes[indexPath.row]
+        let joueurDeLaCell = joueurs[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? PersonneCell {
             cell.miseEnPlace(personne: joueurDeLaCell)
             return cell
@@ -59,14 +59,14 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            if let personneASupprimmer = personnes[indexPath.row] as? Joueur {
+            if let personneASupprimmer = joueurs[indexPath.row] as? Joueur {
                 contexte.delete(personneASupprimmer)
                 do {
                     try contexte.save()
                 } catch {
                     print(error.localizedDescription)
                 }
-                personnes.remove(at: indexPath.row)
+                joueurs.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
             }
             
@@ -80,7 +80,7 @@ class PersonnesController: UIViewController, UITableViewDelegate, UITableViewDat
         let tri = NSSortDescriptor(key: "nom", ascending: true)
         requete.sortDescriptors = [tri]
         do {
-            personnes = try contexte.fetch(requete)
+            joueurs = try contexte.fetch(requete)
             tableView.reloadData()
         } catch {
             print(error.localizedDescription)

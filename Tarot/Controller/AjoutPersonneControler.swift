@@ -9,7 +9,7 @@
 import UIKit
 import CoreData
 
-class AjoutPersonneController: UIViewController {
+class AjoutJoueurController: UIViewController {
 
     @IBOutlet weak var scroll: UIScrollView!
     @IBOutlet weak var surnomTextField: UITextField!
@@ -50,17 +50,17 @@ class AjoutPersonneController: UIViewController {
 //    }
 
     
-    @IBAction func ajouterPersonneAction(_ sender: UIButton) {
+    @IBAction func ajouterJoueurAction(_ sender: UIButton) {
         view.endEditing(true)
-        let nouvellePersonne = Joueur(context: contexte)
+        let nouveauJoueur = Joueur(context: contexte)
         if prenomTextField.text != nil {
-            nouvellePersonne.prenom = prenomTextField.text!
+            nouveauJoueur.prenom = prenomTextField.text!
         }
         if nomTextField.text != nil {
-            nouvellePersonne.nom = nomTextField.text!
+            nouveauJoueur.nom = nomTextField.text!
         }
         if surnomTextField.text != nil {
-            nouvellePersonne.surnom = surnomTextField.text!
+            nouveauJoueur.surnom = surnomTextField.text!
         }
 
         appDelegate.saveContext()

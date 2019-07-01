@@ -10,7 +10,7 @@ import UIKit
 //import SwipeCellKit
 
 
-class AccueilssssController: UIViewController {
+class AccueilController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
