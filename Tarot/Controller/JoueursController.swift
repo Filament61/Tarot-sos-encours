@@ -13,7 +13,7 @@ class JoueursController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     @IBOutlet weak var tableView: UITableView!
     
-    var cellId = "PersonneCell"
+    var cellId = "JoueurCell"
     
     var joueurs = [Joueur]()
     
@@ -47,7 +47,7 @@ class JoueursController: UIViewController, UITableViewDelegate, UITableViewDataS
 //        return cell!
 //
         let joueurDeLaCell = joueurs[indexPath.row]
-        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? PersonneCell {
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? JoueurCell {
             cell.miseEnPlace(personne: joueurDeLaCell)
             return cell
         }

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class PersonneCell: UITableViewCell {
+class JoueurCell: UITableViewCell {
     
 
     
@@ -19,20 +19,20 @@ class PersonneCell: UITableViewCell {
     //    @IBOutlet weak var numerDeTel: UILabel!
 //    @IBOutlet weak var adresseMail: UILabel!
     
-    var personne: Joueur!
+    var joueur: Joueur!
     
     func miseEnPlace(personne: Joueur) {
-        self.personne = personne
+        self.joueur = personne
         
-        photoDeProfil.image = self.personne.photo as? UIImage
+        photoDeProfil.image = self.joueur.photo as? UIImage
 
-        if let leSurnom = self.personne.surnom {
+        if let leSurnom = self.joueur.surnom {
             surnom.text = leSurnom
         }
-        if let leNom = self.personne.nom {
+        if let leNom = self.joueur.nom {
             nom.text = leNom
         }
-        if let lePrenom = self.personne.prenom {
+        if let lePrenom = self.joueur.prenom {
             prenom.text = lePrenom
         }
 

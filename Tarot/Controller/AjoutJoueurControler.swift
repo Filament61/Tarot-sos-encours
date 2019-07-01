@@ -21,7 +21,7 @@ class AjoutJoueurController: UIViewController {
     @IBOutlet weak var nomTextField: UITextField!
     @IBOutlet weak var imageDeProfil: ImageArrondie!
     
-   var imagePicker: UIImagePickerController?
+    var imagePicker: UIImagePickerController?
 
     override func viewDidLoad() {
         super.viewDidLoad()

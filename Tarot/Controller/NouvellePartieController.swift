@@ -13,9 +13,9 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     @IBOutlet weak var tableView: UITableView!
     
-    var cellId = "PersonneCell"
+    var cellId = "JoueurCell"
     
-    var personnes = [Joueur]()
+    var joueurs = [Joueur]()
     
     
     override func viewDidLoad() {
@@ -26,14 +26,14 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        fetchPersonnes()
+        fetchJoueurs()
     }
     
     //    func numberOfSections(in tableView: UITableView) -> Int {
     //        return joueursTab.count
     //    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return personnes.count
+        return joueurs.count
     }
     
     //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -46,8 +46,8 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         //        cell?.textLabel?.text = "\(indexPath.row)"
         //        return cell!
         //
-        let joueurDeLaCell = personnes[indexPath.row]
-        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? PersonneCell {
+        let joueurDeLaCell = joueurs[indexPath.row]
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? JoueurCell {
             cell.miseEnPlace(personne: joueurDeLaCell)
             return cell
         }
@@ -59,14 +59,14 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            if let personneASupprimmer = personnes[indexPath.row] as? Joueur {
+            if let personneASupprimmer = joueurs[indexPath.row] as? Joueur {
                 contexte.delete(personneASupprimmer)
                 do {
                     try contexte.save()
                 } catch {
                     print(error.localizedDescription)
                 }
-                personnes.remove(at: indexPath.row)
+                joueurs.remove(at: indexPath.row)
                 self.tableView.deleteRows(at: [indexPath], with: .fade)
             }
             
@@ -75,12 +75,12 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-    func fetchPersonnes() {
+    func fetchJoueurs() {
         let requete: NSFetchRequest<Joueur> = Joueur.fetchRequest()
         let tri = NSSortDescriptor(key: "nom", ascending: true)
         requete.sortDescriptors = [tri]
         do {
-            personnes = try contexte.fetch(requete)
+            joueurs = try contexte.fetch(requete)
             tableView.reloadData()
         } catch {
             print(error.localizedDescription)
