@@ -10,7 +10,9 @@ import UIKit
 
 class PersonneCell: UITableViewCell {
     
-//    @IBOutlet weak var photoDeProfil: ImageArrondie!
+
+    
+    @IBOutlet weak var photoDeProfil: ImageArrondie!
     @IBOutlet weak var surnom: UILabel!
     @IBOutlet weak var nom: UILabel!
     @IBOutlet weak var prenom: UILabel!
@@ -21,6 +23,9 @@ class PersonneCell: UITableViewCell {
     
     func miseEnPlace(personne: Joueur) {
         self.personne = personne
+        
+        photoDeProfil.image = self.personne.photo as? UIImage
+
         if let leSurnom = self.personne.surnom {
             surnom.text = leSurnom
         }

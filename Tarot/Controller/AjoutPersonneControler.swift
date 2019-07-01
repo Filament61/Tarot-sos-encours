@@ -12,18 +12,20 @@ import CoreData
 class AjoutJoueurController: UIViewController {
 
     @IBOutlet weak var scroll: UIScrollView!
-    @IBOutlet weak var surnomTextField: UITextField!
-    
+    @IBOutlet weak var contrainteDuBas: NSLayoutConstraint!
+
     @IBOutlet weak var ajouterPersonneBouton: UIButton!
+    
+    @IBOutlet weak var surnomTextField: UITextField!
     @IBOutlet weak var prenomTextField: UITextField!
     @IBOutlet weak var nomTextField: UITextField!
+    @IBOutlet weak var imageDeProfil: ImageArrondie!
     
-   
-    @IBOutlet weak var contrainteDuBas: NSLayoutConstraint!
-    
+   var imagePicker: UIImagePickerController?
+
     override func viewDidLoad() {
         super.viewDidLoad()
-//        miseEnPlaceImagePicker()
+        miseEnPlaceImagePicker()
 //        miseEnPlacePicker()
         miseEnPlaceTextField()
         miseEnPlaceNotification()
@@ -62,6 +64,7 @@ class AjoutJoueurController: UIViewController {
         if surnomTextField.text != nil {
             nouveauJoueur.surnom = surnomTextField.text!
         }
+        nouveauJoueur.photo = imageDeProfil.image
 
         appDelegate.saveContext()
         navigationController?.popViewController(animated: true)

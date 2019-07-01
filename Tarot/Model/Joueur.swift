@@ -1,5 +1,5 @@
 //
-//  Personne.swift
+//  Joueur.swift
 //  Tarot
 //
 //  Created by Serge Gori on 01/07/2019.
