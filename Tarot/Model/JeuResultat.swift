@@ -28,10 +28,10 @@ class JeuResultat: NSManagedObject {
         jeuResultat.total = jeuComplet.total ?? 0.0
         
         do {
-            try? AppDelegate.viewContext.save()
+            try AppDelegate.viewContext.save()
         }
         catch {
-            
+            print(error.localizedDescription)
         }
 
     }

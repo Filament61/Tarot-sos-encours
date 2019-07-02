@@ -49,7 +49,9 @@ class AjoutJoueurController: UIViewController {
     
     @IBAction func ajouterJoueurAction(_ sender: UIButton) {
         view.endEditing(true)
+        
         let nouveauJoueur = Joueur(context: contexte)
+        
         if prenomTextField.text != nil {
             nouveauJoueur.prenom = prenomTextField.text!
         }
