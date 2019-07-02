@@ -48,11 +48,7 @@ class JeuResultatController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //miseEnPlaceImagePicker()
         miseEnPlacePicker()
-        //miseEnPlaceTextField()
-        //miseEnPlaceNotification()
-        //fetchEntreprises()
         miseEnPlace()
     }
     
@@ -144,16 +140,12 @@ class JeuResultatController: UIViewController {
         // label points : TOTAL
         labelPointsTotaux.text = jeuResultat.totalText()
         if let _ = jeuResultat.gain, let _ = jeuResultat.nbBout, let _ = jeuResultat.contrat {
-            //        if scoreJeu.gain! != scoreJeu.nbPointsMaxi && scoreJeu.pointsFaits >= Float(0) && scoreJeu.nbBout >= 0 && scoreJeu.contrat > 0 {
-            //            labelPointsTotaux.text = String(scoreJeu.total!)
             buttonEnregistrer.isEnabled = true
         } else {
-            //            labelPointsTotaux.text = texteVierge
             buttonEnregistrer.isEnabled = false
         }
-        
-        
     }
+    
     
     func miseEnPlace() {
         //scoreJeu.pointsFaits = sliderPoints.value
@@ -165,7 +157,7 @@ class JeuResultatController: UIViewController {
 //  MARK: IBActions
     
     @IBAction func ButtonLecture(_ sender: Any) {
-        let jeuComplet = JeuResultat.all.last
+        let jeuComplet = JeuResultat.all().first
         
         jeuResultat.contrat = Int(jeuComplet?.contrat ?? 0)
         jeuResultat.nbBout = Int(jeuComplet?.nbBout ?? 0)

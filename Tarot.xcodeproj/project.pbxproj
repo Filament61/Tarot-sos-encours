@@ -125,6 +125,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		95274CBF22CC087300BF91C0 /* Jeux */ = {
+			isa = PBXGroup;
+			children = (
+				95BD3CA122B2F71300A2C183 /* JeuResultatController.swift */,
+				95BD3CA322B3F27000A2C183 /* PickerViewExtension.swift */,
+			);
+			name = Jeux;
+			sourceTree = "<group>";
+		};
 		95363C7A22BEAB7400CBAC02 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -222,10 +231,9 @@
 		95A5DB5622B2A2F8007F3729 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				95274CBF22CC087300BF91C0 /* Jeux */,
 				95B43A8222CAA3AD00B9EB7D /* Joueurs */,
 				95A5DB3122B2A156007F3729 /* AccueilsssController.swift */,
-				95BD3CA122B2F71300A2C183 /* JeuResultatController.swift */,
-				95BD3CA322B3F27000A2C183 /* PickerViewExtension.swift */,
 				953788A522BE82F000AA9F46 /* NouvellePartieController.swift */,
 				95363CE322C3DBB000CBAC02 /* PointsJeuxController.swift */,
 			);

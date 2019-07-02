@@ -11,14 +11,14 @@ import CoreData
 class Joueur: NSManagedObject {
     
     static func all(TrierPar tri: String = "surnom") -> [Joueur] {
-                let request: NSFetchRequest<Joueur> = Joueur.fetchRequest()
-                let tri = NSSortDescriptor(key: tri, ascending: true)
-                request.sortDescriptors = [tri]
-
+        let request: NSFetchRequest<Joueur> = Joueur.fetchRequest()
+        let tri = NSSortDescriptor(key: tri, ascending: true)
+        request.sortDescriptors = [tri]
+        
         guard let joueurs = try? AppDelegate.viewContext.fetch(request) else { return [] }
         return joueurs
     }
-
+    
     
 }
 

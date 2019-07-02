@@ -10,8 +10,10 @@ import CoreData
 
 class JeuResultat: NSManagedObject {
     
-    static var all: [JeuResultat] {
+    static func all(TrierPar tri: String = "idJeu") -> [JeuResultat] {
         let request: NSFetchRequest<JeuResultat> = JeuResultat.fetchRequest()
+        let tri = NSSortDescriptor(key: tri, ascending: false)
+        request.sortDescriptors = [tri]
         guard let jeuResultats = try? AppDelegate.viewContext.fetch(request) else { return [] }
         return jeuResultats
     }

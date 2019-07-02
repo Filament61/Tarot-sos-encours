@@ -42,10 +42,6 @@ class JoueursController: UIViewController, UITableViewDelegate, UITableViewDataS
     
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-//        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? UITableViewCell
-//        cell?.textLabel?.text = "\(indexPath.row)"
-//        return cell!
-//
         let joueurDeLaCell = joueurs[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? JoueurCell {
             cell.miseEnPlace(joueur: joueurDeLaCell)
@@ -59,7 +55,8 @@ class JoueursController: UIViewController, UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            if let personneASupprimmer = joueurs[indexPath.row] as? Joueur {
+            if let _ = tableView.cellForRow(at: indexPath) as? JoueurCell {
+            let personneASupprimmer = joueurs[indexPath.row]
                 contexte.delete(personneASupprimmer)
                 do {
                     try contexte.save()

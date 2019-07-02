@@ -51,7 +51,7 @@ class PointsJeuxController: UIViewController, UITableViewDelegate, UITableViewDa
     
     
     func fetchPointsJeux() {
-            jeuResultats = JeuResultat.all
+            jeuResultats = JeuResultat.all()
             tableView.reloadData()
     }
     
