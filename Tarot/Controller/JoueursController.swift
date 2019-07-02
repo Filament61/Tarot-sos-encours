@@ -76,15 +76,19 @@ class JoueursController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     
     func fetchPersonnes() {
-        let requete: NSFetchRequest<Joueur> = Joueur.fetchRequest()
-        let tri = NSSortDescriptor(key: "nom", ascending: true)
-        requete.sortDescriptors = [tri]
-        do {
-            joueurs = try contexte.fetch(requete)
-            tableView.reloadData()
-        } catch {
-            print(error.localizedDescription)
-        }
+//        let requete: NSFetchRequest<Joueur> = Joueur.fetchRequest()
+//        let tri = NSSortDescriptor(key: "nom", ascending: true)
+//        requete.sortDescriptors = [tri]
+        
+        joueurs = Joueur.all
+        tableView.reloadData()
+        
+//        do {
+//            joueurs = try contexte.fetch(requete)
+//            tableView.reloadData()
+//        } catch {
+//            print(error.localizedDescription)
+//        }
     }
 
     

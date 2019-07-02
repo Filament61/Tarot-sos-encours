@@ -422,22 +422,22 @@
                                             <constraint firstAttribute="height" constant="117" id="Vt3-Ar-X9x"/>
                                         </constraints>
                                     </stackView>
-                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nom" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t8g-ZF-eu5">
-                                        <rect key="frame" x="20" y="402" width="335" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Nom" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="t8g-ZF-eu5">
+                                        <rect key="frame" x="20" y="400" width="335" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prénom" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V5B-qZ-13f">
-                                        <rect key="frame" x="20" y="352" width="335" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Prénom" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="V5B-qZ-13f">
+                                        <rect key="frame" x="20" y="350" width="335" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pZf-ts-T99">
-                                        <rect key="frame" x="157.66666666666666" y="528" width="60" height="33"/>
+                                        <rect key="frame" x="107.66666666666669" y="528" width="160" height="33"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="60" id="6PA-x5-qZS"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="160" id="6PA-x5-qZS"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                         <state key="normal" title="Ajouter"/>
@@ -445,8 +445,8 @@
                                             <action selector="ajouterJoueurAction:" destination="CD7-sl-v6o" eventType="touchUpInside" id="cCQ-iT-Qn3"/>
                                         </connections>
                                     </button>
-                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Surnom" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-c6-vO3">
-                                        <rect key="frame" x="20" y="299" width="335" height="30"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Surnom" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="zI5-c6-vO3">
+                                        <rect key="frame" x="20" y="300" width="335" height="30"/>
                                         <nil key="textColor"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
@@ -458,12 +458,25 @@
                                             <constraint firstAttribute="width" constant="180" id="giM-vn-Tvt"/>
                                         </constraints>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="idJoueur" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ih0-ga-bpr">
+                                        <rect key="frame" x="8" y="8" width="73" height="21"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="horodate" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="JX9-C3-YcJ">
+                                        <rect key="frame" x="305.33333333333331" y="8" width="61.666666666666686" height="18"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="sau-ob-5w0" firstAttribute="top" secondItem="6ep-pa-iDF" secondAttribute="top" constant="661" id="2lC-qs-f40"/>
                                     <constraint firstAttribute="trailing" secondItem="sau-ob-5w0" secondAttribute="trailing" constant="8" id="3k1-U2-ZgI"/>
                                     <constraint firstItem="zI5-c6-vO3" firstAttribute="trailing" secondItem="V5B-qZ-13f" secondAttribute="trailing" id="87g-5I-h1p"/>
                                     <constraint firstItem="pZf-ts-T99" firstAttribute="centerX" secondItem="6ep-pa-iDF" secondAttribute="centerX" id="B6i-N7-qSe"/>
+                                    <constraint firstItem="JX9-C3-YcJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="ih0-ga-bpr" secondAttribute="trailing" constant="8" symbolic="YES" id="Brh-ue-es4"/>
                                     <constraint firstItem="8g6-qn-qNB" firstAttribute="centerX" secondItem="6ep-pa-iDF" secondAttribute="centerX" id="LhB-zd-ge8"/>
                                     <constraint firstItem="sau-ob-5w0" firstAttribute="top" secondItem="pZf-ts-T99" secondAttribute="bottom" constant="100" id="PeA-vg-BL3"/>
                                     <constraint firstAttribute="trailing" secondItem="zI5-c6-vO3" secondAttribute="trailing" constant="20" id="PmT-x3-1SX"/>
@@ -471,13 +484,17 @@
                                     <constraint firstItem="zI5-c6-vO3" firstAttribute="leading" secondItem="V5B-qZ-13f" secondAttribute="leading" id="SCl-9n-T10"/>
                                     <constraint firstAttribute="bottom" secondItem="sau-ob-5w0" secondAttribute="bottom" id="Vbl-c0-OKf"/>
                                     <constraint firstItem="zI5-c6-vO3" firstAttribute="leading" secondItem="6ep-pa-iDF" secondAttribute="leading" constant="20" id="Wxu-wo-Adc"/>
-                                    <constraint firstItem="V5B-qZ-13f" firstAttribute="leading" secondItem="t8g-ZF-eu5" secondAttribute="leading" id="cMJ-QL-rL4"/>
+                                    <constraint firstItem="zI5-c6-vO3" firstAttribute="top" secondItem="8g6-qn-qNB" secondAttribute="bottom" constant="60" id="Y0D-aw-qob"/>
+                                    <constraint firstItem="V5B-qZ-13f" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="t8g-ZF-eu5" secondAttribute="leading" id="cMJ-QL-rL4"/>
+                                    <constraint firstItem="ih0-ga-bpr" firstAttribute="leading" secondItem="6ep-pa-iDF" secondAttribute="leading" constant="8" id="eDh-Tj-jxo"/>
                                     <constraint firstItem="8g6-qn-qNB" firstAttribute="top" secondItem="6ep-pa-iDF" secondAttribute="top" constant="60" id="ehx-Yy-cNW"/>
-                                    <constraint firstItem="V5B-qZ-13f" firstAttribute="trailing" secondItem="t8g-ZF-eu5" secondAttribute="trailing" id="era-Gz-70d"/>
+                                    <constraint firstItem="V5B-qZ-13f" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="t8g-ZF-eu5" secondAttribute="trailing" id="era-Gz-70d"/>
+                                    <constraint firstAttribute="trailing" secondItem="JX9-C3-YcJ" secondAttribute="trailing" constant="8" id="geF-q1-HE3"/>
                                     <constraint firstItem="t8g-ZF-eu5" firstAttribute="top" secondItem="V5B-qZ-13f" secondAttribute="bottom" constant="20" id="gyl-Gg-lvG"/>
-                                    <constraint firstItem="V5B-qZ-13f" firstAttribute="top" secondItem="zI5-c6-vO3" secondAttribute="bottom" constant="23" id="kLo-Yx-0ZG"/>
+                                    <constraint firstItem="V5B-qZ-13f" firstAttribute="top" secondItem="zI5-c6-vO3" secondAttribute="bottom" constant="20" id="kLo-Yx-0ZG"/>
+                                    <constraint firstItem="JX9-C3-YcJ" firstAttribute="top" secondItem="6ep-pa-iDF" secondAttribute="top" constant="8" id="lbS-0E-GCl"/>
                                     <constraint firstItem="sau-ob-5w0" firstAttribute="leading" secondItem="6ep-pa-iDF" secondAttribute="leading" constant="8" id="oK7-SF-RNL"/>
-                                    <constraint firstItem="zI5-c6-vO3" firstAttribute="top" secondItem="6ep-pa-iDF" secondAttribute="top" constant="321" id="rBb-oe-m1C"/>
+                                    <constraint firstItem="ih0-ga-bpr" firstAttribute="top" secondItem="6ep-pa-iDF" secondAttribute="top" constant="8" id="zBx-lD-bGa"/>
                                 </constraints>
                             </scrollView>
                         </subviews>
@@ -494,6 +511,8 @@
                     <connections>
                         <outlet property="ajouterPersonneBouton" destination="pZf-ts-T99" id="rcg-Bq-0jY"/>
                         <outlet property="contrainteDuBas" destination="TFC-U3-tHQ" id="8Uq-DZ-V0J"/>
+                        <outlet property="horodateLabel" destination="JX9-C3-YcJ" id="pDy-6x-1lh"/>
+                        <outlet property="idJoueurLabel" destination="ih0-ga-bpr" id="g7g-nu-X9x"/>
                         <outlet property="imageDeProfil" destination="8g6-qn-qNB" id="ZsA-e2-dqh"/>
                         <outlet property="nomTextField" destination="t8g-ZF-eu5" id="utF-QW-cKt"/>
                         <outlet property="prenomTextField" destination="V5B-qZ-13f" id="ujn-zN-T2I"/>
@@ -503,7 +522,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cxt-Y8-CHc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2225" y="-936"/>
+            <point key="canvasLocation" x="2224.8000000000002" y="-936.20689655172418"/>
         </scene>
         <!--Calcul des points d'un jeu-->
         <scene sceneID="4cV-mG-pxU">

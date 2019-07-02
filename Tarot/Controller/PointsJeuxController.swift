@@ -43,7 +43,7 @@ class PointsJeuxController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let laCell = jeuResultats[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? PointsJeuCell {
-            cell.miseEnPlace(pJ: laCell)
+            cell.miseEnPlace(jR: laCell)
             return cell
         }
         return UITableViewCell()

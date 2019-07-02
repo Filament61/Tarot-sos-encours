@@ -13,7 +13,6 @@ extension AjoutJoueurController: UITextFieldDelegate {
     func miseEnPlaceTextField() {
         prenomTextField.delegate = self
         nomTextField.delegate = self
-//        telTextField.delegate = self
         surnomTextField.delegate = self
     }
     

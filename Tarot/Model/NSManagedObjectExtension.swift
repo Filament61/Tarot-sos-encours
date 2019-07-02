@@ -29,6 +29,7 @@ extension NSManagedObject {
             
         } catch let error as NSError {
             //handle error
+            print(error.localizedDescription)
         }
         
         return 1

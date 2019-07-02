@@ -16,17 +16,23 @@ class AjoutJoueurController: UIViewController {
 
     @IBOutlet weak var ajouterPersonneBouton: UIButton!
     
+    @IBOutlet weak var idJoueurLabel: UILabel!
+    @IBOutlet weak var horodateLabel: UILabel!
+    
     @IBOutlet weak var surnomTextField: UITextField!
     @IBOutlet weak var prenomTextField: UITextField!
     @IBOutlet weak var nomTextField: UITextField!
     @IBOutlet weak var imageDeProfil: ImageArrondie!
     
     var imagePicker: UIImagePickerController?
+    
+    let idJoueur = NSManagedObject.nextAvailble("idJoueur", forEntityName: "Joueur", inContext: AppDelegate.viewContext)
+    let now = Date()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         miseEnPlaceImagePicker()
-//        miseEnPlacePicker()
+        miseEnPlaceLabel()
         miseEnPlaceTextField()
         miseEnPlaceNotification()
 //        fetchEntreprises()
@@ -39,18 +45,7 @@ class AjoutJoueurController: UIViewController {
     }
     
     
-//    func fetchEntreprises() {
-//        let requete: NSFetchRequest<Entreprise> = Entreprise.fetchRequest()
-//        let tri = NSSortDescriptor(key: "nom", ascending: true)
-//        requete.sortDescriptors = [tri]
-//        do {
-//            entreprises = try contexte.fetch(requete)
-//            pickerView.reloadAllComponents()
-//        } catch {
-//            print(error.localizedDescription)
-//        }
-//    }
-
+    
     
     @IBAction func ajouterJoueurAction(_ sender: UIButton) {
         view.endEditing(true)
@@ -65,7 +60,10 @@ class AjoutJoueurController: UIViewController {
             nouveauJoueur.surnom = surnomTextField.text!
         }
         nouveauJoueur.photo = imageDeProfil.image
-
+        
+        nouveauJoueur.idJoueur = Int16(idJoueur)
+        nouveauJoueur.horodate = now
+        
         appDelegate.saveContext()
         navigationController?.popViewController(animated: true)
     }

@@ -19,14 +19,14 @@ class PointsJeuCell: UITableViewCell {
     @IBOutlet weak var totalLabel: UILabel!
     
     
-    func miseEnPlace(pJ: JeuResultat) {
+    func miseEnPlace(jR: JeuResultat) {
         
-        let score = JeuComplet(Contrat: Int(pJ.contrat),
-                               NombreDeBout: Int(pJ.nbBout),
-                               PointFaits: pJ.pointsFaits,
-                               PetitAuBout: Int(pJ.petitAuBout),
-                               Poignée: Int(pJ.poignee),
-                               Chelem: Int(pJ.chelem))
+        let score = JeuComplet(Contrat: Int(jR.contrat),
+                               NombreDeBout: Int(jR.nbBout),
+                               PointFaits: jR.pointsFaits,
+                               PetitAuBout: Int(jR.petitAuBout),
+                               Poignée: Int(jR.poignee),
+                               Chelem: Int(jR.chelem))
         
         
         gainLabel.text = score.gainText()
