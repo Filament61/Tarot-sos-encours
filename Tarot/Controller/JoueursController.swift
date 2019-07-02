@@ -48,7 +48,7 @@ class JoueursController: UIViewController, UITableViewDelegate, UITableViewDataS
 //
         let joueurDeLaCell = joueurs[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? JoueurCell {
-            cell.miseEnPlace(personne: joueurDeLaCell)
+            cell.miseEnPlace(joueur: joueurDeLaCell)
             return cell
         }
         return UITableViewCell()

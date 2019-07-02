@@ -21,8 +21,8 @@ class JoueurCell: UITableViewCell {
     
     var joueur: Joueur!
     
-    func miseEnPlace(personne: Joueur) {
-        self.joueur = personne
+    func miseEnPlace(joueur: Joueur) {
+        self.joueur = joueur
         
         photoDeProfil.image = self.joueur.photo as? UIImage
 
@@ -36,19 +36,7 @@ class JoueurCell: UITableViewCell {
             prenom.text = lePrenom
         }
 
-//        photoDeProfil.image = self.personne.photo as? UIImage
-//        var nomComplet = ""
-//        if let prenom = self.personne.prenom {
-//            nomComplet += "Prenom: " + prenom + " "
-//        }
-//        if let nom = self.personne.nom {
-//            nomComplet += "Nom: " + nom
-//        }
-//        nomEtPrenom.text = nomComplet
-//        let num = String(self.personne.numero)
-//        numerDeTel.text = num
-//        adresseMail.text = self.personne.mail ?? ""
-        
+
     }
     
 }

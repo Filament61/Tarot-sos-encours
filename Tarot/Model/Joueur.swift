@@ -10,6 +10,12 @@ import CoreData
 
 class Joueur: NSManagedObject {
     
+    static var all: [Joueur] {
+        let request: NSFetchRequest<Joueur> = Joueur.fetchRequest()
+        guard let joueurs = try? AppDelegate.viewContext.fetch(request) else { return [] }
+        return joueurs
+    }
+
     
 }
 

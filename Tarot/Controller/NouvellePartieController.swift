@@ -36,9 +36,9 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         return joueurs.count
     }
     
-    //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //        return 320
-    //    }
+        func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+            return 130
+        }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -48,7 +48,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         //
         let joueurDeLaCell = joueurs[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? JoueurCell {
-            cell.miseEnPlace(personne: joueurDeLaCell)
+            cell.miseEnPlace(joueur: joueurDeLaCell)
             return cell
         }
         return UITableViewCell()
