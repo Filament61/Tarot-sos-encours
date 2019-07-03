@@ -16,7 +16,6 @@
 		95363CE022C29F5A00CBAC02 /* NSManagedObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CDF22C29F5A00CBAC02 /* NSManagedObjectExtension.swift */; };
 		95363CE222C3D96600CBAC02 /* PointsJeuCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CE122C3D96600CBAC02 /* PointsJeuCell.swift */; };
 		95363CE422C3DBB000CBAC02 /* PointsJeuxController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CE322C3DBB000CBAC02 /* PointsJeuxController.swift */; };
-		95363CE622C3F51200CBAC02 /* Points.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CE522C3F51200CBAC02 /* Points.swift */; };
 		953788A622BE82F000AA9F46 /* NouvellePartieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953788A522BE82F000AA9F46 /* NouvellePartieController.swift */; };
 		95517DFA22B441CB00ECD1FC /* ExampleStruct.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DF922B441CB00ECD1FC /* ExampleStruct.swift */; };
 		95517DFC22B53BEC00ECD1FC /* SliderPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95517DFB22B53BEC00ECD1FC /* SliderPoints.swift */; };
@@ -80,7 +79,6 @@
 		95363CDF22C29F5A00CBAC02 /* NSManagedObjectExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSManagedObjectExtension.swift; sourceTree = "<group>"; };
 		95363CE122C3D96600CBAC02 /* PointsJeuCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsJeuCell.swift; sourceTree = "<group>"; };
 		95363CE322C3DBB000CBAC02 /* PointsJeuxController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PointsJeuxController.swift; sourceTree = "<group>"; };
-		95363CE522C3F51200CBAC02 /* Points.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Points.swift; sourceTree = "<group>"; };
 		953788A522BE82F000AA9F46 /* NouvellePartieController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NouvellePartieController.swift; sourceTree = "<group>"; };
 		95517DF922B441CB00ECD1FC /* ExampleStruct.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleStruct.swift; sourceTree = "<group>"; };
 		95517DFB22B53BEC00ECD1FC /* SliderPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SliderPoints.swift; sourceTree = "<group>"; };
@@ -210,7 +208,6 @@
 				95517DFD22B7BA1F00ECD1FC /* Structure comptage jeu.swift */,
 				95363CDD22C29B6F00CBAC02 /* JeuResultat.swift */,
 				95363CDF22C29F5A00CBAC02 /* NSManagedObjectExtension.swift */,
-				95363CE522C3F51200CBAC02 /* Points.swift */,
 				953536F322CA93D500CFF83C /* Joueur.swift */,
 			);
 			path = Model;
@@ -405,7 +402,6 @@
 				9558CB9D22B95ABF00C2C3B5 /* JoueursController.swift in Sources */,
 				9521616622BC1B620054F63E /* JoueurCell.swift in Sources */,
 				95363CE022C29F5A00CBAC02 /* NSManagedObjectExtension.swift in Sources */,
-				95363CE622C3F51200CBAC02 /* Points.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -3,7 +3,7 @@
     <entity name="JeuResultat" representedClassName=".JeuResultat" syncable="YES" codeGenerationType="category">
         <attribute name="chelem" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="contrat" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="horodate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="horodate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="idJeu" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="idPartie" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="nbBout" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
@@ -24,7 +24,7 @@
         </fetchIndex>
     </entity>
     <elements>
-        <element name="JeuResultat" positionX="-314.44921875" positionY="122.5234375" width="128" height="195"/>
+        <element name="JeuResultat" positionX="-314.44921875" positionY="122.5234375" width="128" height="193"/>
         <element name="Joueur" positionX="160" positionY="192" width="128" height="133"/>
     </elements>
 </model>

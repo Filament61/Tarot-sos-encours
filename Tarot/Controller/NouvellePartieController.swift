@@ -59,7 +59,8 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         switch editingStyle {
         case .delete:
-            if let personneASupprimmer = joueurs[indexPath.row] as? Joueur {
+            if let _ = tableView.cellForRow(at: indexPath) as? JoueurCell {
+             let personneASupprimmer = joueurs[indexPath.row]
                 contexte.delete(personneASupprimmer)
                 do {
                     try contexte.save()
