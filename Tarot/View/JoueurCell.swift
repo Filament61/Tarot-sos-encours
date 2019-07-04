@@ -12,17 +12,27 @@ class JoueurCell: UITableViewCell {
     
 
     
+    @IBOutlet weak var idxLabel: UILabel!
+    @IBOutlet weak var idxImage: ImageArrondie!
+    @IBOutlet weak var idJoueurLabel: UILabel!
     @IBOutlet weak var photoDeProfil: ImageArrondie!
     @IBOutlet weak var surnom: UILabel!
     @IBOutlet weak var nom: UILabel!
-    @IBOutlet weak var prenom: UILabel!
+    @IBOutlet weak var prenomLabel: UILabel!
     //    @IBOutlet weak var numerDeTel: UILabel!
 //    @IBOutlet weak var adresseMail: UILabel!
     
     var joueur: Joueur!
+//    var idx: Int
     
     func miseEnPlace(joueur: Joueur) {
+        
+        idxLabel.text = "0"
+        
         self.joueur = joueur
+        
+        idxImage.image = UIImage(named: "icons8-cercle")
+        idJoueurLabel.text = String(self.joueur.idJoueur)
         
         photoDeProfil.image = self.joueur.photo as? UIImage
 
@@ -33,7 +43,7 @@ class JoueurCell: UITableViewCell {
             nom.text = leNom
         }
         if let lePrenom = self.joueur.prenom {
-            prenom.text = lePrenom
+            prenomLabel.text = lePrenom
         }
 
 

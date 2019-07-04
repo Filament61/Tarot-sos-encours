@@ -16,7 +16,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     var cellId = "JoueurCell"
     
     var joueurs = [Joueur]()
-    
+    var idx = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -122,14 +122,20 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let closeAction = UIContextualAction(style: .normal, title:  "Close", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+        let choixAction = UIContextualAction(style: .normal, title:  "Choix", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             print("OK, marked as Closed")
             success(true)
         })
-        closeAction.image = UIImage(named: "tick")
-        closeAction.backgroundColor = .purple
+        let annuleSelectionImage = UIImage(named: "icons8-annuler-(dernier-chiffre)-50")
         
-        return UISwipeActionsConfiguration(actions: [closeAction])
+        if choixAction.image == annuleSelectionImage {
+            idx += 1
+            
+        }
+        choixAction.image = UIImage(named: "icons8-")
+        choixAction.backgroundColor = .purple
+        
+        return UISwipeActionsConfiguration(actions: [choixAction])
 
     }
     

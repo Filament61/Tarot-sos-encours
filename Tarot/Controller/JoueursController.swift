@@ -22,6 +22,7 @@ class JoueursController: UIViewController, UITableViewDelegate, UITableViewDataS
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+//        view.layoutMargins.left = 100
     }
     
     override func viewWillAppear(_ animated: Bool) {
