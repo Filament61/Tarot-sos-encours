@@ -11,6 +11,7 @@
 		9521616222BAC0320054F63E /* NotificationCenterExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616122BAC0320054F63E /* NotificationCenterExtension.swift */; };
 		9521616422BACB290054F63E /* AjoutJoueurControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616322BACB290054F63E /* AjoutJoueurControler.swift */; };
 		9521616622BC1B620054F63E /* JoueurCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616522BC1B620054F63E /* JoueurCell.swift */; };
+		95274CC222CE9A5900BF91C0 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95274CC122CE9A5900BF91C0 /* Shared.swift */; };
 		953536F422CA93D500CFF83C /* Joueur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953536F322CA93D500CFF83C /* Joueur.swift */; };
 		95363CDE22C29B6F00CBAC02 /* JeuResultat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CDD22C29B6F00CBAC02 /* JeuResultat.swift */; };
 		95363CE022C29F5A00CBAC02 /* NSManagedObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CDF22C29F5A00CBAC02 /* NSManagedObjectExtension.swift */; };
@@ -73,6 +74,7 @@
 		9521616122BAC0320054F63E /* NotificationCenterExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCenterExtension.swift; sourceTree = "<group>"; };
 		9521616322BACB290054F63E /* AjoutJoueurControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutJoueurControler.swift; sourceTree = "<group>"; };
 		9521616522BC1B620054F63E /* JoueurCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoueurCell.swift; sourceTree = "<group>"; };
+		95274CC122CE9A5900BF91C0 /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		953536F322CA93D500CFF83C /* Joueur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joueur.swift; sourceTree = "<group>"; };
 		95363C7D22BEAB9F00CBAC02 /* SwipeCellKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwipeCellKit.xcodeproj; path = SwipeCellKit/SwipeCellKit.xcodeproj; sourceTree = "<group>"; };
 		95363CDD22C29B6F00CBAC02 /* JeuResultat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuResultat.swift; sourceTree = "<group>"; };
@@ -196,6 +198,7 @@
 			children = (
 				95A5DB5822B2A4B1007F3729 /* Constantes.swift */,
 				95517DF922B441CB00ECD1FC /* ExampleStruct.swift */,
+				95274CC122CE9A5900BF91C0 /* Shared.swift */,
 			);
 			path = Utilitaire;
 			sourceTree = "<group>";
@@ -377,6 +380,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				95274CC222CE9A5900BF91C0 /* Shared.swift in Sources */,
 				95A5DB5B22B2B5EF007F3729 /* ImageArrondie.swift in Sources */,
 				95363CE222C3D96600CBAC02 /* PointsJeuCell.swift in Sources */,
 				95C7E58422CBD6200052C7B9 /* LabelExtension.swift in Sources */,

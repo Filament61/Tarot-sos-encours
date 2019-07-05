@@ -16,6 +16,9 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     var cellId = "JoueurCell"
     
     var joueurs = [Joueur]()
+    var idxTab: [Int] = []
+    
+    
     var idx = 0
     
     override func viewDidLoad() {
@@ -122,21 +125,74 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
 
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
+        guard let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return nil }
+        guard let celll = tableView.indexPath(for: <#T##UITableViewCell#>) as? JoueurCell else { return nil }
+
+        let idxCell = Int(cell.idxLabel.text ?? "0")!
+        //        var idxTab = self.idxTab
+        
         let choixAction = UIContextualAction(style: .normal, title:  "Choix", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            
+            
+            if self.idxTab.isEmpty {
+                self.idxTab.append(Int(cell.idJoueurLabel.text ?? "0")!)
+                self.idx += 1
+                cell.idxLabel.text = String(self.idx)
+                cell.affecteIdxImage(idx: self.idx)
+            } else {
+                if let index = self.idxTab.firstIndex(of: Int(cell.idJoueurLabel.text ?? "0")!) {
+                    print("found index")
+                    if self.idxTab.count == 1 {
+                        self.idx = 0
+                        self.idxTab.remove(at: index)
+                        cell.idxLabel.text = String(0)
+                        cell.affecteIdxImage(idx: 0)
+                    } else {
+                        self.idxTab[index] = 0
+                        cell.idxLabel.text = String(0)
+                        cell.affecteIdxImage(idx: 0)
+                    }
+                } else {
+                    // Recherche d'un zéro
+                    if let indexZero = self.idxTab.firstIndex(of: 0) {
+                        self.idxTab[indexZero] = Int(cell.idJoueurLabel.text ?? "0")!
+                        cell.idxLabel.text = String(indexZero + 1)
+                        cell.affecteIdxImage(idx: indexZero + 1)
+                    } else {
+                        self.idxTab.append(Int(cell.idJoueurLabel.text ?? "0")!)
+                        self.idx += 1
+                        cell.idxLabel.text = String(self.idx)
+                        cell.affecteIdxImage(idx: self.idx)
+                    }
+                }
+                
+            }
+
+            
             print("OK, marked as Closed")
-            success(true)
+            success(false)
         })
+        
+        
         let annuleSelectionImage = UIImage(named: "icons8-annuler-(dernier-chiffre)-50")
         
+//        if let cell = tableView.cellForRow(at: indexPath) as? JoueurCell {
+//            if cell.idxLabel.text == "0" {
+//                idx += 1
+//                cell.idxLabel.text = String(idx)
+////                let img = UIImage(named: "icons8-cerclé-" + String(idx) + "-1")
+//                cell.affecteIdxImage(idx: idx)
+//        }
+//        }
         if choixAction.image == annuleSelectionImage {
-            idx += 1
             
         }
-        choixAction.image = UIImage(named: "icons8-")
+        choixAction.image = annuleSelectionImage
         choixAction.backgroundColor = .purple
         
         return UISwipeActionsConfiguration(actions: [choixAction])
 
     }
+    }
     
-}
+

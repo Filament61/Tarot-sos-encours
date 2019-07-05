@@ -20,11 +20,11 @@ class ImageArrondie: UIImageView {
         miseEnPlace()
     }
     
-    func miseEnPlace() {
+    func miseEnPlace(Image img: UIImage = #imageLiteral(resourceName: "vador")) {
         layer.cornerRadius = frame.width / 2
         layer.borderColor = UIColor.white.cgColor
         layer.borderWidth = 1
-        image = #imageLiteral(resourceName: "vador")
+        image = img
         contentMode = .scaleAspectFill
         clipsToBounds = true
         
