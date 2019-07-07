@@ -10,7 +10,7 @@ struct JeuComplet {
     
     let nbPointsMaxi: Float = 91.0
     let baseContrat: Float = 25.0
-    //let pointsAFaireChelem
+
     let contrats: [Int: String] = [1: "Petite",
                                    2: "Garde",
                                    3: "Garde sans",
@@ -20,9 +20,9 @@ struct JeuComplet {
                                    -2: "Chelem annoncé et réalisé (défense)",
                                    -1: "Chelem non annoncé réalisé (défense)",
                                    0: "Pas de chelem",
-                                   1: "Chelem non annoncé réalisé (attaque)",
-                                   2: "Chelem annoncé et réalisé (attaque)",
-                                   3: "Chelem annoncé et non réalisé (attaque)"]
+                                   1: "Chelem non annoncé réalisé",
+                                   2: "Chelem annoncé et réalisé",
+                                   3: "Chelem annoncé et non réalisé"]
 
     let pointsARealiserValeurs: [Int: Float] = [0: 56, 1: 51, 2: 41, 3: 36]
     let coefficientsValeurs: [Int: Float] = [1: 1, 2: 2, 3: 4, 4: 6]
@@ -108,18 +108,12 @@ struct JeuComplet {
     }
     
     
-//    mutating func isReussie() -> Bool? {
-//        guard gain != nil else { return nil! }
-//        return gain! >= Float(0)
-//    }
-    
     var isReussi: Bool? {
         get {
             guard let gain = gain else { return nil }
             return gain >= Float(0)
         }
     }
-
     mutating func calculerCoef() {
         if let contrat = contrat {
             coef = coefficientsValeurs[contrat]
@@ -174,10 +168,8 @@ struct JeuComplet {
     // Texte points : GAIN
     func gainText() -> String {
         guard let gain = gain, let _ = pointsFaits else { return texteVierge }
-//        guard gain != nbPointsMaxi && pointsFaits >= Float(0) else { return texteVierge }
         return String(gain)
     }
-    
     
     // Texte points : BASE CONTRAT
     func baseText() -> String {
@@ -187,7 +179,6 @@ struct JeuComplet {
         } else {
             return "-" + String(baseContrat) }
     }
-    
     
     // Texte points : POINTS
     func pointsFaitsText(Defense def: Bool = false) -> String {
@@ -206,7 +197,6 @@ struct JeuComplet {
         return String(pointsPetitAuBout)
     }
     
-    
     // Texte points : POIGNEE
     func pointsPoigneeText() -> String {
         guard pointsPoignee != Float(0) else { return texteVierge }
@@ -220,7 +210,6 @@ struct JeuComplet {
         txt += String(abs(pointsPoignee))
         return txt
     }
-    
     
     // Texte points : CHELEM
     func pointsChelemText() -> String {
@@ -236,7 +225,6 @@ struct JeuComplet {
         return txt
     }
     
-    
     // Texte points : SOUS-TOTAL
     func SousTotalText() -> String {
         guard let gain = gain, let isReussi = isReussi, let coef = coef else { return texteVierge }
@@ -249,7 +237,6 @@ struct JeuComplet {
         }
         return String(Int(coef)) + " x " + String(st)
     }
-    
     
     // Texte points : TOTAL
     func totalText() -> String {

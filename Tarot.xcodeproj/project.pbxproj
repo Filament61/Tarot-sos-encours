@@ -12,6 +12,7 @@
 		9521616422BACB290054F63E /* AjoutJoueurControler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616322BACB290054F63E /* AjoutJoueurControler.swift */; };
 		9521616622BC1B620054F63E /* JoueurCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9521616522BC1B620054F63E /* JoueurCell.swift */; };
 		95274CC222CE9A5900BF91C0 /* Shared.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95274CC122CE9A5900BF91C0 /* Shared.swift */; };
+		95274CC422D14E5600BF91C0 /* StringExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95274CC322D14E5600BF91C0 /* StringExtension.swift */; };
 		953536F422CA93D500CFF83C /* Joueur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 953536F322CA93D500CFF83C /* Joueur.swift */; };
 		95363CDE22C29B6F00CBAC02 /* JeuResultat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CDD22C29B6F00CBAC02 /* JeuResultat.swift */; };
 		95363CE022C29F5A00CBAC02 /* NSManagedObjectExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95363CDF22C29F5A00CBAC02 /* NSManagedObjectExtension.swift */; };
@@ -75,6 +76,7 @@
 		9521616322BACB290054F63E /* AjoutJoueurControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutJoueurControler.swift; sourceTree = "<group>"; };
 		9521616522BC1B620054F63E /* JoueurCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoueurCell.swift; sourceTree = "<group>"; };
 		95274CC122CE9A5900BF91C0 /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
+		95274CC322D14E5600BF91C0 /* StringExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringExtension.swift; sourceTree = "<group>"; };
 		953536F322CA93D500CFF83C /* Joueur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joueur.swift; sourceTree = "<group>"; };
 		95363C7D22BEAB9F00CBAC02 /* SwipeCellKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwipeCellKit.xcodeproj; path = SwipeCellKit/SwipeCellKit.xcodeproj; sourceTree = "<group>"; };
 		95363CDD22C29B6F00CBAC02 /* JeuResultat.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuResultat.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 			children = (
 				95BD3CA122B2F71300A2C183 /* JeuResultatController.swift */,
 				95BD3CA322B3F27000A2C183 /* PickerViewExtension.swift */,
+				95363CE322C3DBB000CBAC02 /* PointsJeuxController.swift */,
 			);
 			name = Jeux;
 			sourceTree = "<group>";
@@ -235,7 +238,7 @@
 				95B43A8222CAA3AD00B9EB7D /* Joueurs */,
 				95A5DB3122B2A156007F3729 /* AccueilsssController.swift */,
 				953788A522BE82F000AA9F46 /* NouvellePartieController.swift */,
-				95363CE322C3DBB000CBAC02 /* PointsJeuxController.swift */,
+				95274CC322D14E5600BF91C0 /* StringExtension.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -385,6 +388,7 @@
 				95363CE222C3D96600CBAC02 /* PointsJeuCell.swift in Sources */,
 				95C7E58422CBD6200052C7B9 /* LabelExtension.swift in Sources */,
 				9521616422BACB290054F63E /* AjoutJoueurControler.swift in Sources */,
+				95274CC422D14E5600BF91C0 /* StringExtension.swift in Sources */,
 				95A5DB3222B2A156007F3729 /* AccueilsssController.swift in Sources */,
 				95363CDE22C29B6F00CBAC02 /* JeuResultat.swift in Sources */,
 				95A5DB5D22B2B66C007F3729 /* BoutonArrondi.swift in Sources */,

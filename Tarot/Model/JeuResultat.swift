@@ -18,9 +18,12 @@ class JeuResultat: NSManagedObject {
         return jeuResultats
     }
     
-    static func save(scoreJeu jeuComplet: JeuComplet) {
+    static func save(scoreJeu jeuComplet: JeuComplet, idJeu: Int, hD: Date) {
+        
         let jeuResultat = JeuResultat(context: AppDelegate.viewContext)
         
+        jeuResultat.idJeu = Int64(idJeu)
+        jeuResultat.horodate = hD
         jeuResultat.contrat = Int16(jeuComplet.contrat!)
         jeuResultat.nbBout = Int16(jeuComplet.nbBout!)
         jeuResultat.pointsFaits = jeuComplet.pointsFaits!

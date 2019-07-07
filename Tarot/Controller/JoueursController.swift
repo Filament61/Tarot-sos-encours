@@ -48,8 +48,7 @@ class JoueursController: UIViewController, UITableViewDelegate, UITableViewDataS
             cell.miseEnPlace(joueur: joueurDeLaCell)
             return cell
         }
-        return UITableViewCell()
-        
+        return UITableViewCell()        
     }
  
 

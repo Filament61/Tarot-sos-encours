@@ -14,7 +14,7 @@ class PointsJeuxController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @IBOutlet weak var tableView: UITableView!
     
-    
+
     var cellId = "PointsJeuCell"
     
     var jeuResultats = [JeuResultat]()

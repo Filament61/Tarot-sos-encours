@@ -8,6 +8,39 @@
 
 import UIKit
 
+
+class routine {
+
+//    init(maDate date: Date) {
+////                self.init()
+//        self.maDate = date
+//    }
+    
+
+    
+//    var maDate: Date {
+//        get {
+//            return self.maDate
+//        }
+//        set {
+//            self.maDate = newValue
+//        }
+//    }
+
+    init() {
+//        self.init()
+        maDate = Date()
+    }
+    var maDate: Date 
+    
+    func formatDateHeure(monFormat format: String = "dd/MM/YYYY HH:mm") -> String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = format
+        return formatter.string(from: maDate)
+    }
+
+}
+
 class IndicatorView: UIView {
     var color = UIColor.clear {
         didSet { setNeedsDisplay() }

@@ -16,7 +16,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     var cellId = "JoueurCell"
     
     var joueurs = [Joueur]()
-    var cellTab: [JoueurCell] = []
+    var cellTab = [JoueurCell]()
     
     
     override func viewDidLoad() {
@@ -43,10 +43,6 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //        let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? UITableViewCell
-        //        cell?.textLabel?.text = "\(indexPath.row)"
-        //        return cell!
-        //
         let joueurDeLaCell = joueurs[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? JoueurCell {
             cell.miseEnPlace(joueur: joueurDeLaCell)
@@ -57,24 +53,24 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        switch editingStyle {
-        case .delete:
-            if let _ = tableView.cellForRow(at: indexPath) as? JoueurCell {
-                let personneASupprimmer = joueurs[indexPath.row]
-                contexte.delete(personneASupprimmer)
-                do {
-                    try contexte.save()
-                } catch {
-                    print(error.localizedDescription)
-                }
-                joueurs.remove(at: indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
-            }
-            
-        default: break
-        }
-    }
+//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+//        switch editingStyle {
+//        case .delete:
+//            if let _ = tableView.cellForRow(at: indexPath) as? JoueurCell {
+//                let personneASupprimmer = joueurs[indexPath.row]
+//                contexte.delete(personneASupprimmer)
+//                do {
+//                    try contexte.save()
+//                } catch {
+//                    print(error.localizedDescription)
+//                }
+//                joueurs.remove(at: indexPath.row)
+//                self.tableView.deleteRows(at: [indexPath], with: .fade)
+//            }
+//
+//        default: break
+//        }
+//    }
     
     
     func fetchJoueurs() {
@@ -90,8 +86,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool
-    {
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
@@ -122,6 +117,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        return UISwipeActionsConfiguration()
         
         guard let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return nil }
         

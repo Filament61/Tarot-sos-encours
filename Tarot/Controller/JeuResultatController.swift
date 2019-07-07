@@ -11,6 +11,8 @@ import CoreData
 
 class JeuResultatController: UIViewController {
     
+    @IBOutlet weak var idJeuLabel: UILabel!
+    @IBOutlet weak var horodateLabel: UILabel!
     
     @IBOutlet weak var pickerViewPreneur: UIPickerView!
     @IBOutlet weak var pickerViewAppele: UIPickerView!
@@ -43,7 +45,10 @@ class JeuResultatController: UIViewController {
     
     let texteVierge = " "
     var jeuResultat = JeuComplet()
-    var ttt = 12
+
+    
+    let idJeu = NSManagedObject.nextAvailble("idJeu", forEntityName: "JeuResultat", inContext: AppDelegate.viewContext)
+    let now = Date()
     
 
     override func viewDidLoad() {
@@ -101,7 +106,6 @@ class JeuResultatController: UIViewController {
     
     
     func majScore() {
-        
         // label score GAIN
         if let isReussi = jeuResultat.isReussi, let gain = jeuResultat.gain {
             if isReussi {
@@ -111,34 +115,24 @@ class JeuResultatController: UIViewController {
             }
             gainLabel.text = String(gain)
         }
-        
-        
         // label points : GAIN
         labelPointsGain.text = jeuResultat.gainText()
-        
         // label points : BASE CONTRAT
         labelPointsBase.text = jeuResultat.baseText()
-        
         // label points : POINTS
         pointsAttaqueLabel.text = jeuResultat.pointsFaitsText()
         labelPointsDefense.text = jeuResultat.pointsFaitsText(Defense: true)
-        
         // label points : SOUS-TOTAL
         labelPointsSousTotal.text = jeuResultat.SousTotalText()
-        
         // label points : PETIT AU BOUT
         labelPointsPetitAuBout.text = jeuResultat.pointsPetitAuBoutText()
-        
         // label points : POIGNEE
         labelPointsPoignee.text = jeuResultat.pointsPoigneeText()
-        
         // label points : CHELEM
         labelPointsChelem.text = jeuResultat.pointsChelemText()
-        
-        
-        
         // label points : TOTAL
         labelPointsTotaux.text = jeuResultat.totalText()
+        // Bouton ENREGISTRER
         if let _ = jeuResultat.gain, let _ = jeuResultat.nbBout, let _ = jeuResultat.contrat {
             buttonEnregistrer.isEnabled = true
         } else {
@@ -148,7 +142,12 @@ class JeuResultatController: UIViewController {
     
     
     func miseEnPlace() {
-        //scoreJeu.pointsFaits = sliderPoints.value
+        let format = DateFormatter()
+        format.dateFormat = "dd/MM/YYYY HH:mm"
+        horodateLabel.text = format.string(from: now)
+
+        idJeuLabel.text = String(idJeu)
+        
         majScore()
     }
     
@@ -159,6 +158,9 @@ class JeuResultatController: UIViewController {
     @IBAction func ButtonLecture(_ sender: Any) {
         let jeuComplet = JeuResultat.all().first
         
+        idJeuLabel.text = String(jeuComplet!.idJeu)
+        horodateLabel.text = String(jeuComplet!.idJeu)
+
         jeuResultat.contrat = Int(jeuComplet?.contrat ?? 0)
         jeuResultat.nbBout = Int(jeuComplet?.nbBout ?? 0)
         jeuResultat.pointsFaits = jeuComplet?.pointsFaits ?? 0.0
@@ -172,7 +174,7 @@ class JeuResultatController: UIViewController {
     
     @IBAction func addScore(_ sender: Any) {
 //        sauvePointsJeu(scoreJeu: scoreJeu)
-        JeuResultat.save(scoreJeu: jeuResultat)
+        JeuResultat.save(scoreJeu: jeuResultat, idJeu: idJeu, hD: now)
     }
     
     //
