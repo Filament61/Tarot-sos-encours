@@ -23,13 +23,17 @@ class JoueurCell: UITableViewCell {
 //    @IBOutlet weak var adresseMail: UILabel!
     
     var joueur: Joueur!
-//    var idx: Int
+    var idx: Int = -1 {
+        didSet {
+            idxLabel.text = String(self.idx)
+            idxImage.image = UIImage(named: "icons8-cerclé-" + String(self.idx) + "-1")
+        }
+    }
     
     func affecteIdxImage(idx: Int)  {
         switch (idx) {
         case 0:
             idxImage.image = UIImage(named: "")
-//            idxImage.image = UIImage(named: "icons8-cercle")
             
         case 1...8:
             idxImage.image = UIImage(named: "icons8-cerclé-" + String(idx) + "-1")
@@ -45,10 +49,6 @@ class JoueurCell: UITableViewCell {
     
     func miseEnPlace(joueur: Joueur) {
         
-        idxLabel.text = "0"
-        self.affecteIdxImage(idx: 0)
-//        idxImage.image = UIImage(named: "icons8-cercle")
-
         self.joueur = joueur
         
         idJoueurLabel.text = String(self.joueur.idJoueur)

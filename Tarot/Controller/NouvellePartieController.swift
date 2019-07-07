@@ -30,15 +30,15 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         fetchJoueurs()
     }
     
-    //    func numberOfSections(in tableView: UITableView) -> Int {
-    //        return joueursTab.count
-    //    }
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return joueurs.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 130
+        return 70 // ATTENTION SI LA LISTE EST TROP LONGUE --> MAUVAISE GESTION DES INDEX
     }
     
     
@@ -53,24 +53,24 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     
-//    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        switch editingStyle {
-//        case .delete:
-//            if let _ = tableView.cellForRow(at: indexPath) as? JoueurCell {
-//                let personneASupprimmer = joueurs[indexPath.row]
-//                contexte.delete(personneASupprimmer)
-//                do {
-//                    try contexte.save()
-//                } catch {
-//                    print(error.localizedDescription)
-//                }
-//                joueurs.remove(at: indexPath.row)
-//                self.tableView.deleteRows(at: [indexPath], with: .fade)
-//            }
-//
-//        default: break
-//        }
-//    }
+    //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    //        switch editingStyle {
+    //        case .delete:
+    //            if let _ = tableView.cellForRow(at: indexPath) as? JoueurCell {
+    //                let personneASupprimmer = joueurs[indexPath.row]
+    //                contexte.delete(personneASupprimmer)
+    //                do {
+    //                    try contexte.save()
+    //                } catch {
+    //                    print(error.localizedDescription)
+    //                }
+    //                joueurs.remove(at: indexPath.row)
+    //                self.tableView.deleteRows(at: [indexPath], with: .fade)
+    //            }
+    //
+    //        default: break
+    //        }
+    //    }
     
     
     func fetchJoueurs() {
@@ -117,34 +117,34 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-//        return UISwipeActionsConfiguration()
+        //        return UISwipeActionsConfiguration()
         
         guard let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return nil }
         
         let choixAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             
             // Recherche d'une cellule déjà sélectionnée
-            if let index = self.cellTab.firstIndex(of: cell) {
-                print("Index existant")
-                self.cellTab.remove(at: index)
-                cell.idxLabel.text = String(0)
-                cell.affecteIdxImage(idx: 0)
+            if let pointeur = self.cellTab.firstIndex(of: cell) {
+                self.cellTab.remove(at: pointeur)
+                cell.idx = -1
+                print("Index existant : \(pointeur)")
                 // Mise à jour des cellules déjà sélectionnées
-                var deb = index
+                var deb = pointeur
                 while deb < self.cellTab.count {
-                    self.cellTab[deb].idxLabel.text = String(deb + 1)
-                    self.cellTab[deb].affecteIdxImage(idx: deb + 1)
+                    self.cellTab[deb].idx = deb + 1
                     deb += 1
+                    print("Réindexation : \(deb)")
                 }
                 // Nouvelle cellule sélectionnée
             } else {
-                print("Index nouveau")
                 self.cellTab.append(cell)
-                cell.idxLabel.text = String(self.cellTab.count)
-                cell.affecteIdxImage(idx: self.cellTab.count)
+                cell.idx = self.cellTab.count
+                print("Index nouveau : \(self.cellTab.count)")
             }
-            
-            print("Choix réalisé")
+            for item in self.cellTab {
+                let surnom = item.surnom.text
+                print("Choix réalisés : \(surnom)")
+            }
             success(true)
         })
         
