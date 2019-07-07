@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icons8-tri-numérique-100-2.png",
+      "filename" : "icons8-liste-numérotée-50.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icons8-liste-numérotée-100-2.png",
       "scale" : "2x"
     },
     {
