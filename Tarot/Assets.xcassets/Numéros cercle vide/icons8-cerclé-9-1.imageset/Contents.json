@@ -2,11 +2,12 @@
   "images" : [
     {
       "idiom" : "universal",
-      "filename" : "icons8-cerclé-9-100.png",
+      "filename" : "icons8-cerclé-9-50.png",
       "scale" : "1x"
     },
     {
       "idiom" : "universal",
+      "filename" : "icons8-cerclé-9-101.png",
       "scale" : "2x"
     },
     {

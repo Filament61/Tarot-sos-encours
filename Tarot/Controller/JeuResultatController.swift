@@ -49,16 +49,20 @@ class JeuResultatController: UIViewController {
     
     let idJeu = NSManagedObject.nextAvailble("idJeu", forEntityName: "JeuResultat", inContext: AppDelegate.viewContext)
     let now = Date()
+    var preneur = Int()
+    var cellTab = [JoueurCell]()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         miseEnPlacePicker()
         miseEnPlace()
-    }
+        pickerViewPreneur.selectRow(preneur, inComponent: 1, animated: true)
+}
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        pickerViewPreneur.selectRow(preneur, inComponent: 0, animated: true)
         //largeurContrainte.constant = view.frame.width
         //scroll.contentSize = CGSize(width: largeurContrainte.constant, height: scroll.frame.height)
     }

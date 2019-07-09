@@ -22,11 +22,19 @@ class JoueurCell: UITableViewCell {
     //    @IBOutlet weak var numerDeTel: UILabel!
 //    @IBOutlet weak var adresseMail: UILabel!
     
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
     var joueur: Joueur!
     var idx: Int = -1 {
         didSet {
             idxLabel.text = String(self.idx)
-            idxImage.image = UIImage(named: "icons8-cerclé-" + String(self.idx) + "-1")
+            idxImage.image = UIImage(named: "icons8-cerclé-" + String(self.idx) + "-2")
         }
     }
     

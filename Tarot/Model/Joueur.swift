@@ -19,6 +19,14 @@ class Joueur: NSManagedObject {
         return joueurs
     }
     
+    static func joueurPartie() -> [Joueur] {
+        let request: NSFetchRequest<Joueur> = Joueur.fetchRequest()
+
+        
+        guard let joueurs = try? AppDelegate.viewContext.fetch(request) else { return [] }
+        return joueurs
+    }
+    
     
 }
 

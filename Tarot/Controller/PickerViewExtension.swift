@@ -20,7 +20,7 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return joueursTab.count
+        return cellTab.count
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -28,13 +28,12 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return joueursTab[row]
+        return cellTab[row].surnom.text
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        //let nomDeLentreprise = joueursTab[row].nom ?? ""
-        let nomDuPreneur = joueursTab[row]
-        print("Ligne choisie: " + nomDuPreneur)
+        let surnomDuPreneur = cellTab[row].surnom.text ?? "surnom"
+        print("Ligne choisie: " + surnomDuPreneur)
     }
 }
 

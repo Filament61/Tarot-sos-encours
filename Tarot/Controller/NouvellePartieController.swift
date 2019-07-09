@@ -17,7 +17,8 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     var joueurs = [Joueur]()
     var cellTab = [JoueurCell]()
-    
+    var cells =  [JoueurCell]()
+    var preneur = JoueurCell()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -90,10 +91,18 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         return true
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+          preneur = tableView.cellForRow(at: indexPath) as! JoueurCell
+        self.performSegue(withIdentifier: "Segue", sender: self)
+    }
+    
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
         let more = UIContextualAction(style: .normal, title:  "More", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             //self.isEditing = false
+//                        let cell = tableView.cellForRow(at: indexPath) as! JoueurCell
+//            self.preneur = cell
+            self.performSegue(withIdentifier: "Segue", sender: self)
             print("more button tapped")
             success(true)
         })
@@ -129,11 +138,11 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
                 cell.idx = -1
                 print("Index existant : \(pointeur)")
                 // Mise à jour des cellules déjà sélectionnées
-                var deb = pointeur
-                while deb < self.cellTab.count {
-                    self.cellTab[deb].idx = deb + 1
-                    deb += 1
-                    print("Réindexation : \(deb)")
+                var item = pointeur
+                while item < self.cellTab.count {
+                    self.cellTab[item].idx = item + 1
+                    item += 1
+                    print("Réindexation : \(item)")
                 }
                 // Nouvelle cellule sélectionnée
             } else {
@@ -143,8 +152,13 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             }
             for item in self.cellTab {
                 let surnom = item.surnom.text
-                print("Choix réalisés : \(surnom)")
+                print("Choix : \(surnom ?? "")")
             }
+            
+            
+//           self.joueurs.sort(by: { (first: Joueur, second: Joueur) -> Bool in
+//                return UIContentSizeCategory(rawValue: first.surnom!) > UIContentSizeCategory(rawValue: second.surnom!)
+//            })
             success(true)
         })
         
@@ -160,6 +174,20 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         
         return UISwipeActionsConfiguration(actions: [choixAction])
         
+    }
+    @IBAction func Tri(_ sender: UIBarButtonItem) {
+                   self.joueurs.sort(by: { (first: Joueur, second: Joueur) -> Bool in
+                        return UIContentSizeCategory(rawValue: first.surnom!) > UIContentSizeCategory(rawValue: second.surnom!)
+                    })
+}
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "Segue" {
+//            let qui = self.preneur.idx
+            let JeuResultatController = segue.destination as! JeuResultatController
+            JeuResultatController.preneur = preneur.idx - 1
+            JeuResultatController.cellTab = cellTab
+        }
     }
 }
 
