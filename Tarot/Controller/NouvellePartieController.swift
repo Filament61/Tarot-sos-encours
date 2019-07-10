@@ -98,31 +98,37 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        let more = UIContextualAction(style: .normal, title:  "More", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+        let petite = UIContextualAction(style: .normal, title:  "Petite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             //self.isEditing = false
 //                        let cell = tableView.cellForRow(at: indexPath) as! JoueurCell
 //            self.preneur = cell
             self.performSegue(withIdentifier: "Segue", sender: self)
             print("more button tapped")
-            success(true)
+            success(false)
         })
-        more.backgroundColor = UIColor.lightGray
+        petite.backgroundColor = UIColor.lightGray
         
-        let favorite = UIContextualAction(style: .normal, title:  "favorite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+        let garde = UIContextualAction(style: .normal, title:  "Garde", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             //self.isEditing = false
             print("favorite button tapped")
-            success(true)
+            success(false)
         })
-        favorite.backgroundColor = UIColor.orange
+        garde.backgroundColor = UIColor.orange
         
-        let share = UIContextualAction(style: .normal, title:  "share", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+        let sans = UIContextualAction(style: .normal, title:  "Sans", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             //self.isEditing = false
             print("share button tapped")
-            success(true)
+            success(false)
         })
-        share.backgroundColor = UIColor.blue
+        sans.backgroundColor = UIColor.blue
+            let contre = UIContextualAction(style: .normal, title:  "Contre", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                //self.isEditing = false
+                print("share button tapped")
+                success(false)
+        })
+        contre.backgroundColor = UIColor.green
         
-        return UISwipeActionsConfiguration(actions: [share, favorite, more,])
+        return UISwipeActionsConfiguration(actions: [contre, sans, garde, petite,])
     }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -144,7 +150,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
                     item += 1
                     print("Réindexation : \(item)")
                 }
-                // Nouvelle cellule sélectionnée
+            // Nouvelle cellule sélectionnée
             } else {
                 self.cellTab.append(cell)
                 cell.idx = self.cellTab.count
@@ -154,14 +160,9 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
                 let surnom = item.surnom.text
                 print("Choix : \(surnom ?? "")")
             }
-            
-            
-//           self.joueurs.sort(by: { (first: Joueur, second: Joueur) -> Bool in
-//                return UIContentSizeCategory(rawValue: first.surnom!) > UIContentSizeCategory(rawValue: second.surnom!)
-//            })
+ 
             success(true)
         })
-        
         
         if let _ = self.cellTab.firstIndex(of: cell) {
             choixAction.image = UIImage(named: "icons8-annuler-(dernier-chiffre)-50")
@@ -171,10 +172,10 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             choixAction.backgroundColor = .purple
         }
         
-        
         return UISwipeActionsConfiguration(actions: [choixAction])
-        
     }
+    
+    
     @IBAction func Tri(_ sender: UIBarButtonItem) {
                    self.joueurs.sort(by: { (first: Joueur, second: Joueur) -> Bool in
                         return UIContentSizeCategory(rawValue: first.surnom!) > UIContentSizeCategory(rawValue: second.surnom!)

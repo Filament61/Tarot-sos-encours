@@ -19,13 +19,12 @@ class JoueurCell: UITableViewCell {
     @IBOutlet weak var surnom: UILabel!
     @IBOutlet weak var nom: UILabel!
     @IBOutlet weak var prenomLabel: UILabel!
-    //    @IBOutlet weak var numerDeTel: UILabel!
-//    @IBOutlet weak var adresseMail: UILabel!
     
     
     override func awakeFromNib() {
         super.awakeFromNib()
     }
+    
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
     }
@@ -49,9 +48,6 @@ class JoueurCell: UITableViewCell {
         default:
             break;
         }
-//        let img = UIImage(named: "icons8-cerclé-" + String(idx) + "-1")
-//        idxImage.image = img!
-
         return
     }
     
@@ -60,7 +56,6 @@ class JoueurCell: UITableViewCell {
         self.joueur = joueur
         
         idJoueurLabel.text = String(self.joueur.idJoueur)
-        
         photoDeProfil.image = self.joueur.photo as? UIImage
 
         if let leSurnom = self.joueur.surnom {

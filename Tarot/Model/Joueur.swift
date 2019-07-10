@@ -19,10 +19,18 @@ class Joueur: NSManagedObject {
         return joueurs
     }
     
-    static func joueurPartie() -> [Joueur] {
+    static func joueurPartie(idJoueurs: [Int]) -> [Joueur] {
         let request: NSFetchRequest<Joueur> = Joueur.fetchRequest()
+        // Définition de tri de la requête
+        let tri = NSSortDescriptor(key: "nom", ascending: true)
+        request.sortDescriptors = [tri]
+        // Définition du filtre de la requête
+        var filter = String()
+        for item in idJoueurs {
+            filter += item == idJoueurs.last ? "idJoueur == \(item)" : "idJoueur == \(item) OR "
+        }
+        request.predicate = NSPredicate(format: filter)
 
-        
         guard let joueurs = try? AppDelegate.viewContext.fetch(request) else { return [] }
         return joueurs
     }
