@@ -92,7 +92,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-          preneur = tableView.cellForRow(at: indexPath) as! JoueurCell
+        preneur = tableView.cellForRow(at: indexPath) as! JoueurCell
         self.performSegue(withIdentifier: "Segue", sender: self)
     }
     
@@ -127,6 +127,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
                 success(false)
         })
         contre.backgroundColor = UIColor.green
+        
         
         return UISwipeActionsConfiguration(actions: [contre, sans, garde, petite,])
     }
