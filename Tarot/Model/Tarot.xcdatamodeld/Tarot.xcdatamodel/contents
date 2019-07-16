@@ -37,13 +37,13 @@
         <relationship name="partie" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Partie" inverseName="participants" inverseEntity="Partie" syncable="YES"/>
     </entity>
     <entity name="Partie" representedClassName=".Partie" syncable="YES" codeGenerationType="category">
-        <attribute name="horodate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="idPartie" optional="YES" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="horodate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="idPartie" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="jeux" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="JeuResultat" inverseName="partie" inverseEntity="JeuResultat" syncable="YES"/>
         <relationship name="participants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Participant" inverseName="partie" inverseEntity="Participant" syncable="YES"/>
     </entity>
     <elements>
-        <element name="JeuJoueur" positionX="-234.3984375" positionY="-137.90234375" width="128" height="103"/>
+        <element name="JeuJoueur" positionX="-233.22265625" positionY="-137.7265625" width="128" height="103"/>
         <element name="JeuResultat" positionX="-454.59765625" positionY="-242.60546875" width="128" height="223"/>
         <element name="Joueur" positionX="-54.95703125" positionY="-413.7734375" width="128" height="133"/>
         <element name="Participant" positionX="159.8046875" positionY="-92.421875" width="128" height="88"/>

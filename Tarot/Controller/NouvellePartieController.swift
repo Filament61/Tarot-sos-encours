@@ -11,7 +11,11 @@ import CoreData
 
 class NouvellePartieController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var idPartieLabel: UILabel!
+    @IBOutlet weak var horodateLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var listeJoueurs: UILabel!
+    @IBOutlet weak var nbJoueursImage: UIImageView!
     
     var cellId = "JoueurCell"
     
@@ -20,10 +24,16 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     var cells =  [JoueurCell]()
     var preneur = JoueurCell()
     
+    
+    let idPartie = NSManagedObject.nextAvailble("idPartie", forEntityName: "Partie", inContext: AppDelegate.viewContext)
+    let now = Date()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
         tableView.dataSource = self
+        miseEnPlace()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,7 +63,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         
     }
     
-    
+
     //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     //        switch editingStyle {
     //        case .delete:
@@ -93,7 +103,9 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         preneur = tableView.cellForRow(at: indexPath) as! JoueurCell
-        self.performSegue(withIdentifier: "Segue", sender: self)
+        if preneur.idx > 0 {
+            self.performSegue(withIdentifier: "Segue", sender: self)
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -162,6 +174,12 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
                 print("Choix : \(surnom ?? "")")
             }
  
+            self.listeJoueurs.text = ""
+            for joueur in self.cellTab {
+                self.listeJoueurs.text = self.listeJoueurs.text! + joueur.surnom.text! + "\n"
+            }
+            
+            self.nbJoueursImage.image = UIImage(named: "icons8-cerclé-" + String(self.cellTab.count) + "-1")
             success(true)
         })
         
@@ -191,6 +209,18 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             JeuResultatController.cellTab = cellTab
         }
     }
+    
+    func miseEnPlace() {
+        let format = DateFormatter()
+        format.dateFormat = "dd/MM/YYYY HH:mm"
+        horodateLabel.text = format.string(from: now)
+        
+        idPartieLabel.text = String(idPartie)
+        
+        nbJoueursImage.image = UIImage(named: "icons8-cerclé-0-1")
+    }
+
+    
 }
 
 
