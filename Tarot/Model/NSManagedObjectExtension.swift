@@ -12,7 +12,7 @@ import CoreData
 
 extension NSManagedObject {
     
-    static func nextAvailble(_ idKey: String, forEntityName entityName: String, inContext context: NSManagedObjectContext) -> Int {
+    static func nextAvailble(_ idKey: String, forEntityName entityName: String, inContext context: NSManagedObjectContext = AppDelegate.viewContext) -> Int {
         let fetchRequest: NSFetchRequest<NSFetchRequestResult> = NSFetchRequest(entityName: entityName)
         fetchRequest.propertiesToFetch = [idKey]
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: idKey, ascending: true)]

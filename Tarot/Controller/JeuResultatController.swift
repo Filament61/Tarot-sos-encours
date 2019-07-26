@@ -47,7 +47,7 @@ class JeuResultatController: UIViewController {
     var jeuResultat = JeuComplet()
 
     
-    let idJeu = NSManagedObject.nextAvailble("idJeu", forEntityName: "JeuResultat", inContext: AppDelegate.viewContext)
+    let idJeu = NSManagedObject.nextAvailble("idJeu", forEntityName: "JeuResultat")
     let now = Date()
     var preneur = Int()
     var cellTab = [JoueurCell]()

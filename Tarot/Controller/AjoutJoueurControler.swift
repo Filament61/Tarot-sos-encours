@@ -26,7 +26,7 @@ class AjoutJoueurController: UIViewController {
     
     var imagePicker: UIImagePickerController?
     
-    let idJoueur = NSManagedObject.nextAvailble("idJoueur", forEntityName: "Joueur", inContext: AppDelegate.viewContext)
+    let idJoueur = NSManagedObject.nextAvailble("idJoueur", forEntityName: "Joueur")
     let now = Date()
 
     override func viewDidLoad() {
