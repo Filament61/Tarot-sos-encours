@@ -45,19 +45,19 @@ class JeuResultatController: UIViewController {
     
     let texteVierge = " "
     var jeuResultat = JeuComplet()
-
+    
     
     let idJeu = NSManagedObject.nextAvailble("idJeu", forEntityName: "JeuResultat")
     let now = Date()
     var preneur = Int()
-    var cellTab = [JoueurCell]()
+    var cellTab = [PersonneCell]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         miseEnPlacePicker()
         miseEnPlace()
         pickerViewPreneur.selectRow(preneur, inComponent: 1, animated: true)
-}
+    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -149,22 +149,22 @@ class JeuResultatController: UIViewController {
         let format = DateFormatter()
         format.dateFormat = "dd/MM/YYYY HH:mm"
         horodateLabel.text = format.string(from: now)
-
+        
         idJeuLabel.text = String(idJeu)
         
         majScore()
     }
     
     
-
-//  MARK: IBActions
+    
+    //  MARK: IBActions
     
     @IBAction func ButtonLecture(_ sender: Any) {
         let jeuComplet = JeuResultat.all().first
         
         idJeuLabel.text = String(jeuComplet!.idJeu)
         horodateLabel.text = String(jeuComplet!.idJeu)
-
+        
         jeuResultat.contrat = Int(jeuComplet?.contrat ?? 0)
         jeuResultat.nbBout = Int(jeuComplet?.nbBout ?? 0)
         jeuResultat.pointsFaits = jeuComplet?.pointsFaits ?? 0.0
@@ -172,12 +172,12 @@ class JeuResultatController: UIViewController {
         jeuResultat.poignee = Int(jeuComplet?.poignee ?? 0)
         jeuResultat.chelem = Int(jeuComplet?.chelem ?? 0)
         jeuResultat.total = jeuComplet?.total ?? 0.0
-
+        
         majScore()
     }
     
     @IBAction func addScore(_ sender: Any) {
-//        sauvePointsJeu(scoreJeu: scoreJeu)
+        //        sauvePointsJeu(scoreJeu: scoreJeu)
         JeuResultat.save(scoreJeu: jeuResultat, idJeu: idJeu, hD: now)
     }
     
@@ -212,7 +212,7 @@ class JeuResultatController: UIViewController {
         // Calcul et mise à jour affichage
         affecterPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
         majScore()
-
+        
     }
     
     @IBAction func changerSwitchPetitAuBoutDefense(_ sender: UISwitch) {
@@ -224,7 +224,7 @@ class JeuResultatController: UIViewController {
         // Calcul et mise à jour affichage
         affecterPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
         majScore()
-
+        
     }
     
     @IBAction func selectionnerPetitAuBout(_ sender: UIButton) {
@@ -247,7 +247,7 @@ class JeuResultatController: UIViewController {
         // Calcul et mise à jour affichage
         affecterPointsPetitAuBout(attaque: switchPetitAuBoutAttaque.isOn, defense: switchPetitAuBoutDefense.isOn)
         majScore()
-
+        
     }
     
     //
@@ -264,7 +264,7 @@ class JeuResultatController: UIViewController {
         affecterPointsPoignee(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
         majScore()
     }
-
+    
     @IBAction func changerSwitchPoigneeDefense(_ sender: UISwitch) {
         if switchPoigneeAttaque.isOn == false && switchPoigneeDefense.isOn == false {
             segmentPoignee.selectedSegmentIndex = UISegmentedControl.noSegment
@@ -276,7 +276,7 @@ class JeuResultatController: UIViewController {
         affecterPointsPoignee(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
         majScore()
     }
-
+    
     @IBAction func selectionnerSegmentPoignee(_ sender: UISegmentedControl) {
         if switchPoigneeAttaque.isOn == false && switchPoigneeDefense.isOn == false {
             switchPoigneeAttaque.setOn(true, animated: true)
@@ -288,7 +288,7 @@ class JeuResultatController: UIViewController {
         affecterPointsPoignee(attaque: switchPoigneeAttaque.isOn, defense: switchPoigneeDefense.isOn, choixPoignee: segmentPoignee.selectedSegmentIndex)
         majScore()
     }
- 
+    
     
     
     @IBAction func affecterPoints(_ sender: UISlider) {
@@ -303,14 +303,14 @@ class JeuResultatController: UIViewController {
         // Calcul et mise à jour affichage
         jeuResultat.pointsFaits = sliderPoints.value
         majScore()
-
-}
+        
+    }
     @IBAction func ajouterPointsDefense(_ sender: UIButton) {
         sliderPoints.value -= 0.5
         // Calcul et mise à jour affichage
         jeuResultat.pointsFaits = sliderPoints.value
         majScore()
-}
+    }
     
     //
     //              Options Chelem
@@ -343,20 +343,20 @@ class JeuResultatController: UIViewController {
         if switchChelemAttaque.isOn == false && switchChelemDefense.isOn == false {
             switchChelemAttaque.setOn(true, animated: true)
             switchChelemAttaque.isEnabled = true
-//            switchChelemDefense.setOn(false, animated: true)
-//            switchChelemDefense.isEnabled = true
+            //            switchChelemDefense.setOn(false, animated: true)
+            //            switchChelemDefense.isEnabled = true
         }
         // Calcul et mise à jour affichage
         affecterPointsChelem(attaque: switchChelemAttaque.isOn, defense: switchChelemDefense.isOn, choixChelem: segmentChelem.selectedSegmentIndex)
         majScore()
     }
     
-
     
     
     
     
-
+    
+    
     
     @IBAction func Retour(_ sender: Any) {
         view.endEditing(true)

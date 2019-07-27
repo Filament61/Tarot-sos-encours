@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14490.99" systemVersion="18F203" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18F203" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="JeuJoueur" representedClassName=".JeuJoueur" syncable="YES" codeGenerationType="category">
         <attribute name="etat" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="idJeu" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -21,6 +21,18 @@
         <relationship name="partie" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Partie" inverseName="jeux" inverseEntity="Partie" syncable="YES"/>
     </entity>
     <entity name="Joueur" representedClassName=".Joueur" syncable="YES" codeGenerationType="category">
+        <attribute name="idJoueur" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="ordre" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="points" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="partie" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Partie" inverseName="participants" inverseEntity="Partie" syncable="YES"/>
+    </entity>
+    <entity name="Partie" representedClassName=".Partie" syncable="YES" codeGenerationType="category">
+        <attribute name="horodate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="idPartie" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <relationship name="jeux" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="JeuResultat" inverseName="partie" inverseEntity="JeuResultat" syncable="YES"/>
+        <relationship name="participants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Joueur" inverseName="partie" inverseEntity="Joueur" syncable="YES"/>
+    </entity>
+    <entity name="Personne" representedClassName=".Personne" syncable="YES" codeGenerationType="category">
         <attribute name="horodate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="idJoueur" attributeType="Integer 16" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="nom" optional="YES" attributeType="String" syncable="YES"/>
@@ -31,22 +43,11 @@
             <fetchIndexElement property="surnom" type="Binary" order="ascending"/>
         </fetchIndex>
     </entity>
-    <entity name="Participant" representedClassName=".Participant" syncable="YES" codeGenerationType="category">
-        <attribute name="idJoueur" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="ordre" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="partie" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Partie" inverseName="participants" inverseEntity="Partie" syncable="YES"/>
-    </entity>
-    <entity name="Partie" representedClassName=".Partie" syncable="YES" codeGenerationType="category">
-        <attribute name="horodate" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="idPartie" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="jeux" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="JeuResultat" inverseName="partie" inverseEntity="JeuResultat" syncable="YES"/>
-        <relationship name="participants" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Participant" inverseName="partie" inverseEntity="Participant" syncable="YES"/>
-    </entity>
     <elements>
         <element name="JeuJoueur" positionX="-233.22265625" positionY="-137.7265625" width="128" height="103"/>
         <element name="JeuResultat" positionX="-454.59765625" positionY="-242.60546875" width="128" height="223"/>
-        <element name="Joueur" positionX="-54.95703125" positionY="-413.7734375" width="128" height="133"/>
-        <element name="Participant" positionX="159.8046875" positionY="-92.421875" width="128" height="88"/>
+        <element name="Personne" positionX="106.86328125" positionY="50.4296875" width="128" height="133"/>
+        <element name="Joueur" positionX="159.8046875" positionY="-92.421875" width="128" height="103"/>
         <element name="Partie" positionX="-50.91796875" positionY="-107.6171875" width="128" height="103"/>
     </elements>
 </model>

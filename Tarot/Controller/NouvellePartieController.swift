@@ -17,17 +17,18 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var listeJoueurs: UILabel!
     @IBOutlet weak var nbJoueursImage: UIImageView!
     
-    var cellId = "JoueurCell"
+    var cellId = "PersonneCell"
     
-    var joueurs = [Joueur]()
-    var cellTab = [JoueurCell]()
-    var cells =  [JoueurCell]()
-    var preneur = JoueurCell()
+    var joueurs = [Personne]()
+    var cellTab = [PersonneCell]()
+    var cells =  [PersonneCell]()
+    //    var preneur = PersonneCell()
     
+    var partie = Partie()
     
     let idPartie = NSManagedObject.nextAvailble("idPartie", forEntityName: "Partie")
     let now = Date()
-
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -55,15 +56,15 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let joueurDeLaCell = joueurs[indexPath.row]
-        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? JoueurCell {
-            cell.miseEnPlace(joueur: joueurDeLaCell)
+        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? PersonneCell {
+            cell.miseEnPlace(personne: joueurDeLaCell)
             return cell
         }
         return UITableViewCell()
         
     }
     
-
+    
     //    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     //        switch editingStyle {
     //        case .delete:
@@ -85,7 +86,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     
     func fetchJoueurs() {
-        let requete: NSFetchRequest<Joueur> = Joueur.fetchRequest()
+        let requete: NSFetchRequest<Personne> = Personne.fetchRequest()
         let tri = NSSortDescriptor(key: "nom", ascending: true)
         requete.sortDescriptors = [tri]
         do {
@@ -102,52 +103,52 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        preneur = tableView.cellForRow(at: indexPath) as! JoueurCell
-        if preneur.idx > 0 {
-            self.performSegue(withIdentifier: "Segue", sender: self)
-        }
+        //        preneur = tableView.cellForRow(at: indexPath) as! PersonneCell
+        //        if preneur.idx > 0 {
+        //            self.performSegue(withIdentifier: "Segue", sender: self)
+        //        }
     }
     
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        
-        let petite = UIContextualAction(style: .normal, title:  "Petite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            //self.isEditing = false
-//                        let cell = tableView.cellForRow(at: indexPath) as! JoueurCell
-//            self.preneur = cell
-            self.performSegue(withIdentifier: "Segue", sender: self)
-            print("more button tapped")
-            success(false)
-        })
-        petite.backgroundColor = UIColor.lightGray
-        
-        let garde = UIContextualAction(style: .normal, title:  "Garde", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            //self.isEditing = false
-            print("favorite button tapped")
-            success(false)
-        })
-        garde.backgroundColor = UIColor.orange
-        
-        let sans = UIContextualAction(style: .normal, title:  "Sans", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            //self.isEditing = false
-            print("share button tapped")
-            success(false)
-        })
-        sans.backgroundColor = UIColor.blue
-            let contre = UIContextualAction(style: .normal, title:  "Contre", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-                //self.isEditing = false
-                print("share button tapped")
-                success(false)
-        })
-        contre.backgroundColor = UIColor.green
-        
-        
-        return UISwipeActionsConfiguration(actions: [contre, sans, garde, petite,])
-    }
+    //    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+    //
+    //        let petite = UIContextualAction(style: .normal, title:  "Petite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+    //            //self.isEditing = false
+    ////                        let cell = tableView.cellForRow(at: indexPath) as! JoueurCell
+    ////            self.preneur = cell
+    //            self.performSegue(withIdentifier: "Segue", sender: self)
+    //            print("more button tapped")
+    //            success(false)
+    //        })
+    //        petite.backgroundColor = UIColor.lightGray
+    //
+    //        let garde = UIContextualAction(style: .normal, title:  "Garde", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+    //            //self.isEditing = false
+    //            print("favorite button tapped")
+    //            success(false)
+    //        })
+    //        garde.backgroundColor = UIColor.orange
+    //
+    //        let sans = UIContextualAction(style: .normal, title:  "Sans", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+    //            //self.isEditing = false
+    //            print("share button tapped")
+    //            success(false)
+    //        })
+    //        sans.backgroundColor = UIColor.blue
+    //            let contre = UIContextualAction(style: .normal, title:  "Contre", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+    //                //self.isEditing = false
+    //                print("share button tapped")
+    //                success(false)
+    //        })
+    //        contre.backgroundColor = UIColor.green
+    //
+    //
+    //        return UISwipeActionsConfiguration(actions: [contre, sans, garde, petite,])
+    //    }
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         //        return UISwipeActionsConfiguration()
         
-        guard let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return nil }
+        guard let cell = tableView.cellForRow(at: indexPath) as? PersonneCell else { return nil }
         
         let choixAction = UIContextualAction(style: .normal, title:  "", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             
@@ -163,7 +164,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
                     item += 1
                     print("Réindexation : \(item)")
                 }
-            // Nouvelle cellule sélectionnée
+                // Nouvelle cellule sélectionnée
             } else {
                 self.cellTab.append(cell)
                 cell.idx = self.cellTab.count
@@ -173,7 +174,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
                 let surnom = item.surnom.text
                 print("Choix : \(surnom ?? "")")
             }
- 
+            
             self.listeJoueurs.text = ""
             for joueur in self.cellTab {
                 self.listeJoueurs.text = self.listeJoueurs.text! + joueur.surnom.text! + "\n"
@@ -196,17 +197,23 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     
     @IBAction func Tri(_ sender: UIBarButtonItem) {
-                   self.joueurs.sort(by: { (first: Joueur, second: Joueur) -> Bool in
-                        return UIContentSizeCategory(rawValue: first.surnom!) > UIContentSizeCategory(rawValue: second.surnom!)
-                    })
-}
+        self.joueurs.sort(by: { (first: Personne, second: Personne) -> Bool in
+            return UIContentSizeCategory(rawValue: first.surnom!) > UIContentSizeCategory(rawValue: second.surnom!)
+        })
+    }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Mise à jour du dictionnaire des noms des joueurs
+        dicoJoueurs.removeAll()
+        for item in cellTab {
+            dicoJoueurs[Int(item.idJoueurLabel.text!)!] = item.surnom.text
+        }
+        
         if segue.identifier == "Segue" {
-//            let qui = self.preneur.idx
-            let JeuResultatController = segue.destination as! JeuResultatController
-            JeuResultatController.preneur = preneur.idx - 1
-            JeuResultatController.cellTab = cellTab
+            //            let qui = self.preneur.idx
+            let PartieController = segue.destination as! PartieController
+            //            PartieController.preneur = preneur.idx - 1
+            PartieController.cellTab = cellTab
         }
     }
     
@@ -219,11 +226,13 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         
         nbJoueursImage.image = UIImage(named: "icons8-cerclé-0-1")
     }
-
+    
     @IBAction func nouvellePartieAction(_ sender: Any) {
-//        var participants = partie.mutableSetValue(forKey: #keyPath(Partie.participants))
-
+        //        var participants = partie.mutableSetValue(forKey: #keyPath(Partie.participants))
+        
         Partie.save(partie, participants: cellTab, idPartie: idPartie, hD: now)
+        
+        fetchParties()
     }
     
     
@@ -233,13 +242,13 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         requete.sortDescriptors = [tri]
         do {
             let parties = try contexte.fetch(requete)
-//            tableView.reloadData()
+            //            tableView.reloadData()
             let toto = parties.count
         } catch {
             print(error.localizedDescription)
         }
     }
-
+    
 }
 
 

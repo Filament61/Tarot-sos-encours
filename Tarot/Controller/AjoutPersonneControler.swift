@@ -9,11 +9,11 @@
 import UIKit
 import CoreData
 
-class AjoutJoueurController: UIViewController {
-
+class AjoutPersonneController: UIViewController {
+    
     @IBOutlet weak var scroll: UIScrollView!
     @IBOutlet weak var contrainteDuBas: NSLayoutConstraint!
-
+    
     @IBOutlet weak var ajouterPersonneBouton: UIButton!
     
     @IBOutlet weak var idJoueurLabel: UILabel!
@@ -26,45 +26,48 @@ class AjoutJoueurController: UIViewController {
     
     var imagePicker: UIImagePickerController?
     
-    let idJoueur = NSManagedObject.nextAvailble("idJoueur", forEntityName: "Joueur")
+    let idJoueur = NSManagedObject.nextAvailble("idJoueur", forEntityName: "Personne")
     let now = Date()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         miseEnPlaceImagePicker()
         miseEnPlaceLabel()
         miseEnPlaceTextField()
         miseEnPlaceNotification()
-//        fetchEntreprises()
+        //        fetchEntreprises()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-//        largeurContrainte.constant = view.frame.width
-//        scroll.contentSize = CGSize(width: largeurContrainte.constant, height: scroll.frame.height)
+        //        largeurContrainte.constant = view.frame.width
+        //        scroll.contentSize = CGSize(width: largeurContrainte.constant, height: scroll.frame.height)
     }
     
     
     
     
-    @IBAction func ajouterJoueurAction(_ sender: UIButton) {
+    @IBAction func ajouterPersonneAction(_ sender: UIButton) {
         view.endEditing(true)
         
-        let nouveauJoueur = Joueur(context: contexte)
+        
+        guard surnomTextField.hasText else { return }
+        
+        let nouvellePersonne = Personne(context: contexte)
         
         if prenomTextField.text != nil {
-            nouveauJoueur.prenom = prenomTextField.text!
+            nouvellePersonne.prenom = prenomTextField.text!
         }
         if nomTextField.text != nil {
-            nouveauJoueur.nom = nomTextField.text!
+            nouvellePersonne.nom = nomTextField.text!
         }
         if surnomTextField.text != nil {
-            nouveauJoueur.surnom = surnomTextField.text!
+            nouvellePersonne.surnom = surnomTextField.text!
         }
-        nouveauJoueur.photo = imageDeProfil.image
+        nouvellePersonne.photo = imageDeProfil.image
         
-        nouveauJoueur.idJoueur = Int16(idJoueur)
-        nouveauJoueur.horodate = now
+        nouvellePersonne.idJoueur = Int16(idJoueur)
+        nouvellePersonne.horodate = now
         
         appDelegate.saveContext()
         navigationController?.popViewController(animated: true)

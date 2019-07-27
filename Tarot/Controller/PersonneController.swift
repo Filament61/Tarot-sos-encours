@@ -1,5 +1,5 @@
 //
-//  PersonneController.swift
+//  Personnes.swift
 //  Tarot
 //
 //  Created by Serge Gori on 18/06/2019.
