@@ -17,7 +17,7 @@ struct  Data {
         
         let img: UIImage = #imageLiteral(resourceName: "vador")
         
-        let gege = Personne(context: contexte)
+        let gege = Personne(context: viewContext)
         gege.idJoueur = 1
         gege.surnom = "Gégé"
         gege.prenom = "Géraldine"
@@ -25,7 +25,7 @@ struct  Data {
         gege.horodate = Date()
         gege.photo = img
         
-        let loulou = Personne(context: contexte)
+        let loulou = Personne(context: viewContext)
         loulou.idJoueur = 2
         loulou.surnom = "Loulou"
         loulou.prenom = "Alain"
@@ -33,7 +33,7 @@ struct  Data {
         loulou.horodate = Date()
         loulou.photo = img
         
-        let serge = Personne(context: contexte)
+        let serge = Personne(context: viewContext)
         serge.idJoueur = 3
         serge.surnom = "Sergio"
         serge.prenom = "Serge"
@@ -41,7 +41,7 @@ struct  Data {
         serge.horodate = Date()
         serge.photo = img
         
-        let filou = Personne(context: contexte)
+        let filou = Personne(context: viewContext)
         filou.idJoueur = 4
         filou.surnom = "Filou"
         filou.prenom = "Philippe"
@@ -49,7 +49,7 @@ struct  Data {
         filou.horodate = Date()
         filou.photo = img
         
-        let marc = Personne(context: contexte)
+        let marc = Personne(context: viewContext)
         marc.idJoueur = 5
         marc.surnom = "Marc"
         marc.prenom = "Marc"
@@ -57,7 +57,7 @@ struct  Data {
         marc.horodate = Date()
         marc.photo = img
         
-        let robert = Personne(context: contexte)
+        let robert = Personne(context: viewContext)
         robert.idJoueur = 6
         robert.surnom = "Robert"
         robert.prenom = "Robert"
@@ -65,7 +65,7 @@ struct  Data {
         robert.horodate = Date()
         robert.photo = img
         
-        let alain = Personne(context: contexte)
+        let alain = Personne(context: viewContext)
         alain.idJoueur = 7
         alain.surnom = "Alain"
         alain.prenom = "Alain"
@@ -73,7 +73,7 @@ struct  Data {
         alain.horodate = Date()
         alain.photo = img
         
-        let armelle = Personne(context: contexte)
+        let armelle = Personne(context: viewContext)
         armelle.idJoueur = 8
         armelle.surnom = "Armelle"
         armelle.prenom = "Armelle"
@@ -94,11 +94,11 @@ struct  Data {
         
         for item in aSupprimer {
             let aSupprimer = item as NSManagedObject
-            contexte.delete(aSupprimer)
+            viewContext.delete(aSupprimer)
         }
         
         do {
-            try? contexte.save()
+            try? viewContext.save()
         }
         catch {
             print(error.localizedDescription)

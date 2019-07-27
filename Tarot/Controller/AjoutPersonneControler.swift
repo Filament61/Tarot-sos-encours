@@ -53,7 +53,7 @@ class AjoutPersonneController: UIViewController {
         
         guard surnomTextField.hasText else { return }
         
-        let nouvellePersonne = Personne(context: contexte)
+        let nouvellePersonne = Personne(context: viewContext)
         
         if prenomTextField.text != nil {
             nouvellePersonne.prenom = prenomTextField.text!

@@ -32,7 +32,8 @@ class JeuResultatController: UIViewController {
     @IBOutlet weak var labelPointsBase: UILabel!
     @IBOutlet weak var sliderPoints: SliderPoints!
     
-    @IBOutlet weak var buttonEnregistrer: UIButton!
+    @IBOutlet weak var enregistrerButton: UIButton!
+    @IBOutlet weak var majButton: UIButton!
     
     @IBOutlet weak var labelPointsGain: UILabel!
     @IBOutlet weak var labelPointsSousTotal: UILabel!
@@ -138,10 +139,12 @@ class JeuResultatController: UIViewController {
         labelPointsTotaux.text = jeuResultat.totalText()
         // Bouton ENREGISTRER
         if let _ = jeuResultat.gain, let _ = jeuResultat.nbBout, let _ = jeuResultat.contrat {
-            buttonEnregistrer.isEnabled = true
+            enregistrerButton.isEnabled = true
+            majButton.isEnabled = true
         } else {
-            buttonEnregistrer.isEnabled = false
-        }
+            enregistrerButton.isEnabled = false
+            majButton.isEnabled = false
+       }
     }
     
     
@@ -353,9 +356,25 @@ class JeuResultatController: UIViewController {
     
     
     
+//        override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+//            super.didUpdateFocus(in: context, with: coordinator)
+////            if context.nextFocusedView == self {
+////                backgroundColor = .red
+////            } else if context.previouslyFocusedView == self {
+////                backgroundColor = .clear
+////            }
+//            if context.self == sliderPoints {
+//                sliderPoints.changerValeur(round(sliderPoints.value))
+//                // Calcul et mise à jour affichage
+//                jeuResultat.pointsFaits = sliderPoints.value
+//            }
+//        }
+
     
     
-    
+    @IBAction func majButton(_ sender: Any) {
+        Partie.update(AppDelegate.partie, scoreJeu: jeuResultat, idJeu: idJeu, hD: now)
+    }
     
     
     @IBAction func Retour(_ sender: Any) {

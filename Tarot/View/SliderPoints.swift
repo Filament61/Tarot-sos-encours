@@ -47,6 +47,17 @@ class SliderPoints: UISlider {
 //        titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
     }
 
+//    override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+//        super.didUpdateFocus(in: context, with: coordinator)
+//        if context.nextFocusedView == self {
+//            backgroundColor = .red
+//        } else if context.previouslyFocusedView == self {
+//            backgroundColor = .clear
+//        }
+//        let valeur: Float = round(self.value)
+//        super.setValue(valeur, animated: true)
+//    }
+    
 }
 
 

@@ -12,16 +12,23 @@ import CoreData
 class PartieController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     @IBOutlet weak var joueursTableView: UITableView!
+    @IBOutlet weak var jeuxTableView: UITableView!
     
-    var cellId = "JoueurCell"
-    
+    var cellJoueur = "JoueurCell"
+    var cellJeu = "JeuCell"
+
     var joueurs = [Joueur]()
+    var jeux = [JeuResultat]()
+
     var cellTab = [PersonneCell]()
     var cells =  [PersonneCell]()
+    
     var preneur = JoueurCell()
-    
-    var partie = Partie()
-    
+//    var preneur = JoueurCell()
+
+//    var partie = Partie()
+    var jeu = JeuResultat()
+
     let idPartie = NSManagedObject.nextAvailble("idPartie", forEntityName: "Partie")
     let now = Date()
     
@@ -30,12 +37,19 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         super.viewDidLoad()
         joueursTableView.delegate = self
         joueursTableView.dataSource = self
+        jeuxTableView.delegate = self
+        jeuxTableView.dataSource = self
         miseEnPlace()
 //        let toto = dicoJoueurs
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        joueursTableView.delegate = self
+        joueursTableView.dataSource = self
+        jeuxTableView.delegate = self
+        jeuxTableView.dataSource = self
+        miseEnPlace()
         fetchParties()
 //        fetchJoueurs()
     }
@@ -43,23 +57,44 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return joueurs.count
+        if tableView == joueursTableView {
+            return joueurs.count
+        }
+        if tableView == jeuxTableView {
+            return jeux.count
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 54
+        if tableView == joueursTableView {
+            return 54
+        }
+        if tableView == jeuxTableView {
+            return 22
+        }
+        return 0
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let joueurDeLaCell = joueurs[indexPath.row]
-        if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? JoueurCell {
-            cell.miseEnPlace(joueur: joueurDeLaCell)
-            return cell
+        if tableView == joueursTableView {
+            let joueurDeLaCell = joueurs[indexPath.row]
+            if let cell = tableView.dequeueReusableCell(withIdentifier: cellJoueur) as? JoueurCell {
+                cell.miseEnPlace(joueur: joueurDeLaCell)
+                return cell
+            }
+        }
+        if tableView == jeuxTableView {
+            let jeuDeLaCell = jeux[indexPath.row]
+            if let cell = tableView.dequeueReusableCell(withIdentifier: cellJeu) as? JeuCell {
+                cell.miseEnPlace(jeu: jeuDeLaCell)
+                return cell
+            }
         }
         return UITableViewCell()
-        
     }
     
     
@@ -88,7 +123,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         let tri = NSSortDescriptor(key: "ordre", ascending: true)
         requete.sortDescriptors = [tri]
         do {
-            joueurs = try contexte.fetch(requete)
+            joueurs = try viewContext.fetch(requete)
             joueursTableView.reloadData()
         } catch {
             print(error.localizedDescription)
@@ -97,50 +132,69 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
+        if tableView == joueursTableView {
+            return true
+        }
+        if tableView == jeuxTableView {
+            return false
+        }
+        return false
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        preneur = joueursTableView.cellForRow(at: indexPath) as! JoueurCell
-        //        if preneur.ordre > 0 {
-        //            self.performSegue(withIdentifier: "Segue", sender: self)
-        //        }
+        if tableView == joueursTableView {
+            preneur = joueursTableView.cellForRow(at: indexPath) as! JoueurCell
+            //        if preneur.ordre > 0 {
+            //            self.performSegue(withIdentifier: "Segue", sender: self)
+            //        }
+        }
+        if tableView == jeuxTableView {
+
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        if tableView == joueursTableView {
+            let petite = UIContextualAction(style: .normal, title:  "Petite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                //self.isEditing = false
+                //                        let cell = tableView.cellForRow(at: indexPath) as! JoueurCell
+                //            self.preneur = cell
+                self.performSegue(withIdentifier: "Segue", sender: self)
+                print("more button tapped")
+                success(false)
+            })
+            petite.backgroundColor = UIColor.lightGray
+            
+            let garde = UIContextualAction(style: .normal, title:  "Garde", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                //self.isEditing = false
+                print("favorite button tapped")
+                success(false)
+            })
+            garde.backgroundColor = UIColor.orange
+            
+            let sans = UIContextualAction(style: .normal, title:  "Sans", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                //self.isEditing = false
+                print("share button tapped")
+                success(false)
+            })
+            sans.backgroundColor = UIColor.blue
+            
+            let contre = UIContextualAction(style: .normal, title:  "Contre", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                //self.isEditing = false
+                print("share button tapped")
+                success(false)
+            })
+            contre.backgroundColor = UIColor.green
+            
+            return UISwipeActionsConfiguration(actions: [contre, sans, garde, petite,])
+        }
         
-        let petite = UIContextualAction(style: .normal, title:  "Petite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            //self.isEditing = false
-            //                        let cell = tableView.cellForRow(at: indexPath) as! JoueurCell
-            //            self.preneur = cell
-            self.performSegue(withIdentifier: "Segue", sender: self)
-            print("more button tapped")
-            success(false)
-        })
-        petite.backgroundColor = UIColor.lightGray
         
-        let garde = UIContextualAction(style: .normal, title:  "Garde", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            //self.isEditing = false
-            print("favorite button tapped")
-            success(false)
-        })
-        garde.backgroundColor = UIColor.orange
-        
-        let sans = UIContextualAction(style: .normal, title:  "Sans", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            //self.isEditing = false
-            print("share button tapped")
-            success(false)
-        })
-        sans.backgroundColor = UIColor.blue
-        let contre = UIContextualAction(style: .normal, title:  "Contre", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            //self.isEditing = false
-            print("share button tapped")
-            success(false)
-        })
-        contre.backgroundColor = UIColor.green
-        
-        
-        return UISwipeActionsConfiguration(actions: [contre, sans, garde, petite,])
+        if tableView == jeuxTableView {
+            return UISwipeActionsConfiguration()
+            
+        }
+        return UISwipeActionsConfiguration()
     }
     
     //    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -225,12 +279,21 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         let tri = NSSortDescriptor(key: "idPartie", ascending: true)
         requete.sortDescriptors = [tri]
         do {
-            let parties = try appDelegate.persistentContainer.viewContext.fetch(requete)
-            partie = parties.last!
-//            let toto = parties.count
-            let set = partie.participants
-            joueurs = set?.allObjects as! [Joueur]
+            let parties = try viewContext.fetch(requete)
+            AppDelegate.partie = parties.last!
+            
+            // Traitement des joueurs
+            let setJoueurs = AppDelegate.partie.participants
+            joueurs = setJoueurs?.allObjects as! [Joueur]
+            joueurs.sort(by: { $0.ordre < $1.ordre })
             joueursTableView.reloadData()
+            
+            // Traitement des jeux
+            let setJeux = AppDelegate.partie.jeux
+            jeux = setJeux?.allObjects as! [JeuResultat]
+            jeux.sort(by: { $0.idJeu > $1.idJeu })
+            jeuxTableView.reloadData()
+
         } catch {
             print(error.localizedDescription)
         }

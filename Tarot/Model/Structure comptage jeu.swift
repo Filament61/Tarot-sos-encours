@@ -34,11 +34,11 @@ struct JeuComplet {
     
     var total: Float?
     var gain: Float?
-//    var isReussi: Bool?
     var coef: Float?
     
 //    var contrat: Int = 0 {
         var contrat: Int? {
+            
         didSet {
             calculerCoef()
         }

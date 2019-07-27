@@ -1,5 +1,5 @@
 //
-//  Personnes.swift
+//  PersonneController.swift
 //  Tarot
 //
 //  Created by Serge Gori on 18/06/2019.
@@ -57,9 +57,9 @@ class JoueursController: UIViewController, UITableViewDelegate, UITableViewDataS
         case .delete:
             if let _ = tableView.cellForRow(at: indexPath) as? PersonneCell {
                 let personneASupprimmer = joueurs[indexPath.row]
-                contexte.delete(personneASupprimmer)
+                viewContext.delete(personneASupprimmer)
                 do {
-                    try contexte.save()
+                    try viewContext.save()
                 } catch {
                     print(error.localizedDescription)
                 }

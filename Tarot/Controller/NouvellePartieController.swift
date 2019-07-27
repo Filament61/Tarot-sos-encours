@@ -90,7 +90,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         let tri = NSSortDescriptor(key: "nom", ascending: true)
         requete.sortDescriptors = [tri]
         do {
-            joueurs = try contexte.fetch(requete)
+            joueurs = try viewContext.fetch(requete)
             tableView.reloadData()
         } catch {
             print(error.localizedDescription)
@@ -241,7 +241,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         let tri = NSSortDescriptor(key: "idPartie", ascending: true)
         requete.sortDescriptors = [tri]
         do {
-            let parties = try contexte.fetch(requete)
+            let parties = try viewContext.fetch(requete)
             //            tableView.reloadData()
             let toto = parties.count
         } catch {

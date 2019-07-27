@@ -10,10 +10,12 @@
 import UIKit
 
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
-let contexte = AppDelegate.persistentContainer.viewContext
+let viewContext = AppDelegate.persistentContainer.viewContext
 
 //newbranch
 
 
 //public var joueursTab = [("Serge"), ("Phillipe"), ("Alain"), ("Marc"), ("Robert"), "Loulou"]
 public var dicoJoueurs = AppDelegate.dicoJoueurs
+
+//public var partie = AppDelegate.partie

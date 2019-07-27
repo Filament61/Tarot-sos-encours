@@ -55,4 +55,44 @@ class Partie: NSManagedObject {
         
     }
     
+    
+    static func update(_ partie: Partie, scoreJeu jeuComplet: JeuComplet, idJeu: Int, hD: Date) {
+        
+        //        for item in participants {
+        //            let participant = Joueur(context: AppDelegate.viewContext)
+        //            participant.idJoueur = Int16(item.idJoueurLabel.text!)!
+        //            participant.ordre = Int16(item.idx)
+        //            participant.points = 0.0
+        //
+        //            partie.addToParticipants(participant)
+        //        }
+        
+        //        for item in jeux {
+        let jeuResultat = JeuResultat(context: viewContext)
+        
+        //        if let deletable = participants.array as? [Joueur] {
+        //            AppDelegate.viewContext.delete(deletable)
+        //        }
+        
+        jeuResultat.idJeu = Int64(idJeu)
+        jeuResultat.horodate = hD
+        jeuResultat.contrat = Int16(jeuComplet.contrat!)
+        jeuResultat.nbBout = Int16(jeuComplet.nbBout!)
+        jeuResultat.pointsFaits = jeuComplet.pointsFaits!
+        jeuResultat.petitAuBout = Int16(jeuComplet.petitAuBout)
+        jeuResultat.poignee = Int16(jeuComplet.poignee)
+        jeuResultat.chelem = Int16(jeuComplet.chelem)
+        jeuResultat.total = jeuComplet.total!
+        
+        partie.addToJeux(jeuResultat)
+        
+        do {
+            try AppDelegate.viewContext.save()
+        }
+        catch {
+            print(error.localizedDescription)
+        }
+        
+        //        }
+    }
 }
