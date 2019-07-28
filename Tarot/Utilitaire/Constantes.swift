@@ -19,3 +19,23 @@ let viewContext = AppDelegate.persistentContainer.viewContext
 public var dicoJoueurs = AppDelegate.dicoJoueurs
 
 //public var partie = AppDelegate.partie
+
+public func dicoJoueursMaJ() {
+    // Mise à jour du dictionnaire des noms des joueurs
+    let personnes = Personne.all()
+    dicoJoueurs.removeAll()
+    for item in personnes {
+        dicoJoueurs[Int(item.idJoueur)] = item.surnom
+    }
+}
+
+
+
+
+//    class dico {
+//
+//        var joueur: [Int: String]
+//
+//    }
+
+

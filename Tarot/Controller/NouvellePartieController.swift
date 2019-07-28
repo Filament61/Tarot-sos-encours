@@ -11,6 +11,8 @@ import CoreData
 
 class NouvellePartieController: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
+    @IBOutlet weak var nouvellePartieButtonBar: UIBarButtonItem!
+
     @IBOutlet weak var idPartieLabel: UILabel!
     @IBOutlet weak var horodateLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -29,7 +31,6 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     let idPartie = NSManagedObject.nextAvailble("idPartie", forEntityName: "Partie")
     let now = Date()
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         tableView.delegate = self
@@ -39,6 +40,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        dicoJoueursMaJ()
         fetchJoueurs()
     }
     
@@ -179,8 +181,12 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             for joueur in self.cellTab {
                 self.listeJoueurs.text = self.listeJoueurs.text! + joueur.surnom.text! + "\n"
             }
-            
+            // Mise à jour de l'image du nombre de joueurs
             self.nbJoueursImage.image = UIImage(named: "icons8-cerclé-" + String(self.cellTab.count) + "-1")
+            
+            // Mise à jour de l'autorisation de départ de la partie
+            self.nouvellePartieButtonBar.isEnabled = self.cellTab.count >= JeuComplet.nbMiniJoueurs && self.cellTab.count <= JeuComplet.nbMaxiJoueurs
+
             success(true)
         })
         
@@ -203,17 +209,11 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Mise à jour du dictionnaire des noms des joueurs
-        dicoJoueurs.removeAll()
-        for item in cellTab {
-            dicoJoueurs[Int(item.idJoueurLabel.text!)!] = item.surnom.text
-        }
-        
-        if segue.identifier == "Segue" {
+        if segue.identifier == "PartieSegue" {
             //            let qui = self.preneur.idx
             let PartieController = segue.destination as! PartieController
             //            PartieController.preneur = preneur.idx - 1
-            PartieController.cellTab = cellTab
+            PartieController.isNouvelle = true
         }
     }
     
@@ -227,28 +227,29 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         nbJoueursImage.image = UIImage(named: "icons8-cerclé-0-1")
     }
     
-    @IBAction func nouvellePartieAction(_ sender: Any) {
-        //        var participants = partie.mutableSetValue(forKey: #keyPath(Partie.participants))
-        
+
+    
+//    func fetchParties() {
+//        let requete: NSFetchRequest<Partie> = Partie.fetchRequest()
+//        let tri = NSSortDescriptor(key: "idPartie", ascending: true)
+//        requete.sortDescriptors = [tri]
+//        do {
+//            let parties = try viewContext.fetch(requete)
+//            //            tableView.reloadData()
+//            let toto = parties.count
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//    }
+    
+    @IBAction func nouvellePartieActionButtonBar(_ sender: UIBarButtonItem) {
         Partie.save(partie, participants: cellTab, idPartie: idPartie, hD: now)
-        
-        fetchParties()
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewControllerID = "PartieViewController"
+        let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! PartieController
+//        vc.isNouvelle = true
+        self.navigationController?.pushViewController(vc, animated: true)
     }
-    
-    
-    func fetchParties() {
-        let requete: NSFetchRequest<Partie> = Partie.fetchRequest()
-        let tri = NSSortDescriptor(key: "idPartie", ascending: true)
-        requete.sortDescriptors = [tri]
-        do {
-            let parties = try viewContext.fetch(requete)
-            //            tableView.reloadData()
-            let toto = parties.count
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
-    
 }
 
 

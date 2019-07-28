@@ -56,7 +56,7 @@ class Partie: NSManagedObject {
     }
     
     
-    static func update(_ partie: Partie, scoreJeu jeuComplet: JeuComplet, idJeu: Int, hD: Date) {
+    static func update(_ partie: Partie, scoreJeu jeuComplet: JeuComplet, idJeu: Int, hD: Date) -> Bool {
         
         //        for item in participants {
         //            let participant = Joueur(context: AppDelegate.viewContext)
@@ -68,12 +68,7 @@ class Partie: NSManagedObject {
         //        }
         
         //        for item in jeux {
-        let jeuResultat = JeuResultat(context: viewContext)
-        
-        //        if let deletable = participants.array as? [Joueur] {
-        //            AppDelegate.viewContext.delete(deletable)
-        //        }
-        
+        let jeuResultat = JeuResultat(context: viewContext)        
         jeuResultat.idJeu = Int64(idJeu)
         jeuResultat.horodate = hD
         jeuResultat.contrat = Int16(jeuComplet.contrat!)
@@ -88,11 +83,11 @@ class Partie: NSManagedObject {
         
         do {
             try AppDelegate.viewContext.save()
+            return true
         }
         catch {
             print(error.localizedDescription)
+            return false
         }
-        
-        //        }
     }
 }

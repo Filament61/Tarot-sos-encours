@@ -20,7 +20,6 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     var joueurs = [Joueur]()
     var jeux = [JeuResultat]()
 
-    var cellTab = [PersonneCell]()
     var cells =  [PersonneCell]()
     
     var preneur = JoueurCell()
@@ -31,7 +30,11 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
 
     let idPartie = NSManagedObject.nextAvailble("idPartie", forEntityName: "Partie")
     let now = Date()
+
+    // Est initialisée par le controlleur appelant
+    var isNouvelle = true
     
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,22 +43,22 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         jeuxTableView.delegate = self
         jeuxTableView.dataSource = self
         miseEnPlace()
-//        let toto = dicoJoueurs
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        joueursTableView.delegate = self
-        joueursTableView.dataSource = self
-        jeuxTableView.delegate = self
-        jeuxTableView.dataSource = self
-        miseEnPlace()
+        dicoJoueursMaJ()
         fetchParties()
-//        fetchJoueurs()
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        if tableView == joueursTableView {
+            return 1
+        }
+        if tableView == jeuxTableView {
+            return 1
+        }
+        return 0
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -255,11 +258,17 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PartieEnCours" {
+            let toto = 1
+        }
+        if segue.identifier == "NouvellePartie" {
+            
+        }
         if segue.identifier == "Segue" {
             //            let qui = self.preneur.idx
             let JeuResultatController = segue.destination as! JeuResultatController
             //            JeuResultatController.preneur = preneur.ordre - 1
-            JeuResultatController.cellTab = cellTab
+            JeuResultatController.joueurs = joueurs
         }
     }
     

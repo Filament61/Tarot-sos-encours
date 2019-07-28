@@ -33,7 +33,6 @@ class JeuResultatController: UIViewController {
     @IBOutlet weak var sliderPoints: SliderPoints!
     
     @IBOutlet weak var enregistrerButton: UIButton!
-    @IBOutlet weak var majButton: UIButton!
     
     @IBOutlet weak var labelPointsGain: UILabel!
     @IBOutlet weak var labelPointsSousTotal: UILabel!
@@ -46,7 +45,8 @@ class JeuResultatController: UIViewController {
     
     let texteVierge = " "
     var jeuResultat = JeuComplet()
-    
+    var joueurs = [Joueur]()
+
     
     let idJeu = NSManagedObject.nextAvailble("idJeu", forEntityName: "JeuResultat")
     let now = Date()
@@ -57,13 +57,12 @@ class JeuResultatController: UIViewController {
         super.viewDidLoad()
         miseEnPlacePicker()
         miseEnPlace()
-        pickerViewPreneur.selectRow(preneur, inComponent: 1, animated: true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        pickerViewPreneur.selectRow(preneur, inComponent: 0, animated: true)
+        pickerViewPreneur.selectRow(preneur, inComponent: 1, animated: true)
         //largeurContrainte.constant = view.frame.width
         //scroll.contentSize = CGSize(width: largeurContrainte.constant, height: scroll.frame.height)
     }
@@ -140,10 +139,8 @@ class JeuResultatController: UIViewController {
         // Bouton ENREGISTRER
         if let _ = jeuResultat.gain, let _ = jeuResultat.nbBout, let _ = jeuResultat.contrat {
             enregistrerButton.isEnabled = true
-            majButton.isEnabled = true
         } else {
             enregistrerButton.isEnabled = false
-            majButton.isEnabled = false
        }
     }
     
@@ -155,7 +152,7 @@ class JeuResultatController: UIViewController {
         
         idJeuLabel.text = String(idJeu)
         
-        majScore()
+//        majScore()
     }
     
     
@@ -179,12 +176,25 @@ class JeuResultatController: UIViewController {
         majScore()
     }
     
-    @IBAction func addScore(_ sender: Any) {
-        //        sauvePointsJeu(scoreJeu: scoreJeu)
-        JeuResultat.save(scoreJeu: jeuResultat, idJeu: idJeu, hD: now)
+    // Enregistrement de tous les éléments du jeu (de la mène)v!
+    @IBAction func enregistrerAction(_ sender: Any) {
+        //        JeuResultat.save(scoreJeu: jeuResultat, idJeu: idJeu, hD: now)
+        if Partie.update(AppDelegate.partie, scoreJeu: jeuResultat, idJeu: idJeu, hD: now) {
+            enregistrerButton.isEnabled = true
+            view.endEditing(true)
+            navigationController?.popViewController(animated: true)
+        } else {
+            let message = "L'enregistrement de ce jeu ne s'est pas réalisé correctement !"
+            let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
     }
     
-    //
+
+
+//
     //              Options Contrats
     //
     @IBAction func selectionnerContrat(_ sender: UISegmentedControl) {
@@ -371,10 +381,6 @@ class JeuResultatController: UIViewController {
 //        }
 
     
-    
-    @IBAction func majButton(_ sender: Any) {
-        Partie.update(AppDelegate.partie, scoreJeu: jeuResultat, idJeu: idJeu, hD: now)
-    }
     
     
     @IBAction func Retour(_ sender: Any) {

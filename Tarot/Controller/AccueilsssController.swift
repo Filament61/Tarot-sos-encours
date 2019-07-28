@@ -17,7 +17,13 @@ class AccueilsssController: UIViewController {
         // Do any additional setup after loading the view.
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        // Do any additional setup before display the view.
+        
+   }
     
+
     
 //    var jou = joueursTab.count
     
@@ -31,5 +37,19 @@ class AccueilsssController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "DernierePartieSegue" {
+            let PartieController = segue.destination as! PartieController
+            PartieController.isNouvelle = false
+        }
+//        if segue.identifier == "Segue" {
+//            //            let qui = self.preneur.idx
+//            let JeuResultatController = segue.destination as! JeuResultatController
+//            //            JeuResultatController.preneur = preneur.ordre - 1
+//            JeuResultatController.cellTab = cellTab
+//        }
+    }
+
 }
 

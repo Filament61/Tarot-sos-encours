@@ -8,6 +8,9 @@
 
 struct JeuComplet {
     
+    static let nbMiniJoueurs = 3
+    static let nbMaxiJoueurs = 5
+
     let nbPointsMaxi: Float = 91.0
     let baseContrat: Float = 25.0
 
