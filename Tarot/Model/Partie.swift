@@ -18,21 +18,27 @@ class Partie: NSManagedObject {
         return Parties
     }
     
-    static func save(_ partie: Partie, participants: [PersonneCell], idPartie: Int, hD: Date) {
-        
+    static func save(Participants  joueurs: [PersonneCell], idPartie: Int, hD: Date, idxDonneur: Int, idxMort: [Int]) {
+//        static func save(_ partie: Partie, participants: [PersonneCell], idPartie: Int, hD: Date, donneur: Int, mort: Int) {
+
         let partie = Partie(context: AppDelegate.viewContext)
         
         partie.idPartie = Int32(idPartie)
         partie.horodate = hD
         
-        for item in participants {
-            let participant = Joueur(context: AppDelegate.viewContext)
-            participant.idJoueur = Int16(item.idJoueurLabel.text!)!
-            participant.ordre = Int16(item.idx)
-            participant.points = 0.0
-            
-            partie.addToParticipants(participant)
+        
+        for participant in joueurs {
+            let joueur = Joueur(context: AppDelegate.viewContext)
+            joueur.idJoueur = Int16(participant.idJoueurLabel.text!)!
+            joueur.ordre = Int16(participant.idx)
+            joueur.points = 0.0
+            joueur.enJeu = true
+            joueur.donneur = participant.idx == idxDonneur
+            joueur.mort = idxMort.contains(participant.idx)
+
+            partie.addToParticipants(joueur)
         }
+
         
         //        if let deletable = participants.array as? [Joueur] {
         //            AppDelegate.viewContext.delete(deletable)
@@ -56,7 +62,7 @@ class Partie: NSManagedObject {
     }
     
     
-    static func update(_ partie: Partie, scoreJeu jeuComplet: JeuComplet, idJeu: Int, hD: Date) -> Bool {
+    static func update(_ partie: Partie, Jeu jeuComplet: JeuComplet, idJeu: Int, hD: Date, donneur: Int, mort: Int) -> Bool {
         
         //        for item in participants {
         //            let participant = Joueur(context: AppDelegate.viewContext)

@@ -53,6 +53,9 @@ class JeuResultatController: UIViewController {
     var preneur = Int()
     var cellTab = [PersonneCell]()
     
+    var donneur = varCirculaire()
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         miseEnPlacePicker()
@@ -152,7 +155,7 @@ class JeuResultatController: UIViewController {
         
         idJeuLabel.text = String(idJeu)
         
-//        majScore()
+        majScore()
     }
     
     
@@ -178,8 +181,8 @@ class JeuResultatController: UIViewController {
     
     // Enregistrement de tous les éléments du jeu (de la mène)v!
     @IBAction func enregistrerAction(_ sender: Any) {
-        //        JeuResultat.save(scoreJeu: jeuResultat, idJeu: idJeu, hD: now)
-        if Partie.update(AppDelegate.partie, scoreJeu: jeuResultat, idJeu: idJeu, hD: now) {
+
+        if Partie.update(AppDelegate.partie, Jeu: jeuResultat, idJeu: idJeu, hD: now, donneur: donneur!.suivant(), mort: 0) {
             enregistrerButton.isEnabled = true
             view.endEditing(true)
             navigationController?.popViewController(animated: true)

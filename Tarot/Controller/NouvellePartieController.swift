@@ -185,7 +185,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             self.nbJoueursImage.image = UIImage(named: "icons8-cerclé-" + String(self.cellTab.count) + "-1")
             
             // Mise à jour de l'autorisation de départ de la partie
-            self.nouvellePartieButtonBar.isEnabled = self.cellTab.count >= JeuComplet.nbMiniJoueurs && self.cellTab.count <= JeuComplet.nbMaxiJoueurs
+            self.nouvellePartieButtonBar.isEnabled = self.cellTab.count >= GestionJoueurs.nbMiniJoueurs && self.cellTab.count <= GestionJoueurs.nbMaxiJoueurs
 
             success(true)
         })
@@ -243,7 +243,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
 //    }
     
     @IBAction func nouvellePartieActionButtonBar(_ sender: UIBarButtonItem) {
-        Partie.save(partie, participants: cellTab, idPartie: idPartie, hD: now)
+        Partie.save(Participants: cellTab, idPartie: idPartie, hD: now, idxDonneur: 1, idxMort: [1])
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewControllerID = "PartieViewController"
         let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! PartieController

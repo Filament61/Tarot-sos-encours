@@ -34,7 +34,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     // Est initialisée par le controlleur appelant
     var isNouvelle = true
     
-
+    var donneur = varCirculaire()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,6 +49,12 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         super.viewWillAppear(animated)
         dicoJoueursMaJ()
         fetchParties()
+        // On initialise la variable donneur avec les informations contenues dans la table Joueurs
+        if let idxDonneur = joueurs.firstIndex(where: {$0.donneur == true}) {
+            donneur?.reInit(nb: joueurs.count, ordre: idxDonneur)
+        } else {
+            donneur?.reInit(nb: joueurs.count, ordre: 1)
+        }
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -87,6 +93,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             let joueurDeLaCell = joueurs[indexPath.row]
             if let cell = tableView.dequeueReusableCell(withIdentifier: cellJoueur) as? JoueurCell {
                 cell.miseEnPlace(joueur: joueurDeLaCell)
+                cell.isHighlighted = joueurDeLaCell.donneur == true
                 return cell
             }
         }
@@ -269,6 +276,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             let JeuResultatController = segue.destination as! JeuResultatController
             //            JeuResultatController.preneur = preneur.ordre - 1
             JeuResultatController.joueurs = joueurs
+            JeuResultatController.donneur = donneur
         }
     }
     
