@@ -105,7 +105,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     static var dicoJoueurs = [Int: String]()
     
     static var partie = Partie()
-    
+    static var jeu = JeuResultat()
+
     
 }
 

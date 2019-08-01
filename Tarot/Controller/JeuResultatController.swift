@@ -14,7 +14,7 @@ class JeuResultatController: UIViewController {
     @IBOutlet weak var idJeuLabel: UILabel!
     @IBOutlet weak var horodateLabel: UILabel!
     
-    @IBOutlet weak var pickerViewPreneur: UIPickerView!
+    @IBOutlet weak var pickerView: UIPickerView!
     @IBOutlet weak var pickerViewAppele: UIPickerView!
     @IBOutlet weak var segmentContrat: UISegmentedControl!
     @IBOutlet weak var segmentNbBout: UISegmentedControl!
@@ -50,10 +50,11 @@ class JeuResultatController: UIViewController {
     
     let idJeu = NSManagedObject.nextAvailble("idJeu", forEntityName: "JeuResultat")
     let now = Date()
-    var preneur = Int()
+//    var preneur = Int()
     var cellTab = [PersonneCell]()
     
-    var donneur = varCirculaire()
+//    var donneur = varCirculaire()
+    var gestionJoueurs = GestionJoueurs()
 
     
     override func viewDidLoad() {
@@ -65,7 +66,8 @@ class JeuResultatController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        pickerViewPreneur.selectRow(preneur, inComponent: 1, animated: true)
+        
+//        pickerView.selectRow(preneur, inComponent: 1, animated: true)
         //largeurContrainte.constant = view.frame.width
         //scroll.contentSize = CGSize(width: largeurContrainte.constant, height: scroll.frame.height)
     }
@@ -152,9 +154,11 @@ class JeuResultatController: UIViewController {
         let format = DateFormatter()
         format.dateFormat = "dd/MM/YYYY HH:mm"
         horodateLabel.text = format.string(from: now)
-        
         idJeuLabel.text = String(idJeu)
-        
+        if let contrat = gestionJoueurs.contrat?.idx {
+            selectionnerContrat(contrat)
+        }
+//        pickerView.selectRow((gestionJoueurs.preneur ?? 1) - 1, inComponent: (gestionJoueurs.partenaire ?? 1) - 1, animated: true)
         majScore()
     }
     
@@ -179,29 +183,18 @@ class JeuResultatController: UIViewController {
         majScore()
     }
     
-    // Enregistrement de tous les éléments du jeu (de la mène)v!
-    @IBAction func enregistrerAction(_ sender: Any) {
-
-        if Partie.update(AppDelegate.partie, Jeu: jeuResultat, idJeu: idJeu, hD: now, donneur: donneur!.suivant(), mort: 0) {
-            enregistrerButton.isEnabled = true
-            view.endEditing(true)
-            navigationController?.popViewController(animated: true)
-        } else {
-            let message = "L'enregistrement de ce jeu ne s'est pas réalisé correctement !"
-            let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
-        }
-    }
-    
-
-
 //
     //              Options Contrats
     //
-    @IBAction func selectionnerContrat(_ sender: UISegmentedControl) {
-        jeuResultat.contrat = sender.selectedSegmentIndex + 1
+    @IBAction func selectionnerContrat(_ sender: Any) {
+        if let sender = sender as? UISegmentedControl {
+            // Appel par l'interface tactile
+            jeuResultat.contrat = sender.selectedSegmentIndex + 1
+        } else if let sender = sender as? Int {
+            // Appel par le programme
+            segmentContrat.selectedSegmentIndex = sender - 1
+            jeuResultat.contrat = sender
+        }
         // Calcul et mise à jour affichage
         majScore()
     }
@@ -384,7 +377,31 @@ class JeuResultatController: UIViewController {
 //        }
 
     
+    // Enregistrement de tous les éléments du jeu (de la mène)v!
+    @IBAction func enregistrerAction(_ sender: Any) {
+
+        joueurs = gestionJoueurs.affecterPoints(joueurs: joueurs, points: jeuResultat.total ?? 0.0)
+        joueurs = gestionJoueurs.donneSuivante(joueurs: joueurs)
+        
+        if Partie.update(AppDelegate.partie, Jeu: jeuResultat, idJeu: idJeu, hD: now, participants: joueurs, mort: 0) {
+            enregistrerButton.isEnabled = true
+
+            if let _ = gestionJoueurs.preneur { gestionJoueurs.preneur = 1 }
+            if let _ = gestionJoueurs.partenaire { gestionJoueurs.partenaire = 1 }
+
+            view.endEditing(true)
+            navigationController?.popViewController(animated: true)
+        } else {
+            let message = "L'enregistrement de ce jeu ne s'est pas réalisé correctement !"
+            let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
+    }
     
+    
+
     
     @IBAction func Retour(_ sender: Any) {
         view.endEditing(true)

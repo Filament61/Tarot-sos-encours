@@ -30,14 +30,16 @@ public func dicoJoueursMaJ() {
 }
 
 
-
+extension Int {
+    func minus(_: Int) -> Int { return self - 1}
+}
 
 class App {
     
     //        static var joueur: [Int: String]
     static public var nbJoueurs = 0
     static public var partenaire = 1
-    static public var mort: [Int] = [0]
+    static public var mort: [Int]?
     
     static public var preneur = 0
     

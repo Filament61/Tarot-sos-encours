@@ -17,6 +17,7 @@ class JoueurCell: UITableViewCell {
     @IBOutlet weak var donneurLabel: UILabel!
     @IBOutlet weak var contratLabel: UILabel!
     
+    @IBOutlet weak var ordreLabel: UILabel!
     @IBOutlet weak var ordreImage: UIImageView!
     @IBOutlet weak var classementImage: UIImageView!
     
@@ -34,9 +35,11 @@ class JoueurCell: UITableViewCell {
         
         self.joueur = joueur
         
+        contratLabel.text = nil
         donneurLabel.isHidden = self.joueur.donneur == false
         surnomLabel.text = dicoJoueurs[Int(self.joueur.idJoueur)]
         pointsLabel.text = String(self.joueur.points)
+        ordreLabel.text = String(self.joueur.ordre)
         ordreImage.image = UIImage(named: "icons8-cerclé-" + String(self.joueur.ordre) + "-1")
 //        classementImage.image = UIImage(named: "icons8-cerclé-" + String(self.joueur.classement) + "-1")
         

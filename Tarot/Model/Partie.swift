@@ -62,18 +62,8 @@ class Partie: NSManagedObject {
     }
     
     
-    static func update(_ partie: Partie, Jeu jeuComplet: JeuComplet, idJeu: Int, hD: Date, donneur: Int, mort: Int) -> Bool {
+    static func update(_ partie: Partie, Jeu jeuComplet: JeuComplet, idJeu: Int, hD: Date, participants: [Joueur], mort: Int) -> Bool {
         
-        //        for item in participants {
-        //            let participant = Joueur(context: AppDelegate.viewContext)
-        //            participant.idJoueur = Int16(item.idJoueurLabel.text!)!
-        //            participant.ordre = Int16(item.idx)
-        //            participant.points = 0.0
-        //
-        //            partie.addToParticipants(participant)
-        //        }
-        
-        //        for item in jeux {
         let jeuResultat = JeuResultat(context: viewContext)        
         jeuResultat.idJeu = Int64(idJeu)
         jeuResultat.horodate = hD
@@ -84,6 +74,16 @@ class Partie: NSManagedObject {
         jeuResultat.poignee = Int16(jeuComplet.poignee)
         jeuResultat.chelem = Int16(jeuComplet.chelem)
         jeuResultat.total = jeuComplet.total!
+                
+        for participant in participants {
+            let jeuJoueur = JeuJoueur(context: AppDelegate.viewContext)
+            jeuJoueur.idJoueur = Int16(participant.idJoueur)
+            jeuJoueur.etat = Int16(2)
+            jeuJoueur.idJeu = Int64(idJeu)
+            
+            jeuResultat.addToJoueurs(jeuJoueur)
+        }
+
         
         partie.addToJeux(jeuResultat)
         

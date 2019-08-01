@@ -81,6 +81,14 @@ struct  Data {
         armelle.horodate = Date()
         armelle.photo = img
         
+        let brigitte = Personne(context: viewContext)
+        brigitte.idJoueur = 9
+        brigitte.surnom = "Bibi"
+        brigitte.prenom = "Brigitte"
+        brigitte.nom = "Punturo"
+        brigitte.horodate = Date()
+        brigitte.photo = img
+        
         do {
             try AppDelegate.viewContext.save()
         }
@@ -98,7 +106,7 @@ struct  Data {
         }
         
         do {
-            try? viewContext.save()
+            try viewContext.save()
         }
         catch {
             print(error.localizedDescription)
