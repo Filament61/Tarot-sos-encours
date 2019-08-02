@@ -58,7 +58,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
 //            donneur?.reInit(nb: joueurs.count, ordre: 1)
 //        }
         
-//        gestionJoueurs.nbJoueurs = joueurs.count
+//        gestionJoueurs.nbJoueursPartie = joueurs.count
 //        joueurs = gestionJoueurs.donneSuivante(joueurs: joueurs)
     }
     

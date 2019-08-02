@@ -235,14 +235,13 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     @IBAction func choixModeAction(_ sender: Any) {
-
         let nb = ModeJeu.nbMorts(modeChoix: modeJeuSegment.selectedSegmentIndex)
         nbMortsSegment.selectedSegmentIndex = nb[nbJoueurs] ?? UISegmentedControl.noSegment
-        
-
     }
     
     @IBAction func choixNbMortsAction(_ sender: Any) {
+        let nb = ModeJeu.modeChoix(nbMorts: nbMortsSegment.selectedSegmentIndex)
+        modeJeuSegment.selectedSegmentIndex = nb[nbJoueurs] ?? UISegmentedControl.noSegment
     }
     
     func animerOptions() {

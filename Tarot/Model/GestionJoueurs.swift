@@ -13,7 +13,14 @@ struct GestionJoueurs {
     static let nbMiniJoueurs = 3
     static let nbMaxiJoueurs = 8
     
-    var nbJoueurs: Int = 0
+    var joueursPartie = [Joueur]()
+    var joueursEnMene = [Joueur]()
+    var joueursEnJeu = [Joueur]()
+
+    var nbJoueursPartie: Int = 0
+    var nbJoueursEnMene: Int = 0
+    var nbJoueursEnJeu: Int = 0
+
     var contrat: Contrat?
     
     var preneur: Int?
@@ -138,28 +145,28 @@ struct GestionJoueurs {
 
 }
 /*
- - 3 joueurs :
+ - 3 joueurs : 300
  simple
  
- - 4 joueurs :
+ - 4 joueurs : 400, 401
  simple
  3 simple + 1 mort
  
- - 5 joueurs :
+ - 5 joueurs : 502, 501, 510
  3 simple + 2 morts
  4 simple + 1 mort
  5 duo
  
- - 6 joueurs :
+ - 6 joueurs : 602, 611, 620
  4 simple + 2 morts
  5 duo + 1 mort
  (6 equipe)
  
- - 7 joueurs
+ - 7 joueurs : 712, 721
  5 duo + 2 morts
  (6 equipe + 1 mort)
  
- - 8 joueurs :
+ - 8 joueurs : 822
  (6 equipe + 2 morts)
  
  >>> Soit : 3 modes de jeux (simple, duo, équipe)
@@ -192,7 +199,16 @@ enum ModeJeu: String {
         switch modeChoix {
         case 0: return [5: 1, 6: 2]
         case 1: return [5: 0, 6: 1, 7: 2]
-        case 2: return [6: 0, 7: 1, 8: 2]
+        case 2: return [5: 0, 6: 0, 7: 1, 8: 2]
+        default: break
+        }
+        return [:]
+    }
+    static func modeChoix(nbMorts: Int) -> [Int: Int] {
+        switch nbMorts {
+        case 0: return [4: 0, 5: 1, 6: 2]
+        case 1: return [4: 0, 5: 0, 6: 1, 7: 2]
+        case 2: return [5: 0, 6: 0, 7: 2, 8: 2]
         default: break
         }
         return [:]
@@ -208,7 +224,7 @@ enum Contrat: String {
         case .garde: return "Garde"
         case .gardeSans: return "Garde sans"
         case .gardeContre: return "Garde contre"
-        default: break
+//        default: break
         }
     }
     var idx: Int {
@@ -217,7 +233,7 @@ enum Contrat: String {
         case .garde: return 2
         case .gardeSans: return 3
         case .gardeContre: return 4
-        default: break
+//        default: break
         }
     }
 
