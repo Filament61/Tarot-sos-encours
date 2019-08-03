@@ -15,6 +15,8 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var modeJeuSegment: UISegmentedControl!
     @IBOutlet weak var nbMortsSegment: UISegmentedControl!
     
+    @IBOutlet weak var donneurLabel: UILabel!
+    @IBOutlet weak var etatLabel: UILabel!
     @IBOutlet weak var idPartieLabel: UILabel!
     @IBOutlet weak var horodateLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!

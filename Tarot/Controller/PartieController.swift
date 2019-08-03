@@ -17,7 +17,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     var cellJoueur = "JoueurCell"
     var cellJeu = "JeuCell"
 
-    var joueurs = [Joueur]()
+//    var joueurs = [Joueur]()
     var jeux = [JeuResultat]()
     var jeuJ = [JeuJoueur]()
     
@@ -36,7 +36,8 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     var isNouvelle = true
     
     var donneur = varCirculaire()
-    var gestionJoueurs = GestionJoueurs()
+
+    lazy var gestionJoueurs = GestionJoueurs(joueurs: [Joueur](), NouvellePartie: isNouvelle)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -74,7 +75,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == joueursTableView {
-            return joueurs.count
+            return gestionJoueurs.joueursPartie.count
         }
         if tableView == jeuxTableView {
             return jeux.count
@@ -95,7 +96,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == joueursTableView {
-            let joueurDeLaCell = joueurs[indexPath.row]
+            let joueurDeLaCell = gestionJoueurs.joueursPartie[indexPath.row]
             if let cell = tableView.dequeueReusableCell(withIdentifier: cellJoueur) as? JoueurCell {
                 cell.miseEnPlace(joueur: joueurDeLaCell)
                 cell.isHighlighted = joueurDeLaCell.donneur == true
@@ -133,17 +134,17 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     //    }
     
     
-    func fetchJoueurs() {
-        let requete: NSFetchRequest<Joueur> = Joueur.fetchRequest()
-        let tri = NSSortDescriptor(key: "ordre", ascending: true)
-        requete.sortDescriptors = [tri]
-        do {
-            joueurs = try viewContext.fetch(requete)
-            joueursTableView.reloadData()
-        } catch {
-            print(error.localizedDescription)
-        }
-    }
+//    func fetchJoueurs() {
+//        let requete: NSFetchRequest<Joueur> = Joueur.fetchRequest()
+//        let tri = NSSortDescriptor(key: "ordre", ascending: true)
+//        requete.sortDescriptors = [tri]
+//        do {
+//            gestionJoueurs.joueursPartie = try viewContext.fetch(requete)
+//            joueursTableView.reloadData()
+//        } catch {
+//            print(error.localizedDescription)
+//        }
+//    }
     
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -184,12 +185,14 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
                     cell.contratLabel.text = self.gestionJoueurs.contrat?.nom
                     print("\(self.gestionJoueurs.contrat?.nom ?? "") sélectionnée")
                     
-                    self.gestionJoueurs.preneur = Int(cell.ordreLabel.text!)!
+                    if let idx = self.gestionJoueurs.joueursPartie.firstIndex(where: { $0.ordre == Int(cell.ordreLabel.text!)! }){
+                        self.gestionJoueurs.preneur = self.gestionJoueurs.joueursPartie[idx] // Int(cell.ordreLabel.text!)!
+                    }
                     let storyboard = UIStoryboard(name: "Main", bundle: nil)
                     let viewControllerID = "JeuResultatController"
                     let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
-                    vc.joueurs = self.joueurs
-                    vc.gestionJoueurs = self.gestionJoueurs
+//                    vc.joueurs = self.joueurs
+                    vc.gj = self.gestionJoueurs
                     //        vc.isNouvelle = true
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
@@ -210,13 +213,15 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
                     cell.contratLabel.text = self.gestionJoueurs.contrat?.nom
                     print("\(self.gestionJoueurs.contrat?.nom ?? "") sélectionnée")
                     
-                    self.gestionJoueurs.preneur = Int(cell.ordreLabel.text!)!
-                    self.nouveauJeuAction("")
+                    if let idx = self.gestionJoueurs.joueursPartie.firstIndex(where: { $0.ordre == Int(cell.ordreLabel.text!)! }){
+                        self.gestionJoueurs.preneur = self.gestionJoueurs.joueursPartie[idx] // Int(cell.ordreLabel.text!)!
+                    }
+//                    self.nouveauJeuAction("")
 //                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
 //                    let viewControllerID = "JeuResultatController"
 //                    let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
 //                    vc.joueurs = self.joueurs
-//                    vc.gestionJoueurs = self.gestionJoueurs
+//                    vc.gj = self.gestionJoueurs
 //                    //        vc.isNouvelle = true
 //                    self.navigationController?.pushViewController(vc, animated: true)
                 }
@@ -322,9 +327,9 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     //
     
     @IBAction func Tri(_ sender: UIBarButtonItem) {
-        self.joueurs.sort(by: { (first: Joueur, second: Joueur) -> Bool in
-            return UIContentSizeCategory(rawValue: String(first.ordre)) > UIContentSizeCategory(rawValue: String(second.ordre))
-        })
+//        self.joueurs.sort(by: { (first: Joueur, second: Joueur) -> Bool in
+//            return UIContentSizeCategory(rawValue: String(first.ordre)) > UIContentSizeCategory(rawValue: String(second.ordre))
+//        })
     }
     
 //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -340,7 +345,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
 //            //            JeuResultatController.preneur = preneur.ordre - 1
 //            JeuResultatController.joueurs = joueurs
 //            JeuResultatController.donneur = donneur
-//            JeuResultatController.gestionJoueurs = gestionJoueurs
+//            JeuResultatController.gj = gestionJoueurs
 //
 //        }
 //    }
@@ -366,8 +371,9 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             
             // Traitement des joueurs
             let setJoueurs = AppDelegate.partie.participants
-            joueurs = setJoueurs?.allObjects as! [Joueur]
-            joueurs.sort(by: { $0.ordre < $1.ordre })
+//            gestionJoueurs.joueursPartie = setJoueurs?.allObjects as! [Joueur]
+            gestionJoueurs = GestionJoueurs(joueurs: setJoueurs?.allObjects as! [Joueur], NouvellePartie: isNouvelle)
+//            gestionJoueurs.joueursPartie.sort(by: { $0.ordre < $1.ordre })
             joueursTableView.reloadData()
             
             // Traitement des jeux
@@ -393,8 +399,8 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewControllerID = "JeuResultatController"
         let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
-        vc.joueurs = self.joueurs
-        vc.gestionJoueurs = self.gestionJoueurs
+//        vc.joueurs = self.joueurs
+        vc.gj = self.gestionJoueurs
         //        vc.isNouvelle = true
         self.navigationController?.pushViewController(vc, animated: true)
     }

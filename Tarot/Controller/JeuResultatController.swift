@@ -45,7 +45,7 @@ class JeuResultatController: UIViewController {
     
     let texteVierge = " "
     var jeuResultat = JeuComplet()
-    var joueurs = [Joueur]()
+//    var joueurs = [Joueur]()
 
     
     let idJeu = NSManagedObject.nextAvailble("idJeu", forEntityName: "JeuResultat")
@@ -54,7 +54,8 @@ class JeuResultatController: UIViewController {
     var cellTab = [PersonneCell]()
     
 //    var donneur = varCirculaire()
-    var gestionJoueurs = GestionJoueurs()
+    lazy var gj = GestionJoueurs(joueurs: [Joueur](), NouvellePartie: true)
+    
 
     
     override func viewDidLoad() {
@@ -155,10 +156,10 @@ class JeuResultatController: UIViewController {
         format.dateFormat = "dd/MM/YYYY HH:mm"
         horodateLabel.text = format.string(from: now)
         idJeuLabel.text = String(idJeu)
-        if let contrat = gestionJoueurs.contrat?.idx {
+        if let contrat = gj.contrat?.idx {
             selectionnerContrat(contrat)
         }
-//        pickerView.selectRow((gestionJoueurs.preneur ?? 1) - 1, inComponent: (gestionJoueurs.partenaire ?? 1) - 1, animated: true)
+//        pickerView.selectRow((gj.preneur ?? 1) - 1, inComponent: (gj.partenaire ?? 1) - 1, animated: true)
         majScore()
     }
     
@@ -380,14 +381,14 @@ class JeuResultatController: UIViewController {
     // Enregistrement de tous les éléments du jeu (de la mène)v!
     @IBAction func enregistrerAction(_ sender: Any) {
 
-        joueurs = gestionJoueurs.affecterPoints(joueurs: joueurs, points: jeuResultat.total ?? 0.0)
-        joueurs = gestionJoueurs.donneSuivante(joueurs: joueurs)
+        gj.affecterPoints(points: jeuResultat.total ?? 0.0)
+//        joueurs = gj.donneSuivante(joueurs: joueurs)
         
-        if Partie.update(AppDelegate.partie, Jeu: jeuResultat, idJeu: idJeu, hD: now, participants: joueurs, mort: 0) {
+        if Partie.update(AppDelegate.partie, Jeu: jeuResultat, idJeu: idJeu, hD: now, participants: gj.joueursPartie, mort: 0) {
             enregistrerButton.isEnabled = true
 
-            if let _ = gestionJoueurs.preneur { gestionJoueurs.preneur = 1 }
-            if let _ = gestionJoueurs.partenaire { gestionJoueurs.partenaire = 1 }
+            if let _ = gj.preneur { gj.preneur = gj.joueursPartie[1] }
+            if let _ = gj.partenaire { gj.partenaire = gj.joueursPartie[1] }
 
             view.endEditing(true)
             navigationController?.popViewController(animated: true)

@@ -20,7 +20,7 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return joueurs.count
+        return gj.joueursPartie.count
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -28,16 +28,16 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return dicoJoueurs[Int(joueurs[row].idJoueur)]
+        return dicoJoueurs[Int(gj.joueursPartie[row].idJoueur)]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            let surnomDuPreneur = dicoJoueurs[Int(joueurs[row].idJoueur)]
+            let surnomDuPreneur = dicoJoueurs[Int(gj.joueursPartie[row].idJoueur)]
             print("Preneur choisi : \(surnomDuPreneur!)")
         }
         if component == 1 {
-            let surnomDuPpartenaire = dicoJoueurs[Int(joueurs[row].idJoueur)]
+            let surnomDuPpartenaire = dicoJoueurs[Int(gj.joueursPartie[row].idJoueur)]
             print("Partenaire choisi : \(surnomDuPpartenaire!)")
         }
     }

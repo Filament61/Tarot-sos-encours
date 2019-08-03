@@ -8,51 +8,126 @@
 
 import Foundation
 
-struct GestionJoueurs {
+class GestionJoueurs {
     
     static let nbMiniJoueurs = 3
     static let nbMaxiJoueurs = 8
     
-    var joueursPartie = [Joueur]()
-    var joueursEnMene = [Joueur]()
-    var joueursEnJeu = [Joueur]()
-
-    var nbJoueursPartie: Int = 0
-    var nbJoueursEnMene: Int = 0
-    var nbJoueursEnJeu: Int = 0
+    
+    init(joueurs: [Joueur], NouvellePartie isNouvellePartie: Bool) {
+        self._joueursPartie = joueurs
+        self._joueursPartie.sort(by: { $0.ordre < $1.ordre })
+        self._joueursEnJeu = self._joueursPartie.filter({ $0.enJeu == true})
+        self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == true})
+ }
+    
+    var nbJoueursPartie: Int { return self._nbJoueursPartie }
+    var joueursPartie: [Joueur] { return self._joueursPartie }
+    
+    var nbJoueursEnMene: Int { return self._nbJoueursEnMene }
+    var joueursEnMene: [Joueur] { return self._joueursEnMene }
+    
+    var nbJoueursEnjeu: Int { return self._nbJoueursEnJeu }
+    var joueursEnJeu: [Joueur] { return self._joueursEnJeu }
+    
+    private var _nbJoueursPartie: Int = 0
+    private var _joueursPartie: [Joueur] {
+        didSet { _nbJoueursPartie = self._joueursPartie.count }
+    }
+    
+    private var _nbJoueursEnMene: Int = 0
+    private var _joueursEnMene: [Joueur] {
+        didSet { _nbJoueursEnMene = self._joueursEnMene.count }
+    }
+    
+    private var _nbJoueursEnJeu: Int = 0
+    private var _joueursEnJeu: [Joueur] {
+        didSet { _nbJoueursEnJeu = self._joueursEnJeu.count }
+    }
+    
+    var joueursDefense = [Joueur]()
+    
+//    var nbJoueursEnMene: Int = 0
+//    var nbJoueursEnJeu: Int = 0
 
     var contrat: Contrat?
     
-    var preneur: Int?
-    var partenaire: Int?
+    var preneur: Joueur?
+    var partenaire: Joueur?
     var mort: [varCirculaire]?
     
-    // Nombre de joueurs en jeu : doit être mise à jour au début et à chaque mise en/hors jeu !
-    var enJeu: Int = 0 {
-        didSet {
-            // calcule le nouveau multiplicateur
-        }
+    
+    func ordonner() {
+        guard let _ = self.isCorectNbJoueurs(joueursTab: self._joueursPartie) == true else { return }
+        
+        
+        
+        
+//        switch nbJoueursEnjeu {
+//        case Int.min..<GestionJoueurs.nbMiniJoueurs:
+//            break
+//        case GestionJoueurs.nbMiniJoueurs:
+//
+//        case 4:
+//
+//        case 5:
+//
+//        case 6:
+//
+//        case 7:
+//
+//        case GestionJoueurs.nbMaxiJoueurs:
+//
+//        case GestionJoueurs.nbMaxiJoueurs...Int.max:
+//            break
+//        default: break
+//
+//        }
+
     }
     
-    func affecterPoints(joueurs: [Joueur], points: Float) -> [Joueur] {
+     func affecterPoints(points: Float) {
         // MARK: Faire le calcul du coefficient
         let coef: Float = 3.0
-        guard let preneur = preneur else { return joueurs }
-        let joueursEnCours = joueurs
-        for joueur in joueursEnCours {
-            if joueur.ordre == Int16(preneur) {
-                joueur.points += points * coef // nb joueurs restants
-            } else if let partenaire = partenaire {
-                if joueur.ordre == Int16(partenaire) {
-                    joueur.points += points // nb joueurs restants
-                }
-            } else if joueur.enJeu && !joueur.mort {
-                joueur.points -= points // nb joueurs restants
+        
+        guard let preneur = self.preneur, let idxPreneur = self._joueursPartie.firstIndex(where: { $0.idJoueur == preneur.idJoueur })  else { return }
+        self._joueursPartie[idxPreneur].points += points * coef
+//        self.joueursDefense = self.joueursEnMene.filter { $0.idJoueur != preneur.idJoueur }
+        self.joueursDefense = self._joueursPartie.filter { $0.idJoueur != preneur.idJoueur }
+
+        if let partenaire = self.partenaire, let idxPartenaire = self.joueursPartie.firstIndex(where: { $0.idJoueur == partenaire.idJoueur }) {
+            self._joueursPartie[idxPartenaire].points += points
+            self.joueursDefense = self.joueursDefense.filter { $0.idJoueur != partenaire.idJoueur }
+        }
+        
+        for joueur in self.joueursDefense {
+            if let idxJoueur = self._joueursPartie.firstIndex(where: { $0.idJoueur == joueur.idJoueur }) {
+                self._joueursPartie[idxJoueur].points -= points
             }
         }
-        return joueursEnCours
+        
+        return
     }
     
+//    func affecterPoints(joueurs: [Joueur], points: Float) -> [Joueur] {
+//        // MARK: Faire le calcul du coefficient
+//        let coef: Float = 3.0
+//        guard let preneur = preneur else { return joueurs }
+//        let joueursEnCours = joueurs
+//        for joueur in joueursEnCours {
+//            if joueur.ordre == Int16(preneur) {
+//                joueur.points += points * coef // nb joueurs restants
+//            } else if let partenaire = partenaire {
+//                if joueur.ordre == Int16(partenaire) {
+//                    joueur.points += points // nb joueurs restants
+//                }
+//            } else if joueur.enJeu && !joueur.mort {
+//                joueur.points -= points // nb joueurs restants
+//            }
+//        }
+//        return joueursEnCours
+//    }
+
     func donneSuivante(joueurs: [Joueur]) -> [Joueur] {
         var joueursSuivants = joueurs
         
@@ -80,6 +155,18 @@ struct GestionJoueurs {
         return joueursSuivants
     }
   
+    
+    
+    
+    /// Vérifie si le nombre d'éléments la table passée en paramètre et compris entre le nombre minimal et maximal de joueurs autorisés.
+    ///
+    /// - parameter joueursTab: Requis, table à vérifier.
+    /// - returns: Vrai si la table répond aux conditions.
+    private func isCorectNbJoueurs(joueursTab: [Joueur]?) -> Bool {
+        guard let joueursTab = joueursTab else { return false }
+        return joueursTab.count >= GestionJoueurs.nbMiniJoueurs && joueursTab.count >= GestionJoueurs.nbMaxiJoueurs
+    }
+    
     
     class varCirculaire {
         private var _ordre: Int = 0
@@ -173,11 +260,11 @@ struct GestionJoueurs {
  */
 
 enum ModeJeu: String {
-    // Le mode simple est le mode normal, 1 preneur contre le reste des joueurs.
+    /// Le mode simple est le mode normal, 1 preneur contre le reste des joueurs.
     case simple
-    // Le mode duo est le mode dans lequel le preneur appelle un partenaire (appel d'un roi).
+    /// Le mode duo est le mode dans lequel le preneur appelle un partenaire (appel d'un roi).
     case duo
-    // Le mode équipe se joue avec 3 équipes de 2 joueurs, le partenaire est fixe (face à face).
+    /// Le mode équipe se joue avec 3 équipes de 2 joueurs, le partenaire est fixe (face à face).
     case equipe
     
     var nom: String {
@@ -224,7 +311,16 @@ enum Contrat: String {
         case .garde: return "Garde"
         case .gardeSans: return "Garde sans"
         case .gardeContre: return "Garde contre"
-//        default: break
+            //        default: break
+        }
+    }
+    var abv: String {
+        switch self {
+        case .petite: return "P"
+        case .garde: return "G"
+        case .gardeSans: return "GS"
+        case .gardeContre: return "GC"
+            //        default: break
         }
     }
     var idx: Int {

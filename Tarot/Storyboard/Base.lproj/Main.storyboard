@@ -165,6 +165,20 @@
                                                         <constraint firstAttribute="width" constant="60" id="w9W-Tg-M61"/>
                                                     </constraints>
                                                 </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="donneurLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="l2X-uS-QyG">
+                                                    <rect key="frame" x="166" y="25" width="106" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="etatLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8M-gq-2K6">
+                                                    <rect key="frame" x="200" y="49" width="72" height="21"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="iN3-7E-eAq" firstAttribute="firstBaseline" secondItem="naj-JB-C69" secondAttribute="firstBaseline" id="4Dv-sg-FAA"/>
@@ -296,6 +310,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="donneurLabel" destination="l2X-uS-QyG" id="w4q-4O-RDJ"/>
+                        <outlet property="etatLabel" destination="p8M-gq-2K6" id="Pm0-1u-Ug6"/>
                         <outlet property="horodateLabel" destination="b70-CI-JYA" id="dVu-pt-uq7"/>
                         <outlet property="idPartieLabel" destination="iQz-kw-wI6" id="IlW-Vi-5jm"/>
                         <outlet property="listeJoueurs" destination="vsK-us-D8W" id="Mqa-Hu-Dpz"/>
