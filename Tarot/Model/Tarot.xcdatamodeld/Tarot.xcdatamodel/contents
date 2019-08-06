@@ -50,8 +50,8 @@
     <elements>
         <element name="JeuJoueur" positionX="-233.22265625" positionY="-137.7265625" width="128" height="103"/>
         <element name="JeuResultat" positionX="-454.59765625" positionY="-242.60546875" width="128" height="223"/>
-        <element name="Personne" positionX="106.86328125" positionY="50.4296875" width="128" height="133"/>
         <element name="Joueur" positionX="161.0390625" positionY="-107.67578125" width="128" height="148"/>
         <element name="Partie" positionX="-50.91796875" positionY="-107.6171875" width="128" height="118"/>
+        <element name="Personne" positionX="106.86328125" positionY="50.4296875" width="128" height="133"/>
     </elements>
 </model>

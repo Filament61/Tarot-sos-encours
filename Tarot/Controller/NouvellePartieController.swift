@@ -15,8 +15,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     @IBOutlet weak var modeJeuSegment: UISegmentedControl!
     @IBOutlet weak var nbMortsSegment: UISegmentedControl!
     
-    @IBOutlet weak var donneurLabel: UILabel!
-    @IBOutlet weak var etatLabel: UILabel!
+
     @IBOutlet weak var idPartieLabel: UILabel!
     @IBOutlet weak var horodateLabel: UILabel!
     @IBOutlet weak var tableView: UITableView!
@@ -25,14 +24,19 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     var cellId = "PersonneCell"
     
-    var joueurs = [Personne]()
+    var personnes = [Personne]()
     var cellTab = [PersonneCell]()
     var cells =  [PersonneCell]()
-    //    var preneur = PersonneCell()
+
+    var donneur: Int = 0
+    var morts: [Int] = []
     
     var partie = Partie()
     var nbJoueurs: Int = 0 {
-        didSet { animerOptions() }
+        didSet {
+            animerOptions()
+            animerCell()
+        }
     }
     
     let idPartie = NSManagedObject.nextAvailble("idPartie", forEntityName: "Partie")
@@ -56,7 +60,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         return 1
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return joueurs.count
+        return personnes.count
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -65,7 +69,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let joueurDeLaCell = joueurs[indexPath.row]
+        let joueurDeLaCell = personnes[indexPath.row]
         if let cell = tableView.dequeueReusableCell(withIdentifier: cellId) as? PersonneCell {
             cell.miseEnPlace(personne: joueurDeLaCell)
             return cell
@@ -100,7 +104,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         let tri = NSSortDescriptor(key: "nom", ascending: true)
         requete.sortDescriptors = [tri]
         do {
-            joueurs = try viewContext.fetch(requete)
+            personnes = try viewContext.fetch(requete)
             tableView.reloadData()
         } catch {
             print(error.localizedDescription)
@@ -166,6 +170,8 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             if let pointeur = self.cellTab.firstIndex(of: cell) {
                 self.cellTab.remove(at: pointeur)
                 cell.idx = -1
+                cell.donneurLabel.text = ""
+                cell.etatLabel.text = ""
                 print("Index existant : \(pointeur)")
                 // Mise à jour des cellules déjà sélectionnées
                 var item = pointeur
@@ -212,7 +218,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     
     @IBAction func Tri(_ sender: UIBarButtonItem) {
-        self.joueurs.sort(by: { (first: Personne, second: Personne) -> Bool in
+        self.personnes.sort(by: { (first: Personne, second: Personne) -> Bool in
             return UIContentSizeCategory(rawValue: first.surnom!) > UIContentSizeCategory(rawValue: second.surnom!)
         })
     }
@@ -239,11 +245,41 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     @IBAction func choixModeAction(_ sender: Any) {
         let nb = ModeJeu.nbMorts(modeChoix: modeJeuSegment.selectedSegmentIndex)
         nbMortsSegment.selectedSegmentIndex = nb[nbJoueurs] ?? UISegmentedControl.noSegment
+        animerCell()
     }
     
     @IBAction func choixNbMortsAction(_ sender: Any) {
         let nb = ModeJeu.modeChoix(nbMorts: nbMortsSegment.selectedSegmentIndex)
         modeJeuSegment.selectedSegmentIndex = nb[nbJoueurs] ?? UISegmentedControl.noSegment
+        animerCell()
+    }
+    
+    func animerCell() {
+        morts.removeAll()
+        for joueur in self.cellTab {
+            if nbJoueurs >= GestionJoueurs.nbMiniJoueurs && nbJoueurs <= GestionJoueurs.nbMaxiJoueurs && joueur.idx == nbJoueurs {
+                joueur.donneurLabel.text = "Donneur"
+                donneur = joueur.idx
+            } else {
+                joueur.donneurLabel.text = String()
+            }
+            
+            joueur.etatLabel.text = String()
+            if nbMortsSegment.selectedSegmentIndex != 0 {
+                if nbMortsSegment.selectedSegmentIndex == 1 && joueur.idx == nbJoueurs {
+                    joueur.etatLabel.text = "Mort"
+                    morts.append(joueur.idx)
+                }
+                if nbMortsSegment.selectedSegmentIndex == 2 && joueur.idx == nbJoueurs {
+                    joueur.etatLabel.text = "Mort (-1)"
+                    morts.append(joueur.idx)
+                }
+                if nbMortsSegment.selectedSegmentIndex == 2 && joueur.idx == nbJoueurs.minus() {
+                    morts.append(joueur.idx)
+                    joueur.etatLabel.text = "Mort (-2)"
+                }
+            }
+        }
     }
     
     func animerOptions() {
@@ -349,7 +385,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
 
     
     @IBAction func nouvellePartieActionButtonBar(_ sender: UIBarButtonItem) {
-        Partie.save(Participants: cellTab, idPartie: idPartie, hD: now, idxDonneur: 1, idxMort: [0])
+        Partie.save(Participants: cellTab, idPartie: idPartie, hD: now, idxDonneur: donneur, idxMort: morts)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewControllerID = "PartieViewController"
         let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! PartieController

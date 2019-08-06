@@ -18,6 +18,8 @@ class PersonneCell: UITableViewCell {
     @IBOutlet weak var nom: UILabel!
     @IBOutlet weak var prenomLabel: UILabel!
     
+    @IBOutlet weak var donneurLabel: UILabel!
+    @IBOutlet weak var etatLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -57,6 +59,9 @@ class PersonneCell: UITableViewCell {
         idJoueurLabel.text = String(self.personne.idJoueur)
         photoDeProfil.image = self.personne.photo as? UIImage
         
+        donneurLabel.text = String()
+        etatLabel.text = String()
+
         if let leSurnom = self.personne.surnom {
             surnom.text = leSurnom
         }

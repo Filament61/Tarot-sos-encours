@@ -31,7 +31,7 @@ public func dicoJoueursMaJ() {
 
 
 extension Int {
-    func minus(_: Int) -> Int { return self - 1}
+    func minus() -> Int { return self - 1}
 }
 
 class App {

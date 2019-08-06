@@ -51,7 +51,7 @@ class JeuResultatController: UIViewController {
     let idJeu = NSManagedObject.nextAvailble("idJeu", forEntityName: "JeuResultat")
     let now = Date()
 //    var preneur = Int()
-    var cellTab = [PersonneCell]()
+//    var cellTab = [PersonneCell]()
     
 //    var donneur = varCirculaire()
     lazy var gj = GestionJoueurs(joueurs: [Joueur](), NouvellePartie: true)
@@ -66,8 +66,16 @@ class JeuResultatController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        
+        if let contrat = gj.contrat?.idx {
+            selectionnerContrat(contrat)
+        }
+        if let preneur = gj.preneur, let idx = gj.joueursEnMene.firstIndex(of: preneur) {
+            pickerView.selectRow(idx, inComponent: 0, animated: true)
+        }
+        if let partenaire = gj.partenaire, let idx = gj.joueursEnMene.firstIndex(of: partenaire) {
+            pickerView.selectRow(idx, inComponent: 1, animated: true)
+        }
+
 //        pickerView.selectRow(preneur, inComponent: 1, animated: true)
         //largeurContrainte.constant = view.frame.width
         //scroll.contentSize = CGSize(width: largeurContrainte.constant, height: scroll.frame.height)
@@ -156,10 +164,6 @@ class JeuResultatController: UIViewController {
         format.dateFormat = "dd/MM/YYYY HH:mm"
         horodateLabel.text = format.string(from: now)
         idJeuLabel.text = String(idJeu)
-        if let contrat = gj.contrat?.idx {
-            selectionnerContrat(contrat)
-        }
-//        pickerView.selectRow((gj.preneur ?? 1) - 1, inComponent: (gj.partenaire ?? 1) - 1, animated: true)
         majScore()
     }
     
@@ -381,7 +385,7 @@ class JeuResultatController: UIViewController {
     // Enregistrement de tous les éléments du jeu (de la mène)v!
     @IBAction func enregistrerAction(_ sender: Any) {
 
-        gj.affecterPoints(points: jeuResultat.total ?? 0.0)
+        gj.affecterPoints(points: jeuResultat.total ?? 0.0, jjj: gj.joueursPartie)
 //        joueurs = gj.donneSuivante(joueurs: joueurs)
         
         if Partie.update(AppDelegate.partie, Jeu: jeuResultat, idJeu: idJeu, hD: now, participants: gj.joueursPartie, mort: 0) {

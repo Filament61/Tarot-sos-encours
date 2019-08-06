@@ -18,11 +18,14 @@ class GestionJoueurs {
         self._joueursPartie = joueurs
         self._joueursPartie.sort(by: { $0.ordre < $1.ordre })
         self._joueursEnJeu = self._joueursPartie.filter({ $0.enJeu == true})
-        self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == true})
+        self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == false})
  }
     
     var nbJoueursPartie: Int { return self._nbJoueursPartie }
-    var joueursPartie: [Joueur] { return self._joueursPartie }
+    var joueursPartie: [Joueur]
+    {
+        return _joueursPartie
+    }
     
     var nbJoueursEnMene: Int { return self._nbJoueursEnMene }
     var joueursEnMene: [Joueur] { return self._joueursEnMene }
@@ -31,9 +34,10 @@ class GestionJoueurs {
     var joueursEnJeu: [Joueur] { return self._joueursEnJeu }
     
     private var _nbJoueursPartie: Int = 0
-    private var _joueursPartie: [Joueur] {
-        didSet { _nbJoueursPartie = self._joueursPartie.count }
-    }
+    private var _joueursPartie: [Joueur]
+//    {
+//        didSet { _nbJoueursPartie = self._joueursPartie.count }
+//    }
     
     private var _nbJoueursEnMene: Int = 0
     private var _joueursEnMene: [Joueur] {
@@ -51,6 +55,7 @@ class GestionJoueurs {
 //    var nbJoueursEnJeu: Int = 0
 
     var contrat: Contrat?
+    var modeJeu: ModeJeu?
     
     var preneur: Joueur?
     var partenaire: Joueur?
@@ -58,7 +63,7 @@ class GestionJoueurs {
     
     
     func ordonner() {
-        guard let _ = self.isCorectNbJoueurs(joueursTab: self._joueursPartie) == true else { return }
+//        guard let _ = self.isCorectNbJoueurs(joueursTab: self._joueursPartie) == true else { return }
         
         
         
@@ -86,23 +91,30 @@ class GestionJoueurs {
 
     }
     
-     func affecterPoints(points: Float) {
-        // MARK: Faire le calcul du coefficient
-        let coef: Float = 3.0
+    func affecterPoints(points: Float, jjj: [Joueur]) {
+        /// MARK: Faire le calcul du coefficient
+        let coef: Float = Float(nbJoueursEnMene.minus())
         
-        guard let preneur = self.preneur, let idxPreneur = self._joueursPartie.firstIndex(where: { $0.idJoueur == preneur.idJoueur })  else { return }
-        self._joueursPartie[idxPreneur].points += points * coef
-//        self.joueursDefense = self.joueursEnMene.filter { $0.idJoueur != preneur.idJoueur }
-        self.joueursDefense = self._joueursPartie.filter { $0.idJoueur != preneur.idJoueur }
-
-        if let partenaire = self.partenaire, let idxPartenaire = self.joueursPartie.firstIndex(where: { $0.idJoueur == partenaire.idJoueur }) {
-            self._joueursPartie[idxPartenaire].points += points
+        guard let preneur = self.preneur else { return }
+        let idx = _joueursPartie.firstIndex(of: preneur)!
+        var toto : Float = 0.0
+        toto = toto + points * 2.0
+        var jj = self._joueursPartie[idx]
+        jjj[0].points = points
+        let tata = jj.points
+        _joueursPartie[3].points = _joueursPartie[3].points + (points * coef)
+        //        self.joueursDefense = self.joueursEnMene.filter { $0.idJoueur != preneur.idJoueur }
+        joueursDefense = _joueursPartie.filter { $0.idJoueur != preneur.idJoueur }
+        
+        
+        if let partenaire = self.partenaire, let idx = self.joueursPartie.firstIndex(of: partenaire) {
+            self._joueursPartie[idx].points += points
             self.joueursDefense = self.joueursDefense.filter { $0.idJoueur != partenaire.idJoueur }
         }
         
         for joueur in self.joueursDefense {
-            if let idxJoueur = self._joueursPartie.firstIndex(where: { $0.idJoueur == joueur.idJoueur }) {
-                self._joueursPartie[idxJoueur].points -= points
+            if let idx = self._joueursPartie.firstIndex(of: joueur) {
+                self._joueursPartie[idx].points -= points
             }
         }
         

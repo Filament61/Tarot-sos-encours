@@ -52,7 +52,16 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         super.viewWillAppear(animated)
         dicoJoueursMaJ()
         fetchParties()
-        // On initialise la variable donneur avec les informations contenues dans la table Joueurs
+        
+        /// Si jeux est vide, alors c'est une partie nouvelle.
+        /// Les enregistrements de Joueurs sont pour le prochain jeu !
+        /// Sinon, il faut se positionner sur les joueurs suivants...
+        if !jeux.isEmpty {
+            //                if let _ = gestionJoueurs.preneur { gestionJoueurs.preneur = gestionJoueurs.joueursPartie[1] }
+            //                if let _ = gestionJoueurs.partenaire { gestionJoueurs.partenaire = gestionJoueurs.joueursPartie[1] }
+        }
+        
+// On initialise la variable donneur avec les informations contenues dans la table Joueurs
 //        if let idxDonneur = joueurs.firstIndex(where: {$0.donneur == true}) {
 //            donneur?.reInit(nb: joueurs.count, ordre: idxDonneur)
 //        } else {
@@ -148,13 +157,15 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        var reponse: Bool = false
         if tableView == joueursTableView {
-            return true
+            guard let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return false }
+            reponse = (self.gestionJoueurs.joueursPartie.firstIndex(where: { $0.idJoueur == cell.tag && $0.mort == true }) == nil)
         }
         if tableView == jeuxTableView {
-            return false
+            reponse = false
         }
-        return false
+        return reponse
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -173,35 +184,55 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         if tableView == joueursTableView {
             guard let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return nil }
             let petite = UIContextualAction(style: .normal, title:  "Petite", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-                //self.isEditing = false
-                if let _ = cell.contratLabel.text {
-                    // Annulation du contrat déjà choisi
-                    print("\(self.gestionJoueurs.contrat?.nom ?? "") dé-sélectionnée")
-                    self.gestionJoueurs.contrat = nil
-                    cell.contratLabel.text = nil
-                } else {
-                    // Affectation du contrat choisi
-                    self.gestionJoueurs.contrat = Contrat.petite
-                    cell.contratLabel.text = self.gestionJoueurs.contrat?.nom
-                    print("\(self.gestionJoueurs.contrat?.nom ?? "") sélectionnée")
-                    
-                    if let idx = self.gestionJoueurs.joueursPartie.firstIndex(where: { $0.ordre == Int(cell.ordreLabel.text!)! }){
-                        self.gestionJoueurs.preneur = self.gestionJoueurs.joueursPartie[idx] // Int(cell.ordreLabel.text!)!
+                self.gestionJoueurs.modeJeu = ModeJeu.duo
+                //                self.isEditing = false
+                let contrat = Contrat.petite
+//                if let _ = cell.contratLabel.text {
+//                    // Annulation du contrat déjà choisi
+//                    print("\(self.gestionJoueurs.contrat?.nom ?? "") dé-sélectionnée")
+//                    self.gestionJoueurs.contrat = nil
+//                    cell.contratLabel.text = nil
+//                } else {
+//                    // Affectation du contrat choisi
+//                    self.gestionJoueurs.contrat = contrat
+//                    cell.contratLabel.text = self.gestionJoueurs.contrat?.nom
+//                    print("\(self.gestionJoueurs.contrat?.nom ?? "") sélectionnée")
+                
+                    if self.gestionJoueurs.modeJeu == ModeJeu.simple {
+                        if let preneur = self.gestionJoueurs.preneur {
+                            self.gestionJoueurs.partenaire = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
+                            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                            let viewControllerID = "JeuResultatController"
+                            let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
+                            vc.gj = self.gestionJoueurs
+                            self.navigationController?.pushViewController(vc, animated: true)
+                        } else {
+                            self.gestionJoueurs.preneur = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
+                            // Affectation du contrat choisi
+                            self.gestionJoueurs.contrat = contrat
+                            cell.contratLabel.text = self.gestionJoueurs.contrat?.nom
+                            print("\(self.gestionJoueurs.contrat?.nom ?? "") sélectionnée")
+}
+                    } else {
+                        self.gestionJoueurs.preneur = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
+                        // Affectation du contrat choisi
+                        self.gestionJoueurs.contrat = contrat
+                        cell.contratLabel.text = self.gestionJoueurs.contrat?.nom
+                        print("\(self.gestionJoueurs.contrat?.nom ?? "") sélectionnée")
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let viewControllerID = "JeuResultatController"
+                        let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
+                        vc.gj = self.gestionJoueurs
+                        self.navigationController?.pushViewController(vc, animated: true)
                     }
-                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-                    let viewControllerID = "JeuResultatController"
-                    let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
-//                    vc.joueurs = self.joueurs
-                    vc.gj = self.gestionJoueurs
-                    //        vc.isNouvelle = true
-                    self.navigationController?.pushViewController(vc, animated: true)
-                }
-                success(false)
+//                }
+                success(true)
             })
             petite.backgroundColor = UIColor.lightGray
             
             let garde = UIContextualAction(style: .normal, title:  "Garde", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
                 //self.isEditing = false
+                let contrat = Contrat.garde
                 if let _ = cell.contratLabel.text {
                     // Annulation du contrat déjà choisi
                     print("\(self.gestionJoueurs.contrat?.nom ?? "") dé-sélectionnée")
@@ -209,38 +240,55 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
                     cell.contratLabel.text = nil
                 } else {
                     // Affectation du contrat choisi
-                    self.gestionJoueurs.contrat = Contrat.garde
+                    self.gestionJoueurs.contrat = contrat
                     cell.contratLabel.text = self.gestionJoueurs.contrat?.nom
                     print("\(self.gestionJoueurs.contrat?.nom ?? "") sélectionnée")
                     
-                    if let idx = self.gestionJoueurs.joueursPartie.firstIndex(where: { $0.ordre == Int(cell.ordreLabel.text!)! }){
-                        self.gestionJoueurs.preneur = self.gestionJoueurs.joueursPartie[idx] // Int(cell.ordreLabel.text!)!
-                    }
-//                    self.nouveauJeuAction("")
-//                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//                    let viewControllerID = "JeuResultatController"
-//                    let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
-//                    vc.joueurs = self.joueurs
-//                    vc.gj = self.gestionJoueurs
-//                    //        vc.isNouvelle = true
-//                    self.navigationController?.pushViewController(vc, animated: true)
+                    self.gestionJoueurs.preneur = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
+
+                    //                    self.nouveauJeuAction("")
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewControllerID = "JeuResultatController"
+                    let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
+                    //                    vc.joueurs = self.joueurs
+                    vc.gj = self.gestionJoueurs
+                    //        vc.isNouvelle = true
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
-                success(false)
+                success(true)
             })
             garde.backgroundColor = UIColor.orange
             
             let sans = UIContextualAction(style: .normal, title:  "Sans", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-                //self.isEditing = false
-                if let _ = cell.contratLabel.text {
-                    // Annulation du contrat déjà choisi
-                    print("\(self.gestionJoueurs.contrat?.nom ?? "") dé-sélectionnée")
-                    self.gestionJoueurs.contrat = nil
-                    cell.contratLabel.text = nil
+                self.gestionJoueurs.modeJeu = ModeJeu.simple
+                //                self.isEditing = false
+                let contrat = Contrat.gardeSans
+                if self.gestionJoueurs.modeJeu == ModeJeu.duo {
+                    if let preneur = self.gestionJoueurs.preneur {
+                        self.gestionJoueurs.partenaire = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
+                        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                        let viewControllerID = "JeuResultatController"
+                        let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
+                        vc.gj = self.gestionJoueurs
+                        self.navigationController?.pushViewController(vc, animated: true)
+                    } else {
+                        self.gestionJoueurs.preneur = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
+                        // Affectation du contrat choisi
+                        self.gestionJoueurs.contrat = contrat
+                        cell.contratLabel.text = self.gestionJoueurs.contrat?.nom
+                        print("\(self.gestionJoueurs.contrat?.nom ?? "") sélectionnée")
+                    }
                 } else {
+                    self.gestionJoueurs.preneur = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
                     // Affectation du contrat choisi
-                    self.gestionJoueurs.contrat = Contrat.gardeSans
+                    self.gestionJoueurs.contrat = contrat
                     cell.contratLabel.text = self.gestionJoueurs.contrat?.nom
                     print("\(self.gestionJoueurs.contrat?.nom ?? "") sélectionnée")
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let viewControllerID = "JeuResultatController"
+                    let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
+                    vc.gj = self.gestionJoueurs
+                    self.navigationController?.pushViewController(vc, animated: true)
                 }
                 success(false)
             })
@@ -399,7 +447,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewControllerID = "JeuResultatController"
         let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
-//        vc.joueurs = self.joueurs
+
         vc.gj = self.gestionJoueurs
         //        vc.isNouvelle = true
         self.navigationController?.pushViewController(vc, animated: true)

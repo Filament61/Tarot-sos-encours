@@ -163,6 +163,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		959B15D122F72CD700C0674A /* Parties */ = {
+			isa = PBXGroup;
+			children = (
+				953788A522BE82F000AA9F46 /* NouvellePartieController.swift */,
+				95A004C722EC8EE200DB741D /* ParticipantController.swift */,
+				95A004BB22EC829600DB741D /* PartieController.swift */,
+			);
+			name = Parties;
+			sourceTree = "<group>";
+		};
 		95A5DB2322B2A156007F3729 = {
 			isa = PBXGroup;
 			children = (
@@ -189,6 +199,7 @@
 				95A5DB5422B2A2CC007F3729 /* Model */,
 				95A5DB5522B2A2E5007F3729 /* View */,
 				95A5DB5622B2A2F8007F3729 /* Controller */,
+				95A5DB3122B2A156007F3729 /* AccueilsssController.swift */,
 				95A5DB5722B2A30F007F3729 /* Storyboard */,
 				95A5DB3922B2A157007F3729 /* Assets.xcassets */,
 				95A5DB2F22B2A156007F3729 /* AppDelegate.swift */,
@@ -253,10 +264,7 @@
 			children = (
 				95B43A8222CAA3AD00B9EB7D /* Personnes */,
 				95274CBF22CC087300BF91C0 /* Jeux */,
-				95A5DB3122B2A156007F3729 /* AccueilsssController.swift */,
-				953788A522BE82F000AA9F46 /* NouvellePartieController.swift */,
-				95A004C722EC8EE200DB741D /* ParticipantController.swift */,
-				95A004BB22EC829600DB741D /* PartieController.swift */,
+				959B15D122F72CD700C0674A /* Parties */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -593,7 +601,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J35ANBCXN6;
 				INFOPLIST_FILE = Tarot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -614,7 +622,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = J35ANBCXN6;
 				INFOPLIST_FILE = Tarot/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (

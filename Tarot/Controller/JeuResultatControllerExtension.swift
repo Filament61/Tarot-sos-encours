@@ -12,15 +12,15 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     func miseEnPlacePicker() {
-        pickerViewAppele.delegate = self
-        pickerViewAppele.dataSource = self
+//        pickerViewAppele.delegate = self
+//        pickerViewAppele.dataSource = self
         
         pickerView.delegate = self
         pickerView.dataSource = self
     }
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
-        return gj.joueursPartie.count
+        return gj.joueursEnMene.count
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -28,16 +28,16 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return dicoJoueurs[Int(gj.joueursPartie[row].idJoueur)]
+        return dicoJoueurs[Int(gj.joueursEnMene[row].idJoueur)]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            let surnomDuPreneur = dicoJoueurs[Int(gj.joueursPartie[row].idJoueur)]
+            let surnomDuPreneur = dicoJoueurs[Int(gj.joueursEnMene[row].idJoueur)]
             print("Preneur choisi : \(surnomDuPreneur!)")
         }
         if component == 1 {
-            let surnomDuPpartenaire = dicoJoueurs[Int(gj.joueursPartie[row].idJoueur)]
+            let surnomDuPpartenaire = dicoJoueurs[Int(gj.joueursEnMene[row].idJoueur)]
             print("Partenaire choisi : \(surnomDuPpartenaire!)")
         }
     }

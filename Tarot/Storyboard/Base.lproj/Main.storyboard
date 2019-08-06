@@ -201,6 +201,8 @@
                                             </variation>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="donneurLabel" destination="l2X-uS-QyG" id="u1R-Jw-kNq"/>
+                                            <outlet property="etatLabel" destination="p8M-gq-2K6" id="7wi-p8-Ohe"/>
                                             <outlet property="idJoueurLabel" destination="iN3-7E-eAq" id="uqJ-WQ-2nI"/>
                                             <outlet property="idxImage" destination="5M4-Ha-RWE" id="GPs-1J-XjS"/>
                                             <outlet property="idxLabel" destination="ZTu-pt-GTG" id="NyT-Ql-aqD"/>
@@ -310,8 +312,6 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="donneurLabel" destination="l2X-uS-QyG" id="w4q-4O-RDJ"/>
-                        <outlet property="etatLabel" destination="p8M-gq-2K6" id="Pm0-1u-Ug6"/>
                         <outlet property="horodateLabel" destination="b70-CI-JYA" id="dVu-pt-uq7"/>
                         <outlet property="idPartieLabel" destination="iQz-kw-wI6" id="IlW-Vi-5jm"/>
                         <outlet property="listeJoueurs" destination="vsK-us-D8W" id="Mqa-Hu-Dpz"/>
