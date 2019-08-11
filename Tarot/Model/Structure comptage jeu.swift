@@ -10,11 +10,11 @@ struct JeuComplet {
     
     let nbPointsMaxi: Float = 91.0
     let baseContrat: Float = 25.0
-
-    let contrats: [Int: String] = [1: "Petite",
-                                   2: "Garde",
-                                   3: "Garde sans",
-                                   4: "Garde contre"]
+    
+        let contrats: [Int: String] = [1: "Petite",
+                                       2: "Garde",
+                                       3: "Garde sans",
+                                       4: "Garde contre"]
     
     let chelems: [Int: String] = [ -3: "Chelem annoncé et non réalisé (défense)",
                                    -2: "Chelem annoncé et réalisé (défense)",
@@ -23,7 +23,7 @@ struct JeuComplet {
                                    1: "Chelem non annoncé réalisé",
                                    2: "Chelem annoncé et réalisé",
                                    3: "Chelem annoncé et non réalisé"]
-
+    
     let pointsARealiserValeurs: [Int: Float] = [0: 56, 1: 51, 2: 41, 3: 36]
     let coefficientsValeurs: [Int: Float] = [1: 1, 2: 2, 3: 4, 4: 6]
     let petitAuBoutValeurs: [Int: Float] = [-1: -10, 0: 0, 1: 10]
@@ -36,22 +36,19 @@ struct JeuComplet {
     var gain: Float?
     var coef: Float?
     
-//    var contrat: Int = 0 {
-        var contrat: Int? {
-            
+    var contrat: Int? {
         didSet {
             calculerCoef()
         }
     }
-//    var nbBout: Int = -1 {
-        var nbBout: Int? {
+    
+    var nbBout: Int? {
         didSet {
             calculerGain()
         }
     }
     
-//    var pointsFaits: Float = -1.0 {
-        var pointsFaits: Float?  {
+    var pointsFaits: Float?  {
         didSet {
             calculerGain()
         }
@@ -93,18 +90,9 @@ struct JeuComplet {
     }
     
     init() {
-//        total = 0
-//        coef = 0
-//        gain = nbPointsMaxi
-//        contrat = 0
-//        nbBout = -1
-//        pointsFaits = -1
         petitAuBout = 0
         poignee = 0
         chelem = 0
-//        pointsPetitAuBout = 0
-//        pointsPoignee = 0
-//        pointsChelem = 0
     }
     
     
@@ -125,7 +113,7 @@ struct JeuComplet {
         if let nbBout = nbBout, let pointsFaits = pointsFaits {
             if let nbPointsARealiser = pointsARealiserValeurs[nbBout] {
                 gain = pointsFaits - nbPointsARealiser
-           }
+            }
         }
         print("Gain = \(gain ?? 0)")
         total = calculerTotal()
@@ -151,7 +139,7 @@ struct JeuComplet {
         print("Chelem = \(pointsChelem)")
         total = calculerTotal()
     }
-
+    
     func calculerTotal() -> Float? {
         guard let isReussi = isReussi, let gain = gain, let coef = coef else { return nil }
         var total: Float = 0
@@ -165,6 +153,8 @@ struct JeuComplet {
         return total
     }
     
+    
+    // MARK: - --> String()
     // Texte points : GAIN
     func gainText() -> String {
         guard let gain = gain, let _ = pointsFaits else { return texteVierge }
@@ -228,7 +218,7 @@ struct JeuComplet {
     // Texte points : SOUS-TOTAL
     func SousTotalText() -> String {
         guard let gain = gain, let isReussi = isReussi, let coef = coef else { return texteVierge }
-//        guard (gain! != nbPointsMaxi && pointsFaits >= Float(0) && nbBout >= 0 && contrat > 0) else { return texteVierge }
+        //        guard (gain! != nbPointsMaxi && pointsFaits >= Float(0) && nbBout >= 0 && contrat > 0) else { return texteVierge }
         var st: Float
         if isReussi {
             st = baseContrat + gain + pointsPetitAuBout
@@ -244,3 +234,38 @@ struct JeuComplet {
         return String(total!)
     }
 }
+
+
+enum Contrat: Int {
+    case petite = 0, garde, gardeSans, gardeContre
+    
+    var nom: String {
+        switch self {
+        case .petite: return "Petite"
+        case .garde: return "Garde"
+        case .gardeSans: return "Garde sans"
+        case .gardeContre: return "Garde contre"
+            //        default: break
+        }
+    }
+    var abv: String {
+        switch self {
+        case .petite: return "P"
+        case .garde: return "G"
+        case .gardeSans: return "GS"
+        case .gardeContre: return "GC"
+            //        default: break
+        }
+    }
+    //    var idx: Int {
+    //        switch self {
+    //        case .petite: return 1
+    //        case .garde: return 2
+    //        case .gardeSans: return 3
+    //        case .gardeContre: return 4
+    //            //        default: break
+    //        }
+    //    }
+    
+}
+

@@ -15,7 +15,6 @@ class JeuResultatController: UIViewController {
     @IBOutlet weak var horodateLabel: UILabel!
     
     @IBOutlet weak var pickerView: UIPickerView!
-    @IBOutlet weak var pickerViewAppele: UIPickerView!
     @IBOutlet weak var segmentContrat: UISegmentedControl!
     @IBOutlet weak var segmentNbBout: UISegmentedControl!
     @IBOutlet weak var switchPetitAuBoutAttaque: UISwitch!
@@ -66,14 +65,10 @@ class JeuResultatController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if let contrat = gj.contrat?.idx {
+//        miseEnPlacePicker()
+//        miseEnPlace()
+        if let contrat = gj.contrat?.rawValue {
             selectionnerContrat(contrat)
-        }
-        if let preneur = gj.preneur, let idx = gj.joueursEnMene.firstIndex(of: preneur) {
-            pickerView.selectRow(idx, inComponent: 0, animated: true)
-        }
-        if let partenaire = gj.partenaire, let idx = gj.joueursEnMene.firstIndex(of: partenaire) {
-            pickerView.selectRow(idx, inComponent: 1, animated: true)
         }
 
 //        pickerView.selectRow(preneur, inComponent: 1, animated: true)
@@ -197,8 +192,8 @@ class JeuResultatController: UIViewController {
             jeuResultat.contrat = sender.selectedSegmentIndex + 1
         } else if let sender = sender as? Int {
             // Appel par le programme
-            segmentContrat.selectedSegmentIndex = sender - 1
-            jeuResultat.contrat = sender
+            segmentContrat.selectedSegmentIndex = sender
+            jeuResultat.contrat = sender + 1
         }
         // Calcul et mise à jour affichage
         majScore()
@@ -367,32 +362,49 @@ class JeuResultatController: UIViewController {
     
     
     
-//        override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
-//            super.didUpdateFocus(in: context, with: coordinator)
-////            if context.nextFocusedView == self {
-////                backgroundColor = .red
-////            } else if context.previouslyFocusedView == self {
-////                backgroundColor = .clear
-////            }
-//            if context.self == sliderPoints {
-//                sliderPoints.changerValeur(round(sliderPoints.value))
-//                // Calcul et mise à jour affichage
-//                jeuResultat.pointsFaits = sliderPoints.value
-//            }
-//        }
-
-    
     // Enregistrement de tous les éléments du jeu (de la mène)v!
     @IBAction func enregistrerAction(_ sender: Any) {
 
-        gj.affecterPoints(points: jeuResultat.total ?? 0.0, jjj: gj.joueursPartie)
-//        joueurs = gj.donneSuivante(joueurs: joueurs)
+//        gj.affecterPoints(points: jeuResultat.total ?? 0.0)
+/* NE VEUX PAS S'EXECUTER CORRECTEMENT SI CODE DANS LA CLASSE :((   ... */
+        let points = jeuResultat.total ?? 0.0
+        guard let preneur = gj.preneur else { return }
+        // Mise à jour des joueurs en défense
+        gj.joueursDefense = gj.joueursEnMene.filter { $0.idJoueur != preneur.idJoueur }
+        if let partenaire = gj.partenaire {
+            gj.joueursDefense = gj.joueursDefense.filter { $0.idJoueur != partenaire.idJoueur }
+        }
+        // Calcul du coefficient multiplicateur
+        let coef: Float = gj.modeJeu == ModeJeu.simple ? Float(gj.nbJoueursEnMene.minus()) : Float(gj.joueursDefense.count.minus())
+
+        preneur.points += points * coef
+
+        if let partenaire = gj.partenaire {
+            partenaire.points += points
+        }
+        
+        for joueur in gj.joueursDefense {
+            joueur.points -= points
+        }
+        
+        if gj.donneurSuivant() == false {
+            let message = "Il n'y a plus de donneur suivant en jeu !"
+            let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
+        
+        if gj.mortSuivant() == false {
+            let message = "Il n'y a plus de mort suivant en jeu !"
+            let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+            alert.addAction(action)
+            present(alert, animated: true, completion: nil)
+        }
         
         if Partie.update(AppDelegate.partie, Jeu: jeuResultat, idJeu: idJeu, hD: now, participants: gj.joueursPartie, mort: 0) {
             enregistrerButton.isEnabled = true
-
-            if let _ = gj.preneur { gj.preneur = gj.joueursPartie[1] }
-            if let _ = gj.partenaire { gj.partenaire = gj.joueursPartie[1] }
 
             view.endEditing(true)
             navigationController?.popViewController(animated: true)

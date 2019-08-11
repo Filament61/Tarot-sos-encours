@@ -7,6 +7,8 @@
 //
 
 import Foundation
+import UIKit
+
 
 class GestionJoueurs {
     
@@ -18,42 +20,48 @@ class GestionJoueurs {
         self._joueursPartie = joueurs
         self._joueursPartie.sort(by: { $0.ordre < $1.ordre })
         self._joueursEnJeu = self._joueursPartie.filter({ $0.enJeu == true})
-        self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == false})
- }
+        self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == false}
+        )
+    }
     
-    var nbJoueursPartie: Int { return self._nbJoueursPartie }
-    var joueursPartie: [Joueur]
-    {
+    var joueursPartie: [Joueur]! {
         return _joueursPartie
     }
-    
-    var nbJoueursEnMene: Int { return self._nbJoueursEnMene }
-    var joueursEnMene: [Joueur] { return self._joueursEnMene }
-    
-    var nbJoueursEnjeu: Int { return self._nbJoueursEnJeu }
-    var joueursEnJeu: [Joueur] { return self._joueursEnJeu }
-    
+    var nbJoueursPartie: Int {
+        _nbJoueursPartie = self._joueursPartie.count
+        return _nbJoueursPartie
+    }
+
+    var joueursEnMene: [Joueur]! {
+        return self._joueursEnMene
+    }
+    var nbJoueursEnMene: Int {
+        _nbJoueursEnMene = self._joueursEnMene.count
+        return self._nbJoueursEnMene
+    }
+
+    var joueursEnJeu: [Joueur]! {
+        return self._joueursEnJeu
+    }
+    var nbJoueursEnjeu: Int {
+        _nbJoueursEnJeu = self._joueursEnJeu.count
+        return self._nbJoueursEnJeu
+    }
+
     private var _nbJoueursPartie: Int = 0
-    private var _joueursPartie: [Joueur]
-//    {
-//        didSet { _nbJoueursPartie = self._joueursPartie.count }
-//    }
+    private var _joueursPartie: [Joueur]!
     
     private var _nbJoueursEnMene: Int = 0
-    private var _joueursEnMene: [Joueur] {
-        didSet { _nbJoueursEnMene = self._joueursEnMene.count }
-    }
+    private var _joueursEnMene: [Joueur]!
     
     private var _nbJoueursEnJeu: Int = 0
-    private var _joueursEnJeu: [Joueur] {
-        didSet { _nbJoueursEnJeu = self._joueursEnJeu.count }
-    }
+    private var _joueursEnJeu: [Joueur]!
     
-    var joueursDefense = [Joueur]()
+    var joueursDefense: [Joueur]!
     
-//    var nbJoueursEnMene: Int = 0
-//    var nbJoueursEnJeu: Int = 0
-
+    //    var nbJoueursEnMene: Int = 0
+    //    var nbJoueursEnJeu: Int = 0
+    
     var contrat: Contrat?
     var modeJeu: ModeJeu?
     
@@ -63,120 +71,176 @@ class GestionJoueurs {
     
     
     func ordonner() {
-//        guard let _ = self.isCorectNbJoueurs(joueursTab: self._joueursPartie) == true else { return }
+        //        guard let _ = self.isCorectNbJoueurs(joueursTab: self._joueursPartie) == true else { return }
         
         
         
         
-//        switch nbJoueursEnjeu {
-//        case Int.min..<GestionJoueurs.nbMiniJoueurs:
-//            break
-//        case GestionJoueurs.nbMiniJoueurs:
-//
-//        case 4:
-//
-//        case 5:
-//
-//        case 6:
-//
-//        case 7:
-//
-//        case GestionJoueurs.nbMaxiJoueurs:
-//
-//        case GestionJoueurs.nbMaxiJoueurs...Int.max:
-//            break
-//        default: break
-//
-//        }
-
+        //        switch nbJoueursEnjeu {
+        //        case Int.min..<GestionJoueurs.nbMiniJoueurs:
+        //            break
+        //        case GestionJoueurs.nbMiniJoueurs:
+        //
+        //        case 4:
+        //
+        //        case 5:
+        //
+        //        case 6:
+        //
+        //        case 7:
+        //
+        //        case GestionJoueurs.nbMaxiJoueurs:
+        //
+        //        case GestionJoueurs.nbMaxiJoueurs...Int.max:
+        //            break
+        //        default: break
+        //
+        //        }
+        
     }
     
-    func affecterPoints(points: Float, jjj: [Joueur]) {
-        /// MARK: Faire le calcul du coefficient
-        let coef: Float = Float(nbJoueursEnMene.minus())
+    /// Affecte les points réalisés aux différents joueurs de la mène.
+    ///
+    /// - parameter points: Points de base réalisés lors du jeu (de la mène).
+    /// - warning: Il n'est pas nécessaire de mettre à jour le tableau, car le système 'connait' les références des propriétés des entités !
+    func affecterPoints(points: Float) {
+        let coef: Float = modeJeu == ModeJeu.simple ? Float(nbJoueursEnMene.minus()) : 2.0
         
         guard let preneur = self.preneur else { return }
-        let idx = _joueursPartie.firstIndex(of: preneur)!
-        var toto : Float = 0.0
-        toto = toto + points * 2.0
-        var jj = self._joueursPartie[idx]
-        jjj[0].points = points
-        let tata = jj.points
-        _joueursPartie[3].points = _joueursPartie[3].points + (points * coef)
-        //        self.joueursDefense = self.joueursEnMene.filter { $0.idJoueur != preneur.idJoueur }
-        joueursDefense = _joueursPartie.filter { $0.idJoueur != preneur.idJoueur }
+        preneur.points += points * coef
+        // Mise à jour des joueurs en défense
+        self.joueursDefense = self.joueursEnMene.filter { $0.idJoueur != preneur.idJoueur }
         
-        
-        if let partenaire = self.partenaire, let idx = self.joueursPartie.firstIndex(of: partenaire) {
-            self._joueursPartie[idx].points += points
+        if let partenaire = self.partenaire {
+            partenaire.points += points
+            // Mise à jour des joueurs en défense
             self.joueursDefense = self.joueursDefense.filter { $0.idJoueur != partenaire.idJoueur }
         }
         
         for joueur in self.joueursDefense {
-            if let idx = self._joueursPartie.firstIndex(of: joueur) {
-                self._joueursPartie[idx].points -= points
-            }
+            joueur.points -= points
         }
         
         return
     }
     
-//    func affecterPoints(joueurs: [Joueur], points: Float) -> [Joueur] {
-//        // MARK: Faire le calcul du coefficient
-//        let coef: Float = 3.0
-//        guard let preneur = preneur else { return joueurs }
-//        let joueursEnCours = joueurs
-//        for joueur in joueursEnCours {
-//            if joueur.ordre == Int16(preneur) {
-//                joueur.points += points * coef // nb joueurs restants
-//            } else if let partenaire = partenaire {
-//                if joueur.ordre == Int16(partenaire) {
-//                    joueur.points += points // nb joueurs restants
-//                }
-//            } else if joueur.enJeu && !joueur.mort {
-//                joueur.points -= points // nb joueurs restants
-//            }
-//        }
-//        return joueursEnCours
-//    }
-
-    func donneSuivante(joueurs: [Joueur]) -> [Joueur] {
-        var joueursSuivants = joueurs
-        
+    
+    func decodeTypePartie(typePartie: Int16) -> (nbJoueursss: Int, modeJeu: ModeJeu, nbMorts: Int) {
+        let unite = typePartie.quotientAndRemainder(dividingBy: 10)
+        let nbM = unite.remainder
+        let dizaine = (typePartie - unite.remainder).quotientAndRemainder(dividingBy: 100)
+        let mJ = dizaine.remainder / 10
+        let nbJ = dizaine.quotient
+        return (Int(nbJ), ModeJeu(rawValue: Int(mJ))!, Int(nbM))
+    }
+    
+    
+    func donneSuivante() {
+        //        var joueursSuivants = joueurs
+        //        defer {
+        //            joueurs = joueursSuivants
+        //        }
         // On vérifie qu'il existe au moins 1 joueur en jeu !
-        guard let _ = joueurs.firstIndex(where: {$0.enJeu == true}) else { return joueurs }
+        //        guard let _ = joueursPartie.firstIndex(where: {$0.enJeu == true}) else { return }
         // On vérifie qu'il existe au moins 1 donneur identifié
-        if let idxDonneur = joueurs.firstIndex(where: {$0.donneur == true}) {
-            if let idx = joueurs.firstIndex(where: {$0.donneur == true && $0.enJeu == true}) {
-                let donneur = varCirculaire(nb: joueurs.count, idx: idx)
+        if let idxDonneur = joueursPartie.firstIndex(where: {$0.donneur == true}) {
+            if let idx = joueursPartie.firstIndex(where: {$0.donneur == true && $0.enJeu == true}) {
+                let donneur = varCirculaire(nb: nbJoueursPartie, idx: idx)
                 repeat {
                     let _ = donneur.suivant()
-                } while (joueurs[donneur.idx].enJeu == false)
+                } while (joueursPartie[donneur.idx].enJeu == false)
                 
                 
-                joueursSuivants[idxDonneur].donneur = false
-                joueursSuivants[donneur.idx].donneur = true
+                _joueursPartie[idxDonneur].donneur = false
+                _joueursPartie[donneur.idx].donneur = true
             }
-        } else if let idxEnJeu = joueurs.firstIndex(where: {$0.enJeu == true}) {
-            let donneur = varCirculaire(nb: joueurs.count, idx: idxEnJeu)
+        } else if let idxEnJeu = joueursPartie.firstIndex(where: {$0.enJeu == true}) {
+            let donneur = varCirculaire(nb: nbJoueursPartie, idx: idxEnJeu)
             let _ = donneur.suivant()
-            joueursSuivants[donneur.idx].donneur = true
+            _joueursPartie[donneur.idx].donneur = true
         }
-
-
-        return joueursSuivants
+        return
     }
-  
+    
+    // TODO: - Traiter les erreurs
+    func donneurSuivant() -> Bool? {
+        guard GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: nbJoueursEnjeu) else { return false }
+        if let joueur = joueursEnJeu.first(where: { $0.donneur == true }), let suivant = joueursEnJeu.first(where: { $0.ordre == joueur.suivant }) {
+            joueur.donneur = false
+            suivant.donneur = true
+            return true
+        } else {
+            return false
+        }
+    }
     
     
+    
+    // TODO: - Traiter les erreurs
+    func mortSuivant() -> Bool? {
+        guard GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: nbJoueursEnjeu) else { return false }
+        let joueurs = joueursEnJeu.filter({ $0.mort == true }).sorted(by: { $0.suivant > $1.suivant })
+        if !joueurs.isEmpty {
+            let joueur = joueurs[0]
+            let suivant = joueursEnJeu.first(where: { $0.ordre == joueur.suivant})
+            suivant!.mort = true
+            joueur.mort = false
+            let joueurPrecedent = joueur
+            
+            if joueurs.count == 2 {
+                let joueur = joueurs[1]
+                let suivant = joueursEnJeu.first(where: { $0.ordre == joueur.suivant})
+                suivant!.mort = true
+                joueur.mort = joueur.ordre == joueurPrecedent.suivant
+            }
+            return true
+        } else {
+            return true
+        }
+    }
+    
+//    func donneSuivante(joueurs: [Joueur]) -> [Joueur] {
+//        var joueursSuivants = joueurs
+//
+//        // On vérifie qu'il existe au moins 1 joueur en jeu !
+//        guard let _ = joueurs.firstIndex(where: {$0.enJeu == true}) else { return joueurs }
+//        // On vérifie qu'il existe au moins 1 donneur identifié
+//        if let idxDonneur = joueurs.firstIndex(where: {$0.donneur == true}) {
+//            if let idx = joueurs.firstIndex(where: {$0.donneur == true && $0.enJeu == true}) {
+//                let donneur = varCirculaire(nb: joueurs.count, idx: idx)
+//                repeat {
+//                    let _ = donneur.suivant()
+//                } while (joueurs[donneur.idx].enJeu == false)
+//
+//
+//                joueursSuivants[idxDonneur].donneur = false
+//                joueursSuivants[donneur.idx].donneur = true
+//            }
+//        } else if let idxEnJeu = joueurs.firstIndex(where: {$0.enJeu == true}) {
+//            let donneur = varCirculaire(nb: joueurs.count, idx: idxEnJeu)
+//            let _ = donneur.suivant()
+//            joueursSuivants[donneur.idx].donneur = true
+//        }
+//
+//
+//        return joueursSuivants
+//    }
+    
+    
+
     
     /// Vérifie si le nombre d'éléments la table passée en paramètre et compris entre le nombre minimal et maximal de joueurs autorisés.
     ///
     /// - parameter joueursTab: Requis, table à vérifier.
     /// - returns: Vrai si la table répond aux conditions.
-    private func isCorectNbJoueurs(joueursTab: [Joueur]?) -> Bool {
-        guard let joueursTab = joueursTab else { return false }
-        return joueursTab.count >= GestionJoueurs.nbMiniJoueurs && joueursTab.count >= GestionJoueurs.nbMaxiJoueurs
+    static func isCorrectNbJoueurs(nbJoueurs: Any) -> Bool {
+        var nombre: Int = 0
+        if let nb = nbJoueurs as? Int {
+            nombre = nb
+        } else if let tab = nbJoueurs as? [Joueur] {
+            nombre = tab.count
+        }
+        return nombre >= GestionJoueurs.nbMiniJoueurs && nombre <= GestionJoueurs.nbMaxiJoueurs
     }
     
     
@@ -198,14 +262,14 @@ class GestionJoueurs {
             _nb = nb
             _ordre = idx + 1
         }
-
+        
         var ordre: Int {
             return _ordre
         }
         var idx: Int {
             return _ordre - 1
         }
-
+        
         func suivant() -> Int {
             if _ordre >= _nb {
                 _ordre = 1
@@ -214,7 +278,7 @@ class GestionJoueurs {
             }
             return _ordre
         }
-
+        
         func precedent() -> Int {
             if _ordre <= 1 {
                 _ordre = _nb
@@ -241,7 +305,7 @@ class GestionJoueurs {
         }
         
     }
-
+    
 }
 /*
  - 3 joueurs : 300
@@ -271,9 +335,10 @@ class GestionJoueurs {
  >>> Soit : 3 modes de jeux (simple, duo, équipe)
  */
 
-enum ModeJeu: String {
+enum ModeJeu: Int {
+    
     /// Le mode simple est le mode normal, 1 preneur contre le reste des joueurs.
-    case simple
+    case simple = 0
     /// Le mode duo est le mode dans lequel le preneur appelle un partenaire (appel d'un roi).
     case duo
     /// Le mode équipe se joue avec 3 équipes de 2 joueurs, le partenaire est fixe (face à face).
@@ -286,13 +351,23 @@ enum ModeJeu: String {
         case .equipe: return "Equipe"
         }
     }
-    var choix: Int {
-        switch self {
-        case .simple: return 0
-        case .duo: return 1
-        case .equipe: return 2
-        }
-    }
+//    var choix: Int {
+//        switch self {
+//        case .simple: return 0
+//        case .duo: return 1
+//        case .equipe: return 2
+//        }
+//    }
+//
+//    static func item(modeChoix: Int) -> ModeJeu {
+//        switch modeChoix {
+//        case 0: return .simple
+//        case 1: return .duo
+//        case 2: return .equipe
+//        default: break
+//        }
+//        return .simple
+//    }
     
     static func nbMorts(modeChoix: Int) -> [Int: Int] {
         switch modeChoix {
@@ -314,37 +389,37 @@ enum ModeJeu: String {
     }
 }
 
-enum Contrat: String {
-    case petite, garde, gardeSans, gardeContre
-    
-    var nom: String {
-        switch self {
-        case .petite: return "Petite"
-        case .garde: return "Garde"
-        case .gardeSans: return "Garde sans"
-        case .gardeContre: return "Garde contre"
-            //        default: break
-        }
-    }
-    var abv: String {
-        switch self {
-        case .petite: return "P"
-        case .garde: return "G"
-        case .gardeSans: return "GS"
-        case .gardeContre: return "GC"
-            //        default: break
-        }
-    }
-    var idx: Int {
-        switch self {
-        case .petite: return 1
-        case .garde: return 2
-        case .gardeSans: return 3
-        case .gardeContre: return 4
-//        default: break
-        }
-    }
-
-}
+//enum Contrat: Int {
+//    case petite = 1, garde, gardeSans, gardeContre
+//    
+//    var nom: String {
+//        switch self {
+//        case .petite: return "Petite"
+//        case .garde: return "Garde"
+//        case .gardeSans: return "Garde sans"
+//        case .gardeContre: return "Garde contre"
+//            //        default: break
+//        }
+//    }
+//    var abv: String {
+//        switch self {
+//        case .petite: return "P"
+//        case .garde: return "G"
+//        case .gardeSans: return "GS"
+//        case .gardeContre: return "GC"
+//            //        default: break
+//        }
+//    }
+//    var idx: Int {
+//        switch self {
+//        case .petite: return 1
+//        case .garde: return 2
+//        case .gardeSans: return 3
+//        case .gardeContre: return 4
+//            //        default: break
+//        }
+//    }
+//    
+//}
 
 

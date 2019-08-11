@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18F203" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14492.1" systemVersion="18G87" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="JeuJoueur" representedClassName=".JeuJoueur" syncable="YES" codeGenerationType="category">
         <attribute name="etat" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="idJeu" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -22,11 +22,12 @@
     </entity>
     <entity name="Joueur" representedClassName=".Joueur" syncable="YES" codeGenerationType="category">
         <attribute name="donneur" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="enJeu" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="enJeu" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="idJoueur" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="mort" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="ordre" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="points" optional="YES" attributeType="Float" defaultValueString="0.0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="suivant" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="partie" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Partie" inverseName="participants" inverseEntity="Partie" syncable="YES"/>
     </entity>
     <entity name="Partie" representedClassName=".Partie" syncable="YES" codeGenerationType="category">
@@ -50,7 +51,7 @@
     <elements>
         <element name="JeuJoueur" positionX="-233.22265625" positionY="-137.7265625" width="128" height="103"/>
         <element name="JeuResultat" positionX="-454.59765625" positionY="-242.60546875" width="128" height="223"/>
-        <element name="Joueur" positionX="161.0390625" positionY="-107.67578125" width="128" height="148"/>
+        <element name="Joueur" positionX="161.0390625" positionY="-153.53515625" width="128" height="165"/>
         <element name="Partie" positionX="-50.91796875" positionY="-107.6171875" width="128" height="118"/>
         <element name="Personne" positionX="106.86328125" positionY="50.4296875" width="128" height="133"/>
     </elements>

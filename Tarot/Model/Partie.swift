@@ -18,19 +18,21 @@ class Partie: NSManagedObject {
         return Parties
     }
     
-    static func save(Participants  joueurs: [PersonneCell], idPartie: Int, hD: Date, idxDonneur: Int, idxMort: [Int]) {
+    static func inset(Participants  joueurs: [PersonneCell], idPartie: Int, hD: Date, idxDonneur: Int, idxMort: [Int], modeJeu: ModeJeu) {
 //        static func save(_ partie: Partie, participants: [PersonneCell], idPartie: Int, hD: Date, donneur: Int, mort: Int) {
 
         let partie = Partie(context: AppDelegate.viewContext)
-        
+        let type = joueurs.count * 100 + modeJeu.rawValue * 10 + idxMort.count
         partie.idPartie = Int32(idPartie)
         partie.horodate = hD
-        
+        partie.type = Int16(type)
+
         
         for participant in joueurs {
             let joueur = Joueur(context: AppDelegate.viewContext)
             joueur.idJoueur = Int16(participant.idJoueurLabel.text!)!
             joueur.ordre = Int16(participant.idx)
+            joueur.suivant = Int16(participant.suivant)
             joueur.points = 0.0
             joueur.enJeu = true
             joueur.donneur = participant.idx == idxDonneur
@@ -96,4 +98,16 @@ class Partie: NSManagedObject {
             return false
         }
     }
+    
+    static func save() -> Bool {
+        do {
+            try AppDelegate.viewContext.save()
+            return true
+        }
+        catch {
+            print(error.localizedDescription)
+            return false
+        }
+    }
+
 }

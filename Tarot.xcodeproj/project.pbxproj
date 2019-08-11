@@ -23,6 +23,7 @@
 		955C129322D9020900DAC5F0 /* Partie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955C129222D9020900DAC5F0 /* Partie.swift */; };
 		955C129522D902BE00DAC5F0 /* Joueur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955C129422D902BE00DAC5F0 /* Joueur.swift */; };
 		955C129722D9034B00DAC5F0 /* JeuJoueur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955C129622D9034B00DAC5F0 /* JeuJoueur.swift */; };
+		955ECF7B22FEB8C2009FABC5 /* LabelPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955ECF7A22FEB8C2009FABC5 /* LabelPoints.swift */; };
 		95A004BA22EBB9EE00DB741D /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A004B922EBB9EE00DB741D /* Data.swift */; };
 		95A004BC22EC829600DB741D /* PartieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A004BB22EC829600DB741D /* PartieController.swift */; };
 		95A004BE22EC839700DB741D /* PersonneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A004BD22EC839700DB741D /* PersonneCell.swift */; };
@@ -43,6 +44,7 @@
 		95A5DB5B22B2B5EF007F3729 /* ImageArrondie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB5A22B2B5EF007F3729 /* ImageArrondie.swift */; };
 		95A5DB5D22B2B66C007F3729 /* BoutonArrondi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB5C22B2B66C007F3729 /* BoutonArrondi.swift */; };
 		95BD3CA222B2F71300A2C183 /* JeuResultatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD3CA122B2F71300A2C183 /* JeuResultatController.swift */; };
+		95EF561C230033FB00B9E1E9 /* PartieControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EF561B230033FB00B9E1E9 /* PartieControllerExtension.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,6 +95,7 @@
 		955C129222D9020900DAC5F0 /* Partie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Partie.swift; sourceTree = "<group>"; };
 		955C129422D902BE00DAC5F0 /* Joueur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joueur.swift; sourceTree = "<group>"; };
 		955C129622D9034B00DAC5F0 /* JeuJoueur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuJoueur.swift; sourceTree = "<group>"; };
+		955ECF7A22FEB8C2009FABC5 /* LabelPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelPoints.swift; sourceTree = "<group>"; };
 		95A004B922EBB9EE00DB741D /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		95A004BB22EC829600DB741D /* PartieController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartieController.swift; sourceTree = "<group>"; };
 		95A004BD22EC839700DB741D /* PersonneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonneCell.swift; sourceTree = "<group>"; };
@@ -117,6 +120,7 @@
 		95A5DB5A22B2B5EF007F3729 /* ImageArrondie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageArrondie.swift; sourceTree = "<group>"; };
 		95A5DB5C22B2B66C007F3729 /* BoutonArrondi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoutonArrondi.swift; sourceTree = "<group>"; };
 		95BD3CA122B2F71300A2C183 /* JeuResultatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuResultatController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
+		95EF561B230033FB00B9E1E9 /* PartieControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartieControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -169,6 +173,7 @@
 				953788A522BE82F000AA9F46 /* NouvellePartieController.swift */,
 				95A004C722EC8EE200DB741D /* ParticipantController.swift */,
 				95A004BB22EC829600DB741D /* PartieController.swift */,
+				95EF561B230033FB00B9E1E9 /* PartieControllerExtension.swift */,
 			);
 			name = Parties;
 			sourceTree = "<group>";
@@ -255,6 +260,7 @@
 				95363CE122C3D96600CBAC02 /* PointsJeuCell.swift */,
 				95A004BD22EC839700DB741D /* PersonneCell.swift */,
 				95A004C922ECC62D00DB741D /* JeuCell.swift */,
+				955ECF7A22FEB8C2009FABC5 /* LabelPoints.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -410,6 +416,7 @@
 				95A004BA22EBB9EE00DB741D /* Data.swift in Sources */,
 				95274CC222CE9A5900BF91C0 /* Shared.swift in Sources */,
 				95A004BC22EC829600DB741D /* PartieController.swift in Sources */,
+				95EF561C230033FB00B9E1E9 /* PartieControllerExtension.swift in Sources */,
 				95A5DB5B22B2B5EF007F3729 /* ImageArrondie.swift in Sources */,
 				95363CE222C3D96600CBAC02 /* PointsJeuCell.swift in Sources */,
 				9521616422BACB290054F63E /* AjoutPersonneControler.swift in Sources */,
@@ -419,6 +426,7 @@
 				95A5DB5D22B2B66C007F3729 /* BoutonArrondi.swift in Sources */,
 				95A5DB5922B2A4B1007F3729 /* Constantes.swift in Sources */,
 				95517DFE22B7BA1F00ECD1FC /* Structure comptage jeu.swift in Sources */,
+				955ECF7B22FEB8C2009FABC5 /* LabelPoints.swift in Sources */,
 				95A004CA22ECC62D00DB741D /* JeuCell.swift in Sources */,
 				953788A622BE82F000AA9F46 /* NouvellePartieController.swift in Sources */,
 				95A004C222EC898100DB741D /* ParticipantCell.swift in Sources */,

@@ -16,7 +16,7 @@ import UIKit
 class JoueurCell: UITableViewCell {
     
     @IBOutlet weak var surnomLabel: UILabel!
-    @IBOutlet weak var pointsLabel: UILabel!
+    @IBOutlet weak var pointsLabel: LabelPoints!
     @IBOutlet weak var etatLabel: UILabel!
     @IBOutlet weak var donneurLabel: UILabel!
     @IBOutlet weak var contratLabel: UILabel!
@@ -41,20 +41,29 @@ class JoueurCell: UITableViewCell {
         // Mémorisation de idJoueur dans le tag de la cellule
         self.tag = Int(self.joueur.idJoueur)
 
+        if !joueur.enJeu {
+            contratLabel.text = "Hors-jeu"
+        } else {
         contratLabel.text = joueur.mort == true ? "Hors mène" : nil
+        }
+        
         donneurLabel.isHidden = self.joueur.donneur == false
         surnomLabel.text = dicoJoueurs[Int(self.joueur.idJoueur)]
         pointsLabel.text = String(self.joueur.points)
+        pointsLabel.textColor = self.joueur.points > 0.0 ? UIColor.blue : UIColor.red
+
         ordreLabel.text = String(self.joueur.ordre)
         ordreImage.image = UIImage(named: "icons8-cerclé-" + String(self.joueur.ordre) + "-1")
 
-        donneurLabel.isEnabled = joueur.mort == true
+        let isEnable = joueur.mort || !joueur.enJeu
         
-        contratLabel.isEnabled = joueur.mort == false
-        surnomLabel.isEnabled = joueur.mort == false
-        pointsLabel.isEnabled = joueur.mort == false
-        ordreLabel.isEnabled = joueur.mort == false
-        ordreImage.isOpaque = joueur.mort == false
+        donneurLabel.isEnabled = joueur.donneur
+        
+        contratLabel.isEnabled = !isEnable
+        surnomLabel.isEnabled = !isEnable
+        pointsLabel.isEnabled = !isEnable
+        ordreLabel.isEnabled = !isEnable
+        ordreImage.isOpaque = !isEnable
         
 
 self.tag = Int(self.joueur.idJoueur)

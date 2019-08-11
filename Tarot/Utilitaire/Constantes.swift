@@ -31,7 +31,8 @@ public func dicoJoueursMaJ() {
 
 
 extension Int {
-    func minus() -> Int { return self - 1}
+    func minus(De valeur: Int = 1) -> Int { return self - valeur}
+    func plus(De valeur: Int = 1) -> Int { return self + valeur}
 }
 
 class App {

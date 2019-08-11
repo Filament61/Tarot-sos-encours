@@ -12,19 +12,34 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     
     func miseEnPlacePicker() {
-//        pickerViewAppele.delegate = self
-//        pickerViewAppele.dataSource = self
-        
         pickerView.delegate = self
         pickerView.dataSource = self
+        
+        if let preneur = gj.preneur, let idx = gj.joueursEnMene.firstIndex(of: preneur) {
+            pickerView.selectRow(idx, inComponent: 0, animated: false)
+        } else {
+            pickerView.selectRow(0, inComponent: 0, animated: false)
+            gj.preneur = gj.joueursEnMene[0]
+
+        }
+        if let partenaire = gj.partenaire, let idx = gj.joueursEnMene.firstIndex(of: partenaire) {
+            pickerView.selectRow(idx, inComponent: 1, animated: false)
+        } else if numberOfComponents(in: pickerView) == 2 {
+            pickerView.selectRow(0, inComponent: 1, animated: false)
+            gj.partenaire = gj.joueursEnMene[0]
+        }
     }
+    
+    
+    
+    
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return gj.joueursEnMene.count
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 2
+        return gj.modeJeu != ModeJeu.simple ? 2 : 1
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
@@ -33,11 +48,13 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
-            let surnomDuPreneur = dicoJoueurs[Int(gj.joueursEnMene[row].idJoueur)]
+            gj.preneur = gj.joueursEnMene[row]
+            let surnomDuPreneur = dicoJoueurs[Int(gj.preneur!.idJoueur)]
             print("Preneur choisi : \(surnomDuPreneur!)")
         }
         if component == 1 {
-            let surnomDuPpartenaire = dicoJoueurs[Int(gj.joueursEnMene[row].idJoueur)]
+            gj.partenaire = gj.joueursEnMene[row]
+            let surnomDuPpartenaire = dicoJoueurs[Int(gj.partenaire!.idJoueur)]
             print("Partenaire choisi : \(surnomDuPpartenaire!)")
         }
     }
