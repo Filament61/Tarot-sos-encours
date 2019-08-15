@@ -53,7 +53,7 @@ class ParticipantController: UIViewController, UITableViewDelegate, UITableViewD
     }
     
     func fetchParticipants() {
-        participants = Joueur.all()
+        participants = Joueur.all(TrierPar: .points)
         tableView.reloadData()
     }
     

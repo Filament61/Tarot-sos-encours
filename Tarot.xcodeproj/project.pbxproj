@@ -43,6 +43,7 @@
 		95A5DB5922B2A4B1007F3729 /* Constantes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB5822B2A4B1007F3729 /* Constantes.swift */; };
 		95A5DB5B22B2B5EF007F3729 /* ImageArrondie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB5A22B2B5EF007F3729 /* ImageArrondie.swift */; };
 		95A5DB5D22B2B66C007F3729 /* BoutonArrondi.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A5DB5C22B2B66C007F3729 /* BoutonArrondi.swift */; };
+		95A8B9A72303286900C93332 /* ParametresController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A8B9A62303286900C93332 /* ParametresController.swift */; };
 		95BD3CA222B2F71300A2C183 /* JeuResultatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95BD3CA122B2F71300A2C183 /* JeuResultatController.swift */; };
 		95EF561C230033FB00B9E1E9 /* PartieControllerExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95EF561B230033FB00B9E1E9 /* PartieControllerExtension.swift */; };
 /* End PBXBuildFile section */
@@ -119,6 +120,7 @@
 		95A5DB5822B2A4B1007F3729 /* Constantes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constantes.swift; sourceTree = "<group>"; };
 		95A5DB5A22B2B5EF007F3729 /* ImageArrondie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageArrondie.swift; sourceTree = "<group>"; };
 		95A5DB5C22B2B66C007F3729 /* BoutonArrondi.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoutonArrondi.swift; sourceTree = "<group>"; };
+		95A8B9A62303286900C93332 /* ParametresController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParametresController.swift; sourceTree = "<group>"; };
 		95BD3CA122B2F71300A2C183 /* JeuResultatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuResultatController.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		95EF561B230033FB00B9E1E9 /* PartieControllerExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartieControllerExtension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -271,6 +273,7 @@
 				95B43A8222CAA3AD00B9EB7D /* Personnes */,
 				95274CBF22CC087300BF91C0 /* Jeux */,
 				959B15D122F72CD700C0674A /* Parties */,
+				95A8B9A62303286900C93332 /* ParametresController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -443,6 +446,7 @@
 				95517DFA22B441CB00ECD1FC /* ExampleStruct.swift in Sources */,
 				955C129522D902BE00DAC5F0 /* Joueur.swift in Sources */,
 				9558CB9D22B95ABF00C2C3B5 /* PersonneController.swift in Sources */,
+				95A8B9A72303286900C93332 /* ParametresController.swift in Sources */,
 				95A004C022EC86F600DB741D /* AjoutPersonneControllerExtension.swift in Sources */,
 				9521616622BC1B620054F63E /* JoueurCell.swift in Sources */,
 				95363CE022C29F5A00CBAC02 /* NSManagedObjectExtension.swift in Sources */,

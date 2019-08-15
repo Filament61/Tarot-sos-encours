@@ -10,9 +10,9 @@ import CoreData
 
 class Joueur: NSManagedObject {
     
-    static func all(TrierPar tri: String = "ordre") -> [Joueur] {
+    static func all(TrierPar attribute: TriJoueurs = TriJoueurs.table) -> [Joueur] {
         let request: NSFetchRequest<Joueur> = Joueur.fetchRequest()
-        let tri = NSSortDescriptor(key: tri, ascending: true)
+        let tri = NSSortDescriptor(key: attribute.attribute, ascending: true)
         request.sortDescriptors = [tri]
         
         guard let participants = try? AppDelegate.viewContext.fetch(request) else { return [] }

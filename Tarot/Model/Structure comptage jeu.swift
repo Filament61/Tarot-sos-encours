@@ -6,6 +6,9 @@
 //  Copyright © 2019 Serge Gori. All rights reserved.
 //
 
+import UIKit
+
+
 struct JeuComplet {
     
     let nbPointsMaxi: Float = 91.0
@@ -257,15 +260,15 @@ enum Contrat: Int {
             //        default: break
         }
     }
-    //    var idx: Int {
-    //        switch self {
-    //        case .petite: return 1
-    //        case .garde: return 2
-    //        case .gardeSans: return 3
-    //        case .gardeContre: return 4
-    //            //        default: break
-    //        }
-    //    }
+    var couleur: UIColor {
+        switch self {
+        case .petite: return UIColor.lightGray
+        case .garde: return UIColor.orange
+        case .gardeSans: return UIColor.blue
+        case .gardeContre: return UIColor.green
+            //        default: break
+        }
+    }
     
 }
 

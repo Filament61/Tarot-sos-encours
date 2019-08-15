@@ -18,8 +18,7 @@ class Partie: NSManagedObject {
         return Parties
     }
     
-    static func inset(Participants  joueurs: [PersonneCell], idPartie: Int, hD: Date, idxDonneur: Int, idxMort: [Int], modeJeu: ModeJeu) {
-//        static func save(_ partie: Partie, participants: [PersonneCell], idPartie: Int, hD: Date, donneur: Int, mort: Int) {
+    static func insert(Participants  joueurs: [PersonneCell], idPartie: Int, hD: Date, idxDonneur: Int, idxMort: [Int], modeJeu: ModeJeu) {
 
         let partie = Partie(context: AppDelegate.viewContext)
         let type = joueurs.count * 100 + modeJeu.rawValue * 10 + idxMort.count
@@ -64,7 +63,7 @@ class Partie: NSManagedObject {
     }
     
     
-    static func update(_ partie: Partie, Jeu jeuComplet: JeuComplet, idJeu: Int, hD: Date, participants: [Joueur], mort: Int) -> Bool {
+    static func update(_ partie: Partie, Jeu jeuComplet: JeuComplet, idJeu: Int, hD: Date, participants: [Joueur]) -> Bool {
         
         let jeuResultat = JeuResultat(context: viewContext)        
         jeuResultat.idJeu = Int64(idJeu)

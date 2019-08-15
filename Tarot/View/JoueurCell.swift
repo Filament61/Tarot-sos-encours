@@ -48,7 +48,7 @@ class JoueurCell: UITableViewCell {
         }
         
         donneurLabel.isHidden = self.joueur.donneur == false
-        surnomLabel.text = dicoJoueurs[Int(self.joueur.idJoueur)]
+        surnomLabel.text = dicoJoueurs[self.joueur.idJoueur]
         pointsLabel.text = String(self.joueur.points)
         pointsLabel.textColor = self.joueur.points > 0.0 ? UIColor.blue : UIColor.red
 

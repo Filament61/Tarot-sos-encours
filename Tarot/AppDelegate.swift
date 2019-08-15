@@ -102,7 +102,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     // MARK: - Ajout manuel du dictionnaire Joueurs
-    static var dicoJoueurs = [Int: String]()
+    static var dicoJoueurs = [Int16: String]()
     
     static var partie = Partie()
     static var jeu = JeuResultat()

@@ -32,7 +32,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     var donneur: Int = 0
     var morts: [Int] = []
     
-    var partie = Partie()
+    var partie: Partie?
     var nbJoueurs: Int = 0 {
         didSet {
             animerOptions()
@@ -239,6 +239,10 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     func miseEnPlace() {
+        // Intitialisation de la nouvelle partie avec la donnée par défaut
+        triJoueursPartie = defaultSettings.integer(forKey: "triJoueursDefaut")
+        defaultSettings.set(triJoueursPartie, forKey: "triJoueursPartie")
+
         let format = DateFormatter()
         format.dateFormat = "dd/MM/YYYY HH:mm"
         horodateLabel.text = format.string(from: now)
@@ -396,7 +400,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         guard self.modeJeuSegment.selectedSegmentIndex != UISegmentedControl.noSegment else { return }
         modeJeu = ModeJeu(rawValue: modeJeuSegment.selectedSegmentIndex)
 
-        Partie.inset(Participants: cellTab, idPartie: idPartie, hD: now, idxDonneur: donneur, idxMort: morts, modeJeu: modeJeu!)
+        Partie.insert(Participants: cellTab, idPartie: idPartie, hD: now, idxDonneur: donneur, idxMort: morts, modeJeu: modeJeu!)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewControllerID = "PartieViewController"
         let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! PartieController

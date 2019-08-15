@@ -12,6 +12,12 @@ import UIKit
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 let viewContext = AppDelegate.persistentContainer.viewContext
 
+let defaultSettings = UserDefaults.standard
+
+public var triJoueursDefaut = Int()
+public var triJoueursPartie = Int()
+
+
 //newbranch
 
 
@@ -25,7 +31,7 @@ public func dicoJoueursMaJ() {
     let personnes = Personne.all()
     dicoJoueurs.removeAll()
     for item in personnes {
-        dicoJoueurs[Int(item.idJoueur)] = item.surnom
+        dicoJoueurs[item.idJoueur] = item.surnom
     }
 }
 
@@ -35,72 +41,51 @@ extension Int {
     func plus(De valeur: Int = 1) -> Int { return self + valeur}
 }
 
-class App {
+
+
+enum TriJoueurs: Int {
+    case table, surnom, points
     
-    //        static var joueur: [Int: String]
-    static public var nbJoueurs = 0
-    static public var partenaire = 1
-    static public var mort: [Int]?
-    
-    static public var preneur = 0
-    
-    static public var donneur = varCirculaire(nb: 0)
-    
+    var attribute: String {
+        switch self {
+        case .table: return "ordre"
+        case .surnom: return "idJoueur"
+        case .points: return "points"
+        }
+    }
+
+    static func choixTri(choix: TriJoueurs) -> (_ item0: Joueur, _ item1: Joueur) -> Bool {
+        switch choix {
+        case .table:
+            func table(item0: Joueur, item1: Joueur) -> Bool {
+                return item0.ordre < item1.ordre
+            }
+            return table(item0:item1:)
+        case .points:
+            func points(item0: Joueur, item1: Joueur) -> Bool {
+                return item0.points > item1.points
+            }
+            return points(item0:item1:)
+        case .surnom:
+            func surnom(item0: Joueur, item1: Joueur) -> Bool {
+                if let j0 = dicoJoueurs[item0.idJoueur], let j1 = dicoJoueurs[item1.idJoueur] {
+                    return j0 < j1
+                }
+                return false
+            }
+            return surnom(item0:item1:)
+        }
+    }
+        
 }
 
 
-class varCirculaire {
-    private var _ordre: Int = 0
-    private var _nb: Int = 0
-    
-    init?() {
-        return nil
-    }
-    init(nb: Int) {
-        _nb = nb
-    }
-    init(nb: Int, ordre: Int) {
-        _nb = nb
-        _ordre = ordre
-    }
 
-    var ordre: Int {
-        return _ordre
-    }
-    
-    func suivant() -> Int {
-        if _ordre >= _nb {
-            _ordre = 1
-        } else {
-            _ordre += 1
-        }
-        return _ordre
-    }
 
-    func precedent() -> Int {
-        if _ordre <= 1 {
-            _ordre = _nb
-        } else {
-            _ordre -= 1
-        }
-        return _ordre
-    }
-    
-    func raz() -> Int {
-        _ordre = 0
-        return _ordre
-    }
-    
-    func nb(nb: Int) -> Int {
-        _nb = nb
-        _ordre = 0
-        return _nb
-    }
-    
-    func reInit(nb: Int, ordre: Int) {
-        _nb = nb
-        _ordre = ordre
-    }
 
-}
+
+
+
+
+
 

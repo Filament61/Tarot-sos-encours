@@ -43,18 +43,18 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
-        return dicoJoueurs[Int(gj.joueursEnMene[row].idJoueur)]
+        return dicoJoueurs[gj.joueursEnMene[row].idJoueur]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         if component == 0 {
             gj.preneur = gj.joueursEnMene[row]
-            let surnomDuPreneur = dicoJoueurs[Int(gj.preneur!.idJoueur)]
+            let surnomDuPreneur = dicoJoueurs[gj.preneur!.idJoueur]
             print("Preneur choisi : \(surnomDuPreneur!)")
         }
         if component == 1 {
             gj.partenaire = gj.joueursEnMene[row]
-            let surnomDuPpartenaire = dicoJoueurs[Int(gj.partenaire!.idJoueur)]
+            let surnomDuPpartenaire = dicoJoueurs[gj.partenaire!.idJoueur]
             print("Partenaire choisi : \(surnomDuPpartenaire!)")
         }
     }

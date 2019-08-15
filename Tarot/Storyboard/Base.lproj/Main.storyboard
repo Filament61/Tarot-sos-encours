@@ -70,7 +70,7 @@
                                         <rect key="frame" x="15" y="399.33333333333337" width="79" height="31"/>
                                         <state key="normal" title="Paramètres"/>
                                         <connections>
-                                            <segue destination="eV2-Eh-g90" kind="show" id="giH-uh-sMy"/>
+                                            <segue destination="2w1-mG-014" kind="show" id="n2W-fo-ddG"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LcW-ec-db5">
@@ -498,14 +498,37 @@
                                 <rect key="frame" x="0.0" y="734" width="375" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                                 <items>
+                                    <barButtonItem width="15" style="plain" systemItem="fixedSpace" id="Npg-4V-t7g"/>
                                     <barButtonItem systemItem="reply" id="RpP-IB-KoT">
                                         <connections>
                                             <action selector="horsJeuJoueurAction:" destination="Yde-rF-4PK" id="QDi-tk-uV7"/>
                                         </connections>
                                     </barButtonItem>
+                                    <barButtonItem width="30" style="plain" systemItem="fixedSpace" id="6Iq-sV-hzX"/>
                                     <barButtonItem systemItem="add" id="1gV-Vp-62Z">
                                         <connections>
                                             <action selector="donneSuivanteAction:" destination="Yde-rF-4PK" id="KPS-sQ-JoX"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="30" style="plain" systemItem="fixedSpace" id="pmq-Og-4ff"/>
+                                    <barButtonItem title="tour" image="icons8-tri-numérique-fin" id="kDG-bg-elv">
+                                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <action selector="triTableAction:" destination="Yde-rF-4PK" id="5wC-t4-eUm"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="30" style="plain" systemItem="fixedSpace" id="2kR-kC-4ND"/>
+                                    <barButtonItem title="nom" image="icons8-tri-alphabétique-fin" id="8Il-2Z-C8C">
+                                        <inset key="imageInsets" minX="0.0" minY="6" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <action selector="triSurnomAction:" destination="Yde-rF-4PK" id="Mt0-EL-oDo"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem width="30" style="plain" systemItem="fixedSpace" id="DZ0-oe-H9r"/>
+                                    <barButtonItem title="pts" image="icons8-compteur-vide" id="szT-Vh-BWV">
+                                        <inset key="imageInsets" minX="0.0" minY="5" maxX="0.0" maxY="0.0"/>
+                                        <connections>
+                                            <action selector="triPointsAction:" destination="Yde-rF-4PK" id="xLq-O1-59P"/>
                                         </connections>
                                     </barButtonItem>
                                 </items>
@@ -799,6 +822,107 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="80e-nw-FHq" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1461.5999999999999" y="501.72413793103448"/>
+        </scene>
+        <!--Parametres Controller-->
+        <scene sceneID="W2y-Al-Rwe">
+            <objects>
+                <tableViewController id="2w1-mG-014" customClass="ParametresController" customModule="Tarot" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="C5Z-xC-bgs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <sections>
+                            <tableViewSection headerTitle="Tri des joueurs" footerTitle="Tri par défaut en cours de partie." id="glt-Q0-vOp">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellTriJoueurs" textLabel="pXZ-af-FMz" detailTextLabel="4fa-wt-sgT" style="IBUITableViewCellStyleSubtitle" id="inI-mj-MME" customClass="cellTriJoueurs" customModule="Tarot" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="55.333333333333343" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="inI-mj-MME" id="qor-jR-xbr">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Donne" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="pXZ-af-FMz">
+                                                    <rect key="frame" x="16" y="5" width="50" height="20.333333333333332"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Suivant le plan de table." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="4fa-wt-sgT">
+                                                    <rect key="frame" x="16" y="25.333333333333332" width="135.33333333333334" height="14.333333333333334"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellTriJoueurs" textLabel="Ycl-ac-AYk" detailTextLabel="3Ep-r3-ZkZ" style="IBUITableViewCellStyleSubtitle" id="xRs-No-UtB" customClass="cellTriJoueurs" customModule="Tarot" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="99.333333333333343" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xRs-No-UtB" id="Ey6-5b-r65">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Surnom" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Ycl-ac-AYk">
+                                                    <rect key="frame" x="16" y="5" width="60" height="20.333333333333332"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Suivant l'ordre alphabétique." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="3Ep-r3-ZkZ">
+                                                    <rect key="frame" x="16" y="25.333333333333332" width="162" height="14.333333333333334"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cellTriJoueurs" textLabel="7YG-ef-4wr" detailTextLabel="wio-rw-dbi" style="IBUITableViewCellStyleSubtitle" id="ypQ-NT-Xcd" customClass="cellTriJoueurs" customModule="Tarot" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="143.33333333333334" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ypQ-NT-Xcd" id="Zsc-Dv-KZr">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Points" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="7YG-ef-4wr">
+                                                    <rect key="frame" x="16.000000000000004" y="5" width="47.333333333333336" height="20.333333333333332"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Suivant le classement des points." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="wio-rw-dbi">
+                                                    <rect key="frame" x="16" y="25.333333333333332" width="188.66666666666666" height="14.333333333333334"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="2w1-mG-014" id="qsP-W3-ijo"/>
+                            <outlet property="delegate" destination="2w1-mG-014" id="Nfe-9I-5qS"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="donne" destination="inI-mj-MME" id="rKW-tA-27v"/>
+                        <outlet property="points" destination="ypQ-NT-Xcd" id="EvS-C8-BD6"/>
+                        <outlet property="surnom" destination="xRs-No-UtB" id="4zR-Kc-hPl"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JZz-KS-KGq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="676" y="-936"/>
         </scene>
         <!--Joueurs-->
         <scene sceneID="hAI-Gq-4uf">
@@ -1445,4 +1569,9 @@
             <point key="canvasLocation" x="2982" y="-239"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="icons8-compteur-vide" width="50" height="50"/>
+        <image name="icons8-tri-alphabétique-fin" width="50" height="50"/>
+        <image name="icons8-tri-numérique-fin" width="50" height="50"/>
+    </resources>
 </document>
