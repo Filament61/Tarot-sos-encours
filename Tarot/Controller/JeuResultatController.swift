@@ -71,9 +71,6 @@ class JeuResultatController: UIViewController {
             selectionnerContrat(contrat)
         }
 
-//        pickerView.selectRow(preneur, inComponent: 1, animated: true)
-        //largeurContrainte.constant = view.frame.width
-        //scroll.contentSize = CGSize(width: largeurContrainte.constant, height: scroll.frame.height)
     }
     
     
@@ -402,6 +399,8 @@ class JeuResultatController: UIViewController {
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
         }
+        
+        gj.classement()
         
         if Partie.update(AppDelegate.partie, Jeu: jeuResultat, idJeu: idJeu, hD: now, participants: gj.joueursPartie) {
             enregistrerButton.isEnabled = true

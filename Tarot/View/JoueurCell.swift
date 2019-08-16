@@ -47,47 +47,28 @@ class JoueurCell: UITableViewCell {
         contratLabel.text = joueur.mort == true ? "Hors mène" : nil
         }
         
-        donneurLabel.isHidden = self.joueur.donneur == false
         surnomLabel.text = dicoJoueurs[self.joueur.idJoueur]
         pointsLabel.text = String(self.joueur.points)
         pointsLabel.textColor = self.joueur.points > 0.0 ? UIColor.blue : UIColor.red
 
         ordreLabel.text = String(self.joueur.ordre)
         ordreImage.image = UIImage(named: "icons8-cerclé-" + String(self.joueur.ordre) + "-1")
+        classementImage.image = UIImage(named: "icons8-cerclé-" + String(self.joueur.classement) + "-1")
 
-        let isEnable = joueur.mort || !joueur.enJeu
+        let isEnable = !joueur.mort && joueur.enJeu
+        contratLabel.isEnabled = isEnable
+        surnomLabel.isEnabled = isEnable
+        pointsLabel.isEnabled = isEnable
+        ordreLabel.isEnabled = isEnable
+        ordreImage.isOpaque = isEnable
         
         donneurLabel.isEnabled = joueur.donneur
-        
-        contratLabel.isEnabled = !isEnable
-        surnomLabel.isEnabled = !isEnable
-        pointsLabel.isEnabled = !isEnable
-        ordreLabel.isEnabled = !isEnable
-        ordreImage.isOpaque = !isEnable
-        
 
-self.tag = Int(self.joueur.idJoueur)
-        
-//        classementImage.image = UIImage(named: "icons8-cerclé-" + String(self.joueur.classement) + "-1")
-        
-//        self.self.isEditing = joueur.donneur == false
+        donneurLabel.isHidden = !self.joueur.donneur
+        ordreImage.isHidden = !defaultSettings.bool(forKey: "donneAffJoueurs")
+        classementImage.isHidden = !defaultSettings.bool(forKey: "pointsAffJoueurs") || joueur.classement == 0
+
     }
-    
-//    if nbMortsSegment.selectedSegmentIndex != 0 {
-//    if nbMortsSegment.selectedSegmentIndex == 1 && joueur.idx == nbJoueurs {
-//    joueur.etatLabel.text = "Mort"
-//    morts.append(joueur.idx)
-//    }
-//    if nbMortsSegment.selectedSegmentIndex == 2 && joueur.idx == nbJoueurs {
-//    joueur.etatLabel.text = "Mort (-1)"
-//    morts.append(joueur.idx)
-//    }
-//    if nbMortsSegment.selectedSegmentIndex == 2 && joueur.idx == nbJoueurs.minus() {
-//    morts.append(joueur.idx)
-//    joueur.etatLabel.text = "Mort (-2)"
-//    }
-//    }
-
     
 }
 

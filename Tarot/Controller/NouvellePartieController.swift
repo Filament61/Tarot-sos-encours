@@ -230,6 +230,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        super.prepare(for: segue, sender: sender)
         if segue.identifier == "PartieSegue" {
             //            let qui = self.preneur.idx
             let PartieController = segue.destination as! PartieController
@@ -240,8 +241,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     func miseEnPlace() {
         // Intitialisation de la nouvelle partie avec la donnée par défaut
-        triJoueursPartie = defaultSettings.integer(forKey: "triJoueursDefaut")
-        defaultSettings.set(triJoueursPartie, forKey: "triJoueursPartie")
+        defaultSettings.set(defaultSettings.integer(forKey: "triJoueursDefaut"), forKey: "triJoueursPartie")
 
         let format = DateFormatter()
         format.dateFormat = "dd/MM/YYYY HH:mm"

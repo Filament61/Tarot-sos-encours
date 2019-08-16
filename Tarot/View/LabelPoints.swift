@@ -25,9 +25,9 @@ class LabelPoints: UILabel {
 //        self.textColor = nombre > 0.0 ? UIColor.blue : UIColor.red
 //        }
         
-        layer.cornerRadius = 10
-        layer.borderWidth = 1.5
-        layer.borderColor = UIColor.darkGray.cgColor
+//        layer.cornerRadius = 10
+//        layer.borderWidth = 1.5
+//        layer.borderColor = UIColor.darkGray.cgColor
 //        tintColor = UIColor.blue
 //        titleLabel?.font = UIFont.boldSystemFont(ofSize: 20)
     }

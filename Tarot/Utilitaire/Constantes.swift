@@ -12,16 +12,16 @@ import UIKit
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 let viewContext = AppDelegate.persistentContainer.viewContext
 
+// MARK: - Paramétrage
 let defaultSettings = UserDefaults.standard
 
-public var triJoueursDefaut = Int()
-public var triJoueursPartie = Int()
+//public var triJoueursDefaut = Int()
+//public var triJoueursPartie = Int()
 
 
-//newbranch
 
 
-//public var joueursTab = [("Serge"), ("Phillipe"), ("Alain"), ("Marc"), ("Robert"), "Loulou"]
+
 public var dicoJoueurs = AppDelegate.dicoJoueurs
 
 //public var partie = AppDelegate.partie
@@ -42,6 +42,9 @@ extension Int {
 }
 
 
+enum How: Int {
+    case asc, desc
+}
 
 enum TriJoueurs: Int {
     case table, surnom, points
@@ -53,30 +56,61 @@ enum TriJoueurs: Int {
         case .points: return "points"
         }
     }
-
-    static func choixTri(choix: TriJoueurs) -> (_ item0: Joueur, _ item1: Joueur) -> Bool {
+    
+    //    var how: How {
+    //
+    //    }
+    
+    static func choixTri(choix: TriJoueurs, how: How) -> (_ item0: Joueur, _ item1: Joueur) -> Bool {
         switch choix {
         case .table:
-            func table(item0: Joueur, item1: Joueur) -> Bool {
-                return item0.ordre < item1.ordre
-            }
-            return table(item0:item1:)
-        case .points:
-            func points(item0: Joueur, item1: Joueur) -> Bool {
-                return item0.points > item1.points
-            }
-            return points(item0:item1:)
-        case .surnom:
-            func surnom(item0: Joueur, item1: Joueur) -> Bool {
-                if let j0 = dicoJoueurs[item0.idJoueur], let j1 = dicoJoueurs[item1.idJoueur] {
-                    return j0 < j1
+            switch how {
+            case .asc:
+                func table(item0: Joueur, item1: Joueur) -> Bool {
+                    return item0.ordre < item1.ordre
                 }
-                return false
+                return table(item0:item1:)
+            case .desc:
+                func table(item0: Joueur, item1: Joueur) -> Bool {
+                    return item0.ordre > item1.ordre
+                }
+                return table(item0:item1:)
             }
-            return surnom(item0:item1:)
+        case .points:
+            switch how {
+            case .asc:
+                func points(item0: Joueur, item1: Joueur) -> Bool {
+                    return item0.points < item1.points
+                }
+                return points(item0:item1:)
+            case .desc:
+                func points(item0: Joueur, item1: Joueur) -> Bool {
+                    return item0.points > item1.points
+                }
+                return points(item0:item1:)
+            }
+        case .surnom:
+            switch how {
+            case .asc:
+                func surnom(item0: Joueur, item1: Joueur) -> Bool {
+                    if let j0 = dicoJoueurs[item0.idJoueur], let j1 = dicoJoueurs[item1.idJoueur] {
+                        return j0 < j1
+                    }
+                    return false
+                }
+                return surnom(item0:item1:)
+            case .desc:
+                func surnom(item0: Joueur, item1: Joueur) -> Bool {
+                    if let j0 = dicoJoueurs[item0.idJoueur], let j1 = dicoJoueurs[item1.idJoueur] {
+                        return j0 > j1
+                    }
+                    return false
+                }
+                return surnom(item0:item1:)
+            }
         }
     }
-        
+    
 }
 
 

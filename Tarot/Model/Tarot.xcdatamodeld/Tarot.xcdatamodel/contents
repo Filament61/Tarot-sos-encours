@@ -21,6 +21,7 @@
         <relationship name="partie" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Partie" inverseName="jeux" inverseEntity="Partie" syncable="YES"/>
     </entity>
     <entity name="Joueur" representedClassName=".Joueur" syncable="YES" codeGenerationType="category">
+        <attribute name="classement" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="donneur" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="enJeu" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="idJoueur" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -51,7 +52,7 @@
     <elements>
         <element name="JeuJoueur" positionX="-233.22265625" positionY="-137.7265625" width="128" height="103"/>
         <element name="JeuResultat" positionX="-454.59765625" positionY="-242.60546875" width="128" height="223"/>
-        <element name="Joueur" positionX="161.0390625" positionY="-153.53515625" width="128" height="165"/>
+        <element name="Joueur" positionX="161.0390625" positionY="-153.53515625" width="128" height="180"/>
         <element name="Partie" positionX="-50.91796875" positionY="-107.6171875" width="128" height="118"/>
         <element name="Personne" positionX="106.86328125" positionY="50.4296875" width="128" height="133"/>
     </elements>

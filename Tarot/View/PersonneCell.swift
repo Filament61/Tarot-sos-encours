@@ -40,19 +40,6 @@ class PersonneCell: UITableViewCell {
         }
     }
     
-//    func affecteIdxImage(idx: Int)  {
-//        switch (idx) {
-//        case 0:
-//            idxImage.image = UIImage(named: "")
-//
-//        case 1...8:
-//            idxImage.image = UIImage(named: "icons8-cerclé-" + String(idx) + "-1")
-//
-//        default:
-//            break;
-//        }
-//        return
-//    }
     
     func miseEnPlace(personne: Personne) {
         

@@ -15,7 +15,6 @@ class AccueilsssController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        triJoueursDefaut = defaultSettings.integer(forKey: "triJoueursDefaut")
     }
 
     override func viewWillAppear(_ animated: Bool) {

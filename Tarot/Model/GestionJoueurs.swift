@@ -16,8 +16,18 @@ class GestionJoueurs {
     static let nbMaxiJoueurs = 8
     
     
-    func tri(choix: TriJoueurs) {
-        self._joueursPartie.sort(by: TriJoueurs.choixTri(choix: choix))
+    func classement() {
+        self.tri(choix: .points, how: .desc)
+        
+        var i = 1
+        for item in self._joueursPartie {
+            item.classement = Int16(i)
+            i += 1
+        }
+    }
+    
+    func tri(choix: TriJoueurs, how: How) {
+        self._joueursPartie.sort(by: TriJoueurs.choixTri(choix: choix, how: how))
     }
 //    func choixTri(choix: TriJoueurs) -> (_ item0: Joueur, _ item1: Joueur) -> Bool {
 //        switch choix {
@@ -44,7 +54,8 @@ class GestionJoueurs {
 //
     init(joueurs: [Joueur], NouvellePartie isNouvellePartie: Bool) {
         self._joueursPartie = joueurs
-        self.tri(choix: TriJoueurs(rawValue: triJoueursPartie)!)
+        self.tri(choix: TriJoueurs(rawValue: defaultSettings.integer(forKey: "triJoueursDefaut"))!,
+                 how: How(rawValue: defaultSettings.integer(forKey: "tableJoueursPartieOrdre"))!)
         self._joueursEnJeu = self._joueursPartie.filter({ $0.enJeu == true })
         self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == false })
         self._joueursMort = self._joueursEnJeu.filter({ $0.mort == true })
@@ -99,8 +110,6 @@ class GestionJoueurs {
     
     var joueursDefense: [Joueur]!
     
-    //    var nbJoueursEnMene: Int = 0
-    //    var nbJoueursEnJeu: Int = 0
     
     var contrat: Contrat?
     var modeJeu: ModeJeu?
@@ -242,7 +251,7 @@ class GestionJoueurs {
     
     /// Vérifie si le nombre d'éléments la table passée en paramètre et compris entre le nombre minimal et maximal de joueurs autorisés.
     ///
-    /// - parameter joueursTab: Requis, table à vérifier.
+    /// - parameter nbJoueurs: Requis, table à vérifier.
     /// - returns: Vrai si la table répond aux conditions.
     static func isCorrectNbJoueurs(nbJoueurs: Any) -> Bool {
         var nombre: Int = 0

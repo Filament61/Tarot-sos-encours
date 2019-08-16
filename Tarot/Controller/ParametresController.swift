@@ -8,14 +8,28 @@
 
 import UIKit
 
-class cellTriJoueurs: UITableViewCell {
+class TriJoueursCell: UITableViewCell {
+}
+
+class AffJoueursCell: UITableViewCell {
+    @IBAction func donneAffJoueursSwitch(_ sender: Any) {
+        defaultSettings.set((sender as AnyObject).isOn, forKey: "donneAffJoueurs")}
+    @IBAction func pointsAffJoueursSwitch(_ sender: Any) {
+        defaultSettings.set((sender as AnyObject).isOn, forKey: "pointsAffJoueurs")}
     
 }
 
 class ParametresController:  UITableViewController {
-    @IBOutlet weak var donne: cellTriJoueurs!
-    @IBOutlet weak var surnom: cellTriJoueurs!
-    @IBOutlet weak var points: cellTriJoueurs!
+    @IBOutlet weak var donneAffJoueursSwitch: UISwitch!
+    @IBOutlet weak var pointsAffJoueursSwitch: UISwitch!
+    
+    @IBOutlet weak var donne: TriJoueursCell!
+    @IBOutlet weak var surnom: TriJoueursCell!
+    @IBOutlet weak var points: TriJoueursCell!
+    
+    @IBOutlet weak var donneAffJoueursCell: AffJoueursCell!
+    @IBOutlet weak var pointsAffJoueursCell: AffJoueursCell!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +38,9 @@ class ParametresController:  UITableViewController {
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         var cell = UITableViewCell()
-        
         switch indexPath.section {
         case 0:
-            let accessoryType = triJoueursDefaut != indexPath.row ? UITableViewCell.AccessoryType.none : UITableViewCell.AccessoryType.checkmark
+            let accessoryType = defaultSettings.integer(forKey: "triJoueursDefaut") != indexPath.row ? UITableViewCell.AccessoryType.none : UITableViewCell.AccessoryType.checkmark
             switch indexPath.row {
             case 0:
                 cell = donne
@@ -41,29 +54,54 @@ class ParametresController:  UITableViewController {
             cell.accessoryType = accessoryType
             
         case 1:
-            break
-        default:
-            break
+            switch indexPath.row {
+           case 0:
+            cell = donneAffJoueursCell
+                donneAffJoueursSwitch.isOn = defaultSettings.bool(forKey: "donneAffJoueurs")
+            case 1:
+                cell = pointsAffJoueursCell
+                pointsAffJoueursSwitch.isOn = defaultSettings.bool(forKey: "pointsAffJoueurs")
+            default: break
+            }
+        default: break
+            
         }
-        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
-        
+        switch section {
+        case 0: return 3
+        case 1: return 2
+        default: return Int()
+        }
     }
+
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if indexPath.section == 0 {
-            triJoueursDefaut = indexPath.row
-            defaultSettings.set(triJoueursDefaut, forKey: "triJoueursDefaut")
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        switch indexPath.section {
+        case 0:
+            defaultSettings.set(indexPath.row, forKey: "triJoueursDefaut")
             for row in 0..<3 {
                 let indexPath = IndexPath(row: row, section: indexPath.section)
                 tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.none
             }
             tableView.cellForRow(at: indexPath)?.accessoryType = UITableViewCell.AccessoryType.checkmark
+
+        case 1:
+            switch indexPath.row {
+            case 0:
+                defaultSettings.set(defaultSettings.bool(forKey: "donneAffJoueurs"), forKey: "donneAffJoueurs")
+            case 1:
+                defaultSettings.set(defaultSettings.bool(forKey: "pointsAffJoueurs"), forKey: "pointsAffJoueurs")
+            default: break
+            }
+        default: break
+
         }
+
     }
     
     
