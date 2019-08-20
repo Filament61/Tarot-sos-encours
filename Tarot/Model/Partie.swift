@@ -63,7 +63,7 @@ class Partie: NSManagedObject {
     }
     
     
-    static func update(_ partie: Partie, Jeu jeuComplet: JeuComplet, idJeu: Int, hD: Date, participants: [Joueur]) -> Bool {
+    static func update(_ partie: Partie, Jeu jeuComplet: JeuComplet, idJeu: Int, hD: Date, gj: GestionJoueurs) -> Bool {
         
         let jeuResultat = JeuResultat(context: viewContext)        
         jeuResultat.idJeu = Int64(idJeu)
@@ -75,19 +75,33 @@ class Partie: NSManagedObject {
         jeuResultat.poignee = Int16(jeuComplet.poignee)
         jeuResultat.chelem = Int16(jeuComplet.chelem)
         jeuResultat.total = jeuComplet.total!
+         jeuResultat.idPartie = partie.idPartie
+        
+//        for participant in participants {
+//            let jeuJoueur = JeuJoueur(context: AppDelegate.viewContext)
+//            jeuJoueur.idJoueur = Int16(participant.idJoueur)
+//            jeuJoueur.etat = Int16(2)
+//            jeuJoueur.idJeu = Int64(idJeu)
+//
+//            jeuResultat.addToJoueurs(jeuJoueur)
+//        }
+        
+        for participant in gj.joueursPartie {
+            if let infosJeuJoueurs = gj.infosJeuJoueurs?.first(where: { participant.idJoueur == $0.idJoueur }) {
+                let jeuJoueur = JeuJoueur(context: AppDelegate.viewContext)
+                jeuJoueur.idJoueur = Int16(participant.idJoueur)
+                jeuJoueur.idJeu = Int64(idJeu)
+                jeuJoueur.classement = Int16(participant.classement)
+                jeuJoueur.points = infosJeuJoueurs.points
+                jeuJoueur.etat = infosJeuJoueurs.etat!.rawValue
                 
-        for participant in participants {
-            let jeuJoueur = JeuJoueur(context: AppDelegate.viewContext)
-            jeuJoueur.idJoueur = Int16(participant.idJoueur)
-            jeuJoueur.etat = Int16(2)
-            jeuJoueur.idJeu = Int64(idJeu)
-            
-            jeuResultat.addToJoueurs(jeuJoueur)
+                jeuResultat.addToJoueurs(jeuJoueur)
+            }
         }
-
         
         partie.addToJeux(jeuResultat)
         
+
         do {
             try AppDelegate.viewContext.save()
             return true

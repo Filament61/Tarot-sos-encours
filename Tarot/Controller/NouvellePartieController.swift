@@ -241,7 +241,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     func miseEnPlace() {
         // Intitialisation de la nouvelle partie avec la donnée par défaut
-        defaultSettings.set(defaultSettings.integer(forKey: "triJoueursDefaut"), forKey: "triJoueursPartie")
+        defaultSettings.set(defaultSettings.integer(forKey: triJoueursDefaut), forKey: triJoueursPartie)
 
         let format = DateFormatter()
         format.dateFormat = "dd/MM/YYYY HH:mm"

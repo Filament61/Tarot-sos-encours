@@ -13,6 +13,7 @@ class JeuCell: UITableViewCell {
 
     @IBOutlet weak var idJeuLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
+    @IBOutlet weak var jeuCell: UIView!
     
     var jeu: JeuResultat!
     
@@ -28,7 +29,13 @@ class JeuCell: UITableViewCell {
         
         self.jeu = jeu
         
+        // Mémorisation de idJeu dans le tag de la cellule
+        self.tag = Int(self.jeu.idJeu)
+
+        
         idJeuLabel.text = String(jeu.idJeu)
         totalLabel.text = String(jeu.total)
     }
+
+
 }

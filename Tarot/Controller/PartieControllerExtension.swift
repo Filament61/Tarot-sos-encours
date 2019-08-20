@@ -11,7 +11,9 @@ import CoreData
 
 extension PartieController {
     
-    func horsJeuJoueurButtonActio(_ sender: Any?) {
+    func afficheJeudansPartie(_ sender: Any?) {
+        
+        
     }
     
     

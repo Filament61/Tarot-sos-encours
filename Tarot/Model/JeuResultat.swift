@@ -18,6 +18,22 @@ class JeuResultat: NSManagedObject {
         return jeuResultats
     }
     
+    static func jeuResultat(idJeux: [Int]) -> [JeuResultat] {
+        let request: NSFetchRequest<JeuResultat> = JeuResultat.fetchRequest()
+        // Définition de tri de la requête
+        let tri = NSSortDescriptor(key: "idJeu", ascending: false)
+        request.sortDescriptors = [tri]
+        // Définition du filtre de la requête
+        var filter = String()
+        for item in idJeux {
+            filter += item == idJeux.last ? "idJeu == \(item)" : "idJeu == \(item) OR "
+        }
+        request.predicate = NSPredicate(format: filter)
+        
+        guard let jeuResultats = try? AppDelegate.viewContext.fetch(request) else { return [] }
+        return jeuResultats
+    }
+    
     static func save(scoreJeu jeuComplet: JeuComplet, idJeu: Int, hD: Date) {
         
         let jeuResultat = JeuResultat(context: AppDelegate.viewContext)

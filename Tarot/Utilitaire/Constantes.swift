@@ -14,6 +14,18 @@ let viewContext = AppDelegate.persistentContainer.viewContext
 
 // MARK: - Paramétrage
 let defaultSettings = UserDefaults.standard
+let triJoueursPartie = "triJoueursPartie"
+let triJoueursDefaut = "triJoueursDefaut"
+let tableJoueursPartieOrdre = "tableJoueursPartieOrdre"
+let surnomJoueursPartieOrdre = "surnomJoueursPartieOrdre"
+let pointsJoueursPartieOrdre = "pointsJoueursPartieOrdre"
+let donneAffJoueurs = "donneAffJoueurs"
+let pointsAffJoueurs = "pointsAffJoueurs"
+let jeuDernierAffJoueurs = "jeuDernierAffJoueurs"
+let jeuxAffJoueurs = "jeuxAffJoueurs"
+let jeuxAffJoueursEnCours = "jeuxAffJoueursEnCours"
+let jeuxcellAffJoueursEnCours = "jeuxcellAffJoueursEnCours"
+
 
 //public var triJoueursDefaut = Int()
 //public var triJoueursPartie = Int()

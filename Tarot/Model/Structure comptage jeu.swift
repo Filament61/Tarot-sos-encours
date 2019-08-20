@@ -269,6 +269,13 @@ enum Contrat: Int {
             //        default: break
         }
     }
-    
+    func suivant() -> Contrat {
+        switch  self {
+        case .petite: return .garde
+        case .garde: return .gardeSans
+        case .gardeSans: return .gardeContre
+        case .gardeContre: return .gardeContre
+        }
+    }
 }
 

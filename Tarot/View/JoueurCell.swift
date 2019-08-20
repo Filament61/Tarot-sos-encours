@@ -25,6 +25,9 @@ class JoueurCell: UITableViewCell {
     @IBOutlet weak var ordreImage: UIImageView!
     @IBOutlet weak var classementImage: UIImageView!
     
+    @IBOutlet weak var jeuPointsLabel: UILabel!
+    @IBOutlet weak var jeuEtatLabel: UILabel!
+    
     var joueur: Joueur!
     
     override func awakeFromNib() {
@@ -35,7 +38,7 @@ class JoueurCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func miseEnPlace(joueur: Joueur) {
+    func miseEnPlace(joueur: Joueur, jeuJoueur: JeuJoueur?) {
         
         self.joueur = joueur
         // Mémorisation de idJoueur dans le tag de la cellule
@@ -44,14 +47,14 @@ class JoueurCell: UITableViewCell {
         if !joueur.enJeu {
             contratLabel.text = "Hors-jeu"
         } else {
-        contratLabel.text = joueur.mort == true ? "Hors mène" : nil
+            contratLabel.text = joueur.mort == true ? "Hors mène" : nil
         }
         
         surnomLabel.text = dicoJoueurs[self.joueur.idJoueur]
         pointsLabel.text = String(self.joueur.points)
         pointsLabel.textColor = self.joueur.points > 0.0 ? UIColor.blue : UIColor.red
 
-        ordreLabel.text = String(self.joueur.ordre)
+//        ordreLabel.text = String(self.joueur.ordre)
         ordreImage.image = UIImage(named: "icons8-cerclé-" + String(self.joueur.ordre) + "-1")
         classementImage.image = UIImage(named: "icons8-cerclé-" + String(self.joueur.classement) + "-1")
 
@@ -59,15 +62,28 @@ class JoueurCell: UITableViewCell {
         contratLabel.isEnabled = isEnable
         surnomLabel.isEnabled = isEnable
         pointsLabel.isEnabled = isEnable
-        ordreLabel.isEnabled = isEnable
+//        ordreLabel.isEnabled = isEnable
         ordreImage.isOpaque = isEnable
         
         donneurLabel.isEnabled = joueur.donneur
 
         donneurLabel.isHidden = !self.joueur.donneur
-        ordreImage.isHidden = !defaultSettings.bool(forKey: "donneAffJoueurs")
-        classementImage.isHidden = !defaultSettings.bool(forKey: "pointsAffJoueurs") || joueur.classement == 0
+        ordreImage.isHidden = !defaultSettings.bool(forKey: donneAffJoueurs)
+        classementImage.isHidden = !defaultSettings.bool(forKey: pointsAffJoueurs) || joueur.classement == 0
 
+        // Affichage des informations d'une mène dans les cellules des joueurs
+        do {
+            jeuEtatLabel.text = String()
+            jeuPointsLabel.text = String()
+            if defaultSettings.bool(forKey: jeuxAffJoueurs) && defaultSettings.bool(forKey: jeuxAffJoueursEnCours)
+                || defaultSettings.bool(forKey: jeuDernierAffJoueurs) {
+                if let jeuJoueur = jeuJoueur {
+                    jeuEtatLabel.text = EtatJoueur(rawValue: jeuJoueur.etat)?.nom
+                    jeuPointsLabel.text = String(jeuJoueur.points)
+                }
+            }
+        }
+        
     }
     
 }

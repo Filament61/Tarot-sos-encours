@@ -373,16 +373,25 @@ class JeuResultatController: UIViewController {
         }
         // Calcul du coefficient multiplicateur
         let coef: Float = gj.modeJeu == ModeJeu.simple ? Float(gj.nbJoueursEnMene.minus()) : Float(gj.joueursDefense.count.minus())
+        // Calcul des points
+        gj.points.preneur = points * coef
+        gj.points.partenaire = points
+        gj.points.defense =  -points
 
-        preneur.points += points * coef
-
+        
+        preneur.points += gj.points.preneur
+        
         if let partenaire = gj.partenaire {
-            partenaire.points += points
+            partenaire.points += gj.points.partenaire
         }
         
         for joueur in gj.joueursDefense {
-            joueur.points -= points
+            joueur.points += gj.points.defense
         }
+        
+        gj.classement()
+        
+        gj.infosJeuJoueurs = gj.creationInfosJeuJoueurs()
         
         if gj.donneurSuivant() == false {
             let message = "Il n'y a plus de donneur suivant en jeu !"
@@ -400,9 +409,7 @@ class JeuResultatController: UIViewController {
             present(alert, animated: true, completion: nil)
         }
         
-        gj.classement()
-        
-        if Partie.update(AppDelegate.partie, Jeu: jeuResultat, idJeu: idJeu, hD: now, participants: gj.joueursPartie) {
+        if Partie.update(AppDelegate.partie, Jeu: jeuResultat, idJeu: idJeu, hD: now, gj: gj) {
             enregistrerButton.isEnabled = true
 
             view.endEditing(true)

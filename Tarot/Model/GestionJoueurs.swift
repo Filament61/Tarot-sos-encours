@@ -29,33 +29,11 @@ class GestionJoueurs {
     func tri(choix: TriJoueurs, how: How) {
         self._joueursPartie.sort(by: TriJoueurs.choixTri(choix: choix, how: how))
     }
-//    func choixTri(choix: TriJoueurs) -> (_ item0: Joueur, _ item1: Joueur) -> Bool {
-//        switch choix {
-//        case .table:
-//            func table(item0: Joueur, item1: Joueur) -> Bool {
-//                return item0.ordre < item1.ordre
-//            }
-//            return table(item0:item1:)
-//        case .points:
-//            func points(item0: Joueur, item1: Joueur) -> Bool {
-//                return item0.points > item1.points
-//            }
-//            return points(item0:item1:)
-//        case .surnom:
-//            func surnom(item0: Joueur, item1: Joueur) -> Bool {
-//                if let j0 = dicoJoueurs[item0.idJoueur], let j1 = dicoJoueurs[item1.idJoueur] {
-//                    return j0 < j1
-//                }
-//                return false
-//            }
-//            return surnom(item0:item1:)
-//        }
-//    }
-//
+
     init(joueurs: [Joueur], NouvellePartie isNouvellePartie: Bool) {
         self._joueursPartie = joueurs
-        self.tri(choix: TriJoueurs(rawValue: defaultSettings.integer(forKey: "triJoueursDefaut"))!,
-                 how: How(rawValue: defaultSettings.integer(forKey: "tableJoueursPartieOrdre"))!)
+        self.tri(choix: TriJoueurs(rawValue: defaultSettings.integer(forKey: triJoueursDefaut))!,
+                 how: How(rawValue: defaultSettings.integer(forKey: tableJoueursPartieOrdre))!)
         self._joueursEnJeu = self._joueursPartie.filter({ $0.enJeu == true })
         self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == false })
         self._joueursMort = self._joueursEnJeu.filter({ $0.mort == true })
@@ -68,7 +46,7 @@ class GestionJoueurs {
         _nbJoueursPartie = self._joueursPartie.count
         return _nbJoueursPartie
     }
-
+    
     var joueursEnMene: [Joueur]! {
         self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == false})
         return self._joueursEnMene
@@ -77,7 +55,7 @@ class GestionJoueurs {
         _nbJoueursEnMene = self._joueursEnMene.count
         return self._nbJoueursEnMene
     }
-
+    
     var joueursEnJeu: [Joueur]! {
         self._joueursEnJeu = self._joueursPartie.filter({ $0.enJeu == true})
         return self._joueursEnJeu
@@ -86,7 +64,7 @@ class GestionJoueurs {
         _nbJoueursEnJeu = self._joueursEnJeu.count
         return self._nbJoueursEnJeu
     }
-
+    
     var joueursMort: [Joueur]! {
         self._joueursMort = self._joueursEnJeu.filter({ $0.mort == true })
         return _joueursMort
@@ -118,36 +96,8 @@ class GestionJoueurs {
     var partenaire: Joueur?
     var mort: [varCirculaire]?
     
-    
-    func ordonner() {
-        //        guard let _ = self.isCorectNbJoueurs(joueursTab: self._joueursPartie) == true else { return }
-        
-        
-        
-        
-        //        switch nbJoueursEnjeu {
-        //        case Int.min..<GestionJoueurs.nbMiniJoueurs:
-        //            break
-        //        case GestionJoueurs.nbMiniJoueurs:
-        //
-        //        case 4:
-        //
-        //        case 5:
-        //
-        //        case 6:
-        //
-        //        case 7:
-        //
-        //        case GestionJoueurs.nbMaxiJoueurs:
-        //
-        //        case GestionJoueurs.nbMaxiJoueurs...Int.max:
-        //            break
-        //        default: break
-        //
-        //        }
-        
-    }
-    
+    var points: (preneur: Float, partenaire: Float, defense: Float) = (0.0, 0.0, 0.0)
+    var infosJeuJoueurs: [InfosJeuJoueurs]?
     /// Affecte les points réalisés aux différents joueurs de la mène.
     ///
     /// - parameter points: Points de base réalisés lors du jeu (de la mène).
@@ -181,6 +131,37 @@ class GestionJoueurs {
         let mJ = dizaine.remainder / 10
         let nbJ = dizaine.quotient
         return (Int(nbJ), ModeJeu(rawValue: Int(mJ))!, Int(nbM))
+    }
+    
+    
+    func creationInfosJeuJoueurs() -> [InfosJeuJoueurs] {
+        var infosJeuJoueurs: [InfosJeuJoueurs] = [ ]
+        for participant in joueursPartie {
+            let infosJeuJoueur = InfosJeuJoueurs()
+            infosJeuJoueur.idJoueur = participant.idJoueur
+            if preneur!.idJoueur == participant.idJoueur && partenaire?.idJoueur == participant.idJoueur {
+                infosJeuJoueur.etat = .preneur
+                infosJeuJoueur.points = infosJeuJoueur.points + points.preneur
+                infosJeuJoueur.points = infosJeuJoueur.points + points.partenaire
+            } else if preneur!.idJoueur == participant.idJoueur {
+                infosJeuJoueur.etat = .preneur
+                infosJeuJoueur.points = infosJeuJoueur.points + points.preneur
+            } else if partenaire?.idJoueur == participant.idJoueur {
+                infosJeuJoueur.etat = .partenaire
+                infosJeuJoueur.points = infosJeuJoueur.points + points.partenaire
+            } else if participant.mort {
+                infosJeuJoueur.etat = .mort
+                infosJeuJoueur.points = 0.0
+            } else if participant.enJeu {
+                infosJeuJoueur.etat = .defense
+                infosJeuJoueur.points = infosJeuJoueur.points + points.defense
+            } else {
+                infosJeuJoueur.etat = .horsJeu
+                infosJeuJoueur.points = 0.0
+            }
+            infosJeuJoueurs.append(infosJeuJoueur)
+        }
+        return infosJeuJoueurs
     }
     
     
@@ -327,6 +308,14 @@ class GestionJoueurs {
     }
     
 }
+
+class InfosJeuJoueurs {
+    var idJoueur: Int16?
+    var etat: EtatJoueur?
+    var points = Float()
+}
+
+
 /*
  - 3 joueurs : 300
  simple
@@ -379,7 +368,7 @@ enum ModeJeu: Int {
         case .equipe: return (6, 8)
         }
     }
-
+    
     static func nbMorts(modeChoix: Int) -> [Int: Int] {
         switch modeChoix {
         case 0: return [5: 1, 6: 2]
@@ -400,5 +389,29 @@ enum ModeJeu: Int {
     }
 }
 
+
+enum EtatJoueur: Int16 {
+    case donneur, preneur, partenaire, defense, mort, horsJeu
+    var nom2: String {
+        switch self {
+        case .donneur: return "Donneur"
+        case .preneur: return "Preneur"
+        case .partenaire: return "Partenaire"
+        case .defense: return "Défense"
+        case .mort: return "Hors-Mène"
+        case .horsJeu: return "Hors-Jeu"
+        }
+    }
+    var nom: String {
+        switch self {
+        case .donneur: return "Donneur"
+        case .preneur: return "Preneur"
+        case .partenaire: return "Partenaire"
+        case .defense: return ""
+        case .mort: return "Hors-Mène"
+        case .horsJeu: return "Hors-Jeu"
+        }
+    }
+}
 
 
