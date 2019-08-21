@@ -53,6 +53,14 @@ extension Int {
     func plus(De valeur: Int = 1) -> Int { return self + valeur}
 }
 
+struct FloatString {
+    static var decimal = Bool()
+    var string: String = "_"
+    var float: Float {
+        didSet { string = FloatString.decimal ? String(float) : String(Int(float)) }
+    }
+}
+
 
 enum How: Int {
     case asc, desc
@@ -69,9 +77,13 @@ enum TriJoueurs: Int {
         }
     }
     
-    //    var how: How {
-    //
-    //    }
+        var udHow: String {
+            switch self {
+            case .table: return tableJoueursPartieOrdre
+            case .surnom: return surnomJoueursPartieOrdre
+            case .points: return pointsJoueursPartieOrdre
+            }
+        }
     
     static func choixTri(choix: TriJoueurs, how: How) -> (_ item0: Joueur, _ item1: Joueur) -> Bool {
         switch choix {

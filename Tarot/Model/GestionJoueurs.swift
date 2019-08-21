@@ -32,8 +32,9 @@ class GestionJoueurs {
 
     init(joueurs: [Joueur], NouvellePartie isNouvellePartie: Bool) {
         self._joueursPartie = joueurs
-        self.tri(choix: TriJoueurs(rawValue: defaultSettings.integer(forKey: triJoueursDefaut))!,
-                 how: How(rawValue: defaultSettings.integer(forKey: tableJoueursPartieOrdre))!)
+        // Sélection et ordre du tri à l'affichage
+        let choix = TriJoueurs(rawValue: defaultSettings.integer(forKey: triJoueursDefaut))
+        self.tri(choix: choix!, how: How(rawValue: defaultSettings.integer(forKey: choix!.udHow))!)
         self._joueursEnJeu = self._joueursPartie.filter({ $0.enJeu == true })
         self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == false })
         self._joueursMort = self._joueursEnJeu.filter({ $0.mort == true })
@@ -398,8 +399,8 @@ enum EtatJoueur: Int16 {
         case .preneur: return "Preneur"
         case .partenaire: return "Partenaire"
         case .defense: return "Défense"
-        case .mort: return "Hors-Mène"
-        case .horsJeu: return "Hors-Jeu"
+        case .mort: return "Hors-mène"
+        case .horsJeu: return "Hors-jeu"
         }
     }
     var nom: String {
@@ -408,8 +409,8 @@ enum EtatJoueur: Int16 {
         case .preneur: return "Preneur"
         case .partenaire: return "Partenaire"
         case .defense: return ""
-        case .mort: return "Hors-Mène"
-        case .horsJeu: return "Hors-Jeu"
+        case .mort: return "Hors-mène"
+        case .horsJeu: return "Hors-jeu"
         }
     }
 }

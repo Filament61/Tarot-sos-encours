@@ -45,9 +45,9 @@ class JoueurCell: UITableViewCell {
         self.tag = Int(self.joueur.idJoueur)
 
         if !joueur.enJeu {
-            contratLabel.text = "Hors-jeu"
+            contratLabel.text = EtatJoueur.horsJeu.nom
         } else {
-            contratLabel.text = joueur.mort == true ? "Hors mène" : nil
+            contratLabel.text = joueur.mort == true ? EtatJoueur.mort.nom : nil
         }
         
         surnomLabel.text = dicoJoueurs[self.joueur.idJoueur]
