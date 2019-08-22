@@ -356,7 +356,7 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="451" id="obZ-GM-dlW"/>
                                 </constraints>
-                                <color key="separatorColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
+                                <color key="separatorColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <color key="sectionIndexBackgroundColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="gray" indentationWidth="-8" reuseIdentifier="JoueurCell" rowHeight="54" id="JVX-Of-3Z7" customClass="JoueurCell" customModule="Tarot" customModuleProvider="target">
@@ -489,10 +489,16 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" translatesAutoresizingMaskIntoConstraints="NO" id="K6V-9i-6aW">
-                                                    <rect key="frame" x="12" y="0.0" width="351" height="24"/>
+                                                    <rect key="frame" x="12" y="10" width="351" height="24"/>
                                                     <subviews>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="idJeuLabel" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vzZ-ek-GeU">
                                                             <rect key="frame" x="0.0" y="0.0" width="83" height="24"/>
+                                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="contrat" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kej-FD-PvK">
+                                                            <rect key="frame" x="151.66666666666666" y="0.0" width="55" height="24"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                             <nil key="textColor"/>
                                                             <nil key="highlightedColor"/>
@@ -510,13 +516,14 @@
                                                 </stackView>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="K6V-9i-6aW" firstAttribute="top" secondItem="o8z-OI-bFp" secondAttribute="top" id="3Fe-VX-S9a"/>
                                                 <constraint firstItem="K6V-9i-6aW" firstAttribute="centerX" secondItem="o8z-OI-bFp" secondAttribute="centerX" id="UcA-gM-ELt"/>
                                                 <constraint firstAttribute="trailing" secondItem="K6V-9i-6aW" secondAttribute="trailing" constant="12" id="dlk-Ao-OGE"/>
                                                 <constraint firstItem="K6V-9i-6aW" firstAttribute="leading" secondItem="o8z-OI-bFp" secondAttribute="leading" constant="12" id="wBV-XC-evY"/>
+                                                <constraint firstItem="K6V-9i-6aW" firstAttribute="centerY" secondItem="o8z-OI-bFp" secondAttribute="centerY" id="zLN-FQ-G61"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="contratLabel" destination="kej-FD-PvK" id="SJk-zq-HIt"/>
                                             <outlet property="idJeuLabel" destination="vzZ-ek-GeU" id="7q0-7Z-aV3"/>
                                             <outlet property="jeuCell" destination="o8z-OI-bFp" id="adq-le-g6Z"/>
                                             <outlet property="totalLabel" destination="i8f-FR-sSv" id="bsu-P5-oni"/>
@@ -1111,6 +1118,44 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="AffJoueursCell" id="DP2-jK-jBz" customClass="AffJoueursCell" customModule="Tarot" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="464.66666666666669" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="DP2-jK-jBz" id="Ssq-zo-9YN">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="QEX-lk-g94">
+                                                    <rect key="frame" x="310" y="6.3333333333333321" width="51" height="30.999999999999996"/>
+                                                    <connections>
+                                                        <action selector="decimaleAffJoueursSwitch:" destination="DP2-jK-jBz" eventType="valueChanged" id="iFS-Qp-tI0"/>
+                                                    </connections>
+                                                </switch>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" horizontalCompressionResistancePriority="749" insetsLayoutMarginsFromSafeArea="NO" text="Affiche les résultats avec une décimale." textAlignment="natural" lineBreakMode="clip" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X0J-vy-Kpl">
+                                                    <rect key="frame" x="16" y="24.666666666666668" width="224" height="14.333333333333332"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Décimale" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yA0-W9-LQv">
+                                                    <rect key="frame" x="16" y="3.6666666666666661" width="71" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="X0J-vy-Kpl" firstAttribute="leading" secondItem="yA0-W9-LQv" secondAttribute="leading" id="3Oo-Mr-jAK"/>
+                                                <constraint firstItem="QEX-lk-g94" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="X0J-vy-Kpl" secondAttribute="trailing" constant="8" symbolic="YES" id="8cy-Y2-qJq"/>
+                                                <constraint firstItem="QEX-lk-g94" firstAttribute="centerY" secondItem="Ssq-zo-9YN" secondAttribute="centerY" id="BM9-h2-Tpz"/>
+                                                <constraint firstItem="QEX-lk-g94" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="yA0-W9-LQv" secondAttribute="trailing" constant="8" symbolic="YES" id="E1k-dL-cQA"/>
+                                                <constraint firstAttribute="trailing" secondItem="QEX-lk-g94" secondAttribute="trailing" constant="16" id="GAJ-Qb-XOb"/>
+                                                <constraint firstItem="X0J-vy-Kpl" firstAttribute="top" secondItem="yA0-W9-LQv" secondAttribute="bottom" id="IAI-UH-fY9"/>
+                                                <constraint firstAttribute="bottomMargin" secondItem="X0J-vy-Kpl" secondAttribute="bottom" constant="-6" id="vAS-E3-X1W"/>
+                                                <constraint firstItem="X0J-vy-Kpl" firstAttribute="leading" secondItem="Ssq-zo-9YN" secondAttribute="leadingMargin" id="zoa-CI-jrl"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -1119,6 +1164,8 @@
                         </connections>
                     </tableView>
                     <connections>
+                        <outlet property="decimaleAffJoueursCell" destination="DP2-jK-jBz" id="7fN-F5-FOs"/>
+                        <outlet property="decimaleAffJoueursSwitcj" destination="QEX-lk-g94" id="6MK-fd-LdS"/>
                         <outlet property="donne" destination="inI-mj-MME" id="rKW-tA-27v"/>
                         <outlet property="donneAffJoueursCell" destination="bPd-vR-nxi" id="RmG-TF-e1r"/>
                         <outlet property="donneAffJoueursSwitch" destination="4wP-qX-bq4" id="Ijh-fZ-6IJ"/>

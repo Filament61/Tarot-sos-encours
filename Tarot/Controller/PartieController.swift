@@ -115,7 +115,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             return joueursTableViewHeightForRow
         }
         if tableView == jeuxTableView {
-            return jeuxTableViewHeightForRow
+            return 30 //jeuxTableViewHeightForRow
         }
         return 0
     }
@@ -244,9 +244,10 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         guard let jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(idJeu)]) as [JeuJoueur]? else { return false }
         for row in 0..<gestionJoueurs.nbJoueursPartie {
             if let cell = joueursTableView.cellForRow(at: IndexPath(row: row, section: 0)) as? JoueurCell {
-                if let joueur = jeuJoueurs.first(where: { $0.idJoueur == Int16(cell.tag) }) {
-                    cell.jeuEtatLabel.text = EtatJoueur(rawValue: joueur.etat)?.nom 
-                    cell.jeuPointsLabel.text = String(joueur.points)
+                if let jeuJoueur = jeuJoueurs.first(where: { $0.idJoueur == Int16(cell.tag) }) {
+                    let pts = FloatString(float: jeuJoueur.points)
+                    cell.jeuEtatLabel.text = EtatJoueur(rawValue: jeuJoueur.etat)?.nom
+                    cell.jeuPointsLabel.text = pts.string
                 }
             }
         }

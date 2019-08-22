@@ -50,8 +50,10 @@ class JoueurCell: UITableViewCell {
             contratLabel.text = joueur.mort == true ? EtatJoueur.mort.nom : nil
         }
         
+        let pts = FloatString(float: self.joueur.points)
+
         surnomLabel.text = dicoJoueurs[self.joueur.idJoueur]
-        pointsLabel.text = String(self.joueur.points)
+        pointsLabel.text =  pts.string //String(self.joueur.points)
         pointsLabel.textColor = self.joueur.points > 0.0 ? UIColor.blue : UIColor.red
 
 //        ordreLabel.text = String(self.joueur.ordre)
@@ -78,8 +80,9 @@ class JoueurCell: UITableViewCell {
             if defaultSettings.bool(forKey: jeuxAffJoueurs) && defaultSettings.bool(forKey: jeuxAffJoueursEnCours)
                 || defaultSettings.bool(forKey: jeuDernierAffJoueurs) {
                 if let jeuJoueur = jeuJoueur {
+                    let pts = FloatString(float: jeuJoueur.points)
                     jeuEtatLabel.text = EtatJoueur(rawValue: jeuJoueur.etat)?.nom
-                    jeuPointsLabel.text = String(jeuJoueur.points)
+                    jeuPointsLabel.text = pts.string
                 }
             }
         }

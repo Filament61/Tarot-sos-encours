@@ -20,10 +20,14 @@ class AffJoueursCell: UITableViewCell {
     }
     @IBAction func jeuDernierAffJoueursSwitch(_ sender: Any) {
         defaultSettings.set((sender as AnyObject).isOn, forKey: jeuDernierAffJoueurs)
-}
+    }
     @IBAction func jeuxAffJoueursSwitch(_ sender: Any) {
         defaultSettings.set((sender as AnyObject).isOn, forKey: jeuxAffJoueurs)
     }
+    @IBAction func decimaleAffJoueursSwitch(_ sender: Any) {
+        defaultSettings.set((sender as AnyObject).isOn, forKey: decimaleAffJoueurs)
+    }
+    
 }
 
 class ParametresController:  UITableViewController {
@@ -31,6 +35,7 @@ class ParametresController:  UITableViewController {
     @IBOutlet weak var pointsAffJoueursSwitch: UISwitch!
     @IBOutlet weak var jeuDernierAffJoueursSwitch: UISwitch!
     @IBOutlet weak var jeuxAffJoueursSwitch: UISwitch!
+    @IBOutlet weak var decimaleAffJoueursSwitcj: UISwitch!
     
     @IBOutlet weak var donne: TriJoueursCell!
     @IBOutlet weak var surnom: TriJoueursCell!
@@ -40,6 +45,7 @@ class ParametresController:  UITableViewController {
     @IBOutlet weak var pointsAffJoueursCell: AffJoueursCell!
     @IBOutlet weak var jeuDernierAffJoueursCell: AffJoueursCell!
     @IBOutlet weak var jeuxAffJoueursCell: AffJoueursCell!
+    @IBOutlet weak var decimaleAffJoueursCell: AffJoueursCell!
     
     
     override func viewDidLoad() {
@@ -78,6 +84,9 @@ class ParametresController:  UITableViewController {
             case 3:
                 cell = jeuxAffJoueursCell
                 jeuxAffJoueursSwitch.isOn = defaultSettings.bool(forKey: jeuxAffJoueurs)
+            case 4:
+                cell = decimaleAffJoueursCell
+                decimaleAffJoueursSwitcj.isOn = defaultSettings.bool(forKey: decimaleAffJoueurs)
             default: break
             }
         default: break
@@ -89,7 +98,7 @@ class ParametresController:  UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         switch section {
         case 0: return 3
-        case 1: return 4
+        case 1: return 5
         default: return Int()
         }
     }

@@ -25,6 +25,7 @@ let jeuDernierAffJoueurs = "jeuDernierAffJoueurs"
 let jeuxAffJoueurs = "jeuxAffJoueurs"
 let jeuxAffJoueursEnCours = "jeuxAffJoueursEnCours"
 let jeuxcellAffJoueursEnCours = "jeuxcellAffJoueursEnCours"
+let decimaleAffJoueurs = "decimaleAffJoueurs"
 
 
 //public var triJoueursDefaut = Int()
@@ -55,10 +56,13 @@ extension Int {
 
 struct FloatString {
     static var decimal = Bool()
-    var string: String = "_"
-    var float: Float {
-        didSet { string = FloatString.decimal ? String(float) : String(Int(float)) }
+    init(float: Float) {
+        self.float = float
     }
+    var string: String {
+         return FloatString.decimal ? String(float) : String(Int(float))
+    }
+    var float: Float
 }
 
 

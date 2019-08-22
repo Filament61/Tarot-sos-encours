@@ -20,7 +20,8 @@ class AccueilsssController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         // Do any additional setup before display the view.
-        
+        FloatString.decimal = defaultSettings.bool(forKey: decimaleAffJoueurs)
+
    }
     
 
