@@ -50,6 +50,7 @@ class ParametresController:  UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    // UIScreen.main.brightness = CGFloat(0.5)
     }
     
     

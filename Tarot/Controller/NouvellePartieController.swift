@@ -64,9 +64,9 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         return personnes.count
     }
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70 // ATTENTION SI LA LISTE EST TROP LONGUE --> MAUVAISE GESTION DES INDEX
-    }
+//    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+//        return 70 // ATTENTION SI LA LISTE EST TROP LONGUE --> MAUVAISE GESTION DES INDEX
+//    }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -102,7 +102,7 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
     func fetchJoueurs() {
         let requete: NSFetchRequest<Personne> = Personne.fetchRequest()
-        let tri = NSSortDescriptor(key: "nom", ascending: true)
+        let tri = NSSortDescriptor(key: "idJoueur", ascending: true)
         requete.sortDescriptors = [tri]
         do {
             personnes = try viewContext.fetch(requete)

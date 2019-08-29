@@ -26,6 +26,8 @@ let jeuxAffJoueurs = "jeuxAffJoueurs"
 let jeuxAffJoueursEnCours = "jeuxAffJoueursEnCours"
 let jeuxcellAffJoueursEnCours = "jeuxcellAffJoueursEnCours"
 let decimaleAffJoueurs = "decimaleAffJoueurs"
+let brightnessDefaultApp = "brightnessDefaultApp"
+let brightnessMemApp = "brightnessMemApp"
 
 
 //public var triJoueursDefaut = Int()
@@ -81,13 +83,13 @@ enum TriJoueurs: Int {
         }
     }
     
-        var udHow: String {
-            switch self {
-            case .table: return tableJoueursPartieOrdre
-            case .surnom: return surnomJoueursPartieOrdre
-            case .points: return pointsJoueursPartieOrdre
-            }
+    var udHow: String {
+        switch self {
+        case .table: return tableJoueursPartieOrdre
+        case .surnom: return surnomJoueursPartieOrdre
+        case .points: return pointsJoueursPartieOrdre
         }
+    }
     
     static func choixTri(choix: TriJoueurs, how: How) -> (_ item0: Joueur, _ item1: Joueur) -> Bool {
         switch choix {

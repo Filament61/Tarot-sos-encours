@@ -46,6 +46,19 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     lazy var gestionJoueurs = GestionJoueurs(joueurs: [Joueur](), NouvellePartie: isNouvelle)
     
+    var timer: Timer?
+    var timeLeft = 11
+    @objc func onTimerFires() {
+        timeLeft -= 1
+        print("\(timeLeft) seconds left")
+        //                timeLabel.text = "\(timeLeft) seconds left"
+        if timeLeft <= 0 {
+            timer?.invalidate()
+            timer = nil
+            UIScreen.main.brightness = CGFloat(0.00000)
+        }
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         joueursTableView.delegate = self
@@ -53,31 +66,22 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         jeuxTableView.delegate = self
         jeuxTableView.dataSource = self
         dicoJoueursMaJ()
-    }
+   }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         fetchParties()
         miseEnPlace()
+        timer?.invalidate()
+        timer = nil
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimerFires), userInfo: nil, repeats: true)
     }
-        /// Si jeux est vide, alors c'est une partie nouvelle.
-        /// Les enregistrements de Joueurs sont pour le prochain jeu !
-        /// Sinon, il faut se positionner sur les joueurs suivants...
-        //        if let jeux = jeux {
-        //            //                if let _ = gestionJoueurs.preneur { gestionJoueurs.preneur = gestionJoueurs.joueursPartie[1] }
-        //            //                if let _ = gestionJoueurs.partenaire { gestionJoueurs.partenaire = gestionJoueurs.joueursPartie[1] }
-        //        }
-        
-        // On initialise la variable donneur avec les informations contenues dans la table Joueurs
-        //        if let idxDonneur = joueurs.firstIndex(where: {$0.donneur == true}) {
-        //            donneur?.reInit(nb: joueurs.count, ordre: idxDonneur)
-        //        } else {
-        //            donneur?.reInit(nb: joueurs.count, ordre: 1)
-        //        }
-        
-        //        gestionJoueurs.nbJoueursPartie = joueurs.count
-        //        joueurs = gestionJoueurs.donneSuivante(joueurs: joueurs)
-//    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        timer?.invalidate()
+        timer = nil
+    }
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableView == joueursTableView {
@@ -98,7 +102,6 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
         return 0
     }
-    
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == joueursTableView {
@@ -294,7 +297,9 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             })
             contre.backgroundColor = Contrat.gardeContre.couleur
             
-            return UISwipeActionsConfiguration(actions: [contre, sans, garde, petite])
+            let swipeActionsConfiguration = UISwipeActionsConfiguration(actions: [contre, sans, garde, petite])
+            swipeActionsConfiguration.performsFirstActionWithFullSwipe = false
+            return swipeActionsConfiguration
         }
         
 
@@ -326,8 +331,6 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
-
-
         func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
             //        return UISwipeActionsConfiguration()
     
@@ -411,7 +414,6 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         pointsTriBarButton.image = defaultSettings.integer(forKey: "pointsJoueursPartieOrdre") == How.asc.rawValue ?
             UIImage(named: "icons8-tri") : UIImage(named: "icons8-tri-inversé")
     }
-    
     
     func fetchParties() {
         let requete: NSFetchRequest<Partie> = Partie.fetchRequest()
@@ -614,4 +616,15 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         //}
     }
 
+    @IBAction func tapScreen(_ sender: Any) {
+//        if let toto = toto {
+            timeLeft = 11
+//        } else {
+        timer?.invalidate()
+        timer = nil
+        timer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(onTimerFires), userInfo: nil, repeats: true)
+//            timeLeft = 11
+//        }
+        UIScreen.main.brightness = CGFloat(defaultSettings.float(forKey: brightnessMemApp))
+    }
 }
