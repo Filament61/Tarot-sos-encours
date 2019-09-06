@@ -80,7 +80,7 @@
 
 /* Begin PBXFileReference section */
 		9521616322BACB290054F63E /* AjoutPersonneControler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AjoutPersonneControler.swift; sourceTree = "<group>"; };
-		9521616522BC1B620054F63E /* JoueurCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoueurCell.swift; sourceTree = "<group>"; };
+		9521616522BC1B620054F63E /* JoueurCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JoueurCell.swift; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.swift; };
 		95274CC122CE9A5900BF91C0 /* Shared.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shared.swift; sourceTree = "<group>"; };
 		953536F322CA93D500CFF83C /* Personne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Personne.swift; sourceTree = "<group>"; };
 		95363C7D22BEAB9F00CBAC02 /* SwipeCellKit.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = SwipeCellKit.xcodeproj; path = SwipeCellKit/SwipeCellKit.xcodeproj; sourceTree = "<group>"; };

@@ -21,7 +21,7 @@ class JoueurCell: UITableViewCell {
     @IBOutlet weak var donneurLabel: UILabel!
     @IBOutlet weak var contratLabel: UILabel!
     
-    @IBOutlet weak var ordreLabel: UILabel!
+//    @IBOutlet weak var ordreLabel: UILabel!
     @IBOutlet weak var ordreImage: UIImageView!
     @IBOutlet weak var classementImage: UIImageView!
     
@@ -88,6 +88,58 @@ class JoueurCell: UITableViewCell {
         }
         
     }
-    
 }
 
+
+class JeuJoueurCell: UITableViewCell {
+    @IBOutlet weak var idJeuLabel: UILabel!
+    @IBOutlet weak var etatLabel: UILabel!
+    @IBOutlet weak var pointsLabel: UILabel!
+    @IBOutlet weak var contratLabel: UILabel!
+    
+//    var jeuJoueur: JeuJoueur!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
+    
+    func miseEnPlace(jeuJoueur: JeuJoueur, jeu: JeuResultat, offset: Int) {
+        
+//        self.jeuJoueur = jeuJoueur
+        // Mémorisation de idJoueur dans le tag de la cellule
+        self.tag = Int(jeuJoueur.idJoueur)
+
+        // Affichage du contrat du preneur 
+        contratLabel.text = jeuJoueur.etat == EtatJoueur.preneur.rawValue ? Contrat(rawValue: Int(jeu.contrat).minus())?.nom : String()
+
+        idJeuLabel.text = String(Int(jeuJoueur.idJeu) - offset + 1)
+//        idJeuLabel.text = String(jeuJoueur.idJeu)
+
+        let pts = FloatString(float: jeuJoueur.points)
+        pointsLabel.text =  pts.string //String(self.joueur.points)
+        pointsLabel.textColor = jeuJoueur.points > 0.0 ? UIColor.blue : UIColor.red
+        // Affichage de l'état du joueur s'il n'est pas le preneur
+        etatLabel.text = jeuJoueur.etat != EtatJoueur.preneur.rawValue ? EtatJoueur(rawValue: jeuJoueur.etat)?.nom : String()
+
+
+//        // Affichage des informations d'une mène dans les cellules des joueurs
+//        do {
+//            jeuEtatLabel.text = String()
+//            jeuPointsLabel.text = String()
+//            if defaultSettings.bool(forKey: jeuxAffJoueurs) && defaultSettings.bool(forKey: jeuxAffJoueursEnCours)
+//                || defaultSettings.bool(forKey: jeuDernierAffJoueurs) {
+//                if let jeuJoueur = jeuJoueur {
+//                    let pts = FloatString(float: jeuJoueur.points)
+//                    jeuPointsLabel.text = pts.string
+//                }
+//            }
+//        }
+        
+    }
+
+    
+}

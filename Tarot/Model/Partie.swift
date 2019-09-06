@@ -10,22 +10,22 @@ import CoreData
 
 class Partie: NSManagedObject {
     
-    static func all(TrierPar tri: String = "idPartie") -> [Partie] {
+    static func all(TrierPar key: String = "idPartie", OrdreAscendant ascending: Bool = false) -> [Partie] {
         let request: NSFetchRequest<Partie> = Partie.fetchRequest()
-        let tri = NSSortDescriptor(key: tri, ascending: false)
+        let tri = NSSortDescriptor(key: key, ascending: ascending)
         request.sortDescriptors = [tri]
-        guard let Parties = try? AppDelegate.viewContext.fetch(request) else { return [] }
-        return Parties
+        guard let parties = try? AppDelegate.viewContext.fetch(request) else { return [] }
+        return parties
     }
     
-    static func insert(Participants  joueurs: [PersonneCell], idPartie: Int, hD: Date, idxDonneur: Int, idxMort: [Int], modeJeu: ModeJeu) {
-
+    
+    static func insert(Participants  joueurs: [PersonneCell], idPartie: Int, hD: Date, idxDonneur: Int, idxMort: [Int], modeJeu: ModeJeu) -> Bool? {
+        
         let partie = Partie(context: AppDelegate.viewContext)
         let type = joueurs.count * 100 + modeJeu.rawValue * 10 + idxMort.count
         partie.idPartie = Int32(idPartie)
         partie.horodate = hD
         partie.type = Int16(type)
-
         
         for participant in joueurs {
             let joueur = Joueur(context: AppDelegate.viewContext)
@@ -36,30 +36,11 @@ class Partie: NSManagedObject {
             joueur.enJeu = true
             joueur.donneur = participant.idx == idxDonneur
             joueur.mort = idxMort.contains(participant.idx)
-
+            
             partie.addToParticipants(joueur)
         }
-
         
-        //        if let deletable = participants.array as? [Joueur] {
-        //            AppDelegate.viewContext.delete(deletable)
-        //        }
-        
-        //        jeuResultat.contrat = Int16(jeuComplet.contrat!)
-        //        jeuResultat.nbBout = Int16(jeuComplet.nbBout!)
-        //        jeuResultat.pointsFaits = jeuComplet.pointsFaits!
-        //        jeuResultat.petitAuBout = Int16(jeuComplet.petitAuBout)
-        //        jeuResultat.poignee = Int16(jeuComplet.poignee)
-        //        jeuResultat.chelem = Int16(jeuComplet.chelem)
-        //        jeuResultat.total = jeuComplet.total ?? 0.0
-        
-        do {
-            try AppDelegate.viewContext.save()
-        }
-        catch {
-            print(error.localizedDescription)
-        }
-        
+        return save()
     }
     
     
@@ -75,16 +56,7 @@ class Partie: NSManagedObject {
         jeuResultat.poignee = Int16(jeuComplet.poignee)
         jeuResultat.chelem = Int16(jeuComplet.chelem)
         jeuResultat.total = jeuComplet.total!
-         jeuResultat.idPartie = partie.idPartie
-        
-//        for participant in participants {
-//            let jeuJoueur = JeuJoueur(context: AppDelegate.viewContext)
-//            jeuJoueur.idJoueur = Int16(participant.idJoueur)
-//            jeuJoueur.etat = Int16(2)
-//            jeuJoueur.idJeu = Int64(idJeu)
-//
-//            jeuResultat.addToJoueurs(jeuJoueur)
-//        }
+        jeuResultat.idPartie = partie.idPartie
         
         for participant in gj.joueursPartie {
             if let infosJeuJoueurs = gj.infosJeuJoueurs?.first(where: { participant.idJoueur == $0.idJoueur }) {
@@ -101,16 +73,9 @@ class Partie: NSManagedObject {
         
         partie.addToJeux(jeuResultat)
         
-
-        do {
-            try AppDelegate.viewContext.save()
-            return true
-        }
-        catch {
-            print(error.localizedDescription)
-            return false
-        }
+        return save()
     }
+    
     
     static func save() -> Bool {
         do {
@@ -122,5 +87,5 @@ class Partie: NSManagedObject {
             return false
         }
     }
-
+    
 }

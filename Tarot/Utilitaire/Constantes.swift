@@ -72,6 +72,7 @@ enum How: Int {
     case asc, desc
 }
 
+
 enum TriJoueurs: Int {
     case table, surnom, points
     

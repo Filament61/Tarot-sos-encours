@@ -18,11 +18,23 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     @IBOutlet weak var surnomTriBarButton: UIBarButtonItem!
     @IBOutlet weak var pointsTriBarButton: UIBarButtonItem!
     
-    let cellJoueur = "JoueurCell"
-    let cellJeu = "JeuCell"
+    let joueurCell = "JoueurCell"
+    let jeuJoueurCell = "JeuJoueurCell"
+    let jeuCell = "JeuCell"
     
+    /// Numéro de l'index du premier jeu de la partie
+    var offsetJeu = Int()
     //    var joueurs = [Joueur]()
-    var jeux: [JeuResultat]?
+    var jeux: [JeuResultat]? {
+        didSet {
+            if let idx = jeux?.last?.idJeu, let idxEnCours = jeux?.first?.idJeu {
+                offsetJeu = Int(idx)
+                self.title = "Jeu n°\(Int(idxEnCours) - offsetJeu + 2)"
+                print("offset = \(offsetJeu)")
+            }
+        }
+    }
+    
     var jeuJoueurs: [JeuJoueur]?
     
 //    var cells =  [PersonneCell]()
@@ -36,7 +48,8 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     let now = Date()
     
     let joueursTableViewHeightForRow: CGFloat = 54
-    let jeuxTableViewHeightForRow: CGFloat = 24
+    let jeuJoueursTableViewHeightForRow: CGFloat = 20
+    let jeuxTableViewHeightForRow: CGFloat = 26
 
     // Est initialisée par le controlleur appelant
     var isNouvelle = true
@@ -47,7 +60,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     lazy var gestionJoueurs = GestionJoueurs(joueurs: [Joueur](), NouvellePartie: isNouvelle)
     
     var timer: Timer?
-    var timeLeft = 11
+    var timeLeft = 31
     @objc func onTimerFires() {
         timeLeft -= 1
         print("\(timeLeft) seconds left")
@@ -59,6 +72,8 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
 
+    // MARK: - Lifecycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         joueursTableView.delegate = self
@@ -66,6 +81,8 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         jeuxTableView.delegate = self
         jeuxTableView.dataSource = self
         dicoJoueursMaJ()
+        fetchParties()
+        miseEnPlace()
    }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -83,9 +100,12 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         timer = nil
     }
     
+    
+    // MARK: - Table view data source
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableView == joueursTableView {
-            return 1
+            return gestionJoueurs.joueursPartie.count
         }
         if tableView == jeuxTableView {
             return 1
@@ -95,7 +115,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == joueursTableView {
-            return gestionJoueurs.joueursPartie.count
+            return jeuJoueurs == nil ? 1 : 2
         }
         if tableView == jeuxTableView {
             return jeux?.count ?? 0
@@ -105,7 +125,12 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == joueursTableView {
-            return joueursTableViewHeightForRow
+            if indexPath.row == 0 {
+                return joueursTableViewHeightForRow
+            }
+            if indexPath.row == 1 {
+                return jeuJoueursTableViewHeightForRow //31
+            }
         }
         if tableView == jeuxTableView {
             return jeuxTableViewHeightForRow
@@ -115,29 +140,58 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if tableView == joueursTableView {
-            return joueursTableViewHeightForRow
+            if indexPath.row == 0 {
+                return joueursTableViewHeightForRow
+            }
+            if indexPath.row == 1 {
+                return jeuJoueursTableViewHeightForRow //31
+            }
         }
         if tableView == jeuxTableView {
-            return 30 //jeuxTableViewHeightForRow
+            return jeuxTableViewHeightForRow
         }
         return 0
     }
     
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        if tableView == joueursTableView && section == 0 {
+            return "Joueurs"
+        }
+        if tableView == jeuxTableView && section == 0 {
+            return "Jeux"
+        }
+        return String()
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == joueursTableView {
-            let joueurDeLaCell = gestionJoueurs.joueursPartie[indexPath.row]
-            if let cell = tableView.dequeueReusableCell(withIdentifier: cellJoueur) as? JoueurCell {
-                let jeuJoueur = jeuJoueurs?.first(where: { $0.idJoueur == joueurDeLaCell.idJoueur })
-                cell.miseEnPlace(joueur: joueurDeLaCell, jeuJoueur: jeuJoueur)
-//                cell.isHighlighted = joueurDeLaCell.donneur == true
-                return cell
+            if indexPath.row == 0 {
+                let joueurDeLaCell = gestionJoueurs.joueursPartie[indexPath.section]
+                if let cell = tableView.dequeueReusableCell(withIdentifier: joueurCell) as? JoueurCell {
+                    let jeuJoueur = jeuJoueurs?.first(where: { $0.idJoueur == joueurDeLaCell.idJoueur })
+                    cell.miseEnPlace(joueur: joueurDeLaCell, jeuJoueur: jeuJoueur)
+                    //                cell.isHighlighted = joueurDeLaCell.donneur == true
+                    return cell
                 }
             }
-        
+            if indexPath.row == 1 {
+                let joueurDeLaCell = gestionJoueurs.joueursPartie[indexPath.section]
+                if let cell = tableView.dequeueReusableCell(withIdentifier: jeuJoueurCell) as? JeuJoueurCell {
+                    if let row = jeuxTableView.indexPathForSelectedRow?.row, let jeu = jeux?[row] {
+                        if let jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(jeu.idJeu)]) as [JeuJoueur]? {
+                            if let jeuJoueur = jeuJoueurs.first(where: { $0.idJoueur == joueurDeLaCell.idJoueur }) {
+                                cell.miseEnPlace(jeuJoueur: jeuJoueur, jeu: jeu, offset: offsetJeu)
+                            //                cell.isHighlighted = joueurDeLaCell.donneur == true
+                            return cell
+                            }
+                        }
+                    }
+                }
+            }
+        }
         if tableView == jeuxTableView {
-            if let jeuDeLaCell = jeux?[indexPath.row], let cell = tableView.dequeueReusableCell(withIdentifier: cellJeu) as? JeuCell {
-                cell.miseEnPlace(jeu: jeuDeLaCell)
+            if let jeuDeLaCell = jeux?[indexPath.row], let cell = tableView.dequeueReusableCell(withIdentifier: jeuCell) as? JeuCell {
+                cell.miseEnPlace(jeu: jeuDeLaCell, offset: offsetJeu)
                 return cell
             }
         }
@@ -178,27 +232,6 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         return reponse
     }
     
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if tableView == joueursTableView && section == 0 {
-            return "Joueurs"
-        }
-        if tableView == jeuxTableView && section == 0 {
-            return "Jeux"
-        }
-        return String()
-    }
-    
-//    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        if tableView == joueursTableView {
-//        guard let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return }
-//            if (gestionJoueurs.joueursEnMene.firstIndex(where: { $0.idJoueur == cell.tag }) != nil) {
-//                if let oldCell = self.oldCell {
-//                    oldCell.contratLabel.isEnabled = false
-//                }
-//            }
-//        }
-//    }
-    
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == joueursTableView {
             guard let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return }
@@ -227,9 +260,10 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
         if tableView == jeuxTableView && indexPath.section == 0 {
             guard let cell = tableView.cellForRow(at: indexPath) as? JeuCell else { return }
-            if defaultSettings.bool(forKey: jeuxAffJoueurs) && majJeuJoueurs(idJeu: cell.tag) {
+            if defaultSettings.bool(forKey: jeuxAffJoueurs) {//&& majJeuJoueurs(idJeu: cell.tag) {
                 defaultSettings.set(true, forKey: jeuxAffJoueursEnCours)
                 defaultSettings.set(cell.tag, forKey: jeuxcellAffJoueursEnCours)
+                joueursTableView.reloadData()
             } else if defaultSettings.bool(forKey: jeuDernierAffJoueurs) {
                 tableView.deselectRow(at: indexPath, animated: true)
                 tableView.selectRow(at: [0, 0], animated: true, scrollPosition: UITableView.ScrollPosition.top)
@@ -239,10 +273,6 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
 
-//    func tableView(_ tableView: UITableView, didHighlightRowAt indexPath: IndexPath) {
-//        <#code#>
-//    }
-    
     func majJeuJoueurs(idJeu: Int) -> Bool {
         guard let jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(idJeu)]) as [JeuJoueur]? else { return false }
         for row in 0..<gestionJoueurs.nbJoueursPartie {
@@ -265,6 +295,8 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         vc.gj = self.gestionJoueurs
         self.navigationController?.pushViewController(vc, animated: true)
     }
+    
+    // MARK: - Table View Controller
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         if tableView == joueursTableView {
@@ -331,32 +363,20 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
-        func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-            //        return UISwipeActionsConfiguration()
-    
-            guard let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return nil }
-    
-            let choixAction = UIContextualAction(style: .normal, title:  "Partenaire", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-                self.gestionJoueurs.partenaire = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
-                self.viewExit()
-
-                success(true)
-            })
-
-//            choixAction.image = UIImage(named: "icons8-annuler-(dernier-chiffre)-50")
-            choixAction.backgroundColor = .purple
-
+    func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        
+        guard let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return nil }
+        
+        let choixAction = UIContextualAction(style: .normal, title:  "Partenaire", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+            self.gestionJoueurs.partenaire = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
+            self.viewExit()
             
-//            if let _ = self.cellTab.firstIndex(of: cell) {
-//                choixAction.image = UIImage(named: "icons8-annuler-(dernier-chiffre)-50")
-//                choixAction.backgroundColor = .red
-//            } else {
-//                choixAction.image = UIImage(named: "icons8-cerclé-" + String(cellTab.count + 1) + "-1")
-//                choixAction.backgroundColor = .purple
-//            }
-    
-            return UISwipeActionsConfiguration(actions: [choixAction])
-        }
+            success(true)
+        })
+        
+        choixAction.backgroundColor = .purple
+        return UISwipeActionsConfiguration(actions: [choixAction])
+    }
     
     
     @IBAction func Tri(_ sender: UIBarButtonItem) {
@@ -393,12 +413,10 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     }
     
     func miseEnPlace() {
-        // Réglage de la hauteur de la contrainte ajouté au tableau des joueurs
+        // Réglage de la hauteur de la contrainte ajoutée au tableau des joueurs
         self.hauteurTableJoueurContrainte.constant = self.joueursTableView.contentSize.height
 
-        //        defaultSettings.set(false, forKey: jeuxAffJoueursEnCours)
-
-        // Affichage des informations de la dernière mène dans les cellules des joueurs
+        // Si affichage des informations de la dernière mène dans les cellules des joueurs
         if defaultSettings.bool(forKey: jeuDernierAffJoueurs) {
             if let idJeu = jeux?.first?.idJeu {
                 jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(idJeu)])
@@ -415,39 +433,34 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             UIImage(named: "icons8-tri") : UIImage(named: "icons8-tri-inversé")
     }
     
-    func fetchParties() {
-        let requete: NSFetchRequest<Partie> = Partie.fetchRequest()
-        let tri = NSSortDescriptor(key: "idPartie", ascending: true)
-        requete.sortDescriptors = [tri]
+    func fetchJeuJoueurs(idJeu: [Int]) -> [JeuJoueur] {
         do {
-            let parties = try viewContext.fetch(requete)
-            AppDelegate.partie = parties.last!
-            // Traitement des joueurs
-            let setJoueurs = AppDelegate.partie.participants
-            gestionJoueurs = GestionJoueurs(joueurs: setJoueurs?.allObjects as! [Joueur], NouvellePartie: isNouvelle)
-            let decode = gestionJoueurs.decodeTypePartie(typePartie: AppDelegate.partie.type)
-            gestionJoueurs.modeJeu = decode.modeJeu
-            joueursTableView.reloadData()
-            
-            // Traitement des jeux
-            let setJeux = AppDelegate.partie.jeux
-            jeux = setJeux?.allObjects as? [JeuResultat]
-            jeux?.sort(by: { $0.idJeu > $1.idJeu })
-            jeuxTableView.reloadData()
-            
-//            // Traitement des jeuJoueurs
-////            let setJeuJoueurs = AppDelegate.partie.jeux
-//            let setJeuJoueurs = jeux?.last
-//            let jj = setJeuJoueurs?.joueurs
-//            jeuJ = jj?.allObjects as? [JeuJoueur]
-////            jeuJ?.sort(by: { $0.idJeu > $1.idJeu })
-            
-
-            
-        } catch {
-            print(error.localizedDescription)
+            let jeuResultat = JeuResultat.jeuResultat(idJeux: idJeu).last
+            let setJeuJoueurs = jeuResultat!.joueurs //as? [JeuJoueur]
+            jeuJoueurs = setJeuJoueurs!.allObjects as? [JeuJoueur]
+            return jeuJoueurs!
         }
     }
+    
+    func fetchParties() {
+        let parties = Partie.all(OrdreAscendant: true)
+        AppDelegate.partie = parties.last!
+        
+        // Traitement des joueurs
+        let setJoueurs = AppDelegate.partie.participants
+        gestionJoueurs = GestionJoueurs(joueurs: setJoueurs?.allObjects as! [Joueur], NouvellePartie: isNouvelle)
+        let decode = gestionJoueurs.decodeTypePartie(typePartie: AppDelegate.partie.type)
+        gestionJoueurs.modeJeu = decode.modeJeu
+        joueursTableView.reloadData()
+        
+        // Traitement des jeux
+        let setJeux = AppDelegate.partie.jeux
+        jeux = setJeux?.allObjects as? [JeuResultat]
+        jeux?.sort(by: { $0.idJeu > $1.idJeu })
+        jeuxTableView.reloadData()
+    }
+    
+    // MARK: - Actions : jeu
     
     @IBAction func nouveauJeuAction(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -462,14 +475,13 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     @IBAction func horsJeuJoueurAction(_ sender: Any) {
         // Vérification du nombre de joueurs possible avant d'autoriser une suppression. Est fonction du mode de jeu.
         if gestionJoueurs.nbJoueursEnjeu > gestionJoueurs.modeJeu!.nbJoueurs.min {
-            let controller = UIAlertController(title: "Mise hors-jeu d'un joueur", message: "Quelqu'un nous abandonne ?", preferredStyle: .alert)
+            let controller = UIAlertController(title: "Mise hors-jeu d'un joueur", message: "Quelqu'un nous abandonne ?", preferredStyle: .actionSheet)
             // On supprime dabords les morts s'il y en a
             let Joueurs = gestionJoueurs.nbJoueursMort > 0 ? gestionJoueurs.joueursMort : gestionJoueurs.joueursEnJeu
             for joueur in Joueurs! {
-                controller.addAction(UIAlertAction(title: dicoJoueurs[joueur.idJoueur], style: .destructive, handler: { _ in self.mettreHorsJeuJoueur(joueur: joueur) }))
+                controller.addAction(UIAlertAction(title: dicoJoueurs[joueur.idJoueur], style: .destructive, handler: { _ in mettreHorsJeuJoueur(joueur: joueur) }))
             }
             controller.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
-            //        controller.addAction(UIAlertAction(title: "Reset", style: .destructive, handler: { _ in self.resetData() }))
             present(controller, animated: true, completion: nil)
         } else {
             var message = "Dans ce mode, vous n'êtes pas suffisament nombreux pour mettre hors-jeu un joueur supplémentaire !" + "\n"
@@ -479,31 +491,36 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
         }
-    }
-    
-    func mettreHorsJeuJoueur(joueur: Joueur) {
-        if let precedent = gestionJoueurs.joueursEnJeu.first(where: { $0.suivant == joueur.ordre }) {
-            // Mise à jour de l'index suivant
-            precedent.suivant = joueur.suivant
-            joueur.enJeu = false
-        } else {
-            let message = "La mise à jour de ce joueur ne s'est pas réalisée correctement !"
-            let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
+        
+        /// Mise hors-jeu d'un joueur avec mise à jour des index de chainage et sauvegarde.
+        ///
+        /// - parameter joueur: Joueur à mettre hors-jeu.
+        func mettreHorsJeuJoueur(joueur: Joueur) {
+            // Recherche du joueur précédent pour mise à jour des index.
+            if let precedent = gestionJoueurs.joueursEnJeu.first(where: { $0.suivant == joueur.ordre }) {
+                // Mise à jour de l'index suivant
+                precedent.suivant = joueur.suivant
+                joueur.enJeu = false
+            } else {
+                let message = "La mise à jour de ce joueur ne s'est pas réalisée correctement !"
+                let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+            }
+            // Sauvegarde des modifications.
+            if Partie.save() {
+                joueursTableView.reloadData()
+            } else {
+                let message = "La mise à jour de ce joueur ne s'est pas réalisée correctement !"
+                let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+            }
         }
-        if Partie.save() {
-            joueursTableView.reloadData()
-        } else {
-            let message = "La mise à jour de ce joueur ne s'est pas réalisée correctement !"
-            let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
-        }
     }
-    
+
     @IBAction func donneSuivanteAction(_ sender: Any) {
         if gestionJoueurs.donneurSuivant() == false {
             let message = "Il n'y a plus de donneur suivant en jeu !"
@@ -520,7 +537,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             alert.addAction(action)
             present(alert, animated: true, completion: nil)
         }
-        
+        // Sauvegarde des modifications
         if Partie.save() {
             joueursTableView.reloadData()
         } else {
@@ -531,6 +548,8 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             present(alert, animated: true, completion: nil)
         }
     }
+    
+    // MARK: - Actions : tris
     
     @IBAction func triTableAction(_ sender: Any) {
         if defaultSettings.integer(forKey: triJoueursPartie) == TriJoueurs.table.rawValue {
@@ -583,42 +602,9 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
-    func fetchJeuJoueurs(idJeu: [Int]) -> [JeuJoueur] {
-        do {
-            let jeuResultat = JeuResultat.jeuResultat(idJeux: idJeu).last
-            let setJeuJoueurs = jeuResultat!.joueurs //as? [JeuJoueur]
-            jeuJoueurs = setJeuJoueurs!.allObjects as? [JeuJoueur]
-            return jeuJoueurs!
-            
-//       AppDelegate.jeu = jeuResultat.last!
-            // Traitement des joueurs
-//            let setJeuJoueurs = AppDelegate.jeu.joueurs
-            
-//            let decode = gestionJoueurs.decodeTypePartie(typePartie: AppDelegate.partie.type)
-//            gestionJoueurs.modeJeu = decode.modeJeu
-//            joueursTableView.reloadData()
-//            
-//            // Traitement des jeux
-//            let setJeux = AppDelegate.partie.jeux
-//            jeux = setJeux?.allObjects as? [JeuResultat]
-//            jeux?.sort(by: { $0.idJeu > $1.idJeu })
-//            jeuxTableView.reloadData()
-//
-            // Traitement des jeuJoueurs
-            //            let setJeuJoueurs = AppDelegate.jeu
-            //            jeuJ = setJeuJoueurs?.allObjects as? [JeuJoueur]
-            //            jeuJ?.sort(by: { $0.idJeu > $1.idJeu })
-            
-            
-            
-        } //catch {
-           // print(error.localizedDescription)
-        //}
-    }
-
     @IBAction func tapScreen(_ sender: Any) {
 //        if let toto = toto {
-            timeLeft = 11
+            timeLeft = 31
 //        } else {
         timer?.invalidate()
         timer = nil

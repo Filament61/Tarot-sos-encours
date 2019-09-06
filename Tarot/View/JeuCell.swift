@@ -26,7 +26,7 @@ class JeuCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func miseEnPlace(jeu: JeuResultat) {
+    func miseEnPlace(jeu: JeuResultat, offset: Int) {
         
         self.jeu = jeu
         
@@ -35,7 +35,7 @@ class JeuCell: UITableViewCell {
 
         let pts = FloatString(float: self.jeu.total)
 
-        idJeuLabel.text = String(self.jeu.idJeu)
+        idJeuLabel.text = String(Int(self.jeu.idJeu) - offset + 1)
         totalLabel.text = pts.string
         contratLabel.text = Contrat(rawValue: Int(self.jeu.contrat).minus())?.nom
     }
