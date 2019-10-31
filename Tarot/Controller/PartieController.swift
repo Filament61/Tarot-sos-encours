@@ -17,6 +17,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     @IBOutlet weak var tableTriBarButton: UIBarButtonItem!
     @IBOutlet weak var surnomTriBarButton: UIBarButtonItem!
     @IBOutlet weak var pointsTriBarButton: UIBarButtonItem!
+    @IBOutlet weak var triBarButton: UIBarButtonItem!
     
     let joueurCell = "JoueurCell"
     let jeuJoueurCell = "JeuJoueurCell"
@@ -63,7 +64,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     var timeLeft = 31
     @objc func onTimerFires() {
         timeLeft -= 1
-        print("\(timeLeft) seconds left")
+        print("\(timeLeft) second left")
         //                timeLabel.text = "\(timeLeft) seconds left"
         if timeLeft <= 0 {
             timer?.invalidate()
@@ -72,7 +73,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
 
-    // MARK: - Lifecycle
+    // MARK: - Lifecycle -
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -100,8 +101,32 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         timer = nil
     }
     
+    func miseEnPlace() {
+        // Réglage de la hauteur de la contrainte ajoutée au tableau des joueurs
+        self.hauteurTableJoueurContrainte.constant = self.joueursTableView.contentSize.height
+        
+        // Si affichage des informations de la dernière mène dans les cellules des joueurs
+        if defaultSettings.bool(forKey: jeuDernierAffJoueurs) {
+            if let idJeu = jeux?.first?.idJeu {
+                jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(idJeu)])
+                jeuxTableView.selectRow(at: [0,0], animated: true, scrollPosition: UITableView.ScrollPosition.top)
+            }
+        }
+        
+        // Mise à jour des icones de tri
+        tableTriBarButton.image = defaultSettings.integer(forKey: "tableJoueursPartieOrdre") == How.asc.rawValue ?
+            UIImage(named: "icons8-tri-numérique-fin") : UIImage(named: "icons8-tri-numérique-inversé-fin")
+        surnomTriBarButton.image = defaultSettings.integer(forKey: "surnomJoueursPartieOrdre") == How.asc.rawValue ?
+            UIImage(named: "icons8-tri-alphabétique-fin") : UIImage(named: "icons8-tri-alphabétique-inversé-fin")
+        pointsTriBarButton.image = defaultSettings.integer(forKey: "pointsJoueursPartieOrdre") == How.asc.rawValue ?
+            UIImage(named: "icons8-tri") : UIImage(named: "icons8-tri-inversé")
+        if let tri = TriJoueurs(rawValue: defaultSettings.integer(forKey: triJoueursPartie)), let how = How(rawValue: defaultSettings.integer(forKey: tri.udHow)) {
+            triBarButton.image = tri.image(how: how)
+        }
+    }
     
-    // MARK: - Table view data source
+
+    // MARK: - Table view data source -
     
     func numberOfSections(in tableView: UITableView) -> Int {
         if tableView == joueursTableView {
@@ -238,6 +263,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             if let joueur = (gestionJoueurs.joueursEnMene.first(where: { $0.idJoueur == cell.tag }) ) {
                 if let oldCell = self.oldCell, oldCell != cell {
                     oldCell.contratLabel.isEnabled = false
+                    oldCell.contratLabel.text = String()
                 }
                 if let contrat = gestionJoueurs.contrat {
                     gestionJoueurs.contrat = contrat.suivant()
@@ -296,7 +322,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
-    // MARK: - Table View Controller
+    // MARK: - Table View Controller -
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         if tableView == joueursTableView {
@@ -410,27 +436,6 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             JeuResultatController.gj = gestionJoueurs
             
         }
-    }
-    
-    func miseEnPlace() {
-        // Réglage de la hauteur de la contrainte ajoutée au tableau des joueurs
-        self.hauteurTableJoueurContrainte.constant = self.joueursTableView.contentSize.height
-
-        // Si affichage des informations de la dernière mène dans les cellules des joueurs
-        if defaultSettings.bool(forKey: jeuDernierAffJoueurs) {
-            if let idJeu = jeux?.first?.idJeu {
-                jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(idJeu)])
-                jeuxTableView.selectRow(at: [0,0], animated: true, scrollPosition: UITableView.ScrollPosition.top)
-            }
-        }
-        
-        // Mise à jour des icones de tri
-        tableTriBarButton.image = defaultSettings.integer(forKey: "tableJoueursPartieOrdre") == How.asc.rawValue ?
-            UIImage(named: "icons8-tri-numérique-fin") : UIImage(named: "icons8-tri-numérique-inversé-fin")
-        surnomTriBarButton.image = defaultSettings.integer(forKey: "surnomJoueursPartieOrdre") == How.asc.rawValue ?
-            UIImage(named: "icons8-tri-alphabétique-fin") : UIImage(named: "icons8-tri-alphabétique-inversé-fin")
-        pointsTriBarButton.image = defaultSettings.integer(forKey: "pointsJoueursPartieOrdre") == How.asc.rawValue ?
-            UIImage(named: "icons8-tri") : UIImage(named: "icons8-tri-inversé")
     }
     
     func fetchJeuJoueurs(idJeu: [Int]) -> [JeuJoueur] {
@@ -568,6 +573,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
+    
     @IBAction func triSurnomAction(_ sender: Any) {
         if defaultSettings.integer(forKey: triJoueursPartie) == TriJoueurs.surnom.rawValue {
             // Changement et mémorisation de l'ordre de tri
@@ -585,6 +591,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
+    
     @IBAction func triPointsAction(_ sender: Any) {
         if defaultSettings.integer(forKey: triJoueursPartie) == TriJoueurs.points.rawValue {
             // Changement et mémorisation de l'ordre de tri
@@ -599,6 +606,87 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         if let how = How(rawValue: defaultSettings.integer(forKey: pointsJoueursPartieOrdre)) {
             gestionJoueurs.tri(choix: .points, how: how)
             joueursTableView.reloadData()
+        }
+    }
+    
+    
+    @IBAction func triAction(_ sender: Any) {
+        if let tri = TriJoueurs(rawValue: defaultSettings.integer(forKey: triJoueursPartie)) {
+            let how: How = defaultSettings.integer(forKey: tri.udHow) == How.asc.rawValue ? How(rawValue: How.desc.rawValue)! : How(rawValue: How.asc.rawValue)!
+            defaultSettings.set(how.rawValue, forKey: tri.udHow)
+            gestionJoueurs.tri(choix: tri, how: how)
+            triBarButton.image = tri.image(how: how)
+            joueursTableView.reloadData()
+        }
+    }
+    
+    @IBAction func optionsAction(_ sender: Any) {
+        let controller = UIAlertController(title: "Menu", message: nil, preferredStyle: .actionSheet)
+        controller.addAction(UIAlertAction(title: "Options de tri", style: .default, handler: { _ in self.triOptions() }))
+//        controller.addAction(UIAlertAction(title: "Tri par surnoms", style: .default, handler: { _ in  self.triSurnomsChoix() }))
+//        controller.addAction(UIAlertAction(title: "Tri par table", style: .default, handler: { _ in self.triPointsChoix() }))
+//        controller.addAction(UIAlertAction(title: "", style: .default, handler: { _ in self.triPointsChoix()  }))
+        present(controller, animated: true, completion: nil)
+
+    }
+    
+    func triOptions() {
+        let controller = UIAlertController(title: "Options de tri", message: nil, preferredStyle: .actionSheet)
+        controller.addAction(UIAlertAction(title: "Tri par points", style: .default, handler: { _ in triPointsChoix() }))
+        controller.addAction(UIAlertAction(title: "Tri par surnoms", style: .default, handler: { _ in  triSurnomsChoix() }))
+        controller.addAction(UIAlertAction(title: "Tri par table", style: .default, handler: { _ in triTableChoix() }))
+        present(controller, animated: true, completion: nil)
+        
+        
+        func triTableChoix() {
+            triBarButton.image = defaultSettings.integer(forKey: tableJoueursPartieOrdre) == How.asc.rawValue ?
+                UIImage(named: "icons8-tri-numérique-fin") : UIImage(named: "icons8-tri-numérique-inversé-fin")
+            if defaultSettings.integer(forKey: triJoueursPartie) == TriJoueurs.table.rawValue {
+                // Changement et mémorisation de l'ordre de tri
+                let nouvelOrdre = defaultSettings.integer(forKey: tableJoueursPartieOrdre) == How.asc.rawValue ? How.desc.rawValue : How.asc.rawValue
+                defaultSettings.set(nouvelOrdre, forKey: tableJoueursPartieOrdre)
+            } else {
+                // Mémorisation du changement du type de tri
+                defaultSettings.set(TriJoueurs.table.rawValue, forKey: triJoueursPartie)
+            }
+            if let how = How(rawValue: defaultSettings.integer(forKey: tableJoueursPartieOrdre)) {
+                gestionJoueurs.tri(choix: .table, how: how)
+                joueursTableView.reloadData()
+            }
+        }
+        
+        func triSurnomsChoix() {
+            triBarButton.image = defaultSettings.integer(forKey: surnomJoueursPartieOrdre) == How.asc.rawValue ?
+                UIImage(named: "icons8-tri-alphabétique-fin") : UIImage(named: "icons8-tri-alphabétique-inversé-fin")
+            if defaultSettings.integer(forKey: triJoueursPartie) == TriJoueurs.surnom.rawValue {
+                // Changement et mémorisation de l'ordre de tri
+                let nouvelOrdre = defaultSettings.integer(forKey: surnomJoueursPartieOrdre) == How.asc.rawValue ? How.desc.rawValue : How.asc.rawValue
+                defaultSettings.set(nouvelOrdre, forKey: surnomJoueursPartieOrdre)
+            } else {
+                // Mémorisation du changement du type de tri
+                defaultSettings.set(TriJoueurs.surnom.rawValue, forKey: triJoueursPartie)
+            }
+            if let how = How(rawValue: defaultSettings.integer(forKey: surnomJoueursPartieOrdre)) {
+                gestionJoueurs.tri(choix: .surnom, how: how)
+                joueursTableView.reloadData()
+            }
+        }
+        
+        func triPointsChoix() {
+            triBarButton.image = defaultSettings.integer(forKey: pointsJoueursPartieOrdre) == How.asc.rawValue ?
+                UIImage(named: "icons8-tri") : UIImage(named: "icons8-tri-inversé")
+            if defaultSettings.integer(forKey: triJoueursPartie) == TriJoueurs.points.rawValue {
+                // Changement et mémorisation de l'ordre de tri
+                let nouvelOrdre = defaultSettings.integer(forKey: pointsJoueursPartieOrdre) == How.asc.rawValue ? How.desc.rawValue : How.asc.rawValue
+                defaultSettings.set(nouvelOrdre, forKey: pointsJoueursPartieOrdre)
+            } else {
+                // Mémorisation du changement du type de tri
+                defaultSettings.set(TriJoueurs.points.rawValue, forKey: triJoueursPartie)
+            }
+            if let how = How(rawValue: defaultSettings.integer(forKey: pointsJoueursPartieOrdre)) {
+                gestionJoueurs.tri(choix: .points, how: how)
+                joueursTableView.reloadData()
+            }
         }
     }
     

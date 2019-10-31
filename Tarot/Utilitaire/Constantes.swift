@@ -92,6 +92,32 @@ enum TriJoueurs: Int {
         }
     }
     
+    func image(how: How) -> UIImage {
+        switch self {
+        case .table:
+            switch how {
+            case .asc:
+                return UIImage(named: "icons8-tri-numérique-fin")!
+            case .desc:
+                return UIImage(named: "icons8-tri-numérique-inversé-fin")!
+            }
+        case .surnom:
+            switch how {
+            case .asc:
+                return UIImage(named: "icons8-tri-alphabétique-fin")!
+            case .desc:
+                return UIImage(named: "icons8-tri-alphabétique-inversé-fin")!
+            }
+        case .points:
+            switch how {
+            case .asc:
+                return UIImage(named: "icons8-tri")!
+            case .desc:
+                return UIImage(named: "icons8-tri-inversé")!
+            }
+        }
+    }
+    
     static func choixTri(choix: TriJoueurs, how: How) -> (_ item0: Joueur, _ item1: Joueur) -> Bool {
         switch choix {
         case .table:

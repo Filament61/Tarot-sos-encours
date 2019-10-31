@@ -96,6 +96,7 @@ class JeuJoueurCell: UITableViewCell {
     @IBOutlet weak var etatLabel: UILabel!
     @IBOutlet weak var pointsLabel: UILabel!
     @IBOutlet weak var contratLabel: UILabel!
+    @IBOutlet weak var commentaireLabel: UILabel!
     
 //    var jeuJoueur: JeuJoueur!
     
@@ -116,7 +117,7 @@ class JeuJoueurCell: UITableViewCell {
         // Affichage du contrat du preneur 
         contratLabel.text = jeuJoueur.etat == EtatJoueur.preneur.rawValue ? Contrat(rawValue: Int(jeu.contrat).minus())?.nom : String()
 
-        idJeuLabel.text = String(Int(jeuJoueur.idJeu) - offset + 1)
+        idJeuLabel.text = String(Int(jeuJoueur.idJeu) - offset.minus())
 //        idJeuLabel.text = String(jeuJoueur.idJeu)
 
         let pts = FloatString(float: jeuJoueur.points)
@@ -125,6 +126,8 @@ class JeuJoueurCell: UITableViewCell {
         // Affichage de l'état du joueur s'il n'est pas le preneur
         etatLabel.text = jeuJoueur.etat != EtatJoueur.preneur.rawValue ? EtatJoueur(rawValue: jeuJoueur.etat)?.nom : String()
 
+        let espaces = "   "
+        commentaireLabel.text = idJeuLabel.text! + espaces + etatLabel.text! + espaces 
 
 //        // Affichage des informations d'une mène dans les cellules des joueurs
 //        do {

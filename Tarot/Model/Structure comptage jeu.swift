@@ -11,13 +11,15 @@ import UIKit
 
 struct JeuComplet {
     
+    // MARK: - Déclarations des variables -
+
     let nbPointsMaxi: Float = 91.0
     let baseContrat: Float = 25.0
     
-        let contrats: [Int: String] = [1: "Petite",
-                                       2: "Garde",
-                                       3: "Garde sans",
-                                       4: "Garde contre"]
+    let contrats: [Int: String] = [1: "Petite",
+                                   2: "Garde",
+                                   3: "Garde sans",
+                                   4: "Garde contre"]
     
     let chelems: [Int: String] = [ -3: "Chelem annoncé et non réalisé (défense)",
                                    -2: "Chelem annoncé et réalisé (défense)",
@@ -78,7 +80,10 @@ struct JeuComplet {
     var pointsPetitAuBout: Float = 0
     var pointsPoignee: Float = 0
     var pointsChelem: Float = 0
+
     
+    // MARK: - Initialisations -
+
     init(Contrat contrat: Int,
          NombreDeBout nbBout: Int,
          PointFaits pointsFaits: Float,
@@ -99,6 +104,8 @@ struct JeuComplet {
     }
     
     
+    // MARK: - Calcul des points -
+
     var isReussi: Bool? {
         get {
             guard let gain = gain else { return nil }
@@ -157,87 +164,62 @@ struct JeuComplet {
     }
     
     
-    // MARK: - --> String()
+    // MARK: - Résultats format texte -
+    
     // Texte points : GAIN
     func gainText() -> String {
         guard let gain = gain, let _ = pointsFaits else { return texteVierge }
-        return String(gain)
+        return "\(gain)"
     }
     
     // Texte points : BASE CONTRAT
     func baseText() -> String {
         guard  let isReussi = isReussi, let _ = contrat else { return texteVierge }
-        if isReussi {
-            return String(baseContrat)
-        } else {
-            return "-" + String(baseContrat) }
+        return isReussi ? "\(baseContrat)" : "-\(baseContrat)"
     }
     
     // Texte points : POINTS
     func pointsFaitsText(Defense def: Bool = false) -> String {
         guard let pointsFaits = pointsFaits else { return texteVierge }
-        if def {
-            return String(nbPointsMaxi - pointsFaits)
-        } else {
-            return String(pointsFaits)
-        }
+        return def ? "\(nbPointsMaxi - pointsFaits)" : "\(pointsFaits)"
     }
     
     // Texte points : PETIT AU BOUT
     func pointsPetitAuBoutText() -> String {
         guard pointsPetitAuBout != Float(0) else { return texteVierge }
-        guard pointsPetitAuBout >= Float(0) else { return "(Défense)  " + String(pointsPetitAuBout) }
-        return String(pointsPetitAuBout)
+        return pointsPetitAuBout >= Float(0) ? "\(pointsPetitAuBout)" : "(Défense)  \(pointsPetitAuBout)"
     }
     
     // Texte points : POIGNEE
     func pointsPoigneeText() -> String {
-        guard pointsPoignee != Float(0) else { return texteVierge }
-        var txt = ""
-        if pointsPoignee < Float(0) {
-            txt = "(Défense)  "
-        }
-        if !(isReussi ?? false) {
-            txt += " -"
-        }
-        txt += String(abs(pointsPoignee))
-        return txt
+        guard let isReussi = isReussi, pointsPoignee != Float(0) else { return texteVierge }
+        let def = pointsPoignee < Float(0) ? "(Défense)  " : ""
+        let sig = !isReussi ? " -" : ""
+        return "\(def)\(sig)\(abs(pointsPoignee))"
     }
     
     // Texte points : CHELEM
     func pointsChelemText() -> String {
         guard pointsChelem != Float(0) else { return texteVierge }
-        var txt = ""
-        ////            if pointsChelem < Float(0) {
-        ////                txt = "(Défense)  "
-        ////            }
-        //            if !(scoreJeu.isReussi ?? false) {
-        //                labelPointsChelem.text = labelPointsChelem.text! + " -"
-        //            }
-        txt += String(pointsChelem)
-        return txt
+        return "\(pointsChelem)"
     }
     
     // Texte points : SOUS-TOTAL
     func SousTotalText() -> String {
         guard let gain = gain, let isReussi = isReussi, let coef = coef else { return texteVierge }
-        //        guard (gain! != nbPointsMaxi && pointsFaits >= Float(0) && nbBout >= 0 && contrat > 0) else { return texteVierge }
-        var st: Float
-        if isReussi {
-            st = baseContrat + gain + pointsPetitAuBout
-        } else {
-            st = -(baseContrat - gain - pointsPetitAuBout)
-        }
-        return String(Int(coef)) + " x " + String(st)
+        let st = isReussi ? baseContrat + gain + pointsPetitAuBout : -(baseContrat - gain - pointsPetitAuBout)
+        return "\(Int(coef)) x \(st)"
     }
     
     // Texte points : TOTAL
     func totalText() -> String {
         guard let _ = gain, let _ = nbBout, let _ = contrat else { return texteVierge }
-        return String(total!)
+        return "\(total!)"
     }
 }
 
+
+// MARK: - Enumérations -
 
 enum Contrat: Int {
     case petite = 0, garde, gardeSans, gardeContre
@@ -248,7 +230,6 @@ enum Contrat: Int {
         case .garde: return "Garde"
         case .gardeSans: return "Garde sans"
         case .gardeContre: return "Garde contre"
-            //        default: break
         }
     }
     var abv: String {
@@ -257,7 +238,6 @@ enum Contrat: Int {
         case .garde: return "G"
         case .gardeSans: return "GS"
         case .gardeContre: return "GC"
-            //        default: break
         }
     }
     var couleur: UIColor {
@@ -266,7 +246,6 @@ enum Contrat: Int {
         case .garde: return UIColor.orange
         case .gardeSans: return UIColor.blue
         case .gardeContre: return UIColor.green
-            //        default: break
         }
     }
     func suivant() -> Contrat {

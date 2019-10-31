@@ -10,7 +10,6 @@ import UIKit
 
 extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     
-    
     func miseEnPlacePicker() {
         pickerView.delegate = self
         pickerView.dataSource = self
@@ -20,7 +19,6 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
         } else {
             pickerView.selectRow(0, inComponent: 0, animated: false)
             gj.preneur = gj.joueursEnMene[0]
-
         }
         if let partenaire = gj.partenaire, let idx = gj.joueursEnMene.firstIndex(of: partenaire) {
             pickerView.selectRow(idx, inComponent: 1, animated: false)
@@ -29,10 +27,6 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
             gj.partenaire = gj.joueursEnMene[0]
         }
     }
-    
-    
-    
-    
     
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return gj.joueursEnMene.count
@@ -58,6 +52,7 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
             print("Partenaire choisi : \(surnomDuPpartenaire!)")
         }
     }
+    
 }
 
 

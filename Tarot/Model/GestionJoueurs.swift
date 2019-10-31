@@ -87,6 +87,7 @@ class GestionJoueurs {
     private var _nbJoueursMort: Int = 0
     private var _joueursMort: [Joueur]!
     
+    /// Ensemble des joueurs de la défense.
     var joueursDefense: [Joueur]!
     
     
@@ -99,6 +100,7 @@ class GestionJoueurs {
     
     var points: (preneur: Float, partenaire: Float, defense: Float) = (0.0, 0.0, 0.0)
     var infosJeuJoueurs: [InfosJeuJoueurs]?
+    
     /// Affecte les points réalisés aux différents joueurs de la mène.
     ///
     /// - parameter points: Points de base réalisés lors du jeu (de la mène).
@@ -231,7 +233,7 @@ class GestionJoueurs {
     }
     
     
-    /// Vérifie si le nombre d'éléments la table passée en paramètre et compris entre le nombre minimal et maximal de joueurs autorisés.
+    /// Vérifie si le nombre d'éléments la table passée en paramètre est compris entre le nombre minimal et maximal de joueurs autorisés.
     ///
     /// - parameter nbJoueurs: Requis, table à vérifier.
     /// - returns: Vrai si la table répond aux conditions.
@@ -349,6 +351,7 @@ class InfosJeuJoueurs {
 enum ModeJeu: Int {
     
     /// Le mode simple est le mode normal, 1 preneur contre le reste des joueurs.
+    /// Se joue à 4 ou 3 joueurs.
     case simple = 0
     /// Le mode duo est le mode dans lequel le preneur appelle un partenaire (appel d'un roi).
     case duo
@@ -390,7 +393,7 @@ enum ModeJeu: Int {
     }
 }
 
-
+/// Cette énumération définie l'état d'un joueur dans un jeu
 enum EtatJoueur: Int16 {
     case donneur, preneur, partenaire, defense, mort, horsJeu
     var nom2: String {
