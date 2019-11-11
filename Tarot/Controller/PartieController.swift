@@ -114,11 +114,11 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
         
         // Mise à jour des icones de tri
-        tableTriBarButton.image = defaultSettings.integer(forKey: "tableJoueursPartieOrdre") == How.asc.rawValue ?
+        tableTriBarButton.image = defaultSettings.integer(forKey: tableJoueursPartieOrdre) == How.asc.rawValue ?
             UIImage(named: "icons8-tri-numérique-fin") : UIImage(named: "icons8-tri-numérique-inversé-fin")
-        surnomTriBarButton.image = defaultSettings.integer(forKey: "surnomJoueursPartieOrdre") == How.asc.rawValue ?
+        surnomTriBarButton.image = defaultSettings.integer(forKey: surnomJoueursPartieOrdre) == How.asc.rawValue ?
             UIImage(named: "icons8-tri-alphabétique-fin") : UIImage(named: "icons8-tri-alphabétique-inversé-fin")
-        pointsTriBarButton.image = defaultSettings.integer(forKey: "pointsJoueursPartieOrdre") == How.asc.rawValue ?
+        pointsTriBarButton.image = defaultSettings.integer(forKey: pointsJoueursPartieOrdre) == How.asc.rawValue ?
             UIImage(named: "icons8-tri") : UIImage(named: "icons8-tri-inversé")
         if let tri = TriJoueurs(rawValue: defaultSettings.integer(forKey: triJoueursPartie)), let how = How(rawValue: defaultSettings.integer(forKey: tri.udHow)) {
             triBarButton.image = tri.image(how: how)
@@ -465,7 +465,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         jeuxTableView.reloadData()
     }
     
-    // MARK: - Actions : jeu
+    // MARK: - Actions : jeu -
     
     @IBAction func nouveauJeuAction(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -502,9 +502,9 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         /// - parameter joueur: Joueur à mettre hors-jeu.
         func mettreHorsJeuJoueur(joueur: Joueur) {
             // Recherche du joueur précédent pour mise à jour des index.
-            if let precedent = gestionJoueurs.joueursEnJeu.first(where: { $0.suivant == joueur.ordre }) {
-                // Mise à jour de l'index suivant
-                precedent.suivant = joueur.suivant
+            if let JoueurPrecedent = gestionJoueurs.joueursEnJeu.first(where: { $0.suivant == joueur.ordre }) {
+                // Mise à jour de l'index suivant du joueur précédent
+                JoueurPrecedent.suivant = joueur.suivant
                 joueur.enJeu = false
             } else {
                 let message = "La mise à jour de ce joueur ne s'est pas réalisée correctement !"
@@ -562,10 +562,13 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             let nouvelOrdre = defaultSettings.integer(forKey: tableJoueursPartieOrdre) == How.asc.rawValue ? How.desc.rawValue : How.asc.rawValue
             defaultSettings.set(nouvelOrdre, forKey: tableJoueursPartieOrdre)
             tableTriBarButton.image = defaultSettings.integer(forKey: tableJoueursPartieOrdre) == How.asc.rawValue ?
-                UIImage(named: "icons8-tri-numérique-fin") : UIImage(named: "icons8-tri-numérique-inversé-fin")
+                TriJoueurs.table.image(how: .asc) : TriJoueurs.table.image(how: .desc)
+                // UIImage(named: "icons8-tri-numérique-fin") : UIImage(named: "icons8-tri-numérique-inversé-fin")
         } else {
             // Mémorisation du changement du type de tri
             defaultSettings.set(TriJoueurs.table.rawValue, forKey: triJoueursPartie)
+            defaultSettings.set(How.asc, forKey: "ttttt")
+            _ = defaultSettings.object(forKey: "ttttt") as! How
         }
         if let how = How(rawValue: defaultSettings.integer(forKey: tableJoueursPartieOrdre)) {
             gestionJoueurs.tri(choix: .table, how: how)

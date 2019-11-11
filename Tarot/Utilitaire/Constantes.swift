@@ -72,10 +72,16 @@ enum How: Int {
     case asc, desc
 }
 
-
+/// Enumération permettant la gestion des tris et des options de ces tris.
 enum TriJoueurs: Int {
-    case table, surnom, points
+    /// Tri numérique fonction de la répartition des joueurs autour de la table de jeu.
+    case table
+    /// Tri alphabétique fonction des surnoms des joueurs.
+    case surnom
+    /// Tri numérique fonction des points des joueurs.
+    case points
     
+    /// Retourne le nom de l'attribut (champ) en fonction de l'entité (table) servant de clef de tri.
     var attribute: String {
         switch self {
         case .table: return "ordre"
@@ -84,6 +90,7 @@ enum TriJoueurs: Int {
         }
     }
     
+    /// Retourne le nom des clefs des UserDefaults servant à mémoriser l'ordre de tri pour chaque type de tri.
     var udHow: String {
         switch self {
         case .table: return tableJoueursPartieOrdre
@@ -92,6 +99,7 @@ enum TriJoueurs: Int {
         }
     }
     
+    /// Retourne l'icone correspondant au type de tri pour chaque type de tri.
     func image(how: How) -> UIImage {
         switch self {
         case .table:
