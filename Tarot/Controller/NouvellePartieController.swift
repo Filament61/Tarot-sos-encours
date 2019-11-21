@@ -28,17 +28,21 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     var cellTab = [PersonneCell]()
     var cells =  [PersonneCell]()
 
-    var modeJeu: ModeJeu?
+//    var modeJeu: ModeJeu?
     var donneur: Int = 0
     var morts: [Int] = []
     
-    var partie: Partie?
-    var nbJoueurs: Int = 0 {
-        didSet {
-            animerOptions()
-            animerCell()
-        }
-    }
+//    var partie: Partie?
+    var nbJoueurs: Int = 0 //{
+//        didSet {
+//            // Animation des choix de mode de jeu et du nombre de mort
+//            animerOptions()
+//            // Animation des cellules indiquant le donneur et le ou les mort(s)
+//            animerCell()
+//            // Animation de l'autorisation de départ de la partie
+//            self.nouvellePartieButtonBar.isEnabled = GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: self.nbJoueurs)
+//        }
+//    }
     
     let idPartie = NSManagedObject.nextAvailble("idPartie", forEntityName: "Partie")
     let now = Date()
@@ -205,8 +209,12 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             // Mise à jour de l'image du nombre de joueurs
             self.nbJoueursImage.image = UIImage(named: "icons8-cerclé-" + String(self.cellTab.count) + "-1")
             
-            // Mise à jour de l'autorisation de départ de la partie
-            self.nouvellePartieButtonBar.isEnabled = GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: self.cellTab.count)
+            // Animation de l'autorisation de départ de la partie
+            self.nouvellePartieButtonBar.isEnabled = GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: self.nbJoueurs)
+            // Animation des choix de mode de jeu et du nombre de mort
+            self.animerOptions()
+            // Animation des cellules indiquant le donneur et le ou les mort(s)
+            self.animerCell()
 
             success(true)
         })
@@ -253,14 +261,16 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     }
     
     @IBAction func choixModeAction(_ sender: Any) {
-        let nb = ModeJeu.nbMorts(modeChoix: modeJeuSegment.selectedSegmentIndex)
-        nbMortsSegment.selectedSegmentIndex = nb[nbJoueurs] ?? UISegmentedControl.noSegment
+        // Animation du segment de choix du nombre de morts
+        guard let modeJeu = ModeJeu(rawValue: modeJeuSegment.selectedSegmentIndex) else { return }
+        nbMortsSegment.selectedSegmentIndex = modeJeu.nbMorts[nbJoueurs] ?? UISegmentedControl.noSegment
         animerCell()
     }
     
     @IBAction func choixNbMortsAction(_ sender: Any) {
+        // Animation du segment de choix du mode de jeu
         let nb = ModeJeu.modeChoix(nbMorts: nbMortsSegment.selectedSegmentIndex)
-        modeJeuSegment.selectedSegmentIndex = nb[nbJoueurs] ?? UISegmentedControl.noSegment
+        modeJeuSegment.selectedSegmentIndex = nb[nbJoueurs].map { $0.rawValue } ?? UISegmentedControl.noSegment
         animerCell()
     }
     
@@ -278,16 +288,14 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             if nbMortsSegment.selectedSegmentIndex != 0 {
                 if nbMortsSegment.selectedSegmentIndex == 1 && joueur.idx == nbJoueurs {
                     joueur.etatLabel.text = "Mort"
-                    morts.append(joueur.idx)
                 }
                 if nbMortsSegment.selectedSegmentIndex == 2 && joueur.idx == nbJoueurs {
                     joueur.etatLabel.text = "Mort (-1)"
-                    morts.append(joueur.idx)
                 }
                 if nbMortsSegment.selectedSegmentIndex == 2 && joueur.idx == nbJoueurs.minus() {
-                    morts.append(joueur.idx)
                     joueur.etatLabel.text = "Mort (-2)"
                 }
+                morts.append(joueur.idx)
             }
         }
     }
@@ -297,18 +305,18 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         
         switch nbJoueurs {
         case Int.min..<GestionJoueurs.nbMiniJoueurs:
-            modeJeuSegment.isEnabled = false
-            modeJeuSegment.selectedSegmentIndex = UISegmentedControl.noSegment
+//            modeJeuSegment.isEnabled = false
+//            modeJeuSegment.selectedSegmentIndex = UISegmentedControl.noSegment
             
             nbMortsSegment.isEnabled = false
             nbMortsSegment.selectedSegmentIndex = UISegmentedControl.noSegment
 
         case GestionJoueurs.nbMiniJoueurs:
-            modeJeuSegment.isEnabled = true
-            modeJeuSegment.selectedSegmentIndex = ModeJeu.simple.rawValue
-            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.simple.rawValue)
-            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.duo.rawValue)
-            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.equipe.rawValue)
+//            modeJeuSegment.isEnabled = true
+//            modeJeuSegment.selectedSegmentIndex = ModeJeu.simple.rawValue
+//            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.simple.rawValue)
+//            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.duo.rawValue)
+//            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.equipe.rawValue)
             
             nbMortsSegment.isEnabled = true
             nbMortsSegment.selectedSegmentIndex = 0
@@ -317,11 +325,11 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             nbMortsSegment.setEnabled(false, forSegmentAt: 2)
 
         case 4:
-            modeJeuSegment.isEnabled = true
-            modeJeuSegment.selectedSegmentIndex = ModeJeu.simple.rawValue
-            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.simple.rawValue)
-            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.duo.rawValue)
-            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.equipe.rawValue)
+//            modeJeuSegment.isEnabled = true
+//            modeJeuSegment.selectedSegmentIndex = ModeJeu.simple.rawValue
+//            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.simple.rawValue)
+//            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.duo.rawValue)
+//            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.equipe.rawValue)
 
             nbMortsSegment.isEnabled = true
             nbMortsSegment.selectedSegmentIndex = 0
@@ -330,11 +338,11 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             nbMortsSegment.setEnabled(false, forSegmentAt: 2)
 
         case 5:
-            modeJeuSegment.isEnabled = true
-            modeJeuSegment.selectedSegmentIndex = ModeJeu.duo.rawValue
-            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.simple.rawValue)
-            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.duo.rawValue)
-            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.equipe.rawValue)
+//            modeJeuSegment.isEnabled = true
+//            modeJeuSegment.selectedSegmentIndex = ModeJeu.duo.rawValue
+//            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.simple.rawValue)
+//            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.duo.rawValue)
+//            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.equipe.rawValue)
             
             nbMortsSegment.isEnabled = true
             nbMortsSegment.selectedSegmentIndex = 0
@@ -343,11 +351,11 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             nbMortsSegment.setEnabled(true, forSegmentAt: 2)
 
         case 6:
-            modeJeuSegment.isEnabled = true
-            modeJeuSegment.selectedSegmentIndex = ModeJeu.duo.rawValue
-            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.simple.rawValue)
-            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.duo.rawValue)
-            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.equipe.rawValue)
+//            modeJeuSegment.isEnabled = true
+//            modeJeuSegment.selectedSegmentIndex = ModeJeu.duo.rawValue
+//            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.simple.rawValue)
+//            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.duo.rawValue)
+//            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.equipe.rawValue)
             
             nbMortsSegment.isEnabled = true
             nbMortsSegment.selectedSegmentIndex = 1
@@ -356,11 +364,11 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             nbMortsSegment.setEnabled(true, forSegmentAt: 2)
 
         case 7:
-            modeJeuSegment.isEnabled = true
-            modeJeuSegment.selectedSegmentIndex = ModeJeu.duo.rawValue
-            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.simple.rawValue)
-            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.duo.rawValue)
-            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.equipe.rawValue)
+//            modeJeuSegment.isEnabled = true
+//            modeJeuSegment.selectedSegmentIndex = ModeJeu.duo.rawValue
+//            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.simple.rawValue)
+//            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.duo.rawValue)
+//            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.equipe.rawValue)
             
             nbMortsSegment.isEnabled = true
             nbMortsSegment.selectedSegmentIndex = 2
@@ -369,11 +377,11 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             nbMortsSegment.setEnabled(true, forSegmentAt: 2)
 
         case GestionJoueurs.nbMaxiJoueurs:
-            modeJeuSegment.isEnabled = true
-            modeJeuSegment.selectedSegmentIndex = ModeJeu.equipe.rawValue
-            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.simple.rawValue)
-            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.duo.rawValue)
-            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.equipe.rawValue)
+//            modeJeuSegment.isEnabled = true
+//            modeJeuSegment.selectedSegmentIndex = ModeJeu.equipe.rawValue
+//            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.simple.rawValue)
+//            modeJeuSegment.setEnabled(false, forSegmentAt: ModeJeu.duo.rawValue)
+//            modeJeuSegment.setEnabled(true, forSegmentAt: ModeJeu.equipe.rawValue)
             
             nbMortsSegment.isEnabled = true
             nbMortsSegment.selectedSegmentIndex = 2
@@ -382,8 +390,8 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
             nbMortsSegment.setEnabled(true, forSegmentAt: 2)
 
         case GestionJoueurs.nbMaxiJoueurs...Int.max:
-            modeJeuSegment.isEnabled = false
-            modeJeuSegment.selectedSegmentIndex = UISegmentedControl.noSegment
+//            modeJeuSegment.isEnabled = false
+//            modeJeuSegment.selectedSegmentIndex = UISegmentedControl.noSegment
             
             nbMortsSegment.isEnabled = false
             nbMortsSegment.selectedSegmentIndex = UISegmentedControl.noSegment
@@ -391,16 +399,44 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
         default: break
             
         }
+ 
+        /// Correspond à l'index maximal sélectionnable sur le segment du mode de jeu.
+        var modeJeuSelectedSegmentIndex: Int? {
+            var mode = 0
+            repeat {
+                let intervale = ModeJeu[mode].nbdefaut
+                if isInInterval(nbJoueurs, from: intervale.min, to: intervale.max) {
+                    return mode
+                }
+                mode += 1
+            } while mode < 2
+            return nil
+        }
+        
+        modeJeuSegment.isEnabled = GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: nbJoueurs)
+        modeJeuSegment.selectedSegmentIndex = GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: nbJoueurs) ?
+                                              modeJeuSelectedSegmentIndex! : UISegmentedControl.noSegment
+        modeJeuSegment.setEnabled(isInInterval(nbJoueurs, from: ModeJeu.simple.nbJoueurs.min, to: ModeJeu.simple.nbJoueurs.max),
+                                  forSegmentAt: ModeJeu.simple.rawValue)
+        modeJeuSegment.setEnabled(isInInterval(nbJoueurs, from: ModeJeu.duo.nbJoueurs.min, to: ModeJeu.duo.nbJoueurs.max),
+                                  forSegmentAt: ModeJeu.duo.rawValue)
+        modeJeuSegment.setEnabled(isInInterval(nbJoueurs, from: ModeJeu.equipe.nbJoueurs.min, to: ModeJeu.equipe.nbJoueurs.max),
+                                  forSegmentAt: ModeJeu.equipe.rawValue)
+
+//    nbMortsSegment.isEnabled = false
+//    nbMortsSegment.selectedSegmentIndex = UISegmentedControl.noSegment
+
     }
     
 
     
     @IBAction func nouvellePartieActionButtonBar(_ sender: UIBarButtonItem) {
         
-        guard self.modeJeuSegment.selectedSegmentIndex != UISegmentedControl.noSegment else { return }
-        modeJeu = ModeJeu(rawValue: modeJeuSegment.selectedSegmentIndex)
+        guard self.modeJeuSegment.selectedSegmentIndex != UISegmentedControl.noSegment,
+            let modeJeu = ModeJeu(rawValue: modeJeuSegment.selectedSegmentIndex)
+            else { return }
 
-        Partie.insert(Participants: cellTab, idPartie: idPartie, hD: now, idxDonneur: donneur, idxMort: morts, modeJeu: modeJeu!)
+        AppDelegate.partie.insert(Participants: cellTab, idPartie: idPartie, hD: now, idxDonneur: donneur, idxMort: morts, modeJeu: modeJeu)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewControllerID = "PartieViewController"
         let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! PartieController

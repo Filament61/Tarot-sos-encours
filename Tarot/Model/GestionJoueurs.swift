@@ -196,7 +196,7 @@ class GestionJoueurs {
     }
     
     // TODO: - Traiter les erreurs
-    func donneurSuivant() -> Bool? {
+    func donneurSuivant() -> Bool {
         guard GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: nbJoueursEnjeu) else { return false }
         if let joueur = joueursPartie.first(where: { $0.donneur == true }), let suivant = joueursEnJeu.first(where: { $0.ordre == joueur.suivant }) {
             joueur.donneur = false
@@ -236,7 +236,7 @@ class GestionJoueurs {
     /// Vérifie si le nombre d'éléments la table passée en paramètre est compris entre le nombre minimal et maximal de joueurs autorisés.
     ///
     /// - parameter nbJoueurs: Requis, table à vérifier.
-    /// - returns: Vrai si la table répond aux conditions.
+    /// - returns: Vrai si *nbJoueurs* répond aux conditions.
     static func isCorrectNbJoueurs(nbJoueurs: Any) -> Bool {
         var nombre: Int = 0
         if let nb = nbJoueurs as? Int {
@@ -319,7 +319,7 @@ class InfosJeuJoueurs {
 }
 
 
-/*
+/**
  - 3 joueurs : 300
  simple
  
@@ -346,8 +346,7 @@ class InfosJeuJoueurs {
  
  >>> Soit : 3 modes de jeux (simple, duo, équipe)
  */
-
-// Une fois choisi, le mode reste le même, malgré les joueurs hors jeu possible.
+/// Une fois choisi, le mode reste le même, malgré les joueurs hors jeu possible.
 enum ModeJeu: Int {
     
     /// Le mode simple est le mode normal, 1 preneur contre le reste des joueurs.
@@ -358,6 +357,12 @@ enum ModeJeu: Int {
     /// Le mode équipe se joue avec 3 équipes de 2 joueurs, le partenaire est fixe (face à face).
     case equipe
     
+    static subscript(n: Int) -> ModeJeu {
+        return ModeJeu(rawValue: n)!
+    }
+    
+    
+    
     var nom: String {
         switch self {
         case .simple: return "Simple"
@@ -365,6 +370,17 @@ enum ModeJeu: Int {
         case .equipe: return "Equipe"
         }
     }
+    
+    /// Nombre de joueurs par défaut pour une mode de jeu donné.
+    var nbdefaut: (min: Int, max: Int) {
+        switch self {
+        case .simple: return (3, 4)
+        case .duo: return (5, 7)
+        case .equipe: return (8, 8)
+        }
+    }
+    
+    /// Nombre de joueurs autorisés pour une mode de jeu donné.
     var nbJoueurs: (min: Int, max: Int) {
         switch self {
         case .simple: return (3, 6)
@@ -373,20 +389,36 @@ enum ModeJeu: Int {
         }
     }
     
-    static func nbMorts(modeChoix: Int) -> [Int: Int] {
-        switch modeChoix {
-        case 0: return [5: 1, 6: 2]
-        case 1: return [5: 0, 6: 1, 7: 2]
-        case 2: return [5: 0, 6: 0, 7: 1, 8: 2]
-        default: break
+//    static func nbMorts(modeChoix: Int) -> [Int: Int] {
+//        switch modeChoix {
+//        case 0: return [5: 1, 6: 2]
+//        case 1: return [5: 0, 6: 1, 7: 2]
+//        case 2: return [5: 0, 6: 0, 7: 1, 8: 2]
+//        default: break
+//        }
+//        return [:]
+//    }
+    var nbMorts: [Int: Int] {
+        switch self {
+        case .simple: return [5: 1, 6: 2]
+        case .duo: return [5: 0, 6: 1, 7: 2]
+        case .equipe: return [5: 0, 6: 0, 7: 1, 8: 2]
         }
-        return [:]
     }
-    static func modeChoix(nbMorts: Int) -> [Int: Int] {
+//    static func modeChoix(nbMorts: Int) -> [Int: Int] {
+//        switch nbMorts {
+//        case 0: return [4: 0, 5: 1, 6: 2]
+//        case 1: return [4: 0, 5: 0, 6: 1, 7: 2]
+//        case 2: return [5: 0, 6: 0, 7: 2, 8: 2]
+//        default: break
+//        }
+//        return [:]
+//    }
+    static func modeChoix(nbMorts: Int) -> [Int: ModeJeu] {
         switch nbMorts {
-        case 0: return [4: 0, 5: 1, 6: 2]
-        case 1: return [4: 0, 5: 0, 6: 1, 7: 2]
-        case 2: return [5: 0, 6: 0, 7: 2, 8: 2]
+        case 0: return [4: .simple, 5: .duo, 6: .equipe]
+        case 1: return [4: .simple, 5: .simple, 6: .duo, 7: .equipe]
+        case 2: return [5: .simple, 6: .simple, 7: .equipe, 8: .equipe]
         default: break
         }
         return [:]

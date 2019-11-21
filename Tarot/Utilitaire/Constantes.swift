@@ -50,6 +50,10 @@ public func dicoJoueursMaJ() {
     }
 }
 
+public func isInInterval(_ value: Int,from min: Int, to max: Int) -> Bool {
+    return value >= min && value <= max
+}
+
 
 extension Int {
     func minus(De valeur: Int = 1) -> Int { return self - valeur}

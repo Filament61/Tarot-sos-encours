@@ -364,7 +364,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         if tableView == jeuxTableView {
             return UISwipeActionsConfiguration()
         }
-        return UISwipeActionsConfiguration()
+        return nil
     }
     
     func choixContrat(contrat: Contrat, cell: JoueurCell) {
@@ -391,7 +391,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        guard let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return nil }
+        guard gestionJoueurs.modeJeu == ModeJeu.duo, let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return nil }
         
         let choixAction = UIContextualAction(style: .normal, title:  "Partenaire", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
             self.gestionJoueurs.partenaire = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
@@ -465,7 +465,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         jeuxTableView.reloadData()
     }
     
-    // MARK: - Actions : jeu -
+    // MARK: - Actions : jeu
     
     @IBAction func nouveauJeuAction(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -505,6 +505,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             if let JoueurPrecedent = gestionJoueurs.joueursEnJeu.first(where: { $0.suivant == joueur.ordre }) {
                 // Mise à jour de l'index suivant du joueur précédent
                 JoueurPrecedent.suivant = joueur.suivant
+                // Mise hors-jeu du joueur courant
                 joueur.enJeu = false
             } else {
                 let message = "La mise à jour de ce joueur ne s'est pas réalisée correctement !"

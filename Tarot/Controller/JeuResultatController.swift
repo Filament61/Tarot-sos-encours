@@ -409,7 +409,7 @@ class JeuResultatController: UIViewController {
             present(alert, animated: true, completion: nil)
         }
         
-        if Partie.update(AppDelegate.partie, Jeu: jeuResultat, idJeu: idJeu, hD: now, gj: gj) {
+        if AppDelegate.partie.update(Jeu: jeuResultat, idJeu: idJeu, hD: now, gj: gj) {
             enregistrerButton.isEnabled = true
 
             view.endEditing(true)

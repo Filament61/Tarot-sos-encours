@@ -39,6 +39,15 @@ class routine {
         return formatter.string(from: maDate)
     }
 
+//    @UserDefault(key: "isFirstBoot", defaultValue: false) var isFirstBoot: Bool
+//    _isFirstBoot.reset()
+    
+//    var _isFirstBoot: UserDefault<Bool> = UserDefault<Bool>(key: "isFirstBoot", defaultValue: false)
+//    var isFirstBoot: Bool {
+//        get { return _isFirstBoot.wrappedValue }
+//        set { _isFirstBoot.wrappedValue = newValue }
+//    }
+//    //////let toto = isFirstBoot
 }
 
 class IndicatorView: UIView {
@@ -50,51 +59,32 @@ class IndicatorView: UIView {
         color.set()
         UIBezierPath(ovalIn: rect).fill()
     }
+    
 }
 
-enum ActionDescriptor {
-    case read, unread, more, flag, trash
-    
-    func title(forDisplayMode displayMode: ButtonDisplayMode) -> String? {
-        guard displayMode != .imageOnly else { return nil }
-        
-        switch self {
-        case .read: return "Read"
-        case .unread: return "Unread"
-        case .more: return "More"
-        case .flag: return "Flag"
-        case .trash: return "Trash"
-        }
-    }
-    
-    func image(forStyle style: ButtonStyle, displayMode: ButtonDisplayMode) -> UIImage? {
-        guard displayMode != .titleOnly else { return nil }
-        
-        let name: String
-        switch self {
-        case .read: name = "Read"
-        case .unread: name = "Unread"
-        case .more: name = "More"
-        case .flag: name = "Flag"
-        case .trash: name = "Trash"
-        }
-        
-        return UIImage(named: style == .backgroundColor ? name : name + "-circle")
-    }
-    
-    var color: UIColor {
-        switch self {
-        case .read, .unread: return #colorLiteral(red: 0, green: 0.4577052593, blue: 1, alpha: 1)
-        case .more: return #colorLiteral(red: 0.7803494334, green: 0.7761332393, blue: 0.7967314124, alpha: 1)
-        case .flag: return #colorLiteral(red: 1, green: 0.5803921569, blue: 0, alpha: 1)
-        case .trash: return #colorLiteral(red: 1, green: 0.2352941176, blue: 0.1882352941, alpha: 1)
-        }
-    }
-}
-enum ButtonDisplayMode {
-    case titleAndImage, titleOnly, imageOnly
-}
+//@propertyWrapper class UserDefault<T> {
+//
+//    init(key: String, defaultValue: T) {
+//        self.key = key
+//        self.defaultValue = defaultValue
+//    }
+//
+//    let key: String
+//    let defaultValue: T
+//
+//    var wrappedValue: T {
+//        get {
+//            return UserDefaults.standard.object(forKey: key) as? T ?? defaultValue
+//        }
+//        set {
+//            UserDefaults.standard.set(newValue, forKey: key)
+//        }
+//    }
+//}
+//
+//extension UserDefault {
+//    func reset() {
+//        wrappedValue = defaultValue
+//    }
+//}
 
-enum ButtonStyle {
-    case backgroundColor, circular
-}

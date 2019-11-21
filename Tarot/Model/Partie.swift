@@ -19,8 +19,9 @@ class Partie: NSManagedObject {
     }
     
     
-    static func insert(Participants  joueurs: [PersonneCell], idPartie: Int, hD: Date, idxDonneur: Int, idxMort: [Int], modeJeu: ModeJeu) -> Bool? {
-        
+     func insert(Participants  joueurs: [PersonneCell], idPartie: Int, hD: Date, idxDonneur: Int, idxMort: [Int], modeJeu: ModeJeu) -> Bool? {
+//        static func insert(Participants  joueurs: [PersonneCell], idPartie: Int, hD: Date, idxDonneur: Int, idxMort: [Int], modeJeu: ModeJeu) -> Bool? {
+
         let partie = Partie(context: AppDelegate.viewContext)
         let type = joueurs.count * 100 + modeJeu.rawValue * 10 + idxMort.count
         partie.idPartie = Int32(idPartie)
@@ -40,12 +41,13 @@ class Partie: NSManagedObject {
             partie.addToParticipants(joueur)
         }
         
-        return save()
+        return Partie.save()
     }
     
     
-    static func update(_ partie: Partie, Jeu jeuComplet: JeuComplet, idJeu: Int, hD: Date, gj: GestionJoueurs) -> Bool {
-        
+     func update(Jeu jeuComplet: JeuComplet, idJeu: Int, hD: Date, gj: GestionJoueurs) -> Bool {
+//        static func update(_ partie: Partie, Jeu jeuComplet: JeuComplet, idJeu: Int, hD: Date, gj: GestionJoueurs) -> Bool {
+
         let jeuResultat = JeuResultat(context: viewContext)        
         jeuResultat.idJeu = Int64(idJeu)
         jeuResultat.horodate = hD
@@ -56,7 +58,7 @@ class Partie: NSManagedObject {
         jeuResultat.poignee = Int16(jeuComplet.poignee)
         jeuResultat.chelem = Int16(jeuComplet.chelem)
         jeuResultat.total = jeuComplet.total!
-        jeuResultat.idPartie = partie.idPartie
+        jeuResultat.idPartie = self.idPartie
         
         for participant in gj.joueursPartie {
             if let infosJeuJoueurs = gj.infosJeuJoueurs?.first(where: { participant.idJoueur == $0.idJoueur }) {
@@ -71,9 +73,9 @@ class Partie: NSManagedObject {
             }
         }
         
-        partie.addToJeux(jeuResultat)
+        self.addToJeux(jeuResultat)
         
-        return save()
+        return Partie.save()
     }
     
     

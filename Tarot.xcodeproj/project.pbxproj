@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -24,6 +24,7 @@
 		955C129522D902BE00DAC5F0 /* Joueur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955C129422D902BE00DAC5F0 /* Joueur.swift */; };
 		955C129722D9034B00DAC5F0 /* JeuJoueur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955C129622D9034B00DAC5F0 /* JeuJoueur.swift */; };
 		955ECF7B22FEB8C2009FABC5 /* LabelPoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 955ECF7A22FEB8C2009FABC5 /* LabelPoints.swift */; };
+		9578BC4A2379A72C0032F897 /* Charts in Frameworks */ = {isa = PBXBuildFile; productRef = 9578BC492379A72C0032F897 /* Charts */; };
 		95A004BA22EBB9EE00DB741D /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A004B922EBB9EE00DB741D /* Data.swift */; };
 		95A004BC22EC829600DB741D /* PartieController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A004BB22EC829600DB741D /* PartieController.swift */; };
 		95A004BE22EC839700DB741D /* PersonneCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95A004BD22EC839700DB741D /* PersonneCell.swift */; };
@@ -132,6 +133,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9578BC4A2379A72C0032F897 /* Charts in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,8 +286,8 @@
 		95A5DB5722B2A30F007F3729 /* Storyboard */ = {
 			isa = PBXGroup;
 			children = (
-				95A5DB3B22B2A157007F3729 /* LaunchScreen.storyboard */,
 				95A5DB3322B2A156007F3729 /* Main.storyboard */,
+				95A5DB3B22B2A157007F3729 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboard;
 			sourceTree = "<group>";
@@ -317,6 +319,9 @@
 			dependencies = (
 			);
 			name = Tarot;
+			packageProductDependencies = (
+				9578BC492379A72C0032F897 /* Charts */,
+			);
 			productName = Tarot;
 			productReference = 95A5DB2C22B2A156007F3729 /* Tarot.app */;
 			productType = "com.apple.product-type.application";
@@ -367,6 +372,9 @@
 				Base,
 			);
 			mainGroup = 95A5DB2322B2A156007F3729;
+			packageReferences = (
+				9578BC482379A72C0032F897 /* XCRemoteSwiftPackageReference "Charts" */,
+			);
 			productRefGroup = 95A5DB2D22B2A156007F3729 /* Products */;
 			projectDirPath = "";
 			projectReferences = (
@@ -553,6 +561,7 @@
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				VERSIONING_SYSTEM = "";
 			};
 			name = Debug;
 		};
@@ -608,6 +617,7 @@
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "";
 			};
 			name = Release;
 		};
@@ -726,6 +736,25 @@
 			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9578BC482379A72C0032F897 /* XCRemoteSwiftPackageReference "Charts" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/danielgindi/Charts";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 3.4.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9578BC492379A72C0032F897 /* Charts */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9578BC482379A72C0032F897 /* XCRemoteSwiftPackageReference "Charts" */;
+			productName = Charts;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		95A5DB3622B2A156007F3729 /* Tarot.xcdatamodeld */ = {

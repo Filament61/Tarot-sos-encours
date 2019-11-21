@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GMH-6C-kNo">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GMH-6C-kNo">
     <device id="retina5_9" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15510"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -417,8 +417,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="points" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3O-Nu-FiQ" customClass="LabelPoints" customModule="Tarot" customModuleProvider="target">
-                                                    <rect key="frame" x="234" y="5" width="111" height="36"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="points" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="P3O-Nu-FiQ" customClass="LabelPoints" customModule="Tarot" customModuleProvider="target">
+                                                    <rect key="frame" x="257" y="5" width="88" height="36"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="30"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -530,25 +530,29 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="commentaire" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eoi-Ig-f2u">
-                                                    <rect key="frame" x="15" y="1" width="90" height="18"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="commentaire" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Eoi-Ig-f2u">
+                                                    <rect key="frame" x="15" y="1" width="89.666666666666671" height="18"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstItem="NNI-xx-em9" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="VYu-rD-LIR" secondAttribute="trailing" constant="8" symbolic="YES" id="63M-y2-8zb"/>
                                                 <constraint firstItem="vb7-bV-bqu" firstAttribute="centerY" secondItem="yEb-cd-B5R" secondAttribute="centerY" id="7Ec-bZ-k9j"/>
+                                                <constraint firstItem="Eoi-Ig-f2u" firstAttribute="leading" secondItem="dge-Mt-nne" secondAttribute="leading" id="9pp-zt-Ihw"/>
                                                 <constraint firstItem="dge-Mt-nne" firstAttribute="centerY" secondItem="yEb-cd-B5R" secondAttribute="centerY" id="BHE-fZ-Q5G"/>
                                                 <constraint firstItem="VYu-rD-LIR" firstAttribute="centerX" secondItem="yEb-cd-B5R" secondAttribute="centerX" id="Byo-YK-9qV"/>
+                                                <constraint firstItem="Eoi-Ig-f2u" firstAttribute="baseline" secondItem="dge-Mt-nne" secondAttribute="baseline" id="EM6-bp-AK5"/>
                                                 <constraint firstItem="VYu-rD-LIR" firstAttribute="centerY" secondItem="yEb-cd-B5R" secondAttribute="centerY" id="R6W-qB-12R"/>
                                                 <constraint firstAttribute="trailing" secondItem="NNI-xx-em9" secondAttribute="trailing" constant="15" id="YJK-K9-fCB"/>
                                                 <constraint firstItem="vb7-bV-bqu" firstAttribute="firstBaseline" secondItem="NNI-xx-em9" secondAttribute="firstBaseline" id="db9-N6-Hlj"/>
+                                                <constraint firstItem="vb7-bV-bqu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="dge-Mt-nne" secondAttribute="trailing" constant="8" symbolic="YES" id="hsP-Ke-gUt"/>
                                                 <constraint firstItem="NNI-xx-em9" firstAttribute="centerY" secondItem="yEb-cd-B5R" secondAttribute="centerY" id="iR4-kn-Nrr"/>
                                                 <constraint firstItem="VYu-rD-LIR" firstAttribute="leading" secondItem="vb7-bV-bqu" secondAttribute="trailing" constant="19" id="p6i-Rp-UJv"/>
                                                 <constraint firstItem="dge-Mt-nne" firstAttribute="leading" secondItem="yEb-cd-B5R" secondAttribute="leading" constant="15" id="qjd-Hl-gha"/>
                                                 <constraint firstItem="vb7-bV-bqu" firstAttribute="baseline" secondItem="NNI-xx-em9" secondAttribute="baseline" id="s3Z-7J-oHj"/>
+                                                <constraint firstItem="vb7-bV-bqu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Eoi-Ig-f2u" secondAttribute="trailing" constant="8" symbolic="YES" id="ts3-16-2pi"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" name="systemGreenColor" catalog="System" colorSpace="catalog"/>
