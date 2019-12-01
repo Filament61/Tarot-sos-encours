@@ -40,6 +40,10 @@ class GestionJoueurs {
         self._joueursMort = self._joueursEnJeu.filter({ $0.mort == true })
     }
     
+//    init(joueurs: ) {
+//        
+//    }
+    
     var joueursPartie: [Joueur]! {
         return _joueursPartie
     }
@@ -428,6 +432,11 @@ enum ModeJeu: Int {
 /// Cette énumération définie l'état d'un joueur dans un jeu
 enum EtatJoueur: Int16 {
     case donneur, preneur, partenaire, defense, mort, horsJeu
+    
+    static subscript(n: Int) -> EtatJoueur {
+        return EtatJoueur(rawValue: Int16(n))!
+    }
+
     var nom2: String {
         switch self {
         case .donneur: return "Donneur"

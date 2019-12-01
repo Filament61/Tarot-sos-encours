@@ -47,6 +47,15 @@ class JeuResultatController: UIViewController {
 //    var joueurs = [Joueur]()
 
     
+    /// Permet la correction des jeux déjà réalisés.
+    /// - Remark: Cette variable est passée en paramètre à la viewcontroler d'édition d'un jeu.
+    var isForCorrection = false
+
+    /// Gestion des différents index de jeu de la partie
+    /// - Remark: Cette variable est passée en paramètre à la viewcontroler d'édition d'un jeu.
+    var indexJeu = IndexJeu(first: 0, last: 0, nb: 0)
+
+
     let idJeu = NSManagedObject.nextAvailble("idJeu", forEntityName: "JeuResultat")
     let now = Date()
 //    var preneur = Int()
@@ -159,9 +168,16 @@ class JeuResultatController: UIViewController {
         majScore()
     }
     
+    func animerJeu() {
+        if let contrat = jeuResultat.contrat {
+            segmentContrat.selectedSegmentIndex = contrat.minus()
+        }
+        if let nbBout = jeuResultat.nbBout {
+            segmentNbBout.selectedSegmentIndex = nbBout.minus()
+        }
+    }
     
-    
-    //  MARK: IBActions
+    //  MARK: - IBActions
     
     @IBAction func ButtonLecture(_ sender: Any) {
         let jeuComplet = JeuResultat.all().first
@@ -176,7 +192,7 @@ class JeuResultatController: UIViewController {
         jeuResultat.poignee = Int(jeuComplet?.poignee ?? 0)
         jeuResultat.chelem = Int(jeuComplet?.chelem ?? 0)
         jeuResultat.total = jeuComplet?.total ?? 0.0
-        
+        animerJeu()
         majScore()
     }
     
@@ -184,11 +200,12 @@ class JeuResultatController: UIViewController {
     //              Options Contrats
     //
     @IBAction func selectionnerContrat(_ sender: Any) {
+        // Appel par l'interface tactile
         if let sender = sender as? UISegmentedControl {
-            // Appel par l'interface tactile
             jeuResultat.contrat = sender.selectedSegmentIndex + 1
-        } else if let sender = sender as? Int {
-            // Appel par le programme
+        }
+        // Appel par le programme
+        if let sender = sender as? Int {
             segmentContrat.selectedSegmentIndex = sender
             jeuResultat.contrat = sender + 1
         }
@@ -199,8 +216,16 @@ class JeuResultatController: UIViewController {
     //
     //              Options Nombre de Bout
     //
-    @IBAction func selectionnerNbBout(_ sender: UISegmentedControl) {
-        jeuResultat.nbBout = sender.selectedSegmentIndex
+    @IBAction func selectionnerNbBout(_ sender: Any) {
+        // Appel par l'interface tactile
+        if let sender = sender as? UISegmentedControl {
+            jeuResultat.nbBout = sender.selectedSegmentIndex
+        }
+        // Appel par le programme
+        if let sender = sender as? Int {
+            segmentNbBout.selectedSegmentIndex = sender
+            jeuResultat.nbBout = sender + 1
+        }
         // Calcul et mise à jour affichage
         majScore()
     }
@@ -361,69 +386,76 @@ class JeuResultatController: UIViewController {
     
     // Enregistrement de tous les éléments du jeu (de la mène)v!
     @IBAction func enregistrerAction(_ sender: Any) {
-
-//        gj.affecterPoints(points: jeuResultat.total ?? 0.0)
-/* NE VEUX PAS S'EXECUTER CORRECTEMENT SI CODE DANS LA CLASSE :((   ... */
-        let points = jeuResultat.total ?? 0.0
-        guard let preneur = gj.preneur else { return }
-        // Mise à jour des joueurs en défense
-        gj.joueursDefense = gj.joueursEnMene.filter { $0.idJoueur != preneur.idJoueur }
-        if let partenaire = gj.partenaire {
-            gj.joueursDefense = gj.joueursDefense.filter { $0.idJoueur != partenaire.idJoueur }
-        }
-        // Calcul du coefficient multiplicateur
-        let coef: Float = gj.modeJeu == ModeJeu.simple ? Float(gj.nbJoueursEnMene.minus()) : Float(gj.joueursDefense.count.minus())
-        // Calcul des points
-        gj.points.preneur = points * coef
-        gj.points.partenaire = points
-        gj.points.defense =  -points
-
         
-        preneur.points += gj.points.preneur
-        
-        if let partenaire = gj.partenaire {
-            partenaire.points += gj.points.partenaire
-        }
-        
-        for joueur in gj.joueursDefense {
-            joueur.points += gj.points.defense
-        }
-        
-        gj.classement()
-        
-        gj.infosJeuJoueurs = gj.creationInfosJeuJoueurs()
-        
-        if gj.donneurSuivant() == false {
-            let message = "Il n'y a plus de donneur suivant en jeu !"
-            let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
-        }
-        
-        if gj.mortSuivant() == false {
-            let message = "Il n'y a plus de mort suivant en jeu !"
-            let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
-        }
-        
-        if AppDelegate.partie.update(Jeu: jeuResultat, idJeu: idJeu, hD: now, gj: gj) {
-            enregistrerButton.isEnabled = true
-
-            view.endEditing(true)
-            navigationController?.popViewController(animated: true)
+        if isForCorrection {
+            jeuCorrected()
         } else {
-            let message = "L'enregistrement de ce jeu ne s'est pas réalisé correctement !"
-            let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
-            let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
-            alert.addAction(action)
-            present(alert, animated: true, completion: nil)
+            
+            //        gj.affecterPoints(points: jeuResultat.total ?? 0.0)
+            /* NE VEUX PAS S'EXECUTER CORRECTEMENT SI CODE DANS LA CLASSE :((   ... */
+            let points = jeuResultat.total ?? 0.0
+            guard let preneur = gj.preneur else { return }
+            // Mise à jour des joueurs en défense
+            gj.joueursDefense = gj.joueursEnMene.filter { $0.idJoueur != preneur.idJoueur }
+            if let partenaire = gj.partenaire {
+                gj.joueursDefense = gj.joueursDefense.filter { $0.idJoueur != partenaire.idJoueur }
+            }
+            // Calcul du coefficient multiplicateur
+            let coef: Float = gj.modeJeu == ModeJeu.simple ? Float(gj.nbJoueursEnMene.minus()) : Float(gj.joueursDefense.count.minus())
+            // Calcul des points
+            gj.points.preneur = points * coef
+            gj.points.partenaire = points
+            gj.points.defense =  -points
+            
+            
+            preneur.points += gj.points.preneur
+            
+            if let partenaire = gj.partenaire {
+                partenaire.points += gj.points.partenaire
+            }
+            
+            for joueur in gj.joueursDefense {
+                joueur.points += gj.points.defense
+            }
+            
+            gj.classement()
+            
+            gj.infosJeuJoueurs = gj.creationInfosJeuJoueurs()
+            
+            if gj.donneurSuivant() == false {
+                let message = "Il n'y a plus de donneur suivant en jeu !"
+                let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+            }
+            
+            if gj.mortSuivant() == false {
+                let message = "Il n'y a plus de mort suivant en jeu !"
+                let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+            }
+            
+            if AppDelegate.partie.update(Jeu: jeuResultat, idJeu: idJeu, hD: now, gj: gj) {
+                enregistrerButton.isEnabled = true
+                
+                view.endEditing(true)
+                navigationController?.popViewController(animated: true)
+            } else {
+                let message = "L'enregistrement de ce jeu ne s'est pas réalisé correctement !"
+                let alert = UIAlertController(title: "Erreur", message: message, preferredStyle: .alert)
+                let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+                alert.addAction(action)
+                present(alert, animated: true, completion: nil)
+            }
         }
     }
-    
-    
+    func jeuCorrected() {
+        
+
+    }
 
     
     @IBAction func Retour(_ sender: Any) {

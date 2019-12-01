@@ -23,15 +23,18 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     let jeuJoueurCell = "JeuJoueurCell"
     let jeuCell = "JeuCell"
     
-    /// Numéro de l'index du premier jeu de la partie
-    var offsetJeu = Int()
+    /// Gestion des différents index de jeu de la partie
+    var indexJeu = IndexJeu(first: 0, last: 0, nb: 0)
+    
     //    var joueurs = [Joueur]()
     var jeux: [JeuResultat]? {
         didSet {
-            if let idx = jeux?.last?.idJeu, let idxEnCours = jeux?.first?.idJeu {
-                offsetJeu = Int(idx)
-                self.title = "Jeu n°\(Int(idxEnCours) - offsetJeu + 2)"
-                print("offset = \(offsetJeu)")
+            if let idx = jeux?.last?.idJeu, let idxEnCours = jeux?.first?.idJeu, let count = jeux?.count {
+                indexJeu = IndexJeu(first: idx, last: idxEnCours, nb: count)
+//                offsetJeu = Int(idx)
+//                self.title = "Jeu n°\(Int(idxEnCours) - offsetJeu + 2)"
+                self.title = "Jeu n°\(indexJeu.numJeuSuivant)"
+                print("offset = \(indexJeu.offset)")
             }
         }
     }
@@ -41,7 +44,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
 //    var cells =  [PersonneCell]()
     
     var oldCell: JoueurCell?
-    var oldIndexPath = IndexPath()
+    var oldJoueurIndexPath = IndexPath()
 
     var jeu: JeuResultat?
     
@@ -53,13 +56,18 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     let jeuxTableViewHeightForRow: CGFloat = 26
 
     // Est initialisée par le controlleur appelant
-    var isNouvelle = true
+    var isNouvelle = false
+    
+    /// Permet la correction des jeux déjà réalisés.
+    /// - Remark: Cette variable est passée en paramètre à la viewcontroler d'édition d'un jeu.
+    var isForCorrection = false
+
     
     @IBOutlet weak var hauteurTableJoueurContrainte: NSLayoutConstraint!
-    //    var donneur: varCirculaire?
     
     lazy var gestionJoueurs = GestionJoueurs(joueurs: [Joueur](), NouvellePartie: isNouvelle)
-    
+    lazy var gJoueursCorrecting = GestionJoueurs(joueurs: [Joueur](), NouvellePartie: isNouvelle)
+
     var timer: Timer?
     var timeLeft = 31
     @objc func onTimerFires() {
@@ -201,22 +209,34 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             }
             if indexPath.row == 1 {
                 let joueurDeLaCell = gestionJoueurs.joueursPartie[indexPath.section]
-                if let cell = tableView.dequeueReusableCell(withIdentifier: jeuJoueurCell) as? JeuJoueurCell {
-                    if let row = jeuxTableView.indexPathForSelectedRow?.row, let jeu = jeux?[row] {
-                        if let jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(jeu.idJeu)]) as [JeuJoueur]? {
-                            if let jeuJoueur = jeuJoueurs.first(where: { $0.idJoueur == joueurDeLaCell.idJoueur }) {
-                                cell.miseEnPlace(jeuJoueur: jeuJoueur, jeu: jeu, offset: offsetJeu)
-                            //                cell.isHighlighted = joueurDeLaCell.donneur == true
-                            return cell
-                            }
-                        }
-                    }
+                if  let cell = tableView.dequeueReusableCell(withIdentifier: jeuJoueurCell) as? JeuJoueurCell,
+                    let row = jeuxTableView.indexPathForSelectedRow?.row, let jeu = jeux?[row],
+                    let jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(jeu.idJeu)]) as [JeuJoueur]?,
+                    let jeuJoueur = jeuJoueurs.first(where: { $0.idJoueur == joueurDeLaCell.idJoueur }) {
+                        cell.miseEnPlace(jeuJoueur: jeuJoueur, jeu: jeu, indexJeu: indexJeu)
+                        //                cell.isHighlighted = joueurDeLaCell.donneur == true
+                        return cell
                 }
+                
             }
+//            if indexPath.row == 1 {
+//                let joueurDeLaCell = gestionJoueurs.joueursPartie[indexPath.section]
+//                if let cell = tableView.dequeueReusableCell(withIdentifier: jeuJoueurCell) as? JeuJoueurCell {
+//                    if let row = jeuxTableView.indexPathForSelectedRow?.row, let jeu = jeux?[row] {
+//                        if let jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(jeu.idJeu)]) as [JeuJoueur]? {
+//                            if let jeuJoueur = jeuJoueurs.first(where: { $0.idJoueur == joueurDeLaCell.idJoueur }) {
+//                                cell.miseEnPlace(jeuJoueur: jeuJoueur, jeu: jeu, offset: offsetJeu)
+//                                //                cell.isHighlighted = joueurDeLaCell.donneur == true
+//                                return cell
+//                            }
+//                        }
+//                    }
+//                }
+//            }
         }
         if tableView == jeuxTableView {
             if let jeuDeLaCell = jeux?[indexPath.row], let cell = tableView.dequeueReusableCell(withIdentifier: jeuCell) as? JeuCell {
-                cell.miseEnPlace(jeu: jeuDeLaCell, offset: offsetJeu)
+                cell.miseEnPlace(jeu: jeuDeLaCell, indexJeu: indexJeu)
                 return cell
             }
         }
@@ -276,17 +296,20 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
                 print("\(self.gestionJoueurs.contrat?.nom ?? "") sélectionnée")
                 //            self.choixContrat(contrat: Contrat.petite, cell: cell)
                 oldCell = cell
-                oldIndexPath = indexPath
+                oldJoueurIndexPath = indexPath
             } else {
-                if oldIndexPath != IndexPath(), oldIndexPath != indexPath {
-                tableView.selectRow(at: oldIndexPath, animated: true, scrollPosition: UITableView.ScrollPosition.top)
+                if oldJoueurIndexPath != IndexPath(), oldJoueurIndexPath != indexPath {
+                tableView.selectRow(at: oldJoueurIndexPath, animated: true, scrollPosition: UITableView.ScrollPosition.top)
                 }
                 tableView.deselectRow(at: indexPath, animated: true)
             }
         }
+        
+        
         if tableView == jeuxTableView && indexPath.section == 0 {
             guard let cell = tableView.cellForRow(at: indexPath) as? JeuCell else { return }
-            if defaultSettings.bool(forKey: jeuxAffJoueurs) {//&& majJeuJoueurs(idJeu: cell.tag) {
+            indexJeu.selected = Int64(cell.tag)
+            if defaultSettings.bool(forKey: jeuxAffJoueurs) {           //&& majJeuJoueurs(idJeu: cell.tag) {
                 defaultSettings.set(true, forKey: jeuxAffJoueursEnCours)
                 defaultSettings.set(cell.tag, forKey: jeuxcellAffJoueursEnCours)
                 joueursTableView.reloadData()
@@ -319,6 +342,9 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         let viewControllerID = "JeuResultatController"
         let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
         vc.gj = self.gestionJoueurs
+        vc.isForCorrection = self.isForCorrection
+        vc.indexJeu = self.indexJeu
+        
         self.navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -362,6 +388,8 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         
 
         if tableView == jeuxTableView {
+            let jeuDeLaCell = jeux?[indexPath.row]
+//            let gjm = GestionJoueurs(joueurs: jeuDeLaCell!., NouvellePartie: false)
             return UISwipeActionsConfiguration()
         }
         return nil
@@ -391,17 +419,25 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         
-        guard gestionJoueurs.modeJeu == ModeJeu.duo, let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return nil }
-        
-        let choixAction = UIContextualAction(style: .normal, title:  "Partenaire", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
-            self.gestionJoueurs.partenaire = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
-            self.viewExit()
+        if tableView == joueursTableView {
+            guard gestionJoueurs.modeJeu == ModeJeu.duo, let cell = tableView.cellForRow(at: indexPath) as? JoueurCell else { return nil }
             
-            success(true)
-        })
+            let choixAction = UIContextualAction(style: .normal, title:  "Partenaire", handler: { (ac:UIContextualAction, view:UIView, success:(Bool) -> Void) in
+                self.gestionJoueurs.partenaire = self.gestionJoueurs.joueursPartie.first(where: { $0.idJoueur == cell.tag })
+                self.viewExit()
+                
+                success(true)
+            })
+            
+            choixAction.backgroundColor = .purple
+            return UISwipeActionsConfiguration(actions: [choixAction])
+        }
         
-        choixAction.backgroundColor = .purple
-        return UISwipeActionsConfiguration(actions: [choixAction])
+        
+        if tableView == jeuxTableView {
+            return UISwipeActionsConfiguration()
+        }
+        return nil
     }
     
     
@@ -442,8 +478,9 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         do {
             let jeuResultat = JeuResultat.jeuResultat(idJeux: idJeu).last
             let setJeuJoueurs = jeuResultat!.joueurs //as? [JeuJoueur]
-            jeuJoueurs = setJeuJoueurs!.allObjects as? [JeuJoueur]
-            return jeuJoueurs!
+            return (setJeuJoueurs!.allObjects as? [JeuJoueur])!
+//            jeuJoueurs = setJeuJoueurs!.allObjects as? [JeuJoueur]
+//            return jeuJoueurs!
         }
     }
     
@@ -463,6 +500,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         jeux = setJeux?.allObjects as? [JeuResultat]
         jeux?.sort(by: { $0.idJeu > $1.idJeu })
         jeuxTableView.reloadData()
+        
     }
     
     // MARK: - Actions : jeu
@@ -624,10 +662,13 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
+    
+    // MARK: - Options
+    
     @IBAction func optionsAction(_ sender: Any) {
         let controller = UIAlertController(title: "Menu", message: nil, preferredStyle: .actionSheet)
         controller.addAction(UIAlertAction(title: "Options de tri", style: .default, handler: { _ in self.triOptions() }))
-//        controller.addAction(UIAlertAction(title: "Tri par surnoms", style: .default, handler: { _ in  self.triSurnomsChoix() }))
+        controller.addAction(UIAlertAction(title: "Correction du jeu n°\(indexJeu.numJeuSelected)", style: .default, handler: { _ in  self.correctionJeuOptions() }))
 //        controller.addAction(UIAlertAction(title: "Tri par table", style: .default, handler: { _ in self.triPointsChoix() }))
 //        controller.addAction(UIAlertAction(title: "", style: .default, handler: { _ in self.triPointsChoix()  }))
         present(controller, animated: true, completion: nil)
@@ -692,6 +733,67 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
                 joueursTableView.reloadData()
             }
         }
+    }
+    
+    
+    func correctionJeuOptions() {
+//        guard let _ = jeux else { return }
+        guard let jeuCorrecting = jeux?.first(where: { $0.idJeu == indexJeu.selected }), let joueursCorrecting = jeuCorrecting.joueurs!.allObjects as? [JeuJoueur] else { return }
+        isForCorrection = true
+        
+        // Preparation des éléments de la base en vu de la mise à jour des points
+        // En faisant des fetchJeuJoueurs on rafraichit les liens et les données
+//        for indexJeu in indexJeu.selected..<indexJeu.last {
+//            let _ = fetchJeuJoueurs(idJeu: [Int(indexJeu)]) as [JeuJoueur]?
+//        }
+        
+//        if let jeuCorrecting = jeux?.first(where: { $0.idJeu == indexJeu.selected }), let joueursCorrecting = jeuCorrecting.joueurs!.allObjects as? [JeuJoueur] {
+            
+
+            // Reconstitution de gj avant le passage de paramètre en fonction du jeu à corriger
+            // Copie de l'existant
+            let participantsPartie = AppDelegate.partie.participants?.allObjects as! [Joueur]
+            // Mise à jour en fonction des joueurs du jeu à corriger
+            for participant in participantsPartie {
+                let joueur = joueursCorrecting.first(where: { $0.idJoueur == participant.idJoueur })!
+                participant.classement = joueur.classement
+                participant.donneur = joueur.etat == EtatJoueur.donneur.rawValue
+                participant.enJeu = joueur.etat != EtatJoueur.horsJeu.rawValue
+                participant.mort = joueur.etat == EtatJoueur.mort.rawValue
+                participant.points = joueur.points
+            }
+
+            gJoueursCorrecting = GestionJoueurs(joueurs: participantsPartie, NouvellePartie: false)
+            let decode = gJoueursCorrecting.decodeTypePartie(typePartie: AppDelegate.partie.type)
+            gJoueursCorrecting.modeJeu = decode.modeJeu
+            gJoueursCorrecting.contrat = Contrat(rawValue: Int(jeuCorrecting.contrat))
+            
+            for joueurCorrecting in joueursCorrecting {
+                let joueur = gJoueursCorrecting.joueursPartie.first(where: { $0.idJoueur == joueurCorrecting.idJoueur })!
+                if joueur.idJoueur == EtatJoueur.preneur.rawValue {
+                    gJoueursCorrecting.preneur = joueur
+                }
+             if joueur.idJoueur == EtatJoueur.partenaire.rawValue {
+                 gJoueursCorrecting.partenaire = joueur
+             }
+             //   gJoueursCorrecting.preneur = joueur.etat == EtatJoueur.preneur.rawValue ? joueur : nil
+//            gJoueursCorrecting.partenaire = Contrat(rawValue: Int(jeuCorrecting.contrat))
+//            gJoueursCorrecting.contrat = Contrat(rawValue: Int(jeuCorrecting.contrat))
+//            gJoueursCorrecting.contrat = Contrat(rawValue: Int(jeuCorrecting.contrat))
+            }
+        
+        
+
+//        viewExit()
+        print("Contrat : \(self.gJoueursCorrecting.contrat?.nom ?? "Aucun") sélectionné")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let viewControllerID = "JeuResultatController"
+        let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
+        vc.gj = self.gJoueursCorrecting
+        vc.isForCorrection = self.isForCorrection
+        vc.indexJeu = self.indexJeu
+        
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func tapScreen(_ sender: Any) {

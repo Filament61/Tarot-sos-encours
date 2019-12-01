@@ -71,6 +71,43 @@ struct FloatString {
     var float: Float
 }
 
+/// Permet la gestion et le passage de paramètres liées aux index de jeu d'une partie.
+struct IndexJeu {
+    
+    init(first: Int64, last: Int64, nb: Int) {
+        self.first = Int64(first)
+        self.last = Int64(last)
+        self.selected = Int64(last)
+        self.numJeuSuivant = nb + 1
+        self.offset = Int(first)
+    }
+
+    /// Mémorisation de la propriété `IdxJeu` du jeu sélectionné pour une éventuelle correction.
+    var selected = Int64()
+
+    /// Mémorisation du premier index de jeu de la partie.
+    let first: Int64
+
+    /// Mémorisation du dernier index de jeu de la partie.
+    let last: Int64
+
+    /// Numéro du jeu suivant
+    let numJeuSuivant: Int
+
+    /// Correspond à`first`au format integer.
+    let offset: Int
+    
+    var numJeuSelected: Int {
+        return numJeu(idJeu: selected)
+    }
+    
+    /// Retourne le numéro du jeu relatif à l'index passé en paramètre.
+    /// - Parameter idJeu: id du jeu pour lequel correspond le numéro du jeu de la partie.
+    func numJeu(idJeu: Int64) -> Int {
+        return Int(idJeu) - offset + 1
+    }
+}
+
 
 enum How: Int {
     case asc, desc

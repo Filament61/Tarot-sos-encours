@@ -108,7 +108,7 @@ class JeuJoueurCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func miseEnPlace(jeuJoueur: JeuJoueur, jeu: JeuResultat, offset: Int) {
+    func miseEnPlace(jeuJoueur: JeuJoueur, jeu: JeuResultat, indexJeu: IndexJeu) {
         
 //        self.jeuJoueur = jeuJoueur
         // Mémorisation de idJoueur dans le tag de la cellule
@@ -117,11 +117,10 @@ class JeuJoueurCell: UITableViewCell {
         // Affichage du contrat du preneur 
         contratLabel.text = jeuJoueur.etat == EtatJoueur.preneur.rawValue ? Contrat(rawValue: Int(jeu.contrat).minus())?.nom : String()
 
-        idJeuLabel.text = String(Int(jeuJoueur.idJeu) - offset.minus())
-//        idJeuLabel.text = String(jeuJoueur.idJeu)
+        idJeuLabel.text = String(indexJeu.numJeu(idJeu: jeuJoueur.idJeu))
 
         let pts = FloatString(float: jeuJoueur.points)
-        pointsLabel.text =  pts.string //String(self.joueur.points)
+        pointsLabel.text =  pts.string 
         pointsLabel.textColor = jeuJoueur.points > 0.0 ? UIColor.blue : UIColor.red
         // Affichage de l'état du joueur s'il n'est pas le preneur
         etatLabel.text = jeuJoueur.etat != EtatJoueur.preneur.rawValue ? EtatJoueur(rawValue: jeuJoueur.etat)?.nom : String()

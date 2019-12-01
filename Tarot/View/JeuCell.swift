@@ -16,7 +16,6 @@ class JeuCell: UITableViewCell {
     @IBOutlet weak var contratLabel: UILabel!
     @IBOutlet weak var jeuCell: UIView!
     
-    var jeu: JeuResultat!
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,18 +25,15 @@ class JeuCell: UITableViewCell {
         super.setSelected(selected, animated: animated)
     }
     
-    func miseEnPlace(jeu: JeuResultat, offset: Int) {
-        
-        self.jeu = jeu
-        
+    func miseEnPlace(jeu: JeuResultat, indexJeu: IndexJeu) {
         // Mémorisation de idJeu dans le tag de la cellule
-        self.tag = Int(self.jeu.idJeu)
+        self.tag = Int(jeu.idJeu)
 
-        let pts = FloatString(float: self.jeu.total)
+        let pts = FloatString(float: jeu.total)
 
-        idJeuLabel.text = String(Int(self.jeu.idJeu) - offset + 1)
+        idJeuLabel.text = String(indexJeu.numJeu(idJeu: jeu.idJeu))
         totalLabel.text = pts.string
-        contratLabel.text = Contrat(rawValue: Int(self.jeu.contrat).minus())?.nom
+        contratLabel.text = Contrat(rawValue: Int(jeu.contrat).minus())?.nom
     }
 
 
