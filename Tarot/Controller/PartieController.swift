@@ -750,6 +750,8 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
 //        if let jeuCorrecting = jeux?.first(where: { $0.idJeu == indexJeu.selected }), let joueursCorrecting = jeuCorrecting.joueurs!.allObjects as? [JeuJoueur] {
             
 
+        
+        
             // Reconstitution de gj avant le passage de paramètre en fonction du jeu à corriger
             // Copie de l'existant
             let participantsPartie = AppDelegate.partie.participants?.allObjects as! [Joueur]
