@@ -151,23 +151,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "A33DA7B7-68CF-40B9-8760-4284419C2851"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tarot/Model/GestionJoueurs.swift"
-            timestampString = "590517340.415386"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "138"
-            endingLineNumber = "138"
-            landmarkName = "decodeTypePartie(typePartie:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "4FAA7370-C90F-43E0-AE2E-31B13C4FDD69"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -193,10 +176,10 @@
             timestampString = "590517340.415512"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "202"
-            endingLineNumber = "202"
-            landmarkName = "GestionJoueurs"
-            landmarkType = "3">
+            startingLineNumber = "254"
+            endingLineNumber = "254"
+            landmarkName = "donneSuivante()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -210,10 +193,10 @@
             timestampString = "590517340.4155771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "216"
-            endingLineNumber = "216"
-            landmarkName = "GestionJoueurs"
-            landmarkType = "3">
+            startingLineNumber = "268"
+            endingLineNumber = "268"
+            landmarkName = "donneurSuivant()"
+            landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -351,23 +334,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "745D7406-3209-4798-85D7-891043A62E71"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tarot/Model/Partie.swift"
-            timestampString = "590517340.421342"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "70"
-            endingLineNumber = "70"
-            landmarkName = "update(Jeu:idJeu:hD:gj:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "A0A1747B-4486-4088-8761-169178BD3C50"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -379,23 +345,6 @@
             startingLineNumber = "320"
             endingLineNumber = "320"
             landmarkName = "tableView(_:didSelectRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "5EC35986-0FFE-4F02-8BE0-15D938830FF5"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tarot/Model/GestionJoueurs.swift"
-            timestampString = "590517340.422151"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "147"
-            endingLineNumber = "147"
-            landmarkName = "creationInfosJeuJoueurs()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
@@ -587,38 +536,6 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "21F5E8F5-F064-42F4-803D-A30A0D30755B"
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tarot/Controller/JeuResultatController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "174"
-            endingLineNumber = "174"
-            landmarkName = "animerJeu()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "D3B4A925-AB65-4266-ABCF-C8BE86000EEC"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Tarot/Controller/PartieController.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "388"
-            endingLineNumber = "388"
-            landmarkName = "tableView(_:trailingSwipeActionsConfigurationForRowAt:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             uuid = "F17365AE-C84C-448D-91CA-1BBCDAC5EFA0"
             shouldBeEnabled = "No"
             ignoreCount = "0"
@@ -732,7 +649,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "9459598F-4482-4E7F-AF6F-CA361338CE19"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tarot/Controller/PartieController.swift"
@@ -748,7 +665,7 @@
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
             uuid = "70A70D51-0D1E-49B0-B5F3-A9C9F0FCDEDC"
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Tarot/Controller/JeuResultatController.swift"
@@ -757,6 +674,118 @@
             startingLineNumber = "166"
             endingLineNumber = "166"
             landmarkName = "miseEnPlace()"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "E72D6D60-2456-4229-BEF3-EB207680F9E4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tarot/Controller/PartieController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "798"
+            endingLineNumber = "798"
+            landmarkName = "correctionJeuOptions()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "E72D6D60-2456-4229-BEF3-EB207680F9E4 - df82f62318962a61"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Tarot.PartieController.correctionJeuOptions() -&gt; ()"
+                  moduleName = "Tarot"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/serge/Documents/XProjets/Tarot/Tarot/Controller/PartieController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "774"
+                  endingLineNumber = "774"
+                  offsetFromSymbolStart = "3801">
+               </Location>
+               <Location
+                  uuid = "E72D6D60-2456-4229-BEF3-EB207680F9E4 - c0fd089f07daacd7"
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #3 (Tarot.Joueur) -&gt; Swift.Bool in Tarot.PartieController.correctionJeuOptions() -&gt; ()"
+                  moduleName = "Tarot"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/serge/Documents/XProjets/Tarot/Tarot/Controller/PartieController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "774"
+                  endingLineNumber = "774"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "5B0EC59C-B101-41B7-96E5-38F269E96CE4"
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tarot/Controller/JeuResultatController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "80"
+            endingLineNumber = "80"
+            landmarkName = "viewWillAppear(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "8B92AF57-22A4-413D-B81E-1330E0B1E47F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tarot/Model/Partie.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "61"
+            endingLineNumber = "61"
+            landmarkName = "update(Jeu:idJeu:hD:gj:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "A14E088C-9BB1-420B-9AC5-4A05B4FC92D4"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tarot/View/PointsJeuCell.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "miseEnPlace(jR:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "7904B4D5-4276-4F3F-BDCD-99D08189B81E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Tarot/Controller/JeuResultatController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "172"
+            endingLineNumber = "172"
+            landmarkName = "animerJeu()"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>

@@ -53,7 +53,7 @@ class JeuResultatController: UIViewController {
 
     /// Gestion des différents index de jeu de la partie
     /// - Remark: Cette variable est passée en paramètre à la viewcontroler d'édition d'un jeu.
-    var indexJeu = IndexJeu(first: 0, last: 0, nb: 0)
+    var indexJeu = IndexJeu()
 
 
     let idJeu = NSManagedObject.nextAvailble("idJeu", forEntityName: "JeuResultat")
@@ -62,7 +62,7 @@ class JeuResultatController: UIViewController {
 //    var cellTab = [PersonneCell]()
     
 //    var donneur = varCirculaire()
-    lazy var gj = GestionJoueurs(joueurs: [Joueur](), NouvellePartie: true)
+    lazy var gj = GestionJoueurs(participants: [Joueur](), NouvellePartie: true)
     
 
     
@@ -173,7 +173,7 @@ class JeuResultatController: UIViewController {
             segmentContrat.selectedSegmentIndex = contrat.minus()
         }
         if let nbBout = jeuResultat.nbBout {
-            segmentNbBout.selectedSegmentIndex = nbBout.minus()
+            segmentNbBout.selectedSegmentIndex = nbBout
         }
     }
     
@@ -206,8 +206,8 @@ class JeuResultatController: UIViewController {
         }
         // Appel par le programme
         if let sender = sender as? Int {
-            segmentContrat.selectedSegmentIndex = sender
-            jeuResultat.contrat = sender + 1
+            segmentContrat.selectedSegmentIndex = sender.minus()
+            jeuResultat.contrat = sender
         }
         // Calcul et mise à jour affichage
         majScore()
@@ -452,6 +452,8 @@ class JeuResultatController: UIViewController {
             }
         }
     }
+    
+    
     func jeuCorrected() {
         
 

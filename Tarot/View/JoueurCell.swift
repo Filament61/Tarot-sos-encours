@@ -115,7 +115,7 @@ class JeuJoueurCell: UITableViewCell {
         self.tag = Int(jeuJoueur.idJoueur)
 
         // Affichage du contrat du preneur 
-        contratLabel.text = jeuJoueur.etat == EtatJoueur.preneur.rawValue ? Contrat(rawValue: Int(jeu.contrat).minus())?.nom : String()
+        contratLabel.text = jeuJoueur.etat == EtatJoueur.preneur.rawValue ? Contrat(rawValue: Int(jeu.contrat))?.nom : String()
 
         idJeuLabel.text = String(indexJeu.numJeu(idJeu: jeuJoueur.idJeu))
 

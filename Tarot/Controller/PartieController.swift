@@ -65,8 +65,8 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     @IBOutlet weak var hauteurTableJoueurContrainte: NSLayoutConstraint!
     
-    lazy var gestionJoueurs = GestionJoueurs(joueurs: [Joueur](), NouvellePartie: isNouvelle)
-    lazy var gJoueursCorrecting = GestionJoueurs(joueurs: [Joueur](), NouvellePartie: isNouvelle)
+    lazy var gestionJoueurs = GestionJoueurs(participants: [Joueur](), NouvellePartie: isNouvelle)
+    lazy var gJoueursCorrecting = GestionJoueurs(participants: [Joueur](), NouvellePartie: isNouvelle)
 
     var timer: Timer?
     var timeLeft = 31
@@ -490,7 +490,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         
         // Traitement des joueurs
         let setJoueurs = AppDelegate.partie.participants
-        gestionJoueurs = GestionJoueurs(joueurs: setJoueurs?.allObjects as! [Joueur], NouvellePartie: isNouvelle)
+        gestionJoueurs = GestionJoueurs(participants: setJoueurs?.allObjects as! [Joueur], NouvellePartie: isNouvelle)
         let decode = gestionJoueurs.decodeTypePartie(typePartie: AppDelegate.partie.type)
         gestionJoueurs.modeJeu = decode.modeJeu
         joueursTableView.reloadData()
@@ -756,33 +756,54 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
             // Copie de l'existant
             let participantsPartie = AppDelegate.partie.participants?.allObjects as! [Joueur]
             // Mise à jour en fonction des joueurs du jeu à corriger
-            for participant in participantsPartie {
-                let joueur = joueursCorrecting.first(where: { $0.idJoueur == participant.idJoueur })!
-                participant.classement = joueur.classement
-                participant.donneur = joueur.etat == EtatJoueur.donneur.rawValue
-                participant.enJeu = joueur.etat != EtatJoueur.horsJeu.rawValue
-                participant.mort = joueur.etat == EtatJoueur.mort.rawValue
-                participant.points = joueur.points
-            }
-
-            gJoueursCorrecting = GestionJoueurs(joueurs: participantsPartie, NouvellePartie: false)
+//            for participant in participantsPartie {
+//                let joueur = joueursCorrecting.first(where: { $0.idJoueur == participant.idJoueur })!
+//                participant.classement = joueur.classement
+////                participant.donneur = joueur.etat == EtatJoueur.donneur.rawValue
+//                participant.enJeu = joueur.etat != EtatJoueur.horsJeu.rawValue
+//                participant.mort = joueur.etat == EtatJoueur.mort.rawValue
+//                participant.points = joueur.points
+//            }
+        
+// TODO: UTILISER UN INIT SUPPLEMENTAIRE...
+//            gJoueursCorrecting = GestionJoueurs(participants: participantsPartie, NouvellePartie: false)
+            gJoueursCorrecting = GestionJoueurs(participants: participantsPartie, jeuJoueurs: joueursCorrecting)
             let decode = gJoueursCorrecting.decodeTypePartie(typePartie: AppDelegate.partie.type)
             gJoueursCorrecting.modeJeu = decode.modeJeu
             gJoueursCorrecting.contrat = Contrat(rawValue: Int(jeuCorrecting.contrat))
             
-            for joueurCorrecting in joueursCorrecting {
-                let joueur = gJoueursCorrecting.joueursPartie.first(where: { $0.idJoueur == joueurCorrecting.idJoueur })!
-                if joueur.idJoueur == EtatJoueur.preneur.rawValue {
-                    gJoueursCorrecting.preneur = joueur
-                }
-             if joueur.idJoueur == EtatJoueur.partenaire.rawValue {
-                 gJoueursCorrecting.partenaire = joueur
-             }
+//            gJoueursCorrecting.joueursDefense = []
+//            for joueurCorrecting in joueursCorrecting {
+//
+//                let joueur = gJoueursCorrecting.joueursPartie.first(where: { $0.idJoueur == joueurCorrecting.idJoueur })!
+//
+//                switch EtatJoueur(rawValue: joueurCorrecting.etat) {
+//                case .donneur:
+//                    gJoueursCorrecting.partenaire = joueur
+//                case .preneur:
+//                    gJoueursCorrecting.preneur = joueur
+//                case .partenaire:
+//                    gJoueursCorrecting.partenaire = joueur
+//                case .defense:
+//                    gJoueursCorrecting.joueursDefense.append(joueur)
+//                case .mort:
+//                    gJoueursCorrecting.preneur = joueur
+//                case .horsJeu:
+//                    gJoueursCorrecting.preneur = joueur
+//                case .none:
+//                    break
+//                }
+//
+//                if joueurCorrecting.etat == EtatJoueur.preneur.rawValue {
+//                    gJoueursCorrecting.preneur = joueur
+//                } else if joueurCorrecting.etat == EtatJoueur.partenaire.rawValue {
+//                    gJoueursCorrecting.partenaire = joueur
+//                }
              //   gJoueursCorrecting.preneur = joueur.etat == EtatJoueur.preneur.rawValue ? joueur : nil
 //            gJoueursCorrecting.partenaire = Contrat(rawValue: Int(jeuCorrecting.contrat))
 //            gJoueursCorrecting.contrat = Contrat(rawValue: Int(jeuCorrecting.contrat))
 //            gJoueursCorrecting.contrat = Contrat(rawValue: Int(jeuCorrecting.contrat))
-            }
+//            }
         
         
 

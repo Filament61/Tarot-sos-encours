@@ -33,7 +33,7 @@ class JeuCell: UITableViewCell {
 
         idJeuLabel.text = String(indexJeu.numJeu(idJeu: jeu.idJeu))
         totalLabel.text = pts.string
-        contratLabel.text = Contrat(rawValue: Int(jeu.contrat).minus())?.nom
+        contratLabel.text = Contrat(rawValue: Int(jeu.contrat))?.nom
     }
 
 

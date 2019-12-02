@@ -16,10 +16,10 @@ struct JeuComplet {
     let nbPointsMaxi: Float = 91.0
     let baseContrat: Float = 25.0
     
-    let contrats: [Int: String] = [1: "Petite",
-                                   2: "Garde",
-                                   3: "Garde sans",
-                                   4: "Garde contre"]
+//    let contrats: [Int: String] = [1: "Petite",
+//                                   2: "Garde",
+//                                   3: "Garde sans",
+//                                   4: "Garde contre"]
     
     let chelems: [Int: String] = [ -3: "Chelem annoncé et non réalisé (défense)",
                                    -2: "Chelem annoncé et réalisé (défense)",
@@ -222,7 +222,7 @@ struct JeuComplet {
 // MARK: - Enumérations -
 
 enum Contrat: Int {
-    case petite = 0, garde, gardeSans, gardeContre
+    case petite = 1, garde, gardeSans, gardeContre
     
     var nom: String {
         switch self {
@@ -253,7 +253,7 @@ enum Contrat: Int {
         case .petite: return .garde
         case .garde: return .gardeSans
         case .gardeSans: return .gardeContre
-        case .gardeContre: return .gardeContre
+        case .gardeContre: return .petite
         }
     }
 }

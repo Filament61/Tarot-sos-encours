@@ -12,6 +12,7 @@ import UIKit
 let appDelegate = UIApplication.shared.delegate as! AppDelegate
 let viewContext = AppDelegate.persistentContainer.viewContext
 
+
 // MARK: - Paramétrage
 let defaultSettings = UserDefaults.standard
 let triJoueursPartie = "triJoueursPartie"
@@ -82,6 +83,10 @@ struct IndexJeu {
         self.offset = Int(first)
     }
 
+    init() {
+        self.init(first: 0, last: 0, nb: 0)
+    }
+    
     /// Mémorisation de la propriété `IdxJeu` du jeu sélectionné pour une éventuelle correction.
     var selected = Int64()
 

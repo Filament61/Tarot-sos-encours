@@ -30,7 +30,8 @@ class GestionJoueurs {
         self._joueursPartie.sort(by: TriJoueurs.choixTri(choix: choix, how: how))
     }
 
-    init(joueurs: [Joueur], NouvellePartie isNouvellePartie: Bool) {
+    init(participants joueurs: [Joueur], NouvellePartie isNouvellePartie: Bool) {
+        self._joueursOld = joueurs
         self._joueursPartie = joueurs
         // Sélection et ordre du tri à l'affichage
         let choix = TriJoueurs(rawValue: defaultSettings.integer(forKey: triJoueursDefaut))
@@ -40,10 +41,66 @@ class GestionJoueurs {
         self._joueursMort = self._joueursEnJeu.filter({ $0.mort == true })
     }
     
-//    init(joueurs: ) {
-//        
-//    }
     
+    /// Init pour l'édition des jeux déjà réalisés.
+    init(participants joueurs: [Joueur], jeuJoueurs joueursEditing: [JeuJoueur]) {
+        _joueursOld = joueurs
+    
+        // Cherche à recréer les participants (joueursPartie) et self (GestionJoueurs) à partir des jeuJoueurs du jeu à éditer
+        _joueursPartie = joueurs
+
+        preneur = nil
+        partenaire = nil
+        for joueurEditing in joueursEditing {
+            let joueur = _joueursPartie.first(where: { $0.idJoueur == joueurEditing.idJoueur })!
+            
+            joueur.donneur = EtatJoueur(rawValue: joueurEditing.etat) == .donneur
+            joueur.mort = EtatJoueur(rawValue: joueurEditing.etat) == .mort
+            
+            
+            switch EtatJoueur(rawValue: joueurEditing.etat) {
+            case .donneur:
+                joueur.enJeu = true
+            case .preneur:
+                joueur.enJeu = true
+            case .partenaire:
+                joueur.enJeu = true
+            case .defense:
+                joueursDefense.append(joueur)
+                joueur.enJeu = true
+            case .mort:
+                joueur.enJeu = true
+            case .horsJeu:
+                joueur.enJeu = false
+            case .none:
+                break
+            }
+
+            if EtatJoueur(rawValue: joueurEditing.etat) == .preneur {
+                preneur = joueur
+            }
+            if EtatJoueur(rawValue: joueurEditing.etat) == .partenaire {
+                partenaire = joueur
+            }
+            
+        }
+            //   gJoueursCorrecting.preneur = joueur.etat == EtatJoueur.preneur.rawValue ? joueur : nil
+            //            gJoueursCorrecting.partenaire = Contrat(rawValue: Int(jeuCorrecting.contrat))
+            //            gJoueursCorrecting.contrat = Contrat(rawValue: Int(jeuCorrecting.contrat))
+            //            gJoueursCorrecting.contrat = Contrat(rawValue: Int(jeuCorrecting.contrat))
+        
+    
+        self._joueursEnJeu = self._joueursPartie.filter({ $0.enJeu == true })
+        self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == false })
+        self._joueursMort = self._joueursEnJeu.filter({ $0.mort == true })
+
+    }
+    
+    var joueursOld: [Joueur]! {
+        return _joueursOld
+    }
+    private var _joueursOld: [Joueur]!
+
     var joueursPartie: [Joueur]! {
         return _joueursPartie
     }
@@ -53,7 +110,7 @@ class GestionJoueurs {
     }
     
     var joueursEnMene: [Joueur]! {
-        self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == false})
+//        self._joueursEnMene = self._joueursEnJeu.filter({ $0.mort == false})
         return self._joueursEnMene
     }
     var nbJoueursEnMene: Int {
@@ -62,7 +119,7 @@ class GestionJoueurs {
     }
     
     var joueursEnJeu: [Joueur]! {
-        self._joueursEnJeu = self._joueursPartie.filter({ $0.enJeu == true})
+//        self._joueursEnJeu = self._joueursPartie.filter({ $0.enJeu == true})
         return self._joueursEnJeu
     }
     var nbJoueursEnjeu: Int {
@@ -71,7 +128,7 @@ class GestionJoueurs {
     }
     
     var joueursMort: [Joueur]! {
-        self._joueursMort = self._joueursEnJeu.filter({ $0.mort == true })
+//        self._joueursMort = self._joueursEnJeu.filter({ $0.mort == true })
         return _joueursMort
     }
     var nbJoueursMort: Int {
@@ -92,7 +149,7 @@ class GestionJoueurs {
     private var _joueursMort: [Joueur]!
     
     /// Ensemble des joueurs de la défense.
-    var joueursDefense: [Joueur]!
+    var joueursDefense: [Joueur]! = []
     
     
     var contrat: Contrat?
