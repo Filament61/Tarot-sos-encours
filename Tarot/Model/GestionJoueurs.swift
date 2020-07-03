@@ -122,7 +122,7 @@ class GestionJoueurs {
 //        self._joueursEnJeu = self._joueursPartie.filter({ $0.enJeu == true})
         return self._joueursEnJeu
     }
-    var nbJoueursEnjeu: Int {
+    var nbJoueursEnJeu: Int {
         _nbJoueursEnJeu = self._joueursEnJeu.count
         return self._nbJoueursEnJeu
     }
@@ -243,8 +243,6 @@ class GestionJoueurs {
                 repeat {
                     let _ = donneur.suivant()
                 } while (joueursPartie[donneur.idx].enJeu == false)
-                
-                
                 _joueursPartie[idxDonneur].donneur = false
                 _joueursPartie[donneur.idx].donneur = true
             }
@@ -256,9 +254,9 @@ class GestionJoueurs {
         return
     }
     
-    // TODO: - Traiter les erreurs
+    /// Définition du donneur suivant.
     func donneurSuivant() -> Bool {
-        guard GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: nbJoueursEnjeu) else { return false }
+        guard GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: nbJoueursEnJeu) else { return false }
         if let joueur = joueursPartie.first(where: { $0.donneur == true }), let suivant = joueursEnJeu.first(where: { $0.ordre == joueur.suivant }) {
             joueur.donneur = false
             suivant.donneur = true
@@ -269,10 +267,26 @@ class GestionJoueurs {
     }
     
     
+    /// Définition du donneur suivant.
+    func donneurSuivant(idJeu: Int64) -> Bool {
+        guard let jeu = JeuResultat.jeuResultat(idJeux: [idJeu]).last, let setJoueurs = jeu.joueurs else { return false }
+        guard var joueurs = setJoueurs.filter({ ($0 as AnyObject).etat != EtatJoueur.horsJeu.rawValue }) as? [JeuJoueur]  else { return false }
+        joueurs.sort(by: { $0.idJoueur > $1.idJoueur })
+        guard GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: joueurs.count as Any) else { return false }
+        if let joueur = joueurs.first(where: { $0.etat == EtatJoueur.donneur.rawValue }) {
+            joueur.etat = EtatJoueur.horsJeu.rawValue
+//            suivant.donneur = true
+            return true
+        } else {
+            return false
+        }
+    }
     
+    
+
     // TODO: - Traiter les erreurs
     func mortSuivant() -> Bool? {
-        guard GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: nbJoueursEnjeu) else { return false }
+        guard GestionJoueurs.isCorrectNbJoueurs(nbJoueurs: nbJoueursEnJeu) else { return false }
         let joueurs = joueursMort.sorted(by: { $0.suivant > $1.suivant })
         if !joueurs.isEmpty {
             let joueur = joueurs[0]

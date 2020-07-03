@@ -18,7 +18,7 @@ class JeuResultat: NSManagedObject {
         return jeuResultats
     }
     
-    static func jeuResultat(idJeux: [Int]) -> [JeuResultat] {
+    static func jeuResultat(idJeux: [Int64]) -> [JeuResultat] {
         let request: NSFetchRequest<JeuResultat> = JeuResultat.fetchRequest()
         // Définition de tri de la requête
         let tri = NSSortDescriptor(key: "idJeu", ascending: false)

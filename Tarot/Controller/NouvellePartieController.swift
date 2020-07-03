@@ -430,13 +430,14 @@ class NouvellePartieController: UIViewController, UITableViewDataSource, UITable
     
 
     
+    
     @IBAction func nouvellePartieActionButtonBar(_ sender: UIBarButtonItem) {
         
         guard self.modeJeuSegment.selectedSegmentIndex != UISegmentedControl.noSegment,
             let modeJeu = ModeJeu(rawValue: modeJeuSegment.selectedSegmentIndex)
             else { return }
 
-        AppDelegate.partie.insert(Participants: cellTab, idPartie: idPartie, hD: now, idxDonneur: donneur, idxMort: morts, modeJeu: modeJeu)
+        let _ = AppDelegate.partie.insert(Participants: cellTab, idPartie: idPartie, hD: now, idxDonneur: donneur, idxMort: morts, modeJeu: modeJeu)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let viewControllerID = "PartieViewController"
         let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! PartieController

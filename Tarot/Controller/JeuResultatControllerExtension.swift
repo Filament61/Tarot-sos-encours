@@ -55,4 +55,86 @@ extension JeuResultatController: UIPickerViewDelegate, UIPickerViewDataSource {
     
 }
 
+extension JeuResultatController {
+    
+    func miseEnPlaceForEditing() {
+        
+        guard let jeu = JeuResultat.jeuResultat(idJeux: [indexJeu.selected]).last else { return }
+        
+        // Nombre de bouts
+        segmentNbBout.selectedSegmentIndex = Int(jeu.nbBout)
+        
+        // Petit au bout
+        switch jeu.petitAuBout {
+        case -1:
+            switchPetitAuBoutAttaque.setOn(false, animated: true)
+            switchPetitAuBoutAttaque.isEnabled = true
+            switchPetitAuBoutDefense.setOn(true, animated: true)
+            switchPetitAuBoutDefense.isEnabled = true
+        case 0:
+            switchPetitAuBoutAttaque.setOn(false, animated: true)
+            switchPetitAuBoutAttaque.isEnabled = false
+            switchPetitAuBoutDefense.setOn(false, animated: true)
+            switchPetitAuBoutDefense.isEnabled = false
+        case 1:
+            switchPetitAuBoutAttaque.setOn(true, animated: true)
+            switchPetitAuBoutAttaque.isEnabled = true
+            switchPetitAuBoutDefense.setOn(false, animated: true)
+            switchPetitAuBoutDefense.isEnabled = true
+        default:
+            break
+        }
+    
+        // Poignée
+        switch jeu.poignee {
+        case -3 ... -1:
+            switchPoigneeAttaque.setOn(false, animated: true)
+            switchPoigneeAttaque.isEnabled = true
+            switchPoigneeDefense.setOn(true, animated: true)
+            switchPoigneeDefense.isEnabled = true
+            segmentPoignee.selectedSegmentIndex = abs(Int(jeu.poignee)) - 1
+        case 0:
+            switchPoigneeAttaque.setOn(false, animated: true)
+            switchPoigneeAttaque.isEnabled = false
+            switchPoigneeDefense.setOn(false, animated: true)
+            switchPoigneeDefense.isEnabled = false
+        case 1 ... 3:
+            switchPoigneeAttaque.setOn(true, animated: true)
+            switchPoigneeAttaque.isEnabled = true
+            switchPoigneeDefense.setOn(false, animated: true)
+            switchPoigneeDefense.isEnabled = true
+            segmentPoignee.selectedSegmentIndex = abs(Int(jeu.poignee)) - 1
+        default:
+            break
+        }
+        
+        // Chelem
+        switch jeu.chelem {
+        case -3 ... -1:
+            switchChelemAttaque.setOn(false, animated: true)
+            switchChelemAttaque.isEnabled = true
+            switchChelemDefense.setOn(true, animated: true)
+            switchChelemDefense.isEnabled = true
+            segmentChelem.selectedSegmentIndex = abs(Int(jeu.chelem)) - 1
+        case 0:
+            switchChelemAttaque.setOn(false, animated: true)
+            switchChelemAttaque.isEnabled = false
+            switchChelemDefense.setOn(false, animated: true)
+            switchChelemDefense.isEnabled = false
+        case 1 ... 3:
+            switchChelemAttaque.setOn(true, animated: true)
+            switchChelemAttaque.isEnabled = true
+            switchChelemDefense.setOn(false, animated: true)
+            switchChelemDefense.isEnabled = true
+            segmentChelem.selectedSegmentIndex = abs(Int(jeu.chelem)) - 1
+        default:
+            break
+        }
+        
+
+    
+    
+    }
+}
+
 

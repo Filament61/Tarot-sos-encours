@@ -49,7 +49,7 @@ class JeuResultatController: UIViewController {
     
     /// Permet la correction des jeux déjà réalisés.
     /// - Remark: Cette variable est passée en paramètre à la viewcontroler d'édition d'un jeu.
-    var isForCorrection = false
+    var isForEditing = false
 
     /// Gestion des différents index de jeu de la partie
     /// - Remark: Cette variable est passée en paramètre à la viewcontroler d'édition d'un jeu.
@@ -68,8 +68,13 @@ class JeuResultatController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        miseEnPlacePicker()
-        miseEnPlace()
+        if !isForEditing {
+            miseEnPlacePicker()
+            miseEnPlace()
+        } else {
+            miseEnPlacePicker()
+            miseEnPlaceForEditing()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -387,7 +392,7 @@ class JeuResultatController: UIViewController {
     // Enregistrement de tous les éléments du jeu (de la mène)v!
     @IBAction func enregistrerAction(_ sender: Any) {
         
-        if isForCorrection {
+        if isForEditing {
             jeuCorrected()
         } else {
             

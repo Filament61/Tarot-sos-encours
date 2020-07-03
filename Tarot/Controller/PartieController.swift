@@ -116,7 +116,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         // Si affichage des informations de la dernière mène dans les cellules des joueurs
         if defaultSettings.bool(forKey: jeuDernierAffJoueurs) {
             if let idJeu = jeux?.first?.idJeu {
-                jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(idJeu)])
+                jeuJoueurs = fetchJeuJoueurs(idJeu: [idJeu])
                 jeuxTableView.selectRow(at: [0,0], animated: true, scrollPosition: UITableView.ScrollPosition.top)
             }
         }
@@ -211,7 +211,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
                 let joueurDeLaCell = gestionJoueurs.joueursPartie[indexPath.section]
                 if  let cell = tableView.dequeueReusableCell(withIdentifier: jeuJoueurCell) as? JeuJoueurCell,
                     let row = jeuxTableView.indexPathForSelectedRow?.row, let jeu = jeux?[row],
-                    let jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(jeu.idJeu)]) as [JeuJoueur]?,
+                    let jeuJoueurs = fetchJeuJoueurs(idJeu: [jeu.idJeu]) as [JeuJoueur]?,
                     let jeuJoueur = jeuJoueurs.first(where: { $0.idJoueur == joueurDeLaCell.idJoueur }) {
                         cell.miseEnPlace(jeuJoueur: jeuJoueur, jeu: jeu, indexJeu: indexJeu)
                         //                cell.isHighlighted = joueurDeLaCell.donneur == true
@@ -322,8 +322,8 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
 
-    func majJeuJoueurs(idJeu: Int) -> Bool {
-        guard let jeuJoueurs = fetchJeuJoueurs(idJeu: [Int(idJeu)]) as [JeuJoueur]? else { return false }
+    func majJeuJoueurs(idJeu: Int64) -> Bool {
+        guard let jeuJoueurs = fetchJeuJoueurs(idJeu: [idJeu]) as [JeuJoueur]? else { return false }
         for row in 0..<gestionJoueurs.nbJoueursPartie {
             if let cell = joueursTableView.cellForRow(at: IndexPath(row: row, section: 0)) as? JoueurCell {
                 if let jeuJoueur = jeuJoueurs.first(where: { $0.idJoueur == Int16(cell.tag) }) {
@@ -342,7 +342,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         let viewControllerID = "JeuResultatController"
         let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
         vc.gj = self.gestionJoueurs
-        vc.isForCorrection = self.isForCorrection
+        vc.isForEditing = self.isForCorrection
         vc.indexJeu = self.indexJeu
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -474,7 +474,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         }
     }
     
-    func fetchJeuJoueurs(idJeu: [Int]) -> [JeuJoueur] {
+    func fetchJeuJoueurs(idJeu: [Int64]) -> [JeuJoueur] {
         do {
             let jeuResultat = JeuResultat.jeuResultat(idJeux: idJeu).last
             let setJeuJoueurs = jeuResultat!.joueurs //as? [JeuJoueur]
@@ -517,7 +517,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
     
     @IBAction func horsJeuJoueurAction(_ sender: Any) {
         // Vérification du nombre de joueurs possible avant d'autoriser une suppression. Est fonction du mode de jeu.
-        if gestionJoueurs.nbJoueursEnjeu > gestionJoueurs.modeJeu!.nbJoueurs.min {
+        if gestionJoueurs.nbJoueursEnJeu > gestionJoueurs.modeJeu!.nbJoueurs.min {
             let controller = UIAlertController(title: "Mise hors-jeu d'un joueur", message: "Quelqu'un nous abandonne ?", preferredStyle: .actionSheet)
             // On supprime dabords les morts s'il y en a
             let Joueurs = gestionJoueurs.nbJoueursMort > 0 ? gestionJoueurs.joueursMort : gestionJoueurs.joueursEnJeu
@@ -813,7 +813,7 @@ class PartieController: UIViewController, UITableViewDataSource, UITableViewDele
         let viewControllerID = "JeuResultatController"
         let vc = storyboard.instantiateViewController(withIdentifier: viewControllerID) as! JeuResultatController
         vc.gj = self.gJoueursCorrecting
-        vc.isForCorrection = self.isForCorrection
+        vc.isForEditing = self.isForCorrection
         vc.indexJeu = self.indexJeu
         
         self.navigationController?.pushViewController(vc, animated: true)

@@ -99,6 +99,7 @@
 		955C129422D902BE00DAC5F0 /* Joueur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Joueur.swift; sourceTree = "<group>"; };
 		955C129622D9034B00DAC5F0 /* JeuJoueur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JeuJoueur.swift; sourceTree = "<group>"; };
 		955ECF7A22FEB8C2009FABC5 /* LabelPoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelPoints.swift; sourceTree = "<group>"; };
+		959C316D249EA190009D7969 /* Tarot.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Tarot.entitlements; sourceTree = "<group>"; };
 		95A004B922EBB9EE00DB741D /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		95A004BB22EC829600DB741D /* PartieController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PartieController.swift; sourceTree = "<group>"; };
 		95A004BD22EC839700DB741D /* PersonneCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersonneCell.swift; sourceTree = "<group>"; };
@@ -206,6 +207,7 @@
 		95A5DB2E22B2A156007F3729 /* Tarot */ = {
 			isa = PBXGroup;
 			children = (
+				959C316D249EA190009D7969 /* Tarot.entitlements */,
 				95A5DB5222B2A28D007F3729 /* Utilitaire */,
 				95A5DB5422B2A2CC007F3729 /* Model */,
 				95A5DB5522B2A2E5007F3729 /* View */,
@@ -356,6 +358,7 @@
 				TargetAttributes = {
 					95A5DB2B22B2A156007F3729 = {
 						CreatedOnToolsVersion = 10.2.1;
+						LastSwiftMigration = 1150;
 					};
 					95A5DB4222B2A157007F3729 = {
 						CreatedOnToolsVersion = 10.2.1;
@@ -554,7 +557,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -610,7 +613,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -625,6 +628,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tarot/Tarot.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J35ANBCXN6;
@@ -637,6 +641,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fr.filament13.Tarot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -646,6 +651,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = Tarot/Tarot.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = J35ANBCXN6;
@@ -658,6 +664,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = fr.filament13.Tarot;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
